@@ -1,0 +1,43 @@
+{
+    "name": "spdotdev/scuttle-dev",
+    "description": "scuttle.dev site, packaged for the sd-admin host app.",
+    "type": "library",
+    "license": "proprietary",
+    "require": {
+        "php": "^8.3",
+        "illuminate/support": "^13.0"
+    },
+    "require-dev": {
+        "larastan/larastan": "^3.0",
+        "laravel/pint": "^1.27",
+        "orchestra/testbench": "^11.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Spdotdev\\ScuttleDev\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Spdotdev\\ScuttleDev\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "@php vendor/bin/phpunit"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Spdotdev\\ScuttleDev\\ScuttleDevServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
+    }
+}
