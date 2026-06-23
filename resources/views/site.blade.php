@@ -1,0 +1,607 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Primary Meta Tags -->
+  <title>Scuttle Development | Full-Stack Development, Hosting & Security</title>
+  <meta name="title" content="Scuttle Development | Full-Stack Development, Hosting & Security" />
+  <meta name="description"
+    content="Scuttle Development offers professional full-stack web development, reliable hosting, automation, pentesting, and strategic tech consulting in Eindhoven, Netherlands." />
+  <meta name="keywords"
+    content="web development, full-stack developer, hosting, pentesting, security, automation, Eindhoven, Netherlands, freelance developer, tech consulting" />
+  <meta name="author" content="Scuttle Development" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://scuttle.dev/" />
+
+  <!-- Theme Color -->
+  <meta name="theme-color" content="#5454D4" />
+  <meta name="msapplication-TileColor" content="#111118" />
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('vendor/scuttle/favicon-32x32.png') }}" />
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('vendor/scuttle/favicon-16x16.png') }}" />
+  <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('vendor/scuttle/android-chrome-192x192.png') }}" />
+  <link rel="icon" type="image/png" sizes="512x512" href="{{ asset('vendor/scuttle/android-chrome-512x512.png') }}" />
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('vendor/scuttle/apple-touch-icon.png') }}" />
+  <link rel="manifest" href="{{ asset('vendor/scuttle/site.webmanifest') }}" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://scuttle.dev/" />
+  <meta property="og:title" content="Scuttle Development | Full-Stack Development, Hosting & Security" />
+  <meta property="og:description"
+    content="Professional full-stack web development, reliable hosting, automation, pentesting, and strategic tech consulting in Eindhoven, Netherlands." />
+  <meta property="og:image" content="{{ asset('vendor/scuttle/og-image.png') }}" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:site_name" content="Scuttle Development" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://scuttle.dev/" />
+  <meta name="twitter:title" content="Scuttle Development | Full-Stack Development, Hosting & Security" />
+  <meta name="twitter:description"
+    content="Professional full-stack web development, reliable hosting, automation, pentesting, and strategic tech consulting." />
+  <meta name="twitter:image" content="{{ asset('vendor/scuttle/og-image.png') }}" />
+
+  <!-- Preconnect for Performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Scuttle Development",
+    "description": "Professional full-stack web development, hosting, automation, security, and tech consulting services.",
+    "url": "https://scuttle.dev",
+    "logo": "/logo-bw.png",
+    "image": "/og-image.png",
+    "telephone": "+31618233175",
+    "email": "info@scuttle.dev",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Dirigentplein 144",
+      "addressLocality": "Eindhoven",
+      "postalCode": "5653 KC",
+      "addressCountry": "NL"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "51.42093566735515",
+      "longitude": "5.445091724395752"
+    },
+    "openingHours": "Mo-Fr 09:00-18:00",
+    "priceRange": "$$",
+    "vatID": "NL005184584B85",
+    "taxID": "96040947",
+    "sameAs": ["https://github.com/spdotdev", "https://www.linkedin.com/in/stanislavplotnikov/"],
+    "serviceType": ["Web Development", "Hosting", "Security Consulting", "Automation", "Pentesting", "Physical Security", "Maintenance & Support", "Performance Optimization"]
+  }
+  </script>
+</head>
+
+<body>
+  <header role="banner">
+    <a href="/" class="logo" aria-label="Scuttle Development Home">
+      <img src="{{ asset('vendor/scuttle/logo-bw.png') }}" alt="Scuttle Development Logo" width="40" height="40">
+    </a>
+    <nav role="navigation" aria-label="Main navigation">
+      <ul>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">
+        <!-- Default Moon Icon (for dark mode active) -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <p class="brand-name">Scuttle Development</p>
+        <h1>Building the Future of <br><span>Digital Innovation</span></h1>
+        <p>Expert development, reliable hosting, and strategic advice to help your business navigate the digital ocean.
+        </p>
+        <a href="#contact" class="cta-button">Get Started</a>
+      </div>
+      <canvas id="tech-canvas" class="hero-canvas"></canvas>
+    </section>
+
+    <section id="services" class="services">
+      <div class="section-header">
+        <h2>Expert Services</h2>
+        <p>Strategic, high-performance solutions designed to scale your business and protect your assets.</p>
+      </div>
+      <div class="services-pillars">
+        <!-- Pillar 1: Strategic Solution Architecture -->
+        <article class="pillar-card">
+          <div class="pillar-header">
+            <h3>Strategic Solution Architecture</h3>
+          </div>
+          <p class="pillar-tagline">Building the Blueprint for Growth</p>
+          <p class="pillar-description">I help organizations transition from "it works for now" to "it scales for the
+            future." Whether you are launching a new platform or restructuring an existing one, I provide the high-level
+            technical vision required to succeed.</p>
+          <ul class="pillar-bullets">
+            <li>Cloud-Native Design: Tailored architectures for AWS, Azure, or GCP.</li>
+            <li>Stack Selection: Objective, vendor-neutral technology audits.</li>
+            <li>System Interoperability: Designing robust API layers to connect disparate business tools.</li>
+          </ul>
+          <a href="/services/strategic-solution-architecture.html" class="pillar-link">Learn More
+            <span>&rarr;</span></a>
+        </article>
+
+        <!-- Pillar 2: Application Modernization -->
+        <article class="pillar-card">
+          <div class="pillar-header">
+            <h3>Application Modernization</h3>
+          </div>
+          <p class="pillar-tagline">Legacy Transformation without the Downtime</p>
+          <p class="pillar-description">Don’t let your aging codebase become a liability. I specialize in breathing new
+            life into legacy systems, converting monolithic burdens into agile, maintainable assets.</p>
+          <ul class="pillar-bullets">
+            <li>Monolith-to-Microservices: Strategic decomposition of large-scale apps.</li>
+            <li>Infrastructure as Code (IaC): Automating your environment for consistency and speed.</li>
+            <li>Technical Debt Liquidation: Systematic refactoring to increase feature delivery speed.</li>
+          </ul>
+          <a href="/services/application-modernization.html" class="pillar-link">Learn More <span>&rarr;</span></a>
+        </article>
+
+        <!-- Pillar 3: Offensive & Defensive Security -->
+        <article class="pillar-card">
+          <div class="pillar-header">
+            <h3>Offensive & Defensive Security</h3>
+          </div>
+          <p class="pillar-tagline">Protecting Your Intellectual Property</p>
+          <p class="pillar-description">Security isn’t an afterthought—it’s a feature. I integrate rigorous testing and
+            analysis into the development lifecycle to ensure your data remains your own.</p>
+          <ul class="pillar-bullets">
+            <li>Vulnerability Assessments: Deep-dive analysis of application-layer weaknesses.</li>
+            <li>DevSecOps Implementation: Embedding automated security gates into your CI/CD pipelines.</li>
+            <li>Compliance Engineering: Aligning your technical infrastructure with NIS2, GDPR, and DORA standards.</li>
+          </ul>
+          <a href="/services/offensive-defensive-security.html" class="pillar-link">Learn More <span>&rarr;</span></a>
+        </article>
+      </div>
+    </section>
+
+    <section class="philosophy">
+      <div class="philosophy-grid">
+        <div class="card p-card">
+          <div class="card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="16 18 22 12 16 6"></polyline>
+              <polyline points="8 6 2 12 8 18"></polyline>
+            </svg>
+          </div>
+          <h3>Strategy meets Execution</h3>
+          <p>I operate at the intersection of high-level strategy and low-level implementation. You get the insights of
+            a CTO with the hands-on execution of a lead engineer.</p>
+        </div>
+        <div class="card p-card">
+          <div class="card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+          </div>
+          <h3>Scaling Without Lag</h3>
+          <p>I don’t just write code; I dismantle technical debt and build foundations that allow businesses to scale
+            without the "legacy lag." My approach is pragmatic, security-first, and always aligned with your bottom
+            line.</p>
+        </div>
+      </div>
+    </section>
+
+
+
+    <section id="about" class="services">
+      <div class="section-header">
+        <h2>About</h2>
+        <p style="max-width: 800px; margin: 0 auto; line-height: 1.8;">
+          At Scuttle Development, I believe that technology should be an enabler, not a barrier. My mission
+          is to empower businesses of all sizes with cutting-edge web development, robust hosting
+          infrastructure, and actionable strategic advice. I navigate the complex waters of the digital world
+          so you can focus on what you do best steering your ship.
+        </p>
+        <p style="max-width: 800px; margin: 2rem auto 0; line-height: 1.8;">
+          Based in the tech-driven landscape of Eindhoven, I provide a unique blend of creative problem-solving and
+          technical precision. As a solo full-stack developer, I offer a direct and personalized partnership that larger
+          agencies simply can't match. My focus is on delivering high-performance software solutions that are tailored
+          to your specific business goals, ensuring every line of code serves a strategic purpose.
+        </p>
+        <p style="max-width: 800px; margin: 2rem auto 0; line-height: 1.8;">
+          From architecting scalable web applications to implementing advanced AI integrations and rigorous security
+          protocols, Scuttle Development is dedicated to your long-term success. I stay at the forefront of modern web
+          technologies to help you navigate digital transformation with confidence, turning complex technical challenges
+          into competitive advantages for your brand.
+        </p>
+      </div>
+
+      <div class="services-grid" style="margin-top: 4rem;">
+        <div class="card founder-card">
+          <div class="founder-image">
+            <div class="image-circle">
+              <!-- Replace the src with your actual portrait URL -->
+              <img src="{{ asset('vendor/scuttle/profile.png') }}" alt="Stanislav Plotnikov - Founder of Scuttle Development">
+            </div>
+          </div>
+          <div class="founder-info">
+            <h3>Meet the Founder</h3>
+            <p>I'm the person behind Scuttle Development. With over a decade of experience in building modern digital
+              solutions, I focus on delivering high-quality, secure, and performance-driven software for my clients.</p>
+            <div class="founder-socials">
+              <a href="https://github.com/spdotdev" target="_blank" class="social-link" aria-label="GitHub">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path
+                    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                  </path>
+                </svg>
+                GitHub
+              </a>
+              <a href="https://www.linkedin.com/in/stanislavplotnikov/" target="_blank" class="social-link"
+                aria-label="LinkedIn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                  <rect x="2" y="9" width="4" height="12"></rect>
+                  <circle cx="4" cy="4" r="2"></circle>
+                </svg>
+                LinkedIn
+              </a>
+              <a href="https://splotnikov.dev" target="_blank" class="social-link" aria-label="Personal Website">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="2" y1="12" x2="22" y2="12"></line>
+                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
+                Website
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="commitment-integrated">
+          <div class="commitment-content">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
+              stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+              class="quote-icon">
+              <path
+                d="M3 21c3 0 7-1 7-8V5c0-1.25-.75-2-2-2H5c-1.25 0-2 .75-2 2v3c0 1.25.75 2 2 2h3c0 4-4 6-4 6zm10 0c3 0 7-1 7-8V5c0-1.25-.75-2-2-2h-3c-1.25 0-2 .75-2 2v3c0 1.25.75 2 2 2h3c0 4-4 6-4 6z">
+              </path>
+            </svg>
+            <blockquote>
+              "I will ensure your system is secure, scalable, and built to last the next decade."
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+    <section class="services" style="background: var(--bg-card);">
+      <div class="section-header">
+        <h2>The Story</h2>
+        <p style="max-width: 800px; margin: 0 auto; text-align: left; margin-top: 2rem;">
+          Founded in 2024, Scuttle Development represents a dedicated commitment to technical excellence. As a
+          specialized freelance studio, I recognized a gap in the market: businesses often struggle to find a
+          single partner who truly understands both software development and reliable hosting.<br><br>
+          Today, I partner directly with clients to provide a holistic, expert approach to their digital
+          presence. By bridging the gap between local specialized service and global scale, I also connect and partner
+          internationally with tech giants to integrate enterprise-grade insights into every project. When you choose
+          Scuttle Development, you get personalized attention and tailored solutions without the layers of a
+          traditional agency—whether you need a high-performance web application or strategic technical advice.
+        </p>
+      </div>
+    </section>
+
+    <section id="contact" class="services">
+      <div class="section-header">
+        <h2>Contact</h2>
+        <p>Ready to start your next project? Get in touch.</p>
+      </div>
+      <div class="services-grid contact-grid">
+
+        <div class="card" style="display: flex; flex-direction: column; justify-content: center;">
+          <h3>Location</h3>
+          <p style="margin-bottom: 2rem; font-size: 1.1rem; line-height: 1.8;">
+            <strong>Scuttle Development</strong><br>
+            Dirigentplein 144<br>
+            5642 RK Eindhoven<br>
+            The Netherlands<br>
+            <a href="https://www.google.com/maps/search/?api=1&query=Dirigentplein+144,+5642+RK+Eindhoven,+The+Netherlands"
+              target="_blank" rel="noopener noreferrer" class="maps-link">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
+              </svg>
+              Get Directions
+            </a>
+          </p>
+          <p style="font-size: 1.1rem; line-height: 2;">
+            <strong>Email:</strong><br>
+            <a href="mailto:info@scuttle.dev" class="contact-card-link">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="contact-icon">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+              info@scuttle.dev
+            </a><br>
+            <strong>Phone:</strong><br>
+            <a href="tel:+31618233175" class="contact-card-link">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="contact-icon">
+                <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                <line x1="12" y1="18" x2="12.01" y2="18"></line>
+              </svg>
+              +31 (0) 6 18 23 31 75
+            </a><br>
+            <strong>KvK Number:</strong><br>
+            <span class="contact-card-link" style="cursor: default;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="contact-icon">
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+              </svg>
+              96040947
+            </span><br>
+            <strong>VAT Number:</strong><br>
+            <span class="contact-card-link" style="cursor: default;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="contact-icon">
+                <line x1="4" y1="9" x2="20" y2="9"></line>
+                <line x1="4" y1="15" x2="20" y2="15"></line>
+                <line x1="10" y1="3" x2="8" y2="21"></line>
+                <line x1="16" y1="3" x2="14" y2="21"></line>
+              </svg>
+              NL005184584B85
+            </span>
+          </p>
+          <div class="qr-vcard-split">
+            <div class="qr-side">
+              <button id="open-qr-modal" class="qr-trigger-btn" aria-label="View larger QR code">
+                <div class="qr-image-wrapper">
+                  <img src="{{ asset('vendor/scuttle/qr/svg/My_QR_Code_1-4096.svg') }}" alt="vCard QR Code">
+                </div>
+              </button>
+              <p class="qr-hint">Click to enlarge</p>
+            </div>
+            <div class="vcard-side">
+              <p class="qr-title">Save Contact Info</p>
+              <p class="qr-desc">Download my vCard to quickly add my details to your phone's contacts.</p>
+              <a href="{{ asset('vendor/scuttle/scuttledev.vcf') }}" class="vcard-download-btn" download>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                Save vCard
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="padding: 0; overflow: hidden; min-height: 400px; display: flex;">
+          <iframe width="100%" height="100%" style="flex: 1; border: none; min-height: 400px;" frameborder="0"
+            src="https://maps.google.com/maps?q=Dirigentplein%20144,%20Eindhoven,%20Netherlands&t=&z=15&ie=UTF8&iwloc=&output=embed">
+          </iframe>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Sticky Mini Footer -->
+  <div class="sticky-footer" id="sticky-footer">
+    <div class="sticky-footer-content">
+      <span class="footer-copy">© 2026 Scuttle Development</span>
+      <a href="mailto:info@scuttle.dev" class="footer-link footer-email">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="footer-icon">
+          <line x1="22" y1="2" x2="11" y2="13"></line>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+        </svg>
+        info@scuttle.dev
+      </a>
+      <a href="tel:+31618233175" class="footer-link footer-phone">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="footer-icon">
+          <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+          <line x1="12" y1="18" x2="12.01" y2="18"></line>
+        </svg>
+        +31 (0)6 18 23 31 75
+      </a>
+      <a href="#" class="scroll-top-link footer-top">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="footer-icon">
+          <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+        Back to Top
+      </a>
+    </div>
+  </div>
+
+  <!-- Minimal Page Bottom Callout -->
+  <footer id="full-footer" class="minimal-footer">
+    <div class="minimal-footer-content">
+      <p class="footer-slogan">Empowering businesses with modern digital solutions. Specialized in development, hosting,
+        and strategic advice.</p>
+      <div class="footer-legal">
+        <a href="{{ asset('vendor/scuttle/legal/TERMS_AND_CONDITIONS.pdf') }}" target="_blank" class="footer-legal-link">Terms & Conditions</a>
+      </div>
+      <div class="minimal-footer-meta">
+        <span>© 2026 Scuttle Development. All rights reserved.</span>
+        <span class="built-with">Built with <a
+            href="https://blog.google/technology/ai/google-gemini-ai/#introducing-gemini"
+            target="_blank">Antigravity</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- QR Code Modal -->
+  <div id="qr-modal" class="modal" aria-hidden="true">
+    <div class="modal-overlay" id="qr-modal-overlay"></div>
+    <div class="modal-content">
+      <button class="modal-close" id="close-qr-modal" aria-label="Close modal">&times;</button>
+      <div class="modal-body">
+        <img src="{{ asset('vendor/scuttle/qr/svg/My_QR_Code_1-4096.svg') }}" alt="Enlarged vCard QR Code" class="modal-qr-image">
+        <p>Scan to add contact</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Service Templates -->
+  <template id="service-template-architecture">
+    <div class="section-header">
+      <h1>Strategic Solution Architecture</h1>
+      <p class="pillar-tagline" style="font-size: 1.5rem; margin-top: 1rem;">Building the Blueprint for Growth</p>
+    </div>
+    <div style="max-width: 800px; margin: 0 auto; color: var(--text-main); line-height: 1.8;">
+      <p style="margin-bottom: 2rem; font-size: 1.2rem;">
+        In the rapidly evolving digital landscape, a "good enough" solution today can become a critical
+        bottleneck tomorrow. I help organizations transition from reactive technical decisions to a
+        proactive, scalable technical vision.
+      </p>
+      <h2 style="margin-bottom: 1.5rem; font-size: 2rem;">Core Focus Areas</h2>
+      <div style="margin-bottom: 3rem;">
+        <h3 style="color: var(--primary); margin-bottom: 0.5rem;">Cloud-Native Design</h3>
+        <p>Designing architectures that leverage the full potential of AWS, Azure, or GCP. I focus on
+          elasticity, high availability, and cost-optimization from day one.</p>
+      </div>
+      <div style="margin-bottom: 3rem;">
+        <h3 style="color: var(--primary); margin-bottom: 0.5rem;">Stack Selection</h3>
+        <p>Providing objective, vendor-neutral audits of your current or proposed technology stack. I ensure
+          your tools are aligned with your business goals and long-term maintenance requirements.</p>
+      </div>
+      <div style="margin-bottom: 3rem;">
+        <h3 style="color: var(--primary); margin-bottom: 0.5rem;">System Interoperability</h3>
+        <p>A business is only as strong as its connections. I design robust, secure API layers that ensure
+          your disparate business tools communicate seamlessly, reducing manual data entry and error
+          rates.</p>
+      </div>
+
+      <div
+        style="margin-top: 4rem; padding: 2rem; background: rgba(84, 84, 212, 0.05); border-left: 4px solid var(--primary); border-radius: 8px;">
+        <h2 style="margin-bottom: 1rem; font-size: 1.75rem;">Why It Matters</h2>
+        <p>In the digital age, your architecture is your foundation. Poor planning leads to "technical debt"—a hidden
+          cost that slows down every future feature and increases maintenance overhead. A strategic blueprint ensures
+          that your technology grows <em>with</em> your business, not against it, saving thousands in mid-course
+          corrections and lost opportunities.</p>
+      </div>
+    </div>
+  </template>
+
+  <template id="service-template-modernization">
+    <div class="section-header">
+      <h1>Application Modernization</h1>
+      <p class="pillar-tagline" style="font-size: 1.5rem; margin-top: 1rem;">Legacy Transformation without the Downtime
+      </p>
+    </div>
+    <div style="max-width: 800px; margin: 0 auto; color: var(--text-main); line-height: 1.8;">
+      <p style="margin-bottom: 2rem; font-size: 1.2rem;">
+        Don’t let your aging codebase become a liability. Technical debt accumulates silently, slowing down
+        innovation and increasing operational risk. I specialize in breathing new life into legacy systems.
+      </p>
+      <h2 style="margin-bottom: 1.5rem; font-size: 2rem;">Core Focus Areas</h2>
+      <div style="margin-bottom: 3rem;">
+        <h3 style="color: var(--primary); margin-bottom: 0.5rem;">Monolith-to-Microservices</h3>
+        <p>Strategic decomposition of large-scale, "tangled" applications into agile, independent services.
+          This allows for faster deployment cycles and easier maintenance.</p>
+      </div>
+      <div style="margin-bottom: 3rem;">
+        <h3 style="color: var(--primary); margin-bottom: 0.5rem;">Infrastructure as Code (IaC)</h3>
+        <p>Automating your environment setup for absolute consistency. By treating infrastructure as
+          software, we eliminate the "it works on my machine" problem and increase deployment speed.</p>
+      </div>
+      <div style="margin-bottom: 3rem;">
+        <h3 style="color: var(--primary); margin-bottom: 0.5rem;">Technical Debt Liquidation</h3>
+        <p>Systematic refactoring of outdated code patterns. I don't just "fix" things; I improve the
+          underlying architecture to increase feature delivery speed and developer happiness.</p>
+      </div>
+
+      <div
+        style="margin-top: 4rem; padding: 2rem; background: rgba(84, 84, 212, 0.05); border-left: 4px solid var(--primary); border-radius: 8px;">
+        <h2 style="margin-bottom: 1rem; font-size: 1.75rem;">Why It Matters</h2>
+        <p>Legacy systems are more than just "old code"—they are business risks. They are harder to secure, impossible
+          to scale efficiently, and they alienate top engineering talent. Modernization isn't just about updating
+          syntax; it's about reclaiming your team's agility and ensuring your core business logic is ready for the next
+          decade of innovation.</p>
+      </div>
+    </div>
+  </template>
+
+  <template id="service-template-security">
+    <div class="section-header">
+      <h1>Offensive & Defensive Security</h1>
+      <p class="pillar-tagline" style="font-size: 1.5rem; margin-top: 1rem;">Protecting Your Intellectual Property</p>
+    </div>
+    <div style="max-width: 800px; margin: 0 auto; color: var(--text-main); line-height: 1.8;">
+      <p style="margin-bottom: 2rem; font-size: 1.2rem;">
+        Security isn’t an afterthought—it’s a feature. In an era of increasing cyber threats, passive
+        defense is no longer enough. I integrate rigorous testing and analysis into every stage of the
+        development lifecycle.
+      </p>
+      <h2 style="margin-bottom: 1.5rem; font-size: 2rem;">Core Focus Areas</h2>
+      <div style="margin-bottom: 3rem;">
+        <h3 style="color: var(--primary); margin-bottom: 0.5rem;">Vulnerability Assessments</h3>
+        <p>Deep-dive analysis of application-layer weaknesses. I identify vulnerabilities before they can be
+          exploited by malicious actors, providing actionable remediation plans.</p>
+      </div>
+      <div style="margin-bottom: 3rem;">
+        <h3 style="color: var(--primary); margin-bottom: 0.5rem;">DevSecOps Implementation</h3>
+        <p>Security at the speed of development. I embed automated security gates directly into your CI/CD
+          pipelines, ensuring that every build is checked for security flaws before it ever reaches
+          production.</p>
+      </div>
+      <div style="margin-bottom: 3rem;">
+        <h3 style="color: var(--primary); margin-bottom: 0.5rem;">Compliance Engineering</h3>
+        <p>Navigating the complex world of technical regulations. I help align your technical infrastructure
+          with NIS2, GDPR, and DORA standards, ensuring your organization is both secure and compliant.</p>
+      </div>
+
+      <div
+        style="margin-top: 4rem; padding: 2rem; background: rgba(84, 84, 212, 0.05); border-left: 4px solid var(--primary); border-radius: 8px;">
+        <h2 style="margin-bottom: 1rem; font-size: 1.75rem;">Why It Matters</h2>
+        <p>The cost of a data breach is no longer just financial—it's existential. With strict regulations like NIS2 and
+          GDPR, security is now a legal mandate. Beyond compliance, robust security is a competitive advantage that
+          builds deep trust with your customers. I ensure that your protection is proactive and integrated, not just a
+          reactive checkbox.</p>
+      </div>
+    </div>
+  </template>
+
+  <!-- Service Content Modal -->
+  <div id="service-modal" class="modal" aria-hidden="true">
+    <div class="modal-overlay" id="service-modal-overlay"></div>
+    <div class="modal-content service-modal-content">
+      <button class="modal-close" id="close-service-modal" aria-label="Close modal">&times;</button>
+      <div class="modal-body" id="service-modal-body">
+        <!-- Content will be injected here -->
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>
