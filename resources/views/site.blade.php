@@ -53,7 +53,7 @@
   <!-- Structured Data (JSON-LD) -->
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
+    "@@context": "https://schema.org",
     "@type": "ProfessionalService",
     "name": "Scuttle Development",
     "description": "Professional full-stack web development, hosting, automation, security, and tech consulting services.",
