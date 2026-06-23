@@ -27,9 +27,12 @@ class SiteTest extends TestCase
             ->assertSee('<urlset', false);
     }
 
-    public function test_page_references_namespaced_assets(): void
+    public function test_page_links_namespaced_css_and_js(): void
     {
+        // The static site bundled style.css + main.js via Vite; the package
+        // serves them as assets. Guard against dropping the stylesheet/script.
         $this->get('http://scuttle.dev/')
-            ->assertSee('vendor/scuttle/', false);
+            ->assertSee('vendor/scuttle/style.css', false)
+            ->assertSee('vendor/scuttle/main.js', false);
     }
 }

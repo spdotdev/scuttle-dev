@@ -50,6 +50,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
+  <!-- Site styles (bundled by Vite in the static site; served as a package asset here) -->
+  <link rel="stylesheet" href="{{ asset('vendor/scuttle/style.css') }}" />
+
   <!-- Structured Data (JSON-LD) -->
   <script type="application/ld+json">
   {
@@ -58,8 +61,8 @@
     "name": "Scuttle Development",
     "description": "Professional full-stack web development, hosting, automation, security, and tech consulting services.",
     "url": "https://scuttle.dev",
-    "logo": "/logo-bw.png",
-    "image": "/og-image.png",
+    "logo": "{{ asset('vendor/scuttle/logo-bw.png') }}",
+    "image": "{{ asset('vendor/scuttle/og-image.png') }}",
     "telephone": "+31618233175",
     "email": "info@scuttle.dev",
     "address": {
@@ -601,7 +604,7 @@
     </div>
   </div>
 
-  <script type="module" src="/src/main.js"></script>
+  <script type="module" src="{{ asset('vendor/scuttle/main.js') }}"></script>
 </body>
 
 </html>
