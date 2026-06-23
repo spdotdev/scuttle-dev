@@ -1,14 +1,34 @@
 # scuttle.dev cutover runbook
 
-Go-live: move scuttle.dev from GitHub Pages (static repo) to the sd-admin app
-on the DigitalOcean server. Nothing here is automated yet.
+> **The authoritative, full migration manual lives in `sd-admin`:**
+> [`spdotdev/sd-admin` → `docs/MIGRATION.md`](https://github.com/spdotdev/sd-admin/blob/main/docs/MIGRATION.md).
+> It covers provisioning `d051`, deploying sd-admin, the reverse proxy + TLS, the
+> verify-before-DNS step, and rollback. This file is just the scuttle.dev-specific
+> slice. Nothing is live yet — DNS still points at GitHub Pages.
 
-1. Provision `d051` (DigitalOcean). See the `d0-admin` project.
-2. Deploy sd-admin (with `spdotdev/scuttle-dev` required) to the server.
-3. In the **server** `.env` (never git): set `SCUTTLE_DOMAIN=scuttle.dev`.
-4. Run `php artisan vendor:publish --tag=scuttle-dev-assets` on the server.
-5. Smoke-test against the droplet IP:
-   `curl --resolve scuttle.dev:443:<DROPLET_IP> https://scuttle.dev/`.
-6. Switch the `scuttle.dev` **DNS A record** from the GitHub Pages IPs to the
-   droplet IP; verify TLS.
-7. Once stable, archive the static repo `spdotdev/scuttledev`.
+## Site facts
+
+| | value |
+|--|--|
+| Domain | `scuttle.dev` |
+| Static repo (live on Pages until cutover) | [`spdotdev/scuttledev`](https://github.com/spdotdev/scuttledev) |
+| Site package (this repo) | `spdotdev/scuttle-dev` |
+| Domain env var (sd-admin `.env`) | `SCUTTLE_DOMAIN=scuttle.dev` |
+| Assets path | `/vendor/scuttle/` (page, CSS `style.css`, JS `main.js`, legal PDFs, QR, vCard) |
+| Publish tag | `scuttle-dev-assets` |
+| Current DNS apex `A` | GitHub Pages `185.199.108–111.153` → change to `<DROPLET_IP>` |
+
+## Cutover checklist (after `d051` + sd-admin are up — see the master manual)
+
+1. Confirm `spdotdev/scuttle-dev` is required in sd-admin and `SCUTTLE_DOMAIN=scuttle.dev` is set in the server `.env`.
+2. `php artisan vendor:publish --tag=scuttle-dev-assets --force` on the server.
+3. Verify against the droplet IP without changing DNS:
+   `curl -s --resolve scuttle.dev:443:<DROPLET_IP> https://scuttle.dev/ | grep -o 'Scuttle Development'`
+   plus `…/robots.txt`, `…/vendor/scuttle/style.css`, `…/vendor/scuttle/main.js`,
+   `…/vendor/scuttle/legal/TERMS_AND_CONDITIONS.pdf` → all 200.
+4. Lower the apex `A` TTL to 300s; remove the custom domain from the static repo's Pages settings.
+5. Repoint the `scuttle.dev` apex `A` record from the Pages IPs to `<DROPLET_IP>`; remove Pages `AAAA`/`CNAME`.
+6. Let TLS issue (Caddy auto / certbot), then verify `https://scuttle.dev/` in the open (theme toggle, QR/service modals depend on `main.js` loading).
+7. Once stable, archive [`spdotdev/scuttledev`](https://github.com/spdotdev/scuttledev).
+
+**Rollback:** revert the apex `A` to `185.199.108–111.153` and re-add the custom domain in Pages settings; the static repo is untouched and resumes within one TTL.
