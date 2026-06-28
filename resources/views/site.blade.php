@@ -21,12 +21,12 @@
   <meta name="msapplication-TileColor" content="#111118" />
 
   <!-- Favicons -->
-  <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('vendor/scuttle/favicon-32x32.png') }}" />
-  <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('vendor/scuttle/favicon-16x16.png') }}" />
-  <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('vendor/scuttle/android-chrome-192x192.png') }}" />
-  <link rel="icon" type="image/png" sizes="512x512" href="{{ asset('vendor/scuttle/android-chrome-512x512.png') }}" />
-  <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('vendor/scuttle/apple-touch-icon.png') }}" />
-  <link rel="manifest" href="{{ asset('vendor/scuttle/site.webmanifest') }}" />
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ secure_asset('vendor/scuttle/favicon-32x32.png') }}" />
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ secure_asset('vendor/scuttle/favicon-16x16.png') }}" />
+  <link rel="icon" type="image/png" sizes="192x192" href="{{ secure_asset('vendor/scuttle/android-chrome-192x192.png') }}" />
+  <link rel="icon" type="image/png" sizes="512x512" href="{{ secure_asset('vendor/scuttle/android-chrome-512x512.png') }}" />
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ secure_asset('vendor/scuttle/apple-touch-icon.png') }}" />
+  <link rel="manifest" href="{{ secure_asset('vendor/scuttle/site.webmanifest') }}" />
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
@@ -34,7 +34,7 @@
   <meta property="og:title" content="Scuttle Development | Full-Stack Development, Hosting & Security" />
   <meta property="og:description"
     content="Professional full-stack web development, reliable hosting, automation, pentesting, and strategic tech consulting in Eindhoven, Netherlands." />
-  <meta property="og:image" content="{{ asset('vendor/scuttle/og-image.png') }}" />
+  <meta property="og:image" content="{{ secure_asset('vendor/scuttle/og-image.png') }}" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:site_name" content="Scuttle Development" />
 
@@ -44,14 +44,14 @@
   <meta name="twitter:title" content="Scuttle Development | Full-Stack Development, Hosting & Security" />
   <meta name="twitter:description"
     content="Professional full-stack web development, reliable hosting, automation, pentesting, and strategic tech consulting." />
-  <meta name="twitter:image" content="{{ asset('vendor/scuttle/og-image.png') }}" />
+  <meta name="twitter:image" content="{{ secure_asset('vendor/scuttle/og-image.png') }}" />
 
   <!-- Preconnect for Performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
   <!-- Site styles (bundled by Vite in the static site; served as a package asset here) -->
-  <link rel="stylesheet" href="{{ asset('vendor/scuttle/style.css') }}" />
+  <link rel="stylesheet" href="{{ secure_asset('vendor/scuttle/style.css') }}" />
 
   <!-- Structured Data (JSON-LD) -->
   <script type="application/ld+json">
@@ -61,8 +61,8 @@
     "name": "Scuttle Development",
     "description": "Professional full-stack web development, hosting, automation, security, and tech consulting services.",
     "url": "https://scuttle.dev",
-    "logo": "{{ asset('vendor/scuttle/logo-bw.png') }}",
-    "image": "{{ asset('vendor/scuttle/og-image.png') }}",
+    "logo": "{{ secure_asset('vendor/scuttle/logo-bw.png') }}",
+    "image": "{{ secure_asset('vendor/scuttle/og-image.png') }}",
     "telephone": "+31618233175",
     "email": "info@scuttle.dev",
     "address": {
@@ -90,7 +90,7 @@
 <body>
   <header role="banner">
     <a href="/" class="logo" aria-label="Scuttle Development Home">
-      <img src="{{ asset('vendor/scuttle/logo-bw.png') }}" alt="Scuttle Development Logo" width="40" height="40">
+      <img src="{{ secure_asset('vendor/scuttle/logo-bw.png') }}" alt="Scuttle Development Logo" width="40" height="40">
     </a>
     <nav role="navigation" aria-label="Main navigation">
       <ul>
@@ -237,7 +237,7 @@
           <div class="founder-image">
             <div class="image-circle">
               <!-- Replace the src with your actual portrait URL -->
-              <img src="{{ asset('vendor/scuttle/profile.png') }}" alt="Stanislav Plotnikov - Founder of Scuttle Development">
+              <img src="{{ secure_asset('vendor/scuttle/profile.png') }}" alt="Stanislav Plotnikov - Founder of Scuttle Development">
             </div>
           </div>
           <div class="founder-info">
@@ -382,7 +382,7 @@
             <div class="qr-side">
               <button id="open-qr-modal" class="qr-trigger-btn" aria-label="View larger QR code">
                 <div class="qr-image-wrapper">
-                  <img src="{{ asset('vendor/scuttle/qr/svg/My_QR_Code_1-4096.svg') }}" alt="vCard QR Code">
+                  <img src="{{ secure_asset('vendor/scuttle/qr/svg/My_QR_Code_1-4096.svg') }}" alt="vCard QR Code">
                 </div>
               </button>
               <p class="qr-hint">Click to enlarge</p>
@@ -390,7 +390,7 @@
             <div class="vcard-side">
               <p class="qr-title">Save Contact Info</p>
               <p class="qr-desc">Download my vCard to quickly add my details to your phone's contacts.</p>
-              <a href="{{ asset('vendor/scuttle/scuttledev.vcf') }}" class="vcard-download-btn" download>
+              <a href="{{ secure_asset('vendor/scuttle/scuttledev.vcf') }}" class="vcard-download-btn" download>
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
@@ -450,7 +450,7 @@
       <p class="footer-slogan">Empowering businesses with modern digital solutions. Specialized in development, hosting,
         and strategic advice.</p>
       <div class="footer-legal">
-        <a href="{{ asset('vendor/scuttle/legal/TERMS_AND_CONDITIONS.pdf') }}" target="_blank" class="footer-legal-link">Terms & Conditions</a>
+        <a href="{{ secure_asset('vendor/scuttle/legal/TERMS_AND_CONDITIONS.pdf') }}" target="_blank" class="footer-legal-link">Terms & Conditions</a>
       </div>
       <div class="minimal-footer-meta">
         <span>© 2026 Scuttle Development. All rights reserved.</span>
@@ -467,7 +467,7 @@
     <div class="modal-content">
       <button class="modal-close" id="close-qr-modal" aria-label="Close modal">&times;</button>
       <div class="modal-body">
-        <img src="{{ asset('vendor/scuttle/qr/svg/My_QR_Code_1-4096.svg') }}" alt="Enlarged vCard QR Code" class="modal-qr-image">
+        <img src="{{ secure_asset('vendor/scuttle/qr/svg/My_QR_Code_1-4096.svg') }}" alt="Enlarged vCard QR Code" class="modal-qr-image">
         <p>Scan to add contact</p>
       </div>
     </div>
@@ -604,7 +604,7 @@
     </div>
   </div>
 
-  <script type="module" src="{{ asset('vendor/scuttle/main.js') }}"></script>
+  <script type="module" src="{{ secure_asset('vendor/scuttle/main.js') }}"></script>
 </body>
 
 </html>
