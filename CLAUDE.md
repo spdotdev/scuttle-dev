@@ -10,7 +10,7 @@ app via host-based routing.
   (`docker run --rm -v "$PWD":/app -w /app composer:2 ...`) or the sd-admin
   `app` container once installed.
 - Distribution is GitHub VCS + git tags only. No Packagist.
-- Versioned: change behaviour → bump tag (`vX.Y.Z`) → `composer update` in sd-admin.
+- Versioned: change behaviour → bump tag (`vX.Y.Z`) → bump `spdotdev/scuttle-dev` in **sd-admin's own `composer.lock`**, commit + push (never a bare `composer update` run directly on the d051 container — that's invisible to the committed lock and gets silently reverted by the next unrelated deploy). See sd-admin's `CLAUDE.md` ("Updating a vcs-tracked spdotdev/* package").
 
 ## Layout
 - `src/ScuttleDevServiceProvider.php` — auto-discovered; loads routes + views, publishes config/assets.
