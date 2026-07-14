@@ -1,10 +1,8 @@
 # scuttle.dev cutover runbook
 
-> **The authoritative, full migration manual lives in `sd-admin`:**
-> [`spdotdev/sd-admin` → `docs/MIGRATION.md`](https://github.com/spdotdev/sd-admin/blob/main/docs/MIGRATION.md).
-> It covers provisioning `d051`, deploying sd-admin, the reverse proxy + TLS, the
-> verify-before-DNS step, and rollback. This file is just the scuttle.dev-specific
-> slice. Nothing is live yet — DNS still points at GitHub Pages.
+> This file is the scuttle.dev-specific slice of the cutover to the
+> Laravel-served version of the site. Nothing is live yet — DNS still points
+> at GitHub Pages.
 
 ## Site facts
 
@@ -13,14 +11,14 @@
 | Domain | `scuttle.dev` |
 | Static repo (live on Pages until cutover) | [`spdotdev/scuttledev`](https://github.com/spdotdev/scuttledev) |
 | Site package (this repo) | `spdotdev/scuttle-dev` |
-| Domain env var (sd-admin `.env`) | `SCUTTLE_DOMAIN=scuttle.dev` |
+| Domain env var (host app `.env`) | `SCUTTLE_DOMAIN=scuttle.dev` |
 | Assets path | `/vendor/scuttle/` (page, CSS `style.css`, JS `main.js`, legal PDFs, QR, vCard) |
 | Publish tag | `scuttle-dev-assets` |
 | Current DNS apex `A` | GitHub Pages `185.199.108–111.153` → change to `<DROPLET_IP>` |
 
-## Cutover checklist (after `d051` + sd-admin are up — see the master manual)
+## Cutover checklist (after the server + host app are up)
 
-1. Confirm `spdotdev/scuttle-dev` is required in sd-admin and `SCUTTLE_DOMAIN=scuttle.dev` is set in the server `.env`.
+1. Confirm `spdotdev/scuttle-dev` is required in the host app and `SCUTTLE_DOMAIN=scuttle.dev` is set in the server `.env`.
 2. `php artisan vendor:publish --tag=scuttle-dev-assets --force` on the server.
 3. Verify against the droplet IP without changing DNS:
    `curl -s --resolve scuttle.dev:443:<DROPLET_IP> https://scuttle.dev/ | grep -o 'Scuttle Development'`

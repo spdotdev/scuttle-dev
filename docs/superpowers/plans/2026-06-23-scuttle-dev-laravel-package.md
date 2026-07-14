@@ -2,20 +2,20 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development. Steps use checkbox (`- [ ]`) syntax.
 
-**Goal:** Build `spdotdev/scuttle-dev`, a versioned Laravel package that serves the scuttle.dev single-page site (plus its legal PDFs, vCard, QR codes, and SEO files), and wire it into `sd-admin` via host-based routing — mirroring the proven `spdotdev/splotnikov-dev` pattern.
+**Goal:** Build `spdotdev/scuttle-dev`, a versioned Laravel package that serves the scuttle.dev single-page site (plus its legal PDFs, vCard, QR codes, and SEO files), and wire it into `the host app` via host-based routing — mirroring the proven `spdotdev/splotnikov-dev` pattern.
 
-**Architecture:** A Composer `library` package (PSR-4 `Spdotdev\ScuttleDev\`) whose auto-discovered provider registers a `Route::domain(config('scuttle-dev.domain'))` group rendering the ported `index.html`. All site assets are namespaced under `public/vendor/scuttle/` (multi-site host: a shared `public/` root would collide with other site packages). `robots.txt` + `sitemap.xml` are served at the domain root via controller (crawler convention). sd-admin installs it via GitHub VCS + git tag.
+**Architecture:** A Composer `library` package (PSR-4 `Spdotdev\ScuttleDev\`) whose auto-discovered provider registers a `Route::domain(config('scuttle-dev.domain'))` group rendering the ported `index.html`. All site assets are namespaced under `public/vendor/scuttle/` (multi-site host: a shared `public/` root would collide with other site packages). `robots.txt` + `sitemap.xml` are served at the domain root via controller (crawler convention). the host app installs it via GitHub VCS + git tag.
 
-**Tech Stack:** PHP 8.3+, Laravel 13 (`illuminate/support ^13`), Composer (VCS + tags), Docker (sd-admin `app` container; one-off `composer:2` for package commands), Pint, Larastan L5, PHPUnit via orchestra/testbench.
+**Tech Stack:** PHP 8.3+, Laravel 13 (`illuminate/support ^13`), Composer (VCS + tags), Docker (the host app `app` container; one-off `composer:2` for package commands), Pint, Larastan L5, PHPUnit via orchestra/testbench.
 
-**Reference:** This mirrors `~/splotnikov-dev` (spec at `~/splotnikov-dev/docs/superpowers/specs/2026-06-22-splotnikov-dev-laravel-package-design.md`). All the `splotnikov-dev` v0.1.1 learnings are folded in here so scuttle-dev is correct on its first tag: testbench for Larastan bootstrap, package PHPUnit suite, SEO root routes, host-scoped landing already in sd-admin, no global static SEO files in the host.
+**Reference:** This mirrors `~/splotnikov-dev` (spec at `~/splotnikov-dev/docs/superpowers/specs/2026-06-22-splotnikov-dev-laravel-package-design.md`). All the `splotnikov-dev` v0.1.1 learnings are folded in here so scuttle-dev is correct on its first tag: testbench for Larastan bootstrap, package PHPUnit suite, SEO root routes, host-scoped landing already in the host app, no global static SEO files in the host.
 
 ## Global Constraints
 
 - Package **`spdotdev/scuttle-dev`**, `type: library`, namespace **`Spdotdev\ScuttleDev\`**, PSR-4 root `src/`.
-- PHP **`^8.3`**; **`illuminate/support: ^13.0`** (match sd-admin's Laravel 13).
+- PHP **`^8.3`**; **`illuminate/support: ^13.0`** (match the host app's Laravel 13).
 - Distribution **GitHub VCS + git tags only — no Packagist**. First tag **`v0.1.0`**. Repo **public**, owner `spdotdev`.
-- **Host has no PHP/Composer.** Use the sd-admin container (`make composer`, `make art`, `docker compose exec app ...` from `/home/dev/sd-admin`) or one-off: `docker run --rm -v /home/dev/scuttle-dev:/app -w /app composer:2 <cmd>`.
+- **Host has no PHP/Composer.** Use the the host app container (`make composer`, `make art`, `docker compose exec app ...` from `/home/dev/<host-app>`) or one-off: `docker run --rm -v /home/dev/scuttle-dev:/app -w /app composer:2 <cmd>`.
 - The static repo **`/home/dev/scuttledev` is never modified or committed to**. Copy assets FROM it.
 - Package working dir: **`/home/dev/scuttle-dev`** (exists; contains only `docs/`, `.superpowers/`).
 - Asset namespace: all site assets published to **`public/vendor/scuttle/`**; views reference them via **`{{ asset('vendor/scuttle/...') }}`** (host-adaptive).
@@ -34,7 +34,7 @@
 ```json
 {
     "name": "spdotdev/scuttle-dev",
-    "description": "scuttle.dev site, packaged for the sd-admin host app.",
+    "description": "scuttle.dev site, packaged for the the host app host app.",
     "type": "library",
     "license": "proprietary",
     "require": {
@@ -422,14 +422,14 @@ class SiteTest extends TestCase
 }
 ```
 
-- [ ] **Step 4: `README.md`** (install into sd-admin)
+- [ ] **Step 4: `README.md`** (install into the host app)
 ````markdown
 # scuttle-dev
 
-The scuttle.dev site, packaged as a Laravel library for the `sd-admin` host
+The scuttle.dev site, packaged as a Laravel library for the `the host app` host
 application. Host-based routing serves the site on the configured domain.
 
-## Install (in sd-admin)
+## Install (in the host app)
 
 ```jsonc
 // composer.json
@@ -454,7 +454,7 @@ SCUTTLE_DOMAIN=scuttle.dev
 
 ## Upgrading
 
-Bump the git tag here (`vX.Y.Z`), then in sd-admin run
+Bump the git tag here (`vX.Y.Z`), then in the host app run
 `make composer cmd="update spdotdev/scuttle-dev"`.
 ````
 
@@ -464,15 +464,15 @@ Bump the git tag here (`vX.Y.Z`), then in sd-admin run
 
 ## What this is
 A Laravel **library package** (not an app) serving the scuttle.dev single-page
-site (plus legal PDFs, vCard, QR codes, SEO files) inside the `sd-admin` host
+site (plus legal PDFs, vCard, QR codes, SEO files) inside the `the host app` host
 app via host-based routing.
 
 ## Constraints
 - Host has no PHP/Composer. Run package commands via a one-off Docker image
-  (`docker run --rm -v "$PWD":/app -w /app composer:2 ...`) or the sd-admin
+  (`docker run --rm -v "$PWD":/app -w /app composer:2 ...`) or the the host app
   `app` container once installed.
 - Distribution is GitHub VCS + git tags only. No Packagist.
-- Versioned: change behaviour → bump tag (`vX.Y.Z`) → `composer update` in sd-admin.
+- Versioned: change behaviour → bump tag (`vX.Y.Z`) → `composer update` in the host app.
 
 ## Layout
 - `src/ScuttleDevServiceProvider.php` — auto-discovered; loads routes + views, publishes config/assets.
@@ -489,11 +489,11 @@ DigitalOcean provisioning, live deploy, and the DNS A-record cutover. See `docs/
 ```markdown
 # scuttle.dev cutover runbook
 
-Go-live: move scuttle.dev from GitHub Pages (static repo) to the sd-admin app
+Go-live: move scuttle.dev from GitHub Pages (static repo) to the the host app app
 on the DigitalOcean server. Nothing here is automated yet.
 
-1. Provision `d051` (DigitalOcean). See the `d0-admin` project.
-2. Deploy sd-admin (with `spdotdev/scuttle-dev` required) to the server.
+1. Provision `the server` (DigitalOcean). See the `d0-admin` project.
+2. Deploy the host app (with `spdotdev/scuttle-dev` required) to the server.
 3. In the **server** `.env` (never git): set `SCUTTLE_DOMAIN=scuttle.dev`.
 4. Run `php artisan vendor:publish --tag=scuttle-dev-assets` on the server.
 5. Smoke-test against the droplet IP:
@@ -530,11 +530,11 @@ git commit -q -m "docs+ci+tests: CI, README, CLAUDE.md, runbook, testbench suite
 
 ---
 
-### Task 6: Wire into sd-admin and verify — OUTWARD-FACING (pause for user OK)
+### Task 6: Wire into the host app and verify — OUTWARD-FACING (pause for user OK)
 
-**Files (in `/home/dev/sd-admin`, on a feature branch):** modify `composer.json`, `.env.example`/`.env`; add `tests/Feature/ScuttleSiteTest.php`. (Landing route already host-scoped; host already drops global static SEO files — no further routing changes needed.)
+**Files (in `/home/dev/<host-app>`, on a feature branch):** modify `composer.json`, `.env.example`/`.env`; add `tests/Feature/ScuttleSiteTest.php`. (Landing route already host-scoped; host already drops global static SEO files — no further routing changes needed.)
 
-- [ ] **Step 1:** `cd /home/dev/sd-admin && git checkout -b feat/scuttle-dev-site-package`.
+- [ ] **Step 1:** `cd /home/dev/<host-app> && git checkout -b feat/scuttle-dev-site-package`.
 - [ ] **Step 2: failing test** — create `tests/Feature/ScuttleSiteTest.php`:
 ```php
 <?php
@@ -561,7 +561,7 @@ Run `make art cmd="test --filter=ScuttleSiteTest"` → FAIL (404, package not re
 
 - [ ] **Step 3: require** — add the VCS repo + require:
 ```bash
-cd /home/dev/sd-admin
+cd /home/dev/<host-app>
 make composer cmd="config repositories.scuttle-dev vcs https://github.com/spdotdev/scuttle-dev"
 make composer cmd="require spdotdev/scuttle-dev:^0.1"
 ```
@@ -580,20 +580,20 @@ Then `make art cmd="config:clear"`.
 
 - [ ] **Step 7: e2e via nginx**
 ```bash
-cd /home/dev/sd-admin
+cd /home/dev/<host-app>
 curl -s -H 'Host: scuttle.dev' http://localhost:8080/ | grep -c 'Scuttle Development'
 curl -s -o /dev/null -w '%{http_code} %{content_type}\n' -H 'Host: scuttle.dev' http://localhost:8080/robots.txt
 curl -s -o /dev/null -w '%{http_code}\n' -H 'Host: scuttle.dev' http://localhost:8080/vendor/scuttle/profile.png
 curl -s -o /dev/null -w '%{http_code}\n' -H 'Host: scuttle.dev' http://localhost:8080/vendor/scuttle/legal/TERMS_AND_CONDITIONS.pdf
-# splotnikov + sd-admin unaffected:
+# splotnikov + the host app unaffected:
 curl -s -H 'Host: splotnikov.dev' http://localhost:8080/ | grep -c 'Stanislav Plotnikov'
-curl -s http://localhost:8080/ | grep -c 'sd-admin is live'
+curl -s http://localhost:8080/ | grep -c 'the host app is live'
 ```
-Expected: scuttle homepage marker ≥1; robots 200 text/plain; profile.png + legal pdf 200; splotnikov + sd-admin still correct.
+Expected: scuttle homepage marker ≥1; robots 200 text/plain; profile.png + legal pdf 200; splotnikov + the host app still correct.
 
 - [ ] **Step 8: Pint + Larastan + commit**
 ```bash
-cd /home/dev/sd-admin
+cd /home/dev/<host-app>
 docker compose exec app ./vendor/bin/pint
 docker compose exec app ./vendor/bin/phpstan analyse --memory-limit=512M
 git add composer.json composer.lock .env.example tests/Feature/ScuttleSiteTest.php
@@ -605,7 +605,7 @@ Do NOT commit `.env` or `public/vendor/scuttle` (gitignored / republished on dep
 
 ## Self-Review
 
-- Versioned package, library, namespace → Task 1. Content parity (single page + assets) → Task 2. Host-based routing + SEO root → Task 3. CI + tests + docs → Task 4. Publish → Task 5. sd-admin wiring + verify → Task 6.
+- Versioned package, library, namespace → Task 1. Content parity (single page + assets) → Task 2. Host-based routing + SEO root → Task 3. CI + tests + docs → Task 4. Publish → Task 5. the host app wiring + verify → Task 6.
 - Multi-site: assets namespaced under `vendor/scuttle`; only robots/sitemap at root; landing already host-scoped; no global static SEO in host. ✓
 - All `splotnikov-dev` v0.1.1 learnings folded in (testbench, tests, SEO routes, host-adaptive `asset()`). ✓
 - Static `scuttledev` repo untouched. ✓

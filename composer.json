@@ -1,6 +1,6 @@
 {
     "name": "spdotdev/scuttle-dev",
-    "description": "scuttle.dev site, packaged for the sd-admin host app.",
+    "description": "scuttle.dev site, packaged as a Laravel library for a host app.",
     "type": "library",
     "license": "proprietary",
     "require": {
