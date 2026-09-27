@@ -15,10 +15,11 @@ host-based routing.
 ## Layout
 - `src/ScuttleDevServiceProvider.php` — auto-discovered; loads routes + views, publishes config/assets.
 - `routes/web.php` — `Route::domain(config('scuttle-dev.domain'))` group: `/`, plus `/robots.txt` + `/sitemap.xml` at root.
+- `src/Http/Controllers/SiteController.php`: renders `scuttle::site` and serves `robots.txt` / `sitemap.xml` straight from the package's `public/`.
 - `resources/views/site.blade.php` — ported near-verbatim from the static site; asset refs rewritten to `vendor/scuttle/`.
 - `config/scuttle-dev.php` — `domain` via `SCUTTLE_DOMAIN`.
 - `public/` — all site assets (images, qr/, legal/*.pdf, vCard, manifest, robots, sitemap) published to the host's `public/vendor/scuttle`.
 - `.env.example` — documents env vars this package reads (currently just `SCUTTLE_DOMAIN`); all have safe defaults, so it's optional, not required for install. Copy relevant lines into the host app's own `.env`.
 
-## Deferred
-DigitalOcean provisioning, live deploy, and the DNS A-record cutover. See `docs/cutover-runbook.md`.
+## Cutover (done)
+DigitalOcean provisioning, live deploy, and the DNS A-record cutover are done: scuttle.dev is served by the host app from this package (checked 2026-09-27, `/` returns 200 with `vendor/scuttle/` assets). `docs/cutover-runbook.md` is the record of how it was done.
