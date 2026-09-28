@@ -13,6 +13,12 @@ class SiteController
         return view('scuttle::site');
     }
 
+    public function privacy(): View
+    {
+        // @phpstan-ignore argument.type (the scuttle:: namespace is registered at runtime via loadViewsFrom, so it is not resolvable during package-only static analysis)
+        return view('scuttle::privacy');
+    }
+
     public function robots(): Response
     {
         return $this->staticFile('robots.txt', 'text/plain');

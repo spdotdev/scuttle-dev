@@ -13,6 +13,18 @@ class SiteTest extends TestCase
             ->assertSee('Scuttle Development');
     }
 
+    public function test_privacy_page_renders_and_is_linked(): void
+    {
+        $this->get('http://scuttle.dev/privacy')
+            ->assertOk()
+            ->assertSee('Privacyverklaring')
+            ->assertSee('stas@scuttle.dev')
+            ->assertSee('Afmelden');
+
+        $this->get('http://scuttle.dev/')->assertSee('/privacy', false);
+        $this->get('http://scuttle.dev/sitemap.xml')->assertSee('https://scuttle.dev/privacy', false);
+    }
+
     public function test_robots_txt_is_served_at_the_root(): void
     {
         $this->get('http://scuttle.dev/robots.txt')

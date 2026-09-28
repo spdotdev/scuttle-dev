@@ -7,6 +7,7 @@ Route::domain(config('scuttle-dev.domain'))
     ->middleware('web')
     ->group(function () {
         Route::get('/', [SiteController::class, 'index'])->name('scuttle.home');
+        Route::get('/privacy', [SiteController::class, 'privacy'])->name('scuttle.privacy');
 
         // Crawler files served at the site root.
         Route::get('/robots.txt', [SiteController::class, 'robots'])->name('scuttle.robots');

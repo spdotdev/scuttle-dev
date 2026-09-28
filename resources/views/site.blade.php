@@ -451,6 +451,7 @@
         and strategic advice.</p>
       <div class="footer-legal">
         <a href="{{ secure_asset('vendor/scuttle/legal/TERMS_AND_CONDITIONS.pdf') }}" target="_blank" class="footer-legal-link">Terms & Conditions</a>
+        <a href="{{ route('scuttle.privacy') }}" class="footer-legal-link">Privacy</a>
       </div>
       <div class="minimal-footer-meta">
         <span>© 2026 Scuttle Development. All rights reserved.</span>
