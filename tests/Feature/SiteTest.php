@@ -32,6 +32,15 @@ class SiteTest extends TestCase
             ->assertSee('Sitemap:');
     }
 
+    public function test_the_mail_signature_logo_is_served_as_a_png(): void
+    {
+        $response = $this->get('http://scuttle.dev/mail/signature-logo.png')
+            ->assertOk()
+            ->assertHeader('Content-Type', 'image/png');
+
+        $this->assertStringStartsWith("\x89PNG", (string) $response->getContent());
+    }
+
     public function test_sitemap_xml_is_served_at_the_root(): void
     {
         $this->get('http://scuttle.dev/sitemap.xml')

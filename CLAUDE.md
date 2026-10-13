@@ -15,6 +15,7 @@ host-based routing.
 ## Layout
 - `src/ScuttleDevServiceProvider.php` — auto-discovered; loads routes + views, publishes config/assets.
 - `routes/web.php` — `Route::domain(config('scuttle-dev.domain'))` group: `/`, plus `/robots.txt` + `/sitemap.xml` at root.
+  Also `/mail/signature-logo.png`, the small logo in the CRM mail signature (white circle, 96 px), routed so it needs no asset publish on the server.
 - `src/Http/Controllers/SiteController.php`: renders `scuttle::site` and serves `robots.txt` / `sitemap.xml` straight from the package's `public/`.
 - `resources/views/site.blade.php` — ported near-verbatim from the static site; asset refs rewritten to `vendor/scuttle/`.
 - `config/scuttle-dev.php` — `domain` via `SCUTTLE_DOMAIN`.

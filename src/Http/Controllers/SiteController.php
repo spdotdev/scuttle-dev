@@ -29,6 +29,12 @@ class SiteController
         return $this->staticFile('sitemap.xml', 'application/xml');
     }
 
+    public function signatureLogo(): Response
+    {
+        return $this->staticFile('mail/signature-logo.png', 'image/png')
+            ->header('Cache-Control', 'public, max-age=604800');
+    }
+
     /**
      * Serve a shipped static file from the package's public/ directory at the
      * site root (the published vendor path is not at the web root, so crawler
