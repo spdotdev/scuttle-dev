@@ -56,4 +56,34 @@ class SiteTest extends TestCase
             ->assertSee('vendor/scuttle/style.css', false)
             ->assertSee('vendor/scuttle/main.js', false);
     }
+
+    public function test_the_legacy_health_check_page_renders_and_is_linked(): void
+    {
+        $this->get('http://scuttle.dev/legacy-health-check')
+            ->assertOk()
+            ->assertSee('Legacy Health Check')
+            ->assertSee('from EUR 1,600', false)
+            ->assertSee('https://scuttle.dev/legacy-health-check', false);
+
+        $this->get('http://scuttle.dev/')->assertSee('/legacy-health-check', false);
+        $this->get('http://scuttle.dev/sitemap.xml')->assertSee('https://scuttle.dev/legacy-health-check', false);
+    }
+
+    public function test_the_case_study_page_renders_and_links_to_the_health_check(): void
+    {
+        $this->get('http://scuttle.dev/case-studies/phalcon-to-laravel')
+            ->assertOk()
+            ->assertSee('Phalcon to Laravel without downtime')
+            ->assertSee('60%', false)
+            ->assertSee('/legacy-health-check', false);
+
+        $this->get('http://scuttle.dev/sitemap.xml')->assertSee('https://scuttle.dev/case-studies/phalcon-to-laravel', false);
+    }
+
+    public function test_the_new_pages_do_not_name_the_client(): void
+    {
+        $page = (string) $this->get('http://scuttle.dev/case-studies/phalcon-to-laravel')->getContent();
+
+        $this->assertStringNotContainsStringIgnoringCase('hosintra', $page);
+    }
 }

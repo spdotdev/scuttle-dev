@@ -19,6 +19,18 @@ class SiteController
         return view('scuttle::privacy');
     }
 
+    public function healthCheck(): View
+    {
+        // @phpstan-ignore argument.type (the scuttle:: namespace is registered at runtime via loadViewsFrom, so it is not resolvable during package-only static analysis)
+        return view('scuttle::health-check');
+    }
+
+    public function caseStudy(): View
+    {
+        // @phpstan-ignore argument.type (the scuttle:: namespace is registered at runtime via loadViewsFrom, so it is not resolvable during package-only static analysis)
+        return view('scuttle::case-study');
+    }
+
     public function robots(): Response
     {
         return $this->staticFile('robots.txt', 'text/plain');

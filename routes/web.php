@@ -8,6 +8,8 @@ Route::domain(config('scuttle-dev.domain'))
     ->group(function () {
         Route::get('/', [SiteController::class, 'index'])->name('scuttle.home');
         Route::get('/privacy', [SiteController::class, 'privacy'])->name('scuttle.privacy');
+        Route::get('/legacy-health-check', [SiteController::class, 'healthCheck'])->name('scuttle.health-check');
+        Route::get('/case-studies/phalcon-to-laravel', [SiteController::class, 'caseStudy'])->name('scuttle.case-study');
 
         // Crawler files served at the site root.
         Route::get('/robots.txt', [SiteController::class, 'robots'])->name('scuttle.robots');

@@ -95,6 +95,7 @@
     <nav role="navigation" aria-label="Main navigation">
       <ul>
         <li><a href="#services">Services</a></li>
+        <li><a href="{{ route('scuttle.health-check') }}">Health Check</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
@@ -166,7 +167,7 @@
             <h3>Offensive & Defensive Security</h3>
           </div>
           <p class="pillar-tagline">Protecting Your Intellectual Property</p>
-          <p class="pillar-description">Security isn’t an afterthought—it’s a feature. I integrate rigorous testing and
+          <p class="pillar-description">Security isn’t an afterthought, it’s a feature. I integrate rigorous testing and
             analysis into the development lifecycle to ensure your data remains your own.</p>
           <ul class="pillar-bullets">
             <li>Vulnerability Assessments: Deep-dive analysis of application-layer weaknesses.</li>
@@ -306,7 +307,7 @@
           presence. By bridging the gap between local specialized service and global scale, I also connect and partner
           internationally with tech giants to integrate enterprise-grade insights into every project. When you choose
           Scuttle Development, you get personalized attention and tailored solutions without the layers of a
-          traditional agency—whether you need a high-performance web application or strategic technical advice.
+          traditional agency, whether you need a high-performance web application or strategic technical advice.
         </p>
       </div>
     </section>
@@ -507,7 +508,7 @@
       <div
         style="margin-top: 4rem; padding: 2rem; background: rgba(84, 84, 212, 0.05); border-left: 4px solid var(--primary); border-radius: 8px;">
         <h2 style="margin-bottom: 1rem; font-size: 1.75rem;">Why It Matters</h2>
-        <p>In the digital age, your architecture is your foundation. Poor planning leads to "technical debt"—a hidden
+        <p>In the digital age, your architecture is your foundation. Poor planning leads to "technical debt", a hidden
           cost that slows down every future feature and increases maintenance overhead. A strategic blueprint ensures
           that your technology grows <em>with</em> your business, not against it, saving thousands in mid-course
           corrections and lost opportunities.</p>
@@ -546,7 +547,7 @@
       <div
         style="margin-top: 4rem; padding: 2rem; background: rgba(84, 84, 212, 0.05); border-left: 4px solid var(--primary); border-radius: 8px;">
         <h2 style="margin-bottom: 1rem; font-size: 1.75rem;">Why It Matters</h2>
-        <p>Legacy systems are more than just "old code"—they are business risks. They are harder to secure, impossible
+        <p>Legacy systems are more than just "old code", they are business risks. They are harder to secure, impossible
           to scale efficiently, and they alienate top engineering talent. Modernization isn't just about updating
           syntax; it's about reclaiming your team's agility and ensuring your core business logic is ready for the next
           decade of innovation.</p>
@@ -561,7 +562,7 @@
     </div>
     <div style="max-width: 800px; margin: 0 auto; color: var(--text-main); line-height: 1.8;">
       <p style="margin-bottom: 2rem; font-size: 1.2rem;">
-        Security isn’t an afterthought—it’s a feature. In an era of increasing cyber threats, passive
+        Security isn’t an afterthought, it’s a feature. In an era of increasing cyber threats, passive
         defense is no longer enough. I integrate rigorous testing and analysis into every stage of the
         development lifecycle.
       </p>
@@ -586,7 +587,7 @@
       <div
         style="margin-top: 4rem; padding: 2rem; background: rgba(84, 84, 212, 0.05); border-left: 4px solid var(--primary); border-radius: 8px;">
         <h2 style="margin-bottom: 1rem; font-size: 1.75rem;">Why It Matters</h2>
-        <p>The cost of a data breach is no longer just financial—it's existential. With strict regulations like NIS2 and
+        <p>The cost of a data breach is no longer just financial, it's existential. With strict regulations like NIS2 and
           GDPR, security is now a legal mandate. Beyond compliance, robust security is a competitive advantage that
           builds deep trust with your customers. I ensure that your protection is proactive and integrated, not just a
           reactive checkbox.</p>
