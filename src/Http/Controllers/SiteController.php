@@ -41,6 +41,12 @@ class SiteController
         return $this->staticFile('sitemap.xml', 'application/xml');
     }
 
+    public function legal(string $name): Response
+    {
+        return $this->staticFile('legal/'.$name.'.pdf', 'application/pdf')
+            ->header('Content-Disposition', 'inline; filename="'.$name.'.pdf"');
+    }
+
     public function signatureLogo(): Response
     {
         return $this->staticFile('mail/signature-logo.png', 'image/png')

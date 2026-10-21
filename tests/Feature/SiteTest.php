@@ -41,6 +41,18 @@ class SiteTest extends TestCase
         $this->assertStringStartsWith("\x89PNG", (string) $response->getContent());
     }
 
+    public function test_the_legal_pdfs_are_served_under_legal(): void
+    {
+        foreach (['ALGEMENE_VOORWAARDEN', 'TERMS_AND_CONDITIONS', 'GEHEIMHOUDINGSOVEREENKOMST', 'NDA'] as $name) {
+            $response = $this->get('http://scuttle.dev/legal/'.$name.'.pdf')
+                ->assertOk()
+                ->assertHeader('Content-Type', 'application/pdf');
+            $this->assertStringStartsWith('%PDF', (string) $response->getContent());
+        }
+
+        $this->get('http://scuttle.dev/legal/secret.pdf')->assertNotFound();
+    }
+
     public function test_sitemap_xml_is_served_at_the_root(): void
     {
         $this->get('http://scuttle.dev/sitemap.xml')

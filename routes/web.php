@@ -15,6 +15,11 @@ Route::domain(config('scuttle-dev.domain'))
         Route::get('/robots.txt', [SiteController::class, 'robots'])->name('scuttle.robots');
         Route::get('/sitemap.xml', [SiteController::class, 'sitemap'])->name('scuttle.sitemap');
 
+        // General terms and NDA, both languages, at scuttle.dev/legal/<NAME>.pdf.
+        Route::get('/legal/{name}.pdf', [SiteController::class, 'legal'])
+            ->where('name', 'ALGEMENE_VOORWAARDEN|TERMS_AND_CONDITIONS|GEHEIMHOUDINGSOVEREENKOMST|NDA')
+            ->name('scuttle.legal');
+
         // The small logo in the CRM mail signature (sd-crm #612). Routed so it
         // needs no asset publish on the server.
         Route::get('/mail/signature-logo.png', [SiteController::class, 'signatureLogo'])->name('scuttle.mail.signature-logo');
