@@ -3,9 +3,12 @@
 <style>
 body{margin:0;font-family:Geist,sans-serif;background:#e9e9ee;color:#111;padding:32px}
 h1{font-size:18px;font-weight:500;margin:0 0 20px}
+h2{font:500 13px "Geist Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:#555;margin:36px 0 14px;padding-top:24px;border-top:1px solid #cfcfd8}
+h2:first-of-type{border:0;margin-top:0;padding-top:0}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
 .opt{border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 10px 30px -18px rgba(0,0,0,.4)}
 .opt .n{font:500 12px "Geist Mono",monospace;letter-spacing:.08em;text-transform:uppercase;padding:12px 16px;color:#666;display:flex;justify-content:space-between}
+.saved .opt .n span:first-child{color:#5454D4}
 .pair{display:grid;grid-template-columns:1fr 1fr}
 .cell{height:190px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
 .cell.l{background:#f5f5f5;color:#0a0a0a}.cell.d{background:#0b0b0b;color:#f2f2f2}
@@ -14,67 +17,91 @@ h1{font-size:18px;font-weight:500;margin:0 0 20px}
 .wm svg{width:34px;height:22px}
 .small{display:flex;gap:12px;align-items:center;margin-top:4px}
 .small svg{width:22px;height:14px}
+@media(max-width:900px){.grid{grid-template-columns:1fr}body{padding:16px}}
 </style></head><body>
-<h1>Scuttle logo, twenty-two oval ring options, 02 and 04 kept. Each shown on light and dark, large, as wordmark, and at favicon size.</h1>
+<h1>Scuttle logo. Top: the ten saved oval-ring picks. Below: twenty fresh concepts, no oval rings. Each on light and dark, large, as wordmark, and at favicon size.</h1>
 <svg width="0" height="0" style="position:absolute">
  <defs>
   <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5454D4"/><stop offset="1" stop-color="#9A9AF7"/></linearGradient>
   <linearGradient id="g2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5454D4"/><stop offset="1" stop-color="#22D3C5"/></linearGradient>
   <linearGradient id="g3" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#5454D4" stop-opacity=".25"/><stop offset="1" stop-color="#5454D4"/></linearGradient>
   <linearGradient id="g4" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5454D4" stop-opacity="0"/><stop offset=".35" stop-color="#5454D4"/><stop offset="1" stop-color="#9A9AF7"/></linearGradient>
+  <linearGradient id="g5" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#5454D4"/><stop offset="1" stop-color="#9A9AF7"/></linearGradient>
  </defs>
 </svg>
+<h2>Saved picks (04, 09, 10, 13, 14, 15, 17, 18, 20, 23)</h2>
+<div class="grid saved" id="s"></div>
+<h2>Fresh concepts (27 to 46)</h2>
 <div class="grid" id="g"></div>
 <script>
-// every option is drawn in a 140 x 90 box, oval ratio about 1.6 : 1
-var O=[
- ["02 double orbit (kept)","two thin ovals, one tilted",
-  '<ellipse cx="70" cy="45" rx="58" ry="26" fill="none" stroke="url(#g1)" stroke-width="7"/><ellipse cx="70" cy="45" rx="58" ry="26" fill="none" stroke="url(#g1)" stroke-width="7" opacity=".45" transform="rotate(-28 70 45)"/>'],
- ["04 stacked rings (kept)","three ovals stacked, fading downward",
+// every option is drawn in a 140 x 90 box
+var S=[
+ ["04 stacked rings","three ovals stacked, fading downward",
   '<ellipse cx="70" cy="60" rx="54" ry="20" fill="none" stroke="#5454D4" stroke-width="6" opacity=".22"/><ellipse cx="70" cy="46" rx="54" ry="20" fill="none" stroke="#5454D4" stroke-width="6" opacity=".55"/><ellipse cx="70" cy="32" rx="54" ry="20" fill="none" stroke="url(#g1)" stroke-width="6"/>'],
- ["07 orbit, equal weight","two ovals crossing at a sharper angle, same weight, same gradient",
-  '<ellipse cx="70" cy="45" rx="58" ry="24" fill="none" stroke="url(#g1)" stroke-width="7" transform="rotate(14 70 45)"/><ellipse cx="70" cy="45" rx="58" ry="24" fill="none" stroke="url(#g1)" stroke-width="7" transform="rotate(-34 70 45)"/>'],
- ["08 orbit with core","two crossing ovals around a solid dot",
-  '<ellipse cx="70" cy="45" rx="58" ry="24" fill="none" stroke="url(#g1)" stroke-width="6" transform="rotate(12 70 45)"/><ellipse cx="70" cy="45" rx="58" ry="24" fill="none" stroke="url(#g1)" stroke-width="6" opacity=".5" transform="rotate(-30 70 45)"/><circle cx="70" cy="45" r="9" fill="#5454D4"/>'],
  ["09 orbit, one open","one closed oval, one open oval that fades out, like a path still being drawn",
   '<ellipse cx="70" cy="45" rx="58" ry="25" fill="none" stroke="#5454D4" stroke-width="7"/><ellipse cx="70" cy="45" rx="58" ry="25" fill="none" stroke="url(#g4)" stroke-width="7" stroke-linecap="round" transform="rotate(-32 70 45)" stroke-dasharray="230 100"/>'],
  ["10 triple orbit","three thin ovals at 0, 30 and 60 degrees, fading as they turn",
   '<ellipse cx="70" cy="45" rx="58" ry="22" fill="none" stroke="#5454D4" stroke-width="5"/><ellipse cx="70" cy="45" rx="58" ry="22" fill="none" stroke="#5454D4" stroke-width="5" opacity=".55" transform="rotate(-30 70 45)"/><ellipse cx="70" cy="45" rx="58" ry="22" fill="none" stroke="#5454D4" stroke-width="5" opacity=".25" transform="rotate(-60 70 45)"/>'],
- ["11 orbit, thin and thick","one thick oval and one hairline oval tilted across it",
-  '<ellipse cx="70" cy="45" rx="56" ry="27" fill="none" stroke="url(#g1)" stroke-width="11"/><ellipse cx="70" cy="45" rx="60" ry="22" fill="none" stroke="#5454D4" stroke-width="2.5" transform="rotate(-24 70 45)"/>'],
- ["12 orbit, indigo and teal","two crossing ovals, one indigo, one teal, the only two-colour option",
-  '<ellipse cx="70" cy="45" rx="58" ry="24" fill="none" stroke="#5454D4" stroke-width="7" transform="rotate(10 70 45)"/><ellipse cx="70" cy="45" rx="58" ry="24" fill="none" stroke="#22D3C5" stroke-width="7" opacity=".9" transform="rotate(-34 70 45)"/>'],
  ["13 stacked, two rings","two ovals stacked, the top one full, the bottom one a shadow",
   '<ellipse cx="70" cy="56" rx="56" ry="22" fill="none" stroke="#5454D4" stroke-width="7" opacity=".3"/><ellipse cx="70" cy="36" rx="56" ry="22" fill="none" stroke="url(#g1)" stroke-width="7"/>'],
  ["14 stacked, tight coil","four thin ovals close together, like a coil or a spring",
   '<ellipse cx="70" cy="62" rx="52" ry="17" fill="none" stroke="#5454D4" stroke-width="4.5" opacity=".2"/><ellipse cx="70" cy="52" rx="52" ry="17" fill="none" stroke="#5454D4" stroke-width="4.5" opacity=".4"/><ellipse cx="70" cy="42" rx="52" ry="17" fill="none" stroke="#5454D4" stroke-width="4.5" opacity=".65"/><ellipse cx="70" cy="32" rx="52" ry="17" fill="none" stroke="url(#g1)" stroke-width="4.5"/>'],
  ["15 stacked, offset","three ovals stacked and shifted sideways, like layers sliding into place",
   '<ellipse cx="58" cy="60" rx="50" ry="19" fill="none" stroke="#5454D4" stroke-width="6" opacity=".22"/><ellipse cx="66" cy="46" rx="50" ry="19" fill="none" stroke="#5454D4" stroke-width="6" opacity=".55"/><ellipse cx="74" cy="32" rx="50" ry="19" fill="none" stroke="url(#g1)" stroke-width="6"/>'],
- ["16 stacked, top solid","three stacked ovals, the top one a solid filled disc with a gradient",
-  '<ellipse cx="70" cy="62" rx="52" ry="19" fill="none" stroke="#5454D4" stroke-width="6" opacity=".22"/><ellipse cx="70" cy="48" rx="52" ry="19" fill="none" stroke="#5454D4" stroke-width="6" opacity=".5"/><ellipse cx="70" cy="33" rx="52" ry="19" fill="url(#g1)"/>'],
  ["17 stacked, growing","three ovals stacked, each wider than the one above, like a base",
   '<ellipse cx="70" cy="62" rx="58" ry="20" fill="none" stroke="#5454D4" stroke-width="6" opacity=".25"/><ellipse cx="70" cy="47" rx="48" ry="17" fill="none" stroke="#5454D4" stroke-width="6" opacity=".55"/><ellipse cx="70" cy="33" rx="38" ry="14" fill="none" stroke="url(#g1)" stroke-width="6"/>'],
  ["18 stacked, one tilted","two flat stacked ovals with a third one standing across them, stack plus orbit",
   '<ellipse cx="70" cy="58" rx="54" ry="19" fill="none" stroke="#5454D4" stroke-width="6" opacity=".25"/><ellipse cx="70" cy="44" rx="54" ry="19" fill="none" stroke="#5454D4" stroke-width="6" opacity=".55"/><ellipse cx="70" cy="44" rx="54" ry="19" fill="none" stroke="url(#g1)" stroke-width="6" transform="rotate(-32 70 44)"/>'],
- ["19 nested ovals","two ovals one inside the other, outer light, inner strong",
-  '<ellipse cx="70" cy="45" rx="60" ry="32" fill="none" stroke="#5454D4" stroke-width="5" opacity=".3"/><ellipse cx="70" cy="45" rx="40" ry="20" fill="none" stroke="url(#g1)" stroke-width="8"/>'],
  ["20 orbit, gap on both","two crossing ovals, each with a gap where it passes behind the other",
-  '<ellipse cx="70" cy="45" rx="58" ry="24" fill="none" stroke="#5454D4" stroke-width="7" transform="rotate(12 70 45)" stroke-dasharray="150 28 150 28" stroke-dashoffset="-60" stroke-linecap="round"/><ellipse cx="70" cy="45" rx="58" ry="24" fill="none" stroke="url(#g1)" stroke-width="7" transform="rotate(-32 70 45)" stroke-dasharray="150 28 150 28" stroke-dashoffset="20" stroke-linecap="round"/>']
-,
- ["21 orbit, pill","two crossing ovals with very rounded, almost pill-shaped ends, thick stroke",
-  '<rect x="12" y="23" width="116" height="44" rx="22" fill="none" stroke="url(#g1)" stroke-width="8" transform="rotate(12 70 45)"/><rect x="12" y="23" width="116" height="44" rx="22" fill="none" stroke="#5454D4" stroke-width="8" opacity=".45" transform="rotate(-30 70 45)"/>'],
- ["22 orbit, dot on crossing","two thin ovals with a dot where they cross",
-  '<ellipse cx="70" cy="45" rx="58" ry="24" fill="none" stroke="#5454D4" stroke-width="5" transform="rotate(14 70 45)"/><ellipse cx="70" cy="45" rx="58" ry="24" fill="none" stroke="#5454D4" stroke-width="5" opacity=".5" transform="rotate(-34 70 45)"/><circle cx="121" cy="36" r="8" fill="url(#g1)"/>'],
+  '<ellipse cx="70" cy="45" rx="58" ry="24" fill="none" stroke="#5454D4" stroke-width="7" transform="rotate(12 70 45)" stroke-dasharray="150 28 150 28" stroke-dashoffset="-60" stroke-linecap="round"/><ellipse cx="70" cy="45" rx="58" ry="24" fill="none" stroke="url(#g1)" stroke-width="7" transform="rotate(-32 70 45)" stroke-dasharray="150 28 150 28" stroke-dashoffset="20" stroke-linecap="round"/>'],
  ["23 stacked, left to right fade","three stacked ovals that fade from left to right instead of top to bottom",
-  '<ellipse cx="70" cy="60" rx="54" ry="19" fill="none" stroke="url(#g4)" stroke-width="6"/><ellipse cx="70" cy="46" rx="54" ry="19" fill="none" stroke="url(#g4)" stroke-width="6"/><ellipse cx="70" cy="32" rx="54" ry="19" fill="none" stroke="url(#g4)" stroke-width="6"/>'],
- ["24 stacked, hidden lines","three stacked ovals where each lower ring is hidden behind the one above, solid look",
-  '<ellipse cx="70" cy="60" rx="54" ry="19" fill="#f5f5f5" stroke="#5454D4" stroke-width="6" opacity=".35"/><ellipse cx="70" cy="46" rx="54" ry="19" fill="#f5f5f5" stroke="#5454D4" stroke-width="6" opacity=".7"/><ellipse cx="70" cy="32" rx="54" ry="19" fill="#f5f5f5" stroke="url(#g1)" stroke-width="6"/>'],
- ["25 single orbit, gradient sweep","one oval only, tilted, stroke sweeps from dark indigo to light, closed",
-  '<ellipse cx="70" cy="45" rx="58" ry="24" fill="none" stroke="url(#g1)" stroke-width="9" transform="rotate(-22 70 45)"/>'],
- ["26 orbit and stack combined","two flat stacked rings as a base with a tilted orbit ring through them, lighter weight",
-  '<ellipse cx="70" cy="56" rx="50" ry="17" fill="none" stroke="#5454D4" stroke-width="4.5" opacity=".3"/><ellipse cx="70" cy="45" rx="50" ry="17" fill="none" stroke="#5454D4" stroke-width="4.5" opacity=".6"/><ellipse cx="70" cy="45" rx="58" ry="22" fill="none" stroke="url(#g1)" stroke-width="7" transform="rotate(-38 70 45)"/>']];
-
-var g=document.getElementById("g");
-O.forEach(function(o){var svg=function(c){return '<svg viewBox="0 0 140 90" '+(c||'')+'>'+o[2]+'</svg>'};
- g.innerHTML+='<div class="opt"><div class="n"><span>'+o[0]+'</span></div><div class="pair">'+["l","d"].map(function(t){return '<div class="cell '+t+'">'+svg()+'<div class="wm">'+svg()+'Scuttle</div><div class="small">'+svg()+'<span style="font:11px Geist Mono">16 px</span></div></div>'}).join("")+'</div><div class="n" style="text-transform:none;letter-spacing:0;font-family:Geist">'+o[1]+'</div></div>'});
+  '<ellipse cx="70" cy="60" rx="54" ry="19" fill="none" stroke="url(#g4)" stroke-width="6"/><ellipse cx="70" cy="46" rx="54" ry="19" fill="none" stroke="url(#g4)" stroke-width="6"/><ellipse cx="70" cy="32" rx="54" ry="19" fill="none" stroke="url(#g4)" stroke-width="6"/>']
+];
+var N=[
+ ["27 ribbon S","one continuous S stroke with the gradient, the letter of the name",
+  '<path d="M98 22 C98 6 42 6 42 26 C42 46 98 44 98 64 C98 84 42 84 42 68" fill="none" stroke="url(#g1)" stroke-width="9" stroke-linecap="round"/>'],
+ ["28 shell spiral","a nautilus spiral built from half circles, scuttle as in a shell, one stroke",
+  '<path d="M66 45 a6 6 0 0 1 12 0 a12 12 0 0 1 -24 0 a18 18 0 0 1 36 0 a24 24 0 0 1 -48 0 a30 30 0 0 1 60 0" fill="none" stroke="url(#g1)" stroke-width="6" stroke-linecap="round"/>'],
+ ["29 open claw","a C shaped ring with a short upper jaw, the crab reduced to one pincer",
+  '<path d="M96 24 A30 30 0 1 0 96 66" fill="none" stroke="url(#g1)" stroke-width="9" stroke-linecap="round"/><path d="M96 24 Q118 30 120 45" fill="none" stroke="#5454D4" stroke-width="9" stroke-linecap="round" opacity=".45"/>'],
+ ["30 infinity","one continuous figure eight, wide, with the gradient along it",
+  '<path d="M70 45 C70 20 110 20 110 45 C110 70 70 70 70 45 C70 20 30 20 30 45 C30 70 70 70 70 45" fill="none" stroke="url(#g1)" stroke-width="7" stroke-linecap="round"/>'],
+ ["31 chevron stack","three chevrons pointing up, fading downward, the upgrade direction",
+  '<path d="M40 74 L70 54 L100 74" fill="none" stroke="#5454D4" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" opacity=".25"/><path d="M40 56 L70 36 L100 56" fill="none" stroke="#5454D4" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" opacity=".55"/><path d="M40 38 L70 18 L100 38" fill="none" stroke="url(#g1)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>'],
+ ["32 angle brackets","code brackets with a dot in the middle, the developer mark",
+  '<path d="M56 18 L30 45 L56 72" fill="none" stroke="url(#g1)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><path d="M84 18 L110 45 L84 72" fill="none" stroke="url(#g1)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="70" cy="45" r="5.5" fill="#5454D4"/>'],
+ ["33 prompt","a terminal prompt, chevron and underscore",
+  '<path d="M38 20 L68 45 L38 70" fill="none" stroke="url(#g1)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M80 70 L108 70" fill="none" stroke="#5454D4" stroke-width="8" stroke-linecap="round"/>'],
+ ["34 hexagon node","a hexagon outline with a core dot, the systems mark",
+  '<path d="M36 45 L53 15.6 L87 15.6 L104 45 L87 74.4 L53 74.4 Z" fill="none" stroke="url(#g1)" stroke-width="6" stroke-linejoin="round"/><circle cx="70" cy="45" r="7" fill="#5454D4"/>'],
+ ["35 shield","a plain rounded shield outline, the security side",
+  '<path d="M70 10 L104 22 V46 C104 64 88 76 70 82 C52 76 36 64 36 46 V22 Z" fill="none" stroke="url(#g1)" stroke-width="6" stroke-linejoin="round"/>'],
+ ["36 cycle arrow","an oval arrow that almost closes, modernization as a cycle",
+  '<path d="M114 45 A44 26 0 1 1 100 24" fill="none" stroke="url(#g1)" stroke-width="7" stroke-linecap="round"/><path d="M84 22 L101 25 L98 9" fill="none" stroke="#5454D4" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>'],
+ ["37 layered squares","three rounded squares stepping up and to the right, the stack of a system",
+  '<rect x="30" y="38" width="36" height="36" rx="8" fill="none" stroke="#5454D4" stroke-width="5.5" opacity=".25"/><rect x="50" y="27" width="36" height="36" rx="8" fill="none" stroke="#5454D4" stroke-width="5.5" opacity=".55"/><rect x="70" y="16" width="36" height="36" rx="8" fill="none" stroke="url(#g1)" stroke-width="5.5"/>'],
+ ["38 wave","one smooth wave line, the gradient flowing left to right",
+  '<path d="M12 45 C30 8 50 8 70 45 S110 82 128 45" fill="none" stroke="url(#g1)" stroke-width="7" stroke-linecap="round"/>'],
+ ["39 chain","two pill links side by side, the link between old and new",
+  '<rect x="14" y="27" width="66" height="36" rx="18" fill="none" stroke="#5454D4" stroke-width="7" opacity=".45"/><rect x="60" y="27" width="66" height="36" rx="18" fill="none" stroke="url(#g1)" stroke-width="7"/>'],
+ ["40 bridge","one wide arc over a faint baseline, from the old side to the new",
+  '<path d="M22 70 A48 48 0 0 1 118 70" fill="none" stroke="url(#g1)" stroke-width="7" stroke-linecap="round"/><path d="M12 70 L128 70" fill="none" stroke="#5454D4" stroke-width="5" stroke-linecap="round" opacity=".3"/>'],
+ ["41 signal arcs","a dot with three arcs growing out of it, reach and uptime",
+  '<circle cx="44" cy="66" r="6.5" fill="#5454D4"/><path d="M44 44 A22 22 0 0 1 66 66" fill="none" stroke="url(#g1)" stroke-width="6" stroke-linecap="round"/><path d="M44 28 A38 38 0 0 1 82 66" fill="none" stroke="#5454D4" stroke-width="6" stroke-linecap="round" opacity=".55"/><path d="M44 12 A54 54 0 0 1 98 66" fill="none" stroke="#5454D4" stroke-width="6" stroke-linecap="round" opacity=".25"/>'],
+ ["42 slanted bars","three parallel slanted bars, fading, speed and forward motion",
+  '<path d="M36 70 L58 20" stroke="#5454D4" stroke-width="8" stroke-linecap="round" opacity=".25"/><path d="M60 70 L82 20" stroke="#5454D4" stroke-width="8" stroke-linecap="round" opacity=".55"/><path d="M84 70 L106 20" stroke="url(#g5)" stroke-width="8" stroke-linecap="round"/>'],
+ ["43 dot grid","a three by three dot grid that brightens toward the top right",
+  (function(){var s="";[21,45,69].forEach(function(y,j){[46,70,94].forEach(function(x,i){var o=.18+((i+(2-j))/4)*.82;s+='<circle cx="'+x+'" cy="'+y+'" r="6.5" fill="#5454D4" opacity="'+o.toFixed(2)+'"/>'})});return s})()],
+ ["44 steps","three rising bars, the staircase from legacy to current",
+  '<rect x="30" y="56" width="22" height="18" rx="5" fill="#5454D4" opacity=".28"/><rect x="59" y="38" width="22" height="36" rx="5" fill="#5454D4" opacity=".58"/><rect x="88" y="16" width="22" height="58" rx="5" fill="url(#g1)"/>'],
+ ["45 slash and point","one thick slash with a dot after it, the cursor of a shell",
+  '<path d="M48 72 L88 18" stroke="url(#g1)" stroke-width="11" stroke-linecap="round"/><circle cx="108" cy="68" r="7.5" fill="#5454D4"/>'],
+ ["46 soft diamond","a rounded diamond outline with one gap, a gem or a node, kept very light",
+  '<rect x="46" y="21" width="48" height="48" rx="11" fill="none" stroke="url(#g1)" stroke-width="6" transform="rotate(45 70 45)" stroke-dasharray="150 22" stroke-dashoffset="-10" stroke-linecap="round"/>']
+];
+function render(list,id){var g=document.getElementById(id),h="";
+ list.forEach(function(o){var svg=function(){return '<svg viewBox="0 0 140 90">'+o[2]+'</svg>'};
+  h+='<div class="opt"><div class="n"><span>'+o[0]+'</span></div><div class="pair">'+["l","d"].map(function(t){return '<div class="cell '+t+'">'+svg()+'<div class="wm">'+svg()+'Scuttle</div><div class="small">'+svg()+'<span style="font:11px Geist Mono">16 px</span></div></div>'}).join("")+'</div><div class="n" style="text-transform:none;letter-spacing:0;font-family:Geist">'+o[1]+'</div></div>'});
+ g.innerHTML=h}
+render(S,"s");render(N,"g");
 </script></body></html>

@@ -21,4 +21,5 @@ Rules kept in every draft: CSS 3D only (no WebGL), light theme default, EN/NL sw
 (LAYOUT DEMO, DRAFT PRICE, demo-only form) stay until the real site is built.
 | monolith.html | theme 2, from scratch: full-screen dark stage, rotating 3D monolith hero, orbit ring, isometric rack, belt (2026-10-23 evening) |
 | factory.html | theme 3, from scratch after the factory.com reference: light grey, Geist, uppercase hero, live Health Check report panel, logo wall, numbered cards, dark panels, tile grid, case panel (2026-10-23 night) |
-| brand-logo-options.html | six oval-ring logo options, light and dark, wordmark and favicon size (2026-10-23 night) |
+| brand-logo-options.html | logo sheet: ten saved oval-ring picks (04, 09, 10, 13, 14, 15, 17, 18, 20, 23) plus twenty fresh concepts 27 to 46, light and dark, wordmark and favicon size (2026-10-23 night) |
+| logo-saved/*.svg | the ten saved oval-ring logos as standalone SVG files, 140 x 90 viewBox, gradients embedded |
