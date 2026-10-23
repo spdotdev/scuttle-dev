@@ -481,6 +481,7 @@ nav a.active {
 
 /* Commitment Integrated Styling */
 .commitment-integrated {
+  grid-column: 1 / -1;
   padding: 3rem 0 0 0;
   display: flex;
   justify-content: center;
@@ -688,6 +689,11 @@ nav a.active {
     padding: 1.75rem !important;
   }
 
+  .pillar-card {
+    padding: 2rem 1.5rem;
+    min-width: 0;
+  }
+
   .founder-socials {
     flex-wrap: wrap;
     gap: 1rem 1.5rem;
@@ -766,6 +772,9 @@ nav a.active {
 /* Founder Section Styling */
 .founder-card {
   max-width: 900px;
+  width: 100%;
+  grid-column: 1 / -1;
+  justify-self: center;
   margin: 0 auto;
   text-align: left;
   display: flex !important;

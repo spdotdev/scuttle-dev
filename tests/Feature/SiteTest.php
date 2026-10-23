@@ -30,6 +30,14 @@ class SiteTest extends TestCase
         $this->assertStringContainsString('data-service="architecture"', $html);
     }
 
+    public function test_mobile_grids_cannot_grow_wider_than_the_phone(): void
+    {
+        $css = file_get_contents(__DIR__.'/../../public/style.css');
+
+        $this->assertStringContainsString('grid-template-columns: minmax(0, 1fr);', $css);
+        $this->assertStringContainsString('grid-column: 1 / -1;', $css);
+    }
+
     public function test_privacy_page_renders_and_is_linked(): void
     {
         $this->get('http://scuttle.dev/privacy')
