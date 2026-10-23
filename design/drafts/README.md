@@ -20,3 +20,4 @@ They are not part of the shipped site and are never served by the package.
 Rules kept in every draft: CSS 3D only (no WebGL), light theme default, EN/NL switch, demo notices
 (LAYOUT DEMO, DRAFT PRICE, demo-only form) stay until the real site is built.
 | monolith.html | theme 2, from scratch: full-screen dark stage, rotating 3D monolith hero, orbit ring, isometric rack, belt (2026-10-23 evening) |
+| factory.html | theme 3, from scratch after the factory.com reference: light grey, Geist, uppercase hero, live Health Check report panel, logo wall, numbered cards, dark panels, tile grid, case panel (2026-10-23 night) |
