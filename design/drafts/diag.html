@@ -1,0 +1,32 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>3D self-test</title>
+<style>body{font:16px/1.5 system-ui;margin:16px;background:#fff;color:#111}pre{white-space:pre-wrap;word-break:break-word;background:#f2f2f8;padding:12px;border-radius:8px;font-size:13px}canvas{width:320px;height:200px;border:1px solid #ccc;display:block;margin:12px 0}</style></head><body>
+<h1>3D self-test</h1><p>Wait about 5 seconds. The results are sent to Claude automatically. A spinning blue cube should appear below.</p>
+<canvas id="c" width="320" height="200"></canvas><pre id="out">running...</pre>
+<script>
+var R=[],errs=[];
+function add(k,v){R.push(k+": "+v);document.getElementById("out").textContent=R.join("\n")}
+function send(){var s=R.join(" | ")+" | ERRORS: "+errs.join(" ; ");(new Image()).src="/log?"+encodeURIComponent(s)}
+window.onerror=function(m,u,l){errs.push(m+" @"+(u||"").split("/").pop()+":"+l)};
+add("userAgent",navigator.userAgent);
+add("screen",innerWidth+"x"+innerHeight+" dpr "+devicePixelRatio);
+add("reduced motion",matchMedia("(prefers-reduced-motion: reduce)").matches);
+try{
+ var t=document.createElement("canvas"),g2=t.getContext("webgl2"),t2=document.createElement("canvas"),g1=t2.getContext("webgl")||t2.getContext("experimental-webgl");
+ add("webgl2",!!g2);add("webgl1",!!g1);
+ var g=g1||g2;if(g){var e=g.getExtension("WEBGL_debug_renderer_info");add("gpu",e?g.getParameter(e.UNMASKED_RENDERER_WEBGL):"hidden")}
+}catch(e){add("webgl error",e.message)}
+function load(u,name,cb){var s=document.createElement("script");s.src=u;s.onload=function(){add(name,"loaded");if(cb)cb()};s.onerror=function(){add(name,"FAILED to load")};document.head.appendChild(s)}
+load("https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js","three.js (cdnjs)",function(){
+ try{
+  var r=new THREE.WebGLRenderer({canvas:document.getElementById("c"),antialias:true});r.setSize(320,200,false);
+  var sc=new THREE.Scene(),cam=new THREE.PerspectiveCamera(40,1.6,.1,50);cam.position.z=4;
+  sc.add(new THREE.HemisphereLight(0xffffff,0x444466,1.2));
+  var m=new THREE.Mesh(new THREE.BoxGeometry(1.5,1.5,1.5),new THREE.MeshStandardMaterial({color:0x5454d4}));sc.add(m);
+  (function f(){m.rotation.x+=.02;m.rotation.y+=.03;r.render(sc,cam);requestAnimationFrame(f)})();
+  add("three render","cube drawn");
+ }catch(e){add("three render","ERROR "+e.message)}
+});
+load("https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js","gsap");
+load("https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js","lenis (jsdelivr)");
+setTimeout(function(){add("page url",location.href);send()},4500);
+</script></body></html>
