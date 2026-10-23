@@ -21,21 +21,38 @@ class SiteTest extends TestCase
             ->assertDontSee('Built with');
     }
 
-    public function test_service_links_do_not_point_at_missing_pages_and_home_has_one_h1(): void
+    public function test_home_has_one_h1_the_vcard_and_the_qr_code_and_no_map(): void
     {
         $html = $this->get('http://scuttle.dev/')->assertOk()->getContent();
 
-        $this->assertStringNotContainsString('/services/', $html);
         $this->assertSame(1, substr_count($html, '<h1'));
-        $this->assertStringContainsString('data-service="architecture"', $html);
+        $this->assertStringContainsString('vendor/scuttle/scuttledev.vcf', $html);
+        $this->assertStringContainsString('vendor/scuttle/qr/svg/My_QR_Code_1-4096.svg', $html);
+        $this->assertStringContainsString('id="qr-modal"', $html);
+        $this->assertStringNotContainsString('maps.google', $html);
+        $this->assertStringNotContainsString('<iframe', $html);
+        $this->assertStringNotContainsString('/services/', $html);
+    }
+
+    public function test_home_shows_only_confirmed_facts(): void
+    {
+        $html = $this->get('http://scuttle.dev/')->assertOk()->getContent();
+
+        $this->assertStringContainsString('KvK 96040947', $html);
+        $this->assertStringContainsString('NL005184584B85', $html);
+        $this->assertStringContainsString('from €1,600', $html);
+        $this->assertStringContainsString('€90 per hour', $html);
+        $this->assertStringNotContainsStringIgnoringCase('draft', $html);
+        $this->assertStringNotContainsStringIgnoringCase('hosintra', $html);
+        $this->assertStringNotContainsString('hello@scuttle.dev', $html);
     }
 
     public function test_mobile_grids_cannot_grow_wider_than_the_phone(): void
     {
-        $css = file_get_contents(__DIR__.'/../../public/style.css');
+        $css = file_get_contents(__DIR__.'/../../public/site.css');
 
-        $this->assertStringContainsString('grid-template-columns: minmax(0, 1fr);', $css);
-        $this->assertStringContainsString('grid-column: 1 / -1;', $css);
+        $this->assertStringContainsString('grid-template-columns:minmax(0,1fr)', $css);
+        $this->assertStringContainsString('overflow-x:clip', $css);
     }
 
     public function test_privacy_page_renders_and_is_linked(): void
@@ -85,13 +102,16 @@ class SiteTest extends TestCase
             ->assertSee('<urlset', false);
     }
 
-    public function test_page_links_namespaced_css_and_js(): void
+    public function test_every_page_links_the_shared_stylesheet_script_and_logo(): void
     {
-        // The static site bundled style.css + main.js via Vite; the package
-        // serves them as assets. Guard against dropping the stylesheet/script.
-        $this->get('http://scuttle.dev/')
-            ->assertSee('vendor/scuttle/style.css', false)
-            ->assertSee('vendor/scuttle/main.js', false);
+        foreach (['/', '/privacy', '/legacy-health-check', '/case-studies/phalcon-to-laravel'] as $path) {
+            $this->get('http://scuttle.dev'.$path)
+                ->assertOk()
+                ->assertSee('vendor/scuttle/site.css', false)
+                ->assertSee('vendor/scuttle/site.js', false)
+                ->assertSee('vendor/scuttle/logo.svg', false)
+                ->assertSee('vendor/scuttle/icon.svg', false);
+        }
     }
 
     public function test_the_legacy_health_check_page_renders_and_is_linked(): void
@@ -110,7 +130,7 @@ class SiteTest extends TestCase
     {
         $this->get('http://scuttle.dev/case-studies/phalcon-to-laravel')
             ->assertOk()
-            ->assertSee('Phalcon to Laravel without downtime')
+            ->assertSee('Phalcon to Laravel, module by module')
             ->assertSee('60%', false)
             ->assertSee('/legacy-health-check', false);
 
@@ -122,5 +142,7 @@ class SiteTest extends TestCase
         $page = (string) $this->get('http://scuttle.dev/case-studies/phalcon-to-laravel')->getContent();
 
         $this->assertStringNotContainsStringIgnoringCase('hosintra', $page);
+        $this->assertStringNotContainsStringIgnoringCase('zero downtime', $page);
+        $this->assertStringNotContainsString('0</b> minutes', $page);
     }
 }

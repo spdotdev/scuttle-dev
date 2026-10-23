@@ -1,32 +1,12 @@
-<!doctype html>
-<html lang="nl">
+@extends('scuttle::layout')
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Privacyverklaring | Scuttle Development</title>
-  <meta name="description" content="Welke gegevens Scuttle Development gebruikt, waarom, en hoe u zich afmeldt of uw gegevens laat verwijderen." />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://scuttle.dev/privacy" />
-  <meta name="theme-color" content="#5454D4" />
-  <link rel="icon" type="image/png" sizes="32x32" href="{{ secure_asset('vendor/scuttle/favicon-32x32.png') }}" />
-  <style>
-    :root { color-scheme: dark; }
-    body { margin: 0; background: #111118; color: #d8d8e4; font: 16px/1.65 system-ui, -apple-system, "Segoe UI", sans-serif; }
-    main { max-width: 760px; margin: 0 auto; padding: 48px 20px 64px; }
-    a { color: #8f8ff0; }
-    h1 { color: #fff; font-size: 2rem; margin: 0 0 4px; }
-    h2 { color: #fff; font-size: 1.2rem; margin: 32px 0 8px; }
-    .updated { color: #8a8a9c; font-size: .9rem; margin: 0 0 24px; }
-    ul { padding-left: 1.2em; }
-    .back { display: inline-block; margin-bottom: 24px; }
-    .en { margin-top: 48px; padding-top: 24px; border-top: 1px solid #2a2a38; color: #a8a8b8; }
-  </style>
-</head>
+@section('lang', 'nl')
+@section('title', 'Privacyverklaring')
+@section('description', 'Welke gegevens Scuttle Development gebruikt, waarom, en hoe u zich afmeldt of uw gegevens laat verwijderen.')
+@section('canonical', 'https://scuttle.dev/privacy')
 
-<body>
-  <main>
-    <a class="back" href="{{ route('scuttle.home') }}">&larr; scuttle.dev</a>
+@section('content')
+<article class="wrap page">
     <h1>Privacyverklaring</h1>
     <p class="updated">Laatst bijgewerkt: 28 september 2026</p>
 
@@ -90,7 +70,5 @@
         information). The "rclone" Google Cloud app only copies my own backups to my own Google Drive. This site sets no
         tracking or analytics cookies.</p>
     </div>
-  </main>
-</body>
-
-</html>
+</article>
+@endsection

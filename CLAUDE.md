@@ -17,7 +17,8 @@ host-based routing.
 - `routes/web.php` — `Route::domain(config('scuttle-dev.domain'))` group: `/`, plus `/robots.txt` + `/sitemap.xml` at root.
   Also `/mail/signature-logo.png`, the small logo in the CRM mail signature (white circle, 96 px), routed so it needs no asset publish on the server.
 - `src/Http/Controllers/SiteController.php`: renders `scuttle::site` and serves `robots.txt` / `sitemap.xml` straight from the package's `public/`.
-- `resources/views/site.blade.php` — ported near-verbatim from the static site; asset refs rewritten to `vendor/scuttle/`.
+- `resources/views/layout.blade.php` — shared shell (nav, EN/NL switch on the home page, theme button, footer, Dutch strings for the shell); every page extends it. `resources/views/site.blade.php` — the home page in the factory-style theme (light first, Geist, logo 37 "layered squares"); its Dutch strings are pushed into the `nl` stack. Sub pages (`health-check`, `case-study`, `privacy`) use the `.page` article styles.
+- `public/site.css` + `public/site.js` — the only stylesheet and script. `public/logo.svg` (wide mark), `public/icon.svg` (square mark, source of the favicons), `public/portrait.jpg`, `public/og-image.png`. Logo drafts live in `design/drafts/`.
 - `config/scuttle-dev.php` — `domain` via `SCUTTLE_DOMAIN`.
 - `public/` — all site assets (images, qr/, legal/*.pdf, vCard, manifest, robots, sitemap) published to the host's `public/vendor/scuttle`.
 - `.env.example` — documents env vars this package reads (currently just `SCUTTLE_DOMAIN`); all have safe defaults, so it's optional, not required for install. Copy relevant lines into the host app's own `.env`.
