@@ -216,16 +216,11 @@ if (serviceModal && serviceModalBody && closeServiceBtn && serviceOverlay) {
 
   serviceLinks.forEach(link => {
     link.addEventListener('click', (e) => {
-      const href = link.getAttribute('href');
-      let templateId = '';
-
-      if (href.includes('strategic-solution-architecture')) {
-        templateId = 'service-template-architecture';
-      } else if (href.includes('application-modernization')) {
-        templateId = 'service-template-modernization';
-      } else if (href.includes('offensive-defensive-security')) {
-        templateId = 'service-template-security';
-      }
+      const templateId = {
+        architecture: 'service-template-architecture',
+        modernization: 'service-template-modernization',
+        security: 'service-template-security',
+      }[link.dataset.service] || '';
 
       if (templateId) {
         const template = document.getElementById(templateId);

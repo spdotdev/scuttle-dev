@@ -677,7 +677,20 @@ nav a.active {
   }
 
   .services-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .card {
+    padding: 1.75rem;
+  }
+
+  .founder-card {
+    padding: 1.75rem !important;
+  }
+
+  .founder-socials {
+    flex-wrap: wrap;
+    gap: 1rem 1.5rem;
   }
 
   /* Mobile Footer: 2x2 Grid */
@@ -1052,7 +1065,7 @@ nav a.active {
 
 @media (max-width: 992px) {
   .contact-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 

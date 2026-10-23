@@ -21,6 +21,15 @@ class SiteTest extends TestCase
             ->assertDontSee('Built with');
     }
 
+    public function test_service_links_do_not_point_at_missing_pages_and_home_has_one_h1(): void
+    {
+        $html = $this->get('http://scuttle.dev/')->assertOk()->getContent();
+
+        $this->assertStringNotContainsString('/services/', $html);
+        $this->assertSame(1, substr_count($html, '<h1'));
+        $this->assertStringContainsString('data-service="architecture"', $html);
+    }
+
     public function test_privacy_page_renders_and_is_linked(): void
     {
         $this->get('http://scuttle.dev/privacy')

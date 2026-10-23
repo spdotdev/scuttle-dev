@@ -141,7 +141,7 @@
             <li>Stack Selection: Objective, vendor-neutral technology audits.</li>
             <li>System Interoperability: Designing robust API layers to connect disparate business tools.</li>
           </ul>
-          <a href="/services/strategic-solution-architecture.html" class="pillar-link">Learn More
+          <a href="#services" data-service="architecture" class="pillar-link">Learn More
             <span>&rarr;</span></a>
         </article>
 
@@ -158,7 +158,7 @@
             <li>Infrastructure as Code (IaC): Automating your environment for consistency and speed.</li>
             <li>Technical Debt Liquidation: Systematic refactoring to increase feature delivery speed.</li>
           </ul>
-          <a href="/services/application-modernization.html" class="pillar-link">Learn More <span>&rarr;</span></a>
+          <a href="#services" data-service="modernization" class="pillar-link">Learn More <span>&rarr;</span></a>
         </article>
 
         <!-- Pillar 3: Offensive & Defensive Security -->
@@ -174,7 +174,7 @@
             <li>DevSecOps Implementation: Embedding automated security gates into your CI/CD pipelines.</li>
             <li>Compliance Engineering: Aligning your technical infrastructure with NIS2, GDPR, and DORA standards.</li>
           </ul>
-          <a href="/services/offensive-defensive-security.html" class="pillar-link">Learn More <span>&rarr;</span></a>
+          <a href="#services" data-service="security" class="pillar-link">Learn More <span>&rarr;</span></a>
         </article>
       </div>
     </section>
@@ -475,7 +475,7 @@
   <!-- Service Templates -->
   <template id="service-template-architecture">
     <div class="section-header">
-      <h1>Strategic Solution Architecture</h1>
+      <h2>Strategic Solution Architecture</h2>
       <p class="pillar-tagline" style="font-size: 1.5rem; margin-top: 1rem;">Building the Blueprint for Growth</p>
     </div>
     <div style="max-width: 800px; margin: 0 auto; color: var(--text-main); line-height: 1.8;">
@@ -515,7 +515,7 @@
 
   <template id="service-template-modernization">
     <div class="section-header">
-      <h1>Application Modernization</h1>
+      <h2>Application Modernization</h2>
       <p class="pillar-tagline" style="font-size: 1.5rem; margin-top: 1rem;">Legacy Transformation without the Downtime
       </p>
     </div>
@@ -554,7 +554,7 @@
 
   <template id="service-template-security">
     <div class="section-header">
-      <h1>Offensive & Defensive Security</h1>
+      <h2>Offensive & Defensive Security</h2>
       <p class="pillar-tagline" style="font-size: 1.5rem; margin-top: 1rem;">Protecting Your Intellectual Property</p>
     </div>
     <div style="max-width: 800px; margin: 0 auto; color: var(--text-main); line-height: 1.8;">
