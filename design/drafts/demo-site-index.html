@@ -1,0 +1,29 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Scuttle Design Options</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+:root{--bg:#f6f6fb;--card:#fff;--fg:#12121f;--muted:#5b5d76;--line:#e0e1ee;--accent:#4545b5;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f0f17;--card:#1a1a26;--fg:#f1f1f9;--muted:#a8aac2;--line:#2a2b3d;--accent:#a0a0ff;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0f0f17;--card:#1a1a26;--fg:#f1f1f9;--muted:#a8aac2;--line:#2a2b3d;--accent:#a0a0ff;color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font:17px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:32px}
+main{max-width:760px;margin:0 auto}
+h1{font-size:clamp(2rem,6vw,3rem);line-height:1.05;margin:0 0 10px;text-wrap:balance}
+p{color:var(--muted);margin:0 0 14px}
+.grid{display:grid;gap:14px;margin:26px 0}
+a.card{display:block;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;text-decoration:none;color:var(--fg);min-width:0}
+a.card:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+a.card b{font-size:1.25rem;display:block;margin-bottom:4px}a.card span{color:var(--muted);display:block}
+a.card em{font-style:normal;color:var(--accent);font-weight:600;display:block;margin-top:10px}
+ul{color:var(--muted);padding-left:20px}
+</style></head><body><p style="margin:0 0 24px"><a href="/modern.html" style="font:600 18px system-ui;color:#fff;background:#5454d4;padding:14px 22px;border-radius:999px;display:inline-block">New: the professional design (modern.html)</a></p>
+<main>
+<h1>3D for scuttle.dev</h1>
+<p>All three have a light theme by default, a theme button, an EN and NL language button and the same menu on every part of the page. Content is sample data. Quotes are placeholders until each client agrees.</p>
+<div class="grid">
+<a class="card" href="crab.html"><b>1. Crab character</b><span>A 3D crab walks sideways down the page as you scroll. It lifts out an end-of-life PHP block, turns a gear and locks a padlock.</span><em>Open 1</em></a>
+<a class="card" href="rebuild.html"><b>2. Rebuild</b><span>About 2,800 blocks form an old, crooked, rusty tower. They break loose, swirl, and reassemble into a clean indigo tower as you scroll.</span><em>Open 2</em></a>
+<a class="card" href="tunnel.html"><b>3. Fly through the stack</b><span>You fly forward through a tunnel. Red gates (OS, database, PHP, code) turn indigo as you pass, ending at a padlock.</span><em>Open 3</em></a>
+</div>
+<p>A, B and C are flat scroll effects. D is the real 3D one.</p><p>What to try on your iPhone: scroll slowly, tap the menu button, tap NL, tap the half-circle theme button, then turn the phone sideways.</p>
+<ul><li>Health Check price shown: EUR 1,080 excl. VAT, about 12 hours (draft, not final).</li><li>Motion: Three.js (3D), GSAP ScrollTrigger and Lenis. Switched off for visitors who set "reduce motion".</li></ul>
+</main>
+</body></html>

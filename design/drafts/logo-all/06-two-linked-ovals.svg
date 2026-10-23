@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 90"><defs>
+  <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5454D4"/><stop offset="1" stop-color="#9A9AF7"/></linearGradient>
+  <linearGradient id="g2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5454D4"/><stop offset="1" stop-color="#22D3C5"/></linearGradient>
+  <linearGradient id="g3" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#5454D4" stop-opacity=".25"/><stop offset="1" stop-color="#5454D4"/></linearGradient>
+  <linearGradient id="g4" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5454D4" stop-opacity="0"/><stop offset=".35" stop-color="#5454D4"/><stop offset="1" stop-color="#9A9AF7"/></linearGradient>
+ </defs><ellipse cx="52" cy="38" rx="42" ry="24" fill="none" stroke="url(#g1)" stroke-width="8" transform="rotate(-20 52 38)"/><ellipse cx="88" cy="52" rx="42" ry="24" fill="none" stroke="url(#g1)" stroke-width="8" opacity=".6" transform="rotate(-20 88 52)"/></svg>

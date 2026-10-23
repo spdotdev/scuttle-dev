@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Scuttle Design E</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@500;700&family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: editorial light page, one pinned legacy-to-modern scene, crab riding a progress line */
+:root{--bg:#fbfbfe;--card:#ffffff;--fg:#11111d;--muted:#5a5a70;--line:#e3e3f0;--accent:#4545b5;--accent-soft:#ececfb;--bad:#c0392b;--good:#1f7a4d;--code:#f3f3fb;
+--display:"Crimson Pro",Georgia,serif;--body:"Inter",system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111118;--card:#1c1c24;--fg:#f2f2f8;--muted:#a9a9bd;--line:#2c2c3a;--accent:#9a9aff;--accent-soft:#25254a;--bad:#ff7a6b;--good:#5fd39b;--code:#17171f;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#111118;--card:#1c1c24;--fg:#f2f2f8;--muted:#a9a9bd;--line:#2c2c3a;--accent:#9a9aff;--accent-soft:#25254a;--bad:#ff7a6b;--good:#5fd39b;--code:#17171f;color-scheme:dark}
+*{box-sizing:border-box}html{scroll-behavior:auto}
+body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.6 var(--body);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));overflow-x:hidden}
+.wrap{max-width:1080px;margin:0 auto}
+h1,h2,h3{font-family:var(--display);line-height:1.05;margin:0;text-wrap:balance}
+a{color:var(--accent)}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);margin:0 calc(-1*max(16px,env(safe-area-inset-left,0px)))}
+.nav-in{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:20px;padding:10px max(16px,env(safe-area-inset-left,0px))}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;text-decoration:none;color:var(--fg)}
+.brand img{width:34px;height:34px}
+.links{display:flex;gap:22px;margin-left:auto}
+.links a{color:var(--fg);text-decoration:none;font-size:15px;font-weight:600}
+.links a:hover{color:var(--accent)}
+.ctl{display:flex;gap:8px}
+.ctl button{border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:10px;min-width:40px;height:40px;font:600 13px var(--body);cursor:pointer}
+.ctl button:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+@media (max-width:760px){.links{display:none}.ctl{margin-left:auto}}
+.hero{padding:clamp(48px,9vw,120px) 0 clamp(40px,6vw,80px)}
+.hero h1{font-size:clamp(2.8rem,8vw,6rem);font-weight:700;max-width:14ch}
+.hero p{max-width:52ch;color:var(--muted);font-size:1.15rem;margin:24px 0 32px}
+.btn{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;font-weight:600;padding:14px 22px;border-radius:12px}
+:root[data-theme="dark"] .btn{color:#11111d}
+.eyebrow{font:500 12px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+/* services */
+.svc{padding:90px 0;border-top:1px solid var(--line)}
+.svc h2{font-size:clamp(2rem,5vw,3.4rem);margin-bottom:34px}
+.row{display:grid;grid-template-columns:1fr 2fr;gap:24px;padding:26px 0;border-top:1px solid var(--line)}
+.row h3{font-size:1.9rem}.row p{margin:0;color:var(--muted);max-width:60ch}
+@media (max-width:760px){.row{grid-template-columns:1fr;gap:8px}}
+/* health check */
+.check{margin:0 calc(-1*max(16px,env(safe-area-inset-left,0px)));padding:90px max(16px,env(safe-area-inset-left,0px));background:var(--accent-soft)}
+.check-in{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1.2fr 1fr;gap:40px}
+@media (max-width:860px){.check-in{grid-template-columns:1fr}}
+.check h2{font-size:clamp(2rem,5vw,3.4rem);margin-bottom:14px}
+.check ul{padding-left:20px;margin:18px 0}
+.price{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px;align-self:start}
+.price b{display:block;font:700 3.2rem/1 var(--display);margin:6px 0}
+.price small{color:var(--muted)}
+/* clients */
+.clients{padding:90px 0;border-top:1px solid var(--line)}
+.clients h2{font-size:clamp(2rem,5vw,3.4rem)}.lede{color:var(--muted);max-width:60ch}
+.cl-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:28px 0}
+.q{margin:0;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;min-width:0}
+.q blockquote{margin:14px 0;font:500 1.35rem/1.3 var(--display)}
+.q figcaption{color:var(--muted);font-size:14px}
+.tag{font:500 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;border:1px dashed var(--accent);color:var(--accent);border-radius:999px;padding:2px 10px}
+.case{display:block;border:1px solid var(--line);border-radius:14px;padding:20px;text-decoration:none;color:var(--fg);background:var(--card)}
+.case span{display:block;color:var(--muted)}
+/* footer */
+.foot{border-top:1px solid var(--line);padding:46px 0 80px;margin-top:40px}
+.foot-in{display:grid;grid-template-columns:1.4fr 1fr;gap:30px}
+.foot p{margin:4px 0;color:var(--muted);font-size:15px}.demo{grid-column:1/-1;font:12px var(--mono)}
+@media (max-width:760px){.foot-in{grid-template-columns:1fr}}
+
+/* 3D story: a fixed stage with a WebGL canvas, text sections scroll over it */
+#story{position:relative}
+.stage{position:sticky;top:0;height:100svh;margin-bottom:-100svh;z-index:0;pointer-events:none}
+.stage canvas{width:100%;height:100%;display:block}
+.act{position:relative;z-index:1;min-height:100svh;display:flex;align-items:center;padding:90px 0}
+.act .box{max-width:520px;background:color-mix(in srgb,var(--bg) 78%,transparent);backdrop-filter:blur(8px);border-radius:18px;padding:6px 0}
+.act.right .box{margin-left:auto}
+.act h1,.act h2{font-size:clamp(2.6rem,7vw,5.2rem);font-weight:700}
+.act p{color:var(--muted);font-size:1.1rem;margin:20px 0 26px}
+.layers{list-style:none;margin:0 0 22px;padding:0;display:grid;gap:8px}
+.layers li{display:flex;gap:12px;align-items:center;font:500 14px var(--mono)}
+.dot{width:12px;height:12px;border-radius:3px;background:var(--bad)}
+.dot.ok{background:var(--accent)}
+.static .stage{display:none}
+.static .act .box{background:transparent}
+@media (max-width:760px){.act{align-items:flex-end;padding:90px 0 60px}.act .box{background:color-mix(in srgb,var(--bg) 88%,transparent);padding:18px;border:1px solid var(--line)}.act.right .box{margin-left:0}}
+
+.c3{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;perspective:1000px;overflow:hidden}
+.c3g{position:absolute;transform-style:preserve-3d;width:min(46vw,300px);aspect-ratio:1}
+.c3g .face{position:absolute;inset:0;backface-visibility:hidden;border-radius:50%;background:#fff;box-shadow:0 20px 50px rgba(69,69,181,.4);display:flex;align-items:center;justify-content:center;border:10px solid #5454d4}
+.c3g .back{transform:rotateY(180deg)}.c3g .face img{width:78%;height:78%}
+#c3stack{transform-style:preserve-3d;transform:rotateX(60deg)}
+#c3stack .sl{position:absolute;inset:0;border:2px solid rgba(255,255,255,.6);border-radius:10px;opacity:.94}
+#story{background:#0e0e1a;color:#f2f2f8}#story .act h1,#story .act h2{color:#f2f2f8}#story .act p{color:#b9bad0}#story .act .box{background:rgba(14,14,26,.55)}#story .eyebrow{color:#a0a0ff}
+.c3 .lap{position:absolute;width:min(78vw,720px);aspect-ratio:16/10;transform-style:preserve-3d;perspective:none}
+.c3 .scr{position:absolute;inset:0;background-size:100% auto;background-repeat:no-repeat;border:10px solid #c9ccd8;border-radius:14px;box-shadow:0 30px 70px rgba(0,0,0,.5)}
+.after{position:relative;z-index:2;background:var(--bg)}
+</style></head><body>
+<nav><div class="nav-in"><a class="brand" href="#top"><img alt="" width="34" height="34" src="data:image/png;base64,@@LOGO@@">Scuttle</a>
+<div class="links"><a href="#services" data-i="n_services">Services</a><a href="#check" data-i="n_check">Health Check</a><a href="#clients" data-i="n_clients">Clients</a><a href="#contact" data-i="n_about">About</a><a href="#contact" data-i="n_contact">Contact</a></div>
+<div class="ctl"><button id="menu" class="mbtn" type="button" aria-label="Menu" aria-expanded="false">&#9776;</button><button id="lang" type="button">NL</button><button id="theme" type="button" aria-label="Toggle theme">&#9680;</button></div></div></nav>
+<main id="top">
+<div id="story"><div class="stage" aria-hidden="true"><canvas id="gl"></canvas></div>
+<div class="wrap">
+<section class="act" id="a1"><div class="box"><div class="eyebrow">Eindhoven / legacy PHP</div><h1 data-i="h1">Legacy PHP, modernized with care.</h1><p data-i="sub">I modernize and secure old PHP systems.</p><a class="btn" href="#check" data-i="cta">Book a Legacy Health Check</a></div></section>
+<section class="act right" id="a2"><div class="box"><div class="eyebrow">Open it up</div><h2>Sites and systems built to last.</h2><p>Fast pages, secure code, and a stack that is still supported in five years.</p></div></section>
+<section class="act" id="a3"><div class="box"><div class="eyebrow">Scroll on</div><h2>See the new Scuttle site.</h2><p>Services, the Legacy Health Check and what clients say, below.</p></div></section>
+<section class="act" id="a4" style="min-height:70svh"></section>
+</div></div>
+<div class="after"><div class="wrap">
+<section class="svc" id="services"><h2>Services</h2>
+<div class="row"><h3>Strategic Solution Architecture</h3><p>Blueprints for systems that have to grow: what to keep, what to replace, in which order.</p></div>
+<div class="row"><h3>Application Modernization</h3><p>Old PHP to a supported stack in planned steps, with the old system running until the new one has proven itself.</p></div>
+<div class="row"><h3>Offensive &amp; Defensive Security</h3><p>Code and configuration review, hardening, and tests that you have authorized in writing.</p></div></section></div>
+<section class="check" id="check"><div class="check-in"><div><div class="eyebrow">Legacy Health Check</div><h2>Know where your old system stands.</h2>
+<p>A fixed-scope review of an existing PHP application. You get a written report you can act on.</p>
+<ul><li>Inventory of PHP, framework, database and OS versions</li><li>End-of-life check for every layer</li><li>Dependency audit (composer audit)</li><li>Security review of code and configuration</li><li>Upgrade roadmap with order and effort</li></ul></div>
+<div class="price"><small>Fixed price, draft</small><b>EUR 1,080</b><small>excl. VAT, about 12 hours at EUR 90 per hour</small></div></div></section>
+<div class="wrap" id="contact">@@CLIENTS@@</div>
+@@FOOT@@
+</div></main>
+<script>window.I18N_EXTRA={en:{h1:"Legacy PHP, modernized with care.",sub:"I modernize and secure old PHP systems. One developer, direct contact, EUR 90 per hour excl. VAT."},nl:{h1:"Legacy PHP, zorgvuldig gemoderniseerd.",sub:"Ik moderniseer en beveilig oude PHP-systemen. Eén ontwikkelaar, direct contact, EUR 90 per uur excl. btw."}};</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js"></script>
+<script>@@SHARED@@</script>
+<script>@@SCENEE@@</script>
+</body></html>

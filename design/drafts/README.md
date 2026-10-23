@@ -23,3 +23,6 @@ Rules kept in every draft: CSS 3D only (no WebGL), light theme default, EN/NL sw
 | factory.html | theme 3, from scratch after the factory.com reference: light grey, Geist, uppercase hero, live Health Check report panel, logo wall, numbered cards, dark panels, tile grid, case panel (2026-10-23 night) |
 | brand-logo-options.html | logo sheet: sixteen saved picks (04, 09, 10, 13, 14, 15, 17, 18, 20, 23, 37, 38, 42, 43, 45, 46) on top, the other fresh concepts below, light and dark, wordmark and favicon size (2026-10-23 night) |
 | logo-saved/*.svg | the sixteen saved logos (ten oval-ring, six fresh) as standalone SVG files, 140 x 90 viewBox, gradients embedded |
+| logo-all/*.svg | every logo option ever shown, 01 to 46, as standalone SVG files (01, 03, 05, 06 from the first six; 02 to 26 oval rings; 27 to 46 fresh concepts) |
+| demo-webgl/ | the WebGL story demos (a to e, out-a to out-e, index, clients, footer) and their scene scripts, rejected 2026-10-23 |
+| demo-site-index.html | the index page of the throwaway demo server |

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 90"><defs>
+  <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5454D4"/><stop offset="1" stop-color="#9A9AF7"/></linearGradient>
+  <linearGradient id="g2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5454D4"/><stop offset="1" stop-color="#22D3C5"/></linearGradient>
+  <linearGradient id="g3" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#5454D4" stop-opacity=".25"/><stop offset="1" stop-color="#5454D4"/></linearGradient>
+  <linearGradient id="g4" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5454D4" stop-opacity="0"/><stop offset=".35" stop-color="#5454D4"/><stop offset="1" stop-color="#9A9AF7"/></linearGradient>
+  <linearGradient id="g5" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#5454D4"/><stop offset="1" stop-color="#9A9AF7"/></linearGradient>
+ </defs><path d="M66 45 a6 6 0 0 1 12 0 a12 12 0 0 1 -24 0 a18 18 0 0 1 36 0 a24 24 0 0 1 -48 0 a30 30 0 0 1 60 0" fill="none" stroke="url(#g1)" stroke-width="6" stroke-linecap="round"/></svg>

@@ -1,0 +1,29 @@
+<title>Scuttle Design Options</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+:root{--bg:#f6f6fb;--card:#fff;--fg:#12121f;--muted:#5b5d76;--line:#e0e1ee;--accent:#4545b5;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f0f17;--card:#1a1a26;--fg:#f1f1f9;--muted:#a8aac2;--line:#2a2b3d;--accent:#a0a0ff;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0f0f17;--card:#1a1a26;--fg:#f1f1f9;--muted:#a8aac2;--line:#2a2b3d;--accent:#a0a0ff;color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font:17px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:32px}
+main{max-width:760px;margin:0 auto}
+h1{font-size:clamp(2rem,6vw,3rem);line-height:1.05;margin:0 0 10px;text-wrap:balance}
+p{color:var(--muted);margin:0 0 14px}
+.grid{display:grid;gap:14px;margin:26px 0}
+a.card{display:block;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;text-decoration:none;color:var(--fg);min-width:0}
+a.card:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+a.card b{font-size:1.25rem;display:block;margin-bottom:4px}a.card span{color:var(--muted);display:block}
+a.card em{font-style:normal;color:var(--accent);font-weight:600;display:block;margin-top:10px}
+ul{color:var(--muted);padding-left:20px}
+</style>
+<main>
+<h1>Real 3D for scuttle.dev</h1>
+<p>All three have a light theme by default, a theme button, an EN and NL language button and the same menu on every part of the page. Content is sample data. Quotes are placeholders until each client agrees.</p>
+<div class="grid">
+<a class="card" href="d.html"><b>D. Real 3D (new)</b><span>A 3D gear with the crab logo that turns as you scroll. It then opens into a stack of layers (OS, database, PHP, code) that pull apart in 3D, show their end-of-life dates in red, and turn indigo one by one as they are replaced. Built with Three.js.</span><em>Open design D</em></a>
+<a class="card" href="a.html"><b>A. Editorial (flat, no 3D)</b><span>Big serif headlines. As you scroll, old PHP lines get struck out and the modern Laravel lines write themselves. The crab rides a progress line on the side.</span><em>Open design A</em></a>
+<a class="card" href="b.html"><b>B. Inspection report (flat, no 3D)</b><span>Engineering paper and a mono type. A pinned report where end-of-life stamps land row by row as you scroll. Built around the Health Check.</span><em>Open design B</em></a>
+<a class="card" href="c.html"><b>C. Depth (flat, no 3D)</b><span>Very large type, a services strip that slides sideways while the page stays pinned, tilting cards and numbers that count up.</span><em>Open design C</em></a>
+</div>
+<p>A, B and C are flat scroll effects. D is the real 3D one.</p><p>What to try on your iPhone: scroll slowly, tap the menu button, tap NL, tap the half-circle theme button, then turn the phone sideways.</p>
+<ul><li>Health Check price shown: EUR 1,080 excl. VAT, about 12 hours (draft, not final).</li><li>Motion: Three.js (3D), GSAP ScrollTrigger and Lenis. Switched off for visitors who set "reduce motion".</li></ul>
+</main>
