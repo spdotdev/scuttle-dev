@@ -456,9 +456,6 @@
       </div>
       <div class="minimal-footer-meta">
         <span>© 2026 Scuttle Development. All rights reserved.</span>
-        <span class="built-with">Built with <a
-            href="https://blog.google/technology/ai/google-gemini-ai/#introducing-gemini"
-            target="_blank">Antigravity</a></span>
       </div>
     </div>
   </footer>

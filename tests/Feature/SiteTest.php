@@ -13,6 +13,14 @@ class SiteTest extends TestCase
             ->assertSee('Scuttle Development');
     }
 
+    public function test_footer_carries_no_built_with_credit(): void
+    {
+        $this->get('http://scuttle.dev/')
+            ->assertOk()
+            ->assertDontSee('Antigravity')
+            ->assertDontSee('Built with');
+    }
+
     public function test_privacy_page_renders_and_is_linked(): void
     {
         $this->get('http://scuttle.dev/privacy')

@@ -728,30 +728,6 @@ nav a.active {
   }
 }
 
-.built-with {
-  font-size: 0.7rem;
-  opacity: 0.4;
-  transition: opacity 0.3s;
-}
-
-.built-with:hover {
-  opacity: 0.8;
-}
-
-.built-with a {
-  color: inherit;
-  font-weight: 500;
-  text-decoration: none;
-}
-
-.built-with a:hover {
-  text-decoration: underline;
-}
-
-.minimal-footer-meta .built-with {
-  opacity: 0.6;
-}
-
 
 /* Contact Card Links */
 .contact-card-link {
