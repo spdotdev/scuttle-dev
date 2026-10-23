@@ -19,7 +19,7 @@ h2:first-of-type{border:0;margin-top:0;padding-top:0}
 .small svg{width:22px;height:14px}
 @media(max-width:900px){.grid{grid-template-columns:1fr}body{padding:16px}}
 </style></head><body>
-<h1>Scuttle logo. Top: the ten saved oval-ring picks. Below: twenty fresh concepts, no oval rings. Each on light and dark, large, as wordmark, and at favicon size.</h1>
+<h1>Scuttle logo. Top: the sixteen saved picks. Below: the fresh concepts that were not kept. Each on light and dark, large, as wordmark, and at favicon size.</h1>
 <svg width="0" height="0" style="position:absolute">
  <defs>
   <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5454D4"/><stop offset="1" stop-color="#9A9AF7"/></linearGradient>
@@ -29,9 +29,9 @@ h2:first-of-type{border:0;margin-top:0;padding-top:0}
   <linearGradient id="g5" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#5454D4"/><stop offset="1" stop-color="#9A9AF7"/></linearGradient>
  </defs>
 </svg>
-<h2>Saved picks (04, 09, 10, 13, 14, 15, 17, 18, 20, 23)</h2>
+<h2>Saved picks (04, 09, 10, 13, 14, 15, 17, 18, 20, 23, 37, 38, 42, 43, 45, 46)</h2>
 <div class="grid saved" id="s"></div>
-<h2>Fresh concepts (27 to 46)</h2>
+<h2>Fresh concepts not kept (27 to 46)</h2>
 <div class="grid" id="g"></div>
 <script>
 // every option is drawn in a 140 x 90 box
@@ -103,5 +103,5 @@ function render(list,id){var g=document.getElementById(id),h="";
  list.forEach(function(o){var svg=function(){return '<svg viewBox="0 0 140 90">'+o[2]+'</svg>'};
   h+='<div class="opt"><div class="n"><span>'+o[0]+'</span></div><div class="pair">'+["l","d"].map(function(t){return '<div class="cell '+t+'">'+svg()+'<div class="wm">'+svg()+'Scuttle</div><div class="small">'+svg()+'<span style="font:11px Geist Mono">16 px</span></div></div>'}).join("")+'</div><div class="n" style="text-transform:none;letter-spacing:0;font-family:Geist">'+o[1]+'</div></div>'});
  g.innerHTML=h}
-render(S,"s");render(N,"g");
+var K=["37","38","42","43","45","46"];var moved=N.filter(function(o){return K.indexOf(o[0].slice(0,2))>=0});N=N.filter(function(o){return K.indexOf(o[0].slice(0,2))<0});render(S.concat(moved),"s");render(N,"g");
 </script></body></html>
