@@ -3,7 +3,7 @@
 @php($groups = $C::grouped())
 
 @section('title', 'Pricing')
-@section('description', 'How Scuttle Development prices its work: EUR 90 per hour excl. VAT, a fixed-price Legacy Health Check from EUR 1,600, projects quoted per step, and a monthly retainer. No plans to pick, no surprises.')
+@section('description', 'How Scuttle Development prices its work: EUR 90 per hour excl. VAT, a fixed-price Health Check from EUR 1,600, projects quoted per step, and a monthly retainer. No plans to pick, no surprises.')
 @section('canonical', 'https://scuttle.dev/pricing')
 
 @section('content')
@@ -34,8 +34,8 @@
         </div>
         <div class="plan hi">
           <span class="lbl">02 · Fixed price</span>
-          <div class="ph2"><h3>Legacy Health Check</h3><div class="amt">from €1,600</div></div>
-          <p>The place to start when nobody dares to touch the system. Two days, a ranked report, a step-by-step plan.</p>
+          <div class="ph2"><h3>Health Check</h3><div class="amt">from €1,600</div></div>
+          <p>The place to start: two days, where automation saves hours, what is risky, a step-by-step plan.</p>
           <hr>
           <ul>
             <li>Fixed price, known before you say yes.</li>
@@ -47,7 +47,7 @@
         <div class="plan">
           <span class="lbl">03 · Per step</span>
           <div class="ph2"><h3>Projects in steps</h3><div class="amt">hours × €90</div></div>
-          <p>Modernization, builds, integrations and security work: every step gets its own scope and price before it starts.</p>
+          <p>Automations, integrations, builds and security work: every step gets its own scope and price before it starts.</p>
           <hr>
           <ul>
             <li>The quote shows the math: estimated hours times the rate, as a range.</li>
@@ -91,7 +91,7 @@
       <span class="lbl dot">How a quote comes about</span>
       <ol class="steps">
         <li><span>01</span><p>A free intro call of about 30 minutes. What you run, what hurts, what must not stop.</p></li>
-        <li><span>02</span><p>When the system is unknown territory: the Legacy Health Check, so the plan rests on facts.</p></li>
+        <li><span>02</span><p>When the system is unknown territory: the Health Check, so the plan rests on facts.</p></li>
         <li><span>03</span><p>A written quote per step: deliverables, hours as a range, price as the math, what is not included. Valid 14 days.</p></li>
         <li><span>04</span><p>You accept in writing, the step starts, and you see it running before the next one is quoted.</p></li>
       </ol>

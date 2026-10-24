@@ -75,7 +75,7 @@
   </main>
 
   <div class="wrap"><footer>
-    <div class="col"><div class="brand"><img alt="" src="{{ secure_asset('vendor/scuttle/logo.svg') }}" width="30" height="24"><span>Scuttle</span></div><p data-i="ft_p">Software kept in support, modernized in steps and secured, by one senior developer in Eindhoven.</p></div>
+    <div class="col"><div class="brand"><img alt="" src="{{ secure_asset('vendor/scuttle/logo.svg') }}" width="30" height="24"><span>Scuttle</span></div><p data-i="ft_p">Automation with AI agents and integrations, secure software that keeps running, by one senior developer in Eindhoven.</p></div>
     <div class="col"><small data-i="n_products">Products</small>
       @foreach($groups as $key => $items)@foreach(array_slice($items, 0, 2) as $p)<a href="{{ \Spdotdev\ScuttleDev\Catalog::url($p) }}">{{ $p['name'] }}</a>@endforeach @endforeach
       <a href="{{ route('scuttle.pricing') }}" data-i="n_pricing">Pricing</a></div>
@@ -85,7 +85,7 @@
   </footer></div>
 
   <script>
-    window.SCUTTLE_NL = { t: { n_products: "Producten", g_assess: "Beoordelen", g_build: "Bouwen", g_run: "Beheren", n_pricing: "Prijzen", n_work: "Werk", n_case: "Casestudy", n_contact: "Contact", n_book: "Plan een gesprek", ft_p: "Software binnen support gehouden, in stappen gemoderniseerd en beveiligd, door één senior developer in Eindhoven.", ft_company: "Bedrijf", ft_about: "Over mij", ft_legal: "Juridisch", ft_privacy: "Privacy", ft_terms: "Terms and conditions" }, ph: {} };
+    window.SCUTTLE_NL = { t: { n_products: "Producten", g_assess: "Beoordelen", g_build: "Automatiseren", g_run: "Beheren", n_pricing: "Prijzen", n_work: "Werk", n_case: "Casestudy", n_contact: "Contact", n_book: "Plan een gesprek", ft_p: "Automatisering met AI-agents en koppelingen, veilige software die blijft draaien, door één senior developer in Eindhoven.", ft_company: "Bedrijf", ft_about: "Over mij", ft_legal: "Juridisch", ft_privacy: "Privacy", ft_terms: "Terms and conditions" }, ph: {} };
   </script>
   @stack('nl')
   <script src="{{ secure_asset('vendor/scuttle/site.js') }}" defer></script>

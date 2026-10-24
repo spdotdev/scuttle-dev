@@ -14,7 +14,7 @@ class SiteTest extends TestCase
         $this->assertSame(2, substr_count($home, 'href="https://plan.scuttle.dev/book/stas"'));
         $this->assertStringNotContainsString('subject=Call%20about', $home);
 
-        $this->get('http://scuttle.dev/legacy-health-check')->assertOk()
+        $this->get('http://scuttle.dev/health-check')->assertOk()
             ->assertSee('href="https://plan.scuttle.dev/book/stas"', false);
     }
 
@@ -114,7 +114,7 @@ class SiteTest extends TestCase
 
     public function test_every_page_links_the_shared_stylesheet_script_and_logo(): void
     {
-        foreach (['/', '/privacy', '/pricing', '/legacy-health-check', '/products/modernization', '/case-studies/phalcon-to-laravel'] as $path) {
+        foreach (['/', '/privacy', '/pricing', '/health-check', '/products/modernization', '/case-studies/phalcon-to-laravel'] as $path) {
             $this->get('http://scuttle.dev'.$path)
                 ->assertOk()
                 ->assertSee('vendor/scuttle/site.css', false)
@@ -124,16 +124,35 @@ class SiteTest extends TestCase
         }
     }
 
-    public function test_the_legacy_health_check_page_renders_and_is_linked(): void
+    public function test_the_health_check_page_renders_and_the_old_address_redirects(): void
     {
-        $this->get('http://scuttle.dev/legacy-health-check')
+        $this->get('http://scuttle.dev/health-check')
             ->assertOk()
-            ->assertSee('Legacy Health Check')
+            ->assertSee('Health Check')
+            ->assertDontSee('Legacy Health Check')
+            ->assertSee('Legacy check')
             ->assertSee('from EUR 1,600', false)
-            ->assertSee('https://scuttle.dev/legacy-health-check', false);
+            ->assertSee('https://scuttle.dev/health-check', false);
 
-        $this->get('http://scuttle.dev/')->assertSee('/legacy-health-check', false);
-        $this->get('http://scuttle.dev/sitemap.xml')->assertSee('https://scuttle.dev/legacy-health-check', false);
+        $this->get('http://scuttle.dev/legacy-health-check')->assertRedirect('/health-check')->assertStatus(301);
+        $this->get('http://scuttle.dev/')->assertSee('/health-check', false);
+        $this->get('http://scuttle.dev/sitemap.xml')->assertSee('https://scuttle.dev/health-check', false);
+    }
+
+    public function test_the_site_points_at_no_client_and_leads_with_automation(): void
+    {
+        foreach (['/', '/pricing', '/health-check', '/products/ai-integration', '/case-studies/phalcon-to-laravel'] as $path) {
+            $html = (string) $this->get('http://scuttle.dev'.$path)->assertOk()->getContent();
+            foreach (['hotel', 'hosintra', 'rental-platform', 'webshop-legacy', 'erp-bridge', 'Legacy Health Check'] as $word) {
+                $this->assertStringNotContainsStringIgnoringCase($word, $html, $path.' must not contain '.$word);
+            }
+        }
+        $home = (string) $this->get('http://scuttle.dev/')->getContent();
+        $this->assertStringContainsString('Automate the work', $home);
+        $this->assertStringContainsString('Automation · Security · Eindhoven', $home);
+        $this->assertStringContainsString('invoice-intake', $home);
+        $this->assertStringContainsString('8.4.26 → 8.4.27', $home);
+        $this->assertStringNotContainsString('end of life since', $home);
     }
 
     public function test_the_case_study_page_renders_and_links_to_the_health_check(): void
@@ -142,7 +161,7 @@ class SiteTest extends TestCase
             ->assertOk()
             ->assertSee('Phalcon to Laravel, module by module')
             ->assertSee('60%', false)
-            ->assertSee('/legacy-health-check', false);
+            ->assertSee('/health-check', false);
 
         $this->get('http://scuttle.dev/sitemap.xml')->assertSee('https://scuttle.dev/case-studies/phalcon-to-laravel', false);
     }

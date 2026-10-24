@@ -9,7 +9,8 @@ Route::domain(config('scuttle-dev.domain'))
         Route::get('/', [SiteController::class, 'index'])->name('scuttle.home');
         Route::get('/privacy', [SiteController::class, 'privacy'])->name('scuttle.privacy');
         Route::get('/pricing', [SiteController::class, 'pricing'])->name('scuttle.pricing');
-        Route::get('/legacy-health-check', [SiteController::class, 'healthCheck'])->name('scuttle.health-check');
+        Route::get('/health-check', [SiteController::class, 'healthCheck'])->name('scuttle.health-check');
+        Route::redirect('/legacy-health-check', '/health-check', 301);
         Route::get('/products/{slug}', [SiteController::class, 'product'])
             ->where('slug', '[a-z0-9-]+')
             ->name('scuttle.product');

@@ -20,7 +20,7 @@ class PreviewDumpTest extends TestCase
         }
         is_dir($dir) || mkdir($dir, 0755, true);
 
-        $pages = ['/' => 'index', '/pricing' => 'pricing', '/legacy-health-check' => 'legacy-health-check', '/case-studies/phalcon-to-laravel' => 'case', '/privacy' => 'privacy'];
+        $pages = ['/' => 'index', '/pricing' => 'pricing', '/health-check' => 'legacy-health-check', '/case-studies/phalcon-to-laravel' => 'case', '/privacy' => 'privacy'];
         foreach (Catalog::all() as $p) {
             if (! isset($p['route'])) {
                 $pages['/products/'.$p['slug']] = 'p-'.$p['slug'];

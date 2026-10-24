@@ -23,7 +23,7 @@
   <div class="wrap">
     <div class="plate hero-plate rv">
       <div class="mock">
-        <div class="bar"><i></i><i></i><i></i><span>scuttle · {{ $p['slug'] }}</span></div>
+        <div class="bar"><i></i><i></i><i></i><span>scuttle · {{ \Illuminate\Support\Str::slug($p['name']) }}</span></div>
         <div class="body">
           <div class="art">@include('scuttle::partials.illus', ['kind' => $p['illus']])</div>
           <ul class="feat-mini">
@@ -71,8 +71,8 @@
 
   <section class="s tight"><div class="wrap">
     <figure class="quote rv">
-      <blockquote>Phalcon to Laravel, module by module, while the hotels kept booking. No big-bang switch, no rewrite from scratch.</blockquote>
-      <figcaption><b>Hotel software platform</b><span>Client anonymized · <a href="{{ route('scuttle.case-study') }}">read the case study</a></span></figcaption>
+      <blockquote>Phalcon to Laravel, module by module, while the platform stayed in daily use. No big-bang switch, no rewrite from scratch.</blockquote>
+      <figcaption><b>Multi-tenant operations platform</b><span>Client anonymized · <a href="{{ route('scuttle.case-study') }}">read the case study</a></span></figcaption>
     </figure>
   </div></section>
 
