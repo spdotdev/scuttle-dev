@@ -142,7 +142,7 @@
 <section class="cta-end" id="contact"><div class="wrap">
   <h2 data-i="ct_h">Ready to bring your system back into support?</h2>
   <p data-i="ct_p">Tell me what you are running. I reply within one working day with a first opinion, free.</p>
-  <div class="row"><a class="btn" href="mailto:info@scuttle.dev" data-i="ct_b1">Email info@scuttle.dev</a><a class="btn o" href="tel:+31618233175">+31 6 18 23 31 75</a></div>
+  <div class="row"><a class="btn" href="{{ config('scuttle-dev.booking_url') }}" data-i="ct_b0">Book a call</a><a class="btn o" href="mailto:info@scuttle.dev" data-i="ct_b1">Email info@scuttle.dev</a><a class="btn o" href="tel:+31618233175">+31 6 18 23 31 75</a></div>
 </div></section>
 
 <div class="wrap contact" id="about">
@@ -198,7 +198,7 @@ Object.assign(window.SCUTTLE_NL.t, {
   cs_l: "Uitgelichte casestudy", cs_k: "Hotelsoftwareplatform · klant geanonimiseerd", cs_q: "Van Phalcon naar Laravel, module voor module, terwijl de hotels bleven boeken. Geen big-bang-omschakeling, geen herbouw vanaf nul.", cs_by: "Projectsamenvatting, geschreven door Scuttle", cs_sm: "Onder geheimhouding, referenties op aanvraag", cs_b1: "Lees de casestudy", cs_b2: "Vraag om referenties",
   k1s: "lagere latency", k2s: "runtime terug binnen support", k3s: "framework onderweg geüpgraded", k4s: "keer vanaf nul herschreven",
   in_l: "Sectoren", in_h: "Gebouwd voor bedrijven die op PHP draaien", in_p: "Systemen die elke dag geld verdienen en niet kunnen stoppen voor een herbouw.", i1: "Horeca en hotels", i1s: "Boeking- en operatieplatforms, meerdere vestigingen.", i2: "Verhuur en vastgoed", i2s: "Aanbod, contracten, betalingen, huurdersportalen.", i3: "E-commerce", i3s: "Legacy shops, ERP-koppelingen, betaalproviders.", i4: "Logistiek", i4s: "Planningstools, scanners, EDI-integraties.", i5: "Zorg-IT", i5s: "Patiëntportalen onder strenge dataregels.", i6s: "Multi-tenant producten die hun eerste versie zijn ontgroeid.",
-  ct_h: "Klaar om je systeem terug binnen support te brengen?", ct_p: "Vertel me wat je draait. Ik reageer binnen één werkdag met een eerste mening, gratis.", ct_b1: "Mail info@scuttle.dev",
+  ct_h: "Klaar om je systeem terug binnen support te brengen?", ct_p: "Vertel me wat je draait. Ik reageer binnen één werkdag met een eerste mening, gratis.", ct_b0: "Plan een gesprek", ct_b1: "Mail info@scuttle.dev",
   cd_l: "Bedrijf", qr_l: "Bewaar mijn contactgegevens", qr_p: "Scan de code met je telefoon, of download de vCard en voeg me in één tik toe aan je contacten.", qr_b: "vCard opslaan",
   ab_l: "Over mij", ab_p: "Stanislav Plotnikov. Senior developer en solution architect, PHP sinds de jaren 2000, Laravel en Phalcon in productie, Python voor automatisering en AI. Eén persoon, één aanspreekpunt, van het eerste gesprek tot de overdracht."
 });

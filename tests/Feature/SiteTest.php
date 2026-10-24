@@ -6,6 +6,17 @@ use Spdotdev\ScuttleDev\Tests\TestCase;
 
 class SiteTest extends TestCase
 {
+    public function test_book_a_call_opens_the_booking_page_on_every_page(): void
+    {
+        $home = $this->get('http://scuttle.dev/')->assertOk()->getContent();
+        // The top bar button and the contact section both lead to the booking page in sd-plan.
+        $this->assertSame(2, substr_count($home, 'href="https://plan.scuttle.dev/book/stas"'));
+        $this->assertStringNotContainsString('subject=Call%20about', $home);
+
+        $this->get('http://scuttle.dev/legacy-health-check')->assertOk()
+            ->assertSee('href="https://plan.scuttle.dev/book/stas"', false);
+    }
+
     public function test_homepage_renders_on_the_configured_host(): void
     {
         $this->get('http://scuttle.dev/')

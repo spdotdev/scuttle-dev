@@ -50,7 +50,7 @@
       <div class="seg" role="group" aria-label="Language"><button id="en" aria-pressed="true" type="button">EN</button><button id="nl" aria-pressed="false" type="button">NL</button></div>
       @endif
       <button class="ic" id="theme" aria-label="Toggle light and dark" type="button"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
-      <a class="btn cta" href="mailto:info@scuttle.dev?subject=Call%20about%20my%20PHP%20system" data-i="n_book">Book a call</a>
+      <a class="btn cta" href="{{ config('scuttle-dev.booking_url') }}" data-i="n_book">Book a call</a>
       <button class="ic" id="burger" aria-label="Menu" type="button"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
   </div></nav>
