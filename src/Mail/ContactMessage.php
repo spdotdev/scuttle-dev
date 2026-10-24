@@ -13,13 +13,13 @@ class ContactMessage extends Mailable
         public string $name,
         public string $email,
         public string $about,
-        public string $message,
+        public string $text,
         public string $ip,
     ) {}
 
     public function build(): static
     {
-        $body = "Name: {$this->name}\nEmail: {$this->email}\nAbout: ".($this->about !== '' ? $this->about : '-')."\n\n{$this->message}\n\n--\nSent from the scuttle.dev contact form · IP {$this->ip}";
+        $body = "Name: {$this->name}\nEmail: {$this->email}\nAbout: ".($this->about !== '' ? $this->about : '-')."\n\n{$this->text}\n\n--\nSent from the scuttle.dev contact form · IP {$this->ip}";
 
         return $this
             ->subject('scuttle.dev contact: '.($this->about !== '' ? $this->about : 'general').' · '.$this->name)

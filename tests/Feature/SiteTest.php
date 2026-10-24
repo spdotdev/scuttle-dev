@@ -7,6 +7,8 @@ use Spdotdev\ScuttleDev\Cases;
 use Spdotdev\ScuttleDev\Catalog;
 use Spdotdev\ScuttleDev\Http\Controllers\ContactController;
 use Spdotdev\ScuttleDev\Mail\ContactMessage;
+use Spdotdev\ScuttleDev\Posts;
+use Spdotdev\ScuttleDev\Projects;
 use Spdotdev\ScuttleDev\Tests\TestCase;
 
 class SiteTest extends TestCase
@@ -56,7 +58,6 @@ class SiteTest extends TestCase
         $this->assertSame(1, substr_count($contact, '<h1'));
         $this->assertStringNotContainsString('maps.google', $html);
         $this->assertStringNotContainsString('<iframe', $html);
-        $this->assertStringNotContainsString('/services/', $html);
     }
 
     public function test_home_shows_only_confirmed_facts(): void
@@ -127,7 +128,7 @@ class SiteTest extends TestCase
 
     public function test_every_page_links_the_shared_stylesheet_script_and_logo(): void
     {
-        foreach (['/', '/privacy', '/pricing', '/contact', '/health-check', '/products/modernization', '/case-studies/phalcon-to-laravel'] as $path) {
+        foreach (['/', '/privacy', '/pricing', '/contact', '/work', '/case-studies', '/blog', '/company', '/projects', '/projects/manual/docs', '/health-check', '/services/modernization', '/case-studies/phalcon-to-laravel'] as $path) {
             $this->get('http://scuttle.dev'.$path)
                 ->assertOk()
                 ->assertSee('vendor/scuttle/site.css', false)
@@ -154,7 +155,7 @@ class SiteTest extends TestCase
 
     public function test_the_site_points_at_no_client_and_leads_with_automation(): void
     {
-        foreach (['/', '/pricing', '/contact', '/health-check', '/products/ai-integration', '/products/modernization', '/case-studies/phalcon-to-laravel', '/case-studies/business-on-agents'] as $path) {
+        foreach (['/', '/pricing', '/contact', '/health-check', '/services/ai-integration', '/services/modernization', '/case-studies/phalcon-to-laravel', '/case-studies/business-on-agents', '/work', '/company', '/blog', '/projects'] as $path) {
             $html = (string) $this->get('http://scuttle.dev'.$path)->assertOk()->getContent();
             foreach (['hotel', 'hosintra', 'rental-platform', 'webshop-legacy', 'erp-bridge', 'Legacy Health Check', 'Modernization in Steps', '<b>0</b>'] as $word) {
                 $this->assertStringNotContainsStringIgnoringCase($word, $html, $path.' must not contain '.$word);
@@ -176,7 +177,7 @@ class SiteTest extends TestCase
         foreach (Cases::all() as $c) {
             $page = (string) $this->get('http://scuttle.dev/case-studies/'.$c['slug'])->assertOk()->getContent();
             $this->assertStringContainsString($c['title'], $page);
-            $this->assertStringContainsString('/products/', $page);
+            $this->assertStringContainsString('/services/', $page);
             $this->assertStringNotContainsString('<b>0</b>', $page);
             $this->assertStringContainsString('<loc>https://scuttle.dev/case-studies/'.$c['slug'].'</loc>', $sitemap);
         }
@@ -220,8 +221,9 @@ class SiteTest extends TestCase
             $this->assertStringContainsString('<loc>'.Catalog::canonical($p).'</loc>', $sitemap, $url);
         }
         $this->assertCount(12, Catalog::all());
-        $this->get('http://scuttle.dev/products/legacy-health-check')->assertNotFound();
-        $this->get('http://scuttle.dev/products/nope')->assertNotFound();
+        $this->get('http://scuttle.dev/services/legacy-health-check')->assertNotFound();
+        $this->get('http://scuttle.dev/services/nope')->assertNotFound();
+        $this->get('http://scuttle.dev/products/modernization')->assertRedirect('/services/modernization')->assertStatus(301);
     }
 
     public function test_home_copy_is_broad_and_has_no_reference_button(): void
@@ -286,9 +288,55 @@ class SiteTest extends TestCase
             ->assertRedirect('http://scuttle.dev/')->assertSessionHas('contact_sent', true)->assertSessionHasNoErrors();
         Mail::assertSent(ContactMessage::class, function (ContactMessage $mail) {
             $mail->build();
+            $rendered = $mail->render(); // the real bug of 2026-10-24: a view variable named message collides with Laravel's Message object
 
-            return $mail->hasTo('info@scuttle.dev') && $mail->hasReplyTo('test@example.com') && $mail->about === 'Health Check';
+            return $mail->hasTo('info@scuttle.dev') && $mail->hasReplyTo('test@example.com') && $mail->about === 'Health Check' && str_contains($rendered, 'exports take hours');
         });
+    }
+
+    public function test_the_new_sections_render_and_the_menu_lists_them(): void
+    {
+        $home = (string) $this->get('http://scuttle.dev/')->assertOk()->getContent();
+        foreach (['/work', '/case-studies', '/projects', '/blog', '/company', '/contact', '/pricing'] as $path) {
+            $this->assertStringContainsString('href="http://scuttle.dev'.$path.'"', $home, $path.' in the menu');
+        }
+        $this->assertStringContainsString('>Services<', $home);
+        $this->assertStringNotContainsString('>Products<', $home);
+        $this->assertStringNotContainsString('#sectors"', $home, 'sectors are not in the menu');
+
+        $sitemap = (string) $this->get('http://scuttle.dev/sitemap.xml')->getContent();
+        foreach (Posts::all() as $post) {
+            $this->get('http://scuttle.dev/blog/'.$post['slug'])->assertOk()->assertSee($post['title']);
+            $this->assertStringContainsString('<loc>https://scuttle.dev/blog/'.$post['slug'].'</loc>', $sitemap);
+        }
+        foreach (Projects::all() as $pr) {
+            $this->get('http://scuttle.dev/projects/'.$pr['slug'])->assertOk()->assertSee($pr['name']);
+            if (count($pr['docs'])) {
+                $this->get('http://scuttle.dev/projects/'.$pr['slug'].'/docs')->assertOk()->assertSee('On this page');
+            } else {
+                $this->get('http://scuttle.dev/projects/'.$pr['slug'].'/docs')->assertNotFound();
+            }
+        }
+        $this->get('http://scuttle.dev/blog/nope')->assertNotFound();
+        $this->get('http://scuttle.dev/projects/nope')->assertNotFound();
+
+        // Contact: the form comes first, then two cards, nothing in between.
+        $contact = (string) $this->get('http://scuttle.dev/contact')->getContent();
+        $this->assertLessThan(strpos($contact, 'class="cc rv"'), strpos($contact, 'id="cform"'));
+        $this->assertSame(2, substr_count($contact, 'class="cc rv"'));
+    }
+
+    public function test_analytics_and_the_cookie_banner_only_exist_with_an_id(): void
+    {
+        $this->assertStringNotContainsString('id="cookie"', (string) $this->get('http://scuttle.dev/')->getContent());
+        $this->assertStringNotContainsString('googletagmanager', (string) $this->get('http://scuttle.dev/')->getContent());
+
+        config(['scuttle-dev.ga_id' => 'G-TEST1234']);
+        $home = (string) $this->get('http://scuttle.dev/')->getContent();
+        $this->assertStringContainsString('id="cookie"', $home);
+        $this->assertStringContainsString('window.SCUTTLE_GA = "G-TEST1234"', $home);
+        $this->assertStringNotContainsString('googletagmanager.com/gtag/js?id=', $home, 'the analytics script is never in the HTML, only loaded after Agree');
+        $this->get('http://scuttle.dev/privacy')->assertSee('Google Analytics');
     }
 
     public function test_the_new_pages_do_not_name_the_client(): void

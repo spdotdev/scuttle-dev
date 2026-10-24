@@ -15,4 +15,8 @@ return [
     // form falls back to a honeypot plus a signed minimum fill time.
     'turnstile_site_key' => env('SCUTTLE_TURNSTILE_SITE_KEY', ''),
     'turnstile_secret' => env('SCUTTLE_TURNSTILE_SECRET', ''),
+
+    // Google Analytics measurement id (G-XXXX). Empty means no analytics and no
+    // cookie banner. With an id, the script loads only after the visitor agrees.
+    'ga_id' => env('SCUTTLE_GA_ID', ''),
 ];

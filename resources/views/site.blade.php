@@ -37,10 +37,6 @@
   </script>
 @endsection
 
-@section('homelinks')
-  <a href="#work" data-i="n_work">Work</a><a href="#case" data-i="n_case">Case study</a><a href="#sectors" data-i="n_sectors">Sectors</a><a href="#contact" data-i="n_contact">Contact</a>
-@endsection
-
 @section('content')
 <header class="wrap hero">
   <div class="mark in1">@include('scuttle::partials.logo', ['id' => 'hero', 'w' => 92, 'h' => 74, 'cls' => 'anim'])</div>
@@ -112,7 +108,7 @@
 </div></section>
 
 <section class="s tight" id="work"><div class="wrap">
-  <div class="gridh rv"><h2 data-i="wk_h">What I build</h2><p data-i="wk_p">Twelve products with a fixed shape, automation first. Each one leaves a document in your repository, not only a result on a server.</p></div>
+  <div class="gridh rv"><h2 data-i="wk_h">What I build</h2><p data-i="wk_p">Twelve services with a fixed shape, automation first. Each one leaves a document in your repository, not only a result on a server. <a href="{{ route('scuttle.work') }}">See what you hold afterwards →</a></p></div>
   <div class="tiles">
     @foreach($C::all() as $p)
     <a class="tile rv" href="{{ $C::url($p) }}">
@@ -124,7 +120,7 @@
 </div></section>
 
 <section class="s tight" id="cases"><div class="wrap">
-  <div class="car-h"><span class="lbl dot" data-i="cs_l">Case studies</span><div class="car-nav"><button type="button" id="car-prev" aria-label="Previous case">←</button><span id="car-dots" class="dots"></span><button type="button" id="car-next" aria-label="Next case">→</button></div></div>
+  <div class="car-h"><a class="lbl dot" href="{{ route('scuttle.cases') }}" data-i="cs_l">Case studies, all four →</a><div class="car-nav"><button type="button" id="car-prev" aria-label="Previous case">←</button><span id="car-dots" class="dots"></span><button type="button" id="car-next" aria-label="Next case">→</button></div></div>
   <div class="car rv" id="car" style="margin-top:18px">
     <div class="car-track" id="car-track">
       @foreach(\Spdotdev\ScuttleDev\Cases::all() as $cx)
@@ -170,7 +166,6 @@
 @push('nl')
 <script>
 Object.assign(window.SCUTTLE_NL.t, {
-  n_sectors: "Sectoren",
   h1: "Automatiseer het werk<br>dat je team herhaalt", sub: "Automatisering · Beveiliging · Eindhoven", cta1: "Begin met één workflow", cta2: "Bekijk de prijzen", cmd_b: "beveiligingsrelease 21 okt 2026 · 8.4.26 → 8.4.27 · twee kritieke RCE-lekken gedicht · is die van jou gepatcht?",
   sd_h: "Automatiseringen", now: "nu", sd_r: "Rapporten", sd_r1: "Health Check", sd_r2: "Roadmap", sd_r3: "Security assessment", sd_c: "Cases, geanonimiseerd", sd_c1: "Kostenbesparing", sd_c2: "API ontmoet AI", sd_c3: "Migratie in gebruik",
   shot_note: "Runs en rapporten zijn voorbeelden met verzonnen namen. De cases zijn echt werk, geanonimiseerd. Elke resultaatregel linkt naar het product erachter.", hint: "Een live venster, geen plaatje. Klik erdoorheen, of laat het lopen.",
@@ -178,8 +173,8 @@ Object.assign(window.SCUTTLE_NL.t, {
   gl_build: "Automatiseer het repeterende werk, bouw wat ontbreekt.", gl_assess: "Weet waar je staat voordat er iets wordt aangeraakt.", gl_run: "Houd het veilig, geback-upt en gedocumenteerd.",
   g_build: "Automatiseren",
   st_l: "Gewerkt met", st_h: "Merken waarvoor ik heb gebouwd, tools waarmee ik bouw", st_p: "In loondienst bij bureaus en productbedrijven vóór 2024, en sindsdien als freelancer. De tools zijn die van dagelijks gebruik, geen wensenlijst.", st_s: "+ het framework of de hosting die je al hebt",
-  wk_h: "Wat ik bouw", wk_p: "Twaalf producten met een vaste vorm, automatisering voorop. Elk onderdeel laat een document achter in je repository, niet alleen een resultaat op een server.",
-  cs_l: "Casestudy's", cs_b1: "Lees de casestudy",
+  wk_h: "Wat ik bouw", wk_p: "Twaalf diensten met een vaste vorm, automatisering voorop. Elk onderdeel laat een document achter in je repository, niet alleen een resultaat op een server. <a href=\"/work\">Zie wat je daarna in handen hebt →</a>",
+  cs_l: "Casestudy's, alle vier →", cs_b1: "Lees de casestudy",
   in_l: "Sectoren", in_h: "Gebouwd voor bedrijven die draaien op software die niet uit kan", in_p: "Backoffices, shops, planningstools, portalen, boekingssystemen. Waar het ook op draait, het verdient elke dag geld, en de uren eromheen zijn te automatiseren.", i1: "Horeca", i1s: "Boeking- en operatieplatforms, meerdere vestigingen.", i2: "Verhuur en vastgoed", i2s: "Aanbod, contracten, betalingen, huurdersportalen.", i3: "E-commerce", i3s: "Shops, ERP-koppelingen, betaalproviders.", i4: "Logistiek en maakindustrie", i4s: "Planningstools, scanners, EDI-integraties.", i5: "Zorg en overheid", i5s: "Portalen onder strenge dataregels.", i6s: "Multi-tenant producten die hun eerste versie zijn ontgroeid.", i7: "Bureaus", i7s: "Senior werk als onderaannemer op het project van jouw klant.", i8: "Eigenaar-gerunde bedrijven", i8s: "Eén systeem, één developer die vertrok, en een bedrijf dat ervan afhangt.",
   ct_h: "Welke taak zou je als eerste aan een agent geven?", ct_p: "Vertel me wat je draait en waar de uren heen gaan. Ik reageer binnen één werkdag met een eerste mening, gratis.", ct_b0: "Plan een gesprek", ct_b1: "Mail info@scuttle.dev", ct_b2: "Gebruik het contactformulier",
 });

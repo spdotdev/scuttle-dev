@@ -42,7 +42,7 @@ nav.top .wrap{display:flex;align-items:center;gap:12px}
 @keyframes sq1{from{opacity:0}to{opacity:.25}}@keyframes sq2{from{opacity:0}to{opacity:.55}}@keyframes sq3{from{opacity:0}to{opacity:1}}
 .lg.anim .r1{animation:sq1 .5s .05s both}.lg.anim .r2{animation:sq2 .5s .35s both}.lg.anim .r3{animation:sq3 .6s .65s both}
 .brand span{display:inline-block;min-width:7.2em}
-.links{display:flex;gap:28px;margin:0 auto;font-size:14px;color:var(--ink2);align-items:center}
+.links{display:flex;gap:22px;margin:0 auto;font-size:14px;color:var(--ink2);align-items:center}
 .links a:hover,.links a.cur{color:var(--ink)}
 .has-mega{position:relative}
 .has-mega button{border:0;background:none;font:inherit;color:inherit;cursor:pointer;display:inline-flex;align-items:center;gap:6px;padding:0}
@@ -275,7 +275,7 @@ a.c:hover{transform:translateY(-3px);border-color:var(--line2)}
 .cform textarea{resize:vertical;min-height:120px}
 .cform .two-f{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .cform .hp{position:absolute;left:-9999px;top:-9999px;height:0;overflow:hidden}
-.cform .cf-foot{display:flex;gap:14px;align-items:center;flex-wrap:wrap}.cform .cf-foot small{font:400 11.5px "Geist Mono",monospace;color:var(--dark-muted);max-width:34em}
+.cform{min-width:0}.cform .cf-foot{display:flex;gap:14px;align-items:center;flex-wrap:wrap}.cform .cf-foot>*{max-width:100%}.cform .cf-foot small{font:400 11.5px "Geist Mono",monospace;color:var(--dark-muted);max-width:34em}
 .cform .cf-foot .btn{background:var(--acc);border-color:var(--acc);color:#fff}
 .cform .sent{background:#15301f;border:1px solid #1f4a33;color:#9fe3bb;border-radius:6px;padding:12px 14px;font-size:14px}
 .cform .err{background:#3a1d1a;border:1px solid #5a2a26;color:#ffb0a8;border-radius:6px;padding:12px 14px;font-size:14px}
@@ -299,7 +299,7 @@ a.c:hover{transform:translateY(-3px);border-color:var(--line2)}
 .about{display:grid;grid-template-columns:96px minmax(0,1fr);gap:18px;align-items:start}
 .about img{width:96px;height:96px;border-radius:8px;object-fit:cover}
 .about p{font-size:14.5px;color:var(--ink2)}
-.about .soc{display:flex;gap:14px;margin-top:10px;font:500 12px "Geist Mono",monospace;letter-spacing:.04em;text-transform:uppercase;color:var(--acc)}
+.about .soc{display:flex;flex-wrap:wrap;gap:8px 14px;margin-top:10px;font:500 12px "Geist Mono",monospace;letter-spacing:.04em;text-transform:uppercase;color:var(--acc)}
 @media (max-width:980px){.cta-end{padding-top:64px}.cta-box{padding:32px 22px}.contact{grid-template-columns:minmax(0,1fr);padding-bottom:48px}}
 
 /* QR modal */
@@ -443,5 +443,52 @@ footer .bottom{grid-column:1/-1;border-top:1px solid var(--dark-line);padding-to
 .tl2 .row:nth-last-child(-n+2) span{right:auto;left:0}
 @media (max-width:980px){.gloss{grid-template-columns:1fr 1fr}.tl2 .row b{font-size:12px}.tl2 .row span{display:none}}
 @media (max-width:600px){.gloss{grid-template-columns:1fr}}
+.cform.light{background:var(--panel);border:1px solid var(--line);max-width:860px}
+.cform.light label{color:var(--muted)}
+.cform.light input,.cform.light select,.cform.light textarea{background:var(--bg);border-color:var(--line2);color:var(--ink)}
+.cform.light .cf-foot small{color:var(--muted)}
+.cform.light .cf-foot .btn.o{color:var(--ink);border-color:var(--line2)}
+.contact.two-c{grid-template-columns:repeat(2,minmax(0,1fr));padding-top:32px}
+@media (max-width:980px){.contact.two-c{grid-template-columns:1fr}}
+.case-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.c.cg{padding:28px}.c.cg h3{font-size:21px;text-wrap:balance}.c.cg p{font-size:14.5px;color:var(--ink2)}
+.facts3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:6px}
+.facts3 div{border-top:1px solid var(--line);padding-top:10px}.facts3 b{display:block;font-size:20px;font-weight:500;letter-spacing:-.02em}.facts3 span{font-size:12px;color:var(--muted)}
+.tags{display:flex;flex-wrap:wrap;gap:6px}.tags span{font:500 11px "Geist Mono",monospace;letter-spacing:.04em;border:1px solid var(--line);border-radius:4px;padding:4px 8px;color:var(--muted)}
+.tags.big span{font-size:13px;padding:8px 12px;color:var(--ink);background:var(--panel)}
+@media (max-width:980px){.case-grid{grid-template-columns:1fr}}
+.posts{display:grid;gap:16px;max-width:860px}
+.post-card{display:grid;gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:26px 28px;transition:transform .3s,border-color .3s}
+.post-card:hover{transform:translateY(-2px);border-color:var(--line2)}
+.post-card .meta{display:flex;gap:14px;font:500 11.5px "Geist Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.post-card h3{font-size:22px;text-wrap:balance}.post-card p{color:var(--ink2);font-size:15px}
+.beliefs li{margin-bottom:6px}.beliefs b{font-weight:500}
+/* docs layout, like a documentation site: nav, content, on-this-page */
+.docs{display:grid;grid-template-columns:220px minmax(0,1fr) 200px;gap:48px;padding:48px 0 96px;align-items:start}
+.docs-nav,.docs-toc{position:sticky;top:96px;display:grid;gap:2px;font-size:14px}
+.docs-nav small,.docs-toc small{font:500 11px "Geist Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.docs-nav a,.docs-toc a{padding:6px 0;color:var(--ink2);border-left:2px solid transparent}
+.docs-nav a.sub{padding-left:12px;font-size:13.5px}
+.docs-nav a.cur{color:var(--ink);font-weight:500;border-left-color:var(--acc);padding-left:10px}
+.docs-nav a:hover,.docs-toc a:hover{color:var(--acc)}
+.docs>*{min-width:0}
+.docs-main{max-width:760px}
+.docs-main h1{font-size:clamp(30px,3.6vw,46px);text-transform:none;letter-spacing:-.025em;margin:12px 0 14px}
+.docs-main .lead{font-size:17px;color:var(--ink2);margin-bottom:12px}
+.docs-main section{margin-top:40px}
+.docs-main h2{font-size:24px;margin-bottom:12px;scroll-margin-top:96px}
+.docs-main h2 .anchor{color:var(--line2);font-weight:400;margin-left:6px;text-decoration:none}.docs-main h2:hover .anchor{color:var(--acc)}
+.docs-main p,.docs-main li{font-size:15.5px;line-height:1.6;color:var(--ink2);margin-bottom:10px}
+.docs-main ul{padding-left:1.2em}
+.docs-main pre{background:var(--dark);color:#e8e8e8;border-radius:8px;padding:16px 18px;font:400 13px/1.6 "Geist Mono",monospace;overflow-x:auto;margin:12px 0 16px}
+.docs-main .callout{border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:18px 20px;margin-top:40px}.docs-main .callout p{margin:0}
+.docs-main a:not(.anchor){color:var(--acc);text-decoration:underline;text-underline-offset:3px}
+@media (max-width:1100px){.docs{grid-template-columns:200px minmax(0,1fr)}.docs-toc{display:none}}
+@media (max-width:760px){.docs{grid-template-columns:1fr;gap:24px}.docs-nav{position:static;grid-template-columns:1fr 1fr}}
+/* cookie banner: nothing is set until a choice is made */
+.cookie{position:fixed;left:16px;right:16px;bottom:16px;z-index:150;background:var(--panel);border:1px solid var(--line2);border-radius:10px;padding:16px 18px;display:flex;gap:18px;align-items:center;box-shadow:0 30px 60px -30px rgba(0,0,0,.5);max-width:960px;margin:0 auto}
+.cookie p{font-size:13.5px;color:var(--ink2);flex:1;min-width:0}.cookie p a{text-decoration:underline;text-underline-offset:3px}
+.cookie .row{display:flex;gap:8px;flex:none}
+@media (max-width:700px){.cookie{flex-direction:column;align-items:stretch}.cookie .row{justify-content:flex-end}}
 .rv{opacity:0;transform:translateY(16px);transition:opacity .6s,transform .6s}.rv.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}

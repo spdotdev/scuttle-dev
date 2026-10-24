@@ -29,7 +29,10 @@
       modernisering van bestaande software, automatisering en beveiliging) en om reacties op te volgen. De grondslag is
       mijn gerechtvaardigd belang om zakelijke klanten te werven (artikel 6 lid 1 onder f AVG).</p>
 
-    <h2>Afmelden</h2>
+    <h2>Cookies en statistieken</h2>
+  <p>scuttle.dev zet geen cookies voordat je daarvoor kiest. Alleen als je in de cookiemelding op Akkoord klikt, laadt Google Analytics om te zien welke pagina's gelezen worden; je keuze wordt in je browser bewaard en is daar ook weer te wissen. Klik je op Weigeren, dan werkt de site precies hetzelfde en wordt er niets gezet.</p>
+
+  <h2>Afmelden</h2>
     <p>Elke e-mail bevat een afmeldlink. U kunt ook gewoon antwoorden dat u geen interesse heeft, of mailen naar
       <a href="mailto:stas@scuttle.dev">stas@scuttle.dev</a>. Daarna krijgt u van mij geen e-mail meer. Na een afmelding
       bewaar ik alleen het e-mailadres en het domein op een blokkeerlijst, zodat u niet opnieuw benaderd wordt.</p>

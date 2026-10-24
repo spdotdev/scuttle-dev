@@ -6,6 +6,8 @@ use Illuminate\Http\Response;
 use Illuminate\View\View;
 use Spdotdev\ScuttleDev\Cases;
 use Spdotdev\ScuttleDev\Catalog;
+use Spdotdev\ScuttleDev\Posts;
+use Spdotdev\ScuttleDev\Projects;
 
 class SiteController
 {
@@ -44,6 +46,57 @@ class SiteController
     {
         // @phpstan-ignore argument.type (the scuttle:: namespace is registered at runtime via loadViewsFrom, so it is not resolvable during package-only static analysis)
         return view('scuttle::case-study', ['c' => Cases::get($slug)]);
+    }
+
+    public function work(): View
+    {
+        // @phpstan-ignore argument.type (the scuttle:: namespace is registered at runtime via loadViewsFrom, so it is not resolvable during package-only static analysis)
+        return view('scuttle::work');
+    }
+
+    public function cases(): View
+    {
+        // @phpstan-ignore argument.type (the scuttle:: namespace is registered at runtime via loadViewsFrom, so it is not resolvable during package-only static analysis)
+        return view('scuttle::cases');
+    }
+
+    public function blog(): View
+    {
+        // @phpstan-ignore argument.type (the scuttle:: namespace is registered at runtime via loadViewsFrom, so it is not resolvable during package-only static analysis)
+        return view('scuttle::blog');
+    }
+
+    public function post(string $slug): View
+    {
+        // @phpstan-ignore argument.type (the scuttle:: namespace is registered at runtime via loadViewsFrom, so it is not resolvable during package-only static analysis)
+        return view('scuttle::post', ['post' => Posts::get($slug)]);
+    }
+
+    public function company(): View
+    {
+        // @phpstan-ignore argument.type (the scuttle:: namespace is registered at runtime via loadViewsFrom, so it is not resolvable during package-only static analysis)
+        return view('scuttle::company');
+    }
+
+    public function projects(): View
+    {
+        // @phpstan-ignore argument.type (the scuttle:: namespace is registered at runtime via loadViewsFrom, so it is not resolvable during package-only static analysis)
+        return view('scuttle::projects');
+    }
+
+    public function project(string $slug): View
+    {
+        // @phpstan-ignore argument.type (the scuttle:: namespace is registered at runtime via loadViewsFrom, so it is not resolvable during package-only static analysis)
+        return view('scuttle::project', ['pr' => Projects::get($slug)]);
+    }
+
+    public function projectDocs(string $slug): View
+    {
+        $pr = Projects::get($slug);
+        abort_unless(count($pr['docs']) > 0, 404);
+
+        // @phpstan-ignore argument.type (the scuttle:: namespace is registered at runtime via loadViewsFrom, so it is not resolvable during package-only static analysis)
+        return view('scuttle::project-docs', ['pr' => $pr]);
     }
 
     public function contact(): View

@@ -360,5 +360,18 @@
     if (cf.querySelector('.sent, .err')) setTimeout(function () { cf.scrollIntoView({ block: 'center' }); }, 100);
   }
 
+  // Cookie banner: Google Analytics loads only after Agree; Deny sets nothing and is remembered.
+  var ck = $('cookie');
+  if (ck && window.SCUTTLE_GA) {
+    var loadGa = function () {
+      var g = document.createElement('script'); g.async = true; g.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(window.SCUTTLE_GA); document.head.appendChild(g);
+      window.dataLayer = window.dataLayer || []; function gtag() { window.dataLayer.push(arguments); } gtag('js', new Date()); gtag('config', window.SCUTTLE_GA, { anonymize_ip: true });
+    };
+    var choice = null; try { choice = localStorage.getItem('consent'); } catch (e) {}
+    if (choice === 'agree') loadGa(); else if (choice !== 'deny') ck.hidden = false;
+    $('ck-agree').onclick = function () { try { localStorage.setItem('consent', 'agree'); } catch (e) {} ck.hidden = true; loadGa(); };
+    $('ck-deny').onclick = function () { try { localStorage.setItem('consent', 'deny'); } catch (e) {} ck.hidden = true; };
+  }
+
   try { if (localStorage.getItem('lang') === 'nl') lang('nl'); } catch (e) {}
 })();
