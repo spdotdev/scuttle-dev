@@ -51,33 +51,30 @@
 </header>
 
 <div class="wrap">
-  <div class="shot in4" aria-label="Example of an automation run">
-    <aside class="side">
-      <div class="h"><span data-i="sd_h">Automations</span><span>4</span></div>
-      <div class="it on"><span>invoice-intake</span><small data-i="now">now</small></div>
-      <div class="it"><span>lead-followup</span><small>2h</small></div>
-      <div class="it"><span>nightly-report</span><small>9h</small></div>
-      <div class="it"><span>ticket-triage</span><small>1d</small></div>
+  <div class="shot in4" id="demo" aria-label="Interactive examples: automation runs, reports and anonymized cases">
+    <aside class="side" id="side">
+      <div class="h"><span data-i="sd_h">Automations</span><span>5</span></div>
+      <button class="it on" data-k="invoice-intake" type="button"><span>invoice-intake</span><small data-i="now">now</small></button>
+      <button class="it" data-k="lead-followup" type="button"><span>lead-followup</span><small>2h</small></button>
+      <button class="it" data-k="ticket-triage" type="button"><span>ticket-triage</span><small>9h</small></button>
+      <button class="it" data-k="nightly-report" type="button"><span>nightly-report</span><small>1d</small></button>
+      <button class="it" data-k="mcp-gateway" type="button"><span>mcp-gateway</span><small>live</small></button>
       <div class="h" style="margin-top:22px"><span data-i="sd_r">Reports</span></div>
-      <div class="it"><span data-i="sd_r1">Run log</span><small>pdf</small></div>
-      <div class="it"><span data-i="sd_r2">Cost this month</span><small>€4.20</small></div>
-      <div class="it"><span data-i="sd_r3">Evaluation set</span><small>48/48</small></div>
+      <button class="it" data-k="health-check" type="button"><span data-i="sd_r1">Health Check</span><small>pdf</small></button>
+      <button class="it" data-k="roadmap" type="button"><span data-i="sd_r2">Roadmap</span><small>pdf</small></button>
+      <button class="it" data-k="security" type="button"><span data-i="sd_r3">Security assessment</span><small>pdf</small></button>
+      <div class="h" style="margin-top:22px"><span data-i="sd_c">Cases, anonymized</span></div>
+      <button class="it" data-k="case-cost" type="button"><span data-i="sd_c1">Cost saving</span><small>€</small></button>
+      <button class="it" data-k="case-mcp" type="button"><span data-i="sd_c2">API meets AI</span><small>mcp</small></button>
+      <button class="it" data-k="case-migration" type="button"><span data-i="sd_c3">Migration in use</span><small>0 stops</small></button>
     </aside>
-    <div class="main">
-      <div class="top"><h4 data-i="sh_h">Automation run · invoice-intake</h4><div class="st"><i></i><span id="stt" data-i="sh_run">running</span></div></div>
+    <div class="main" id="main">
+      <div class="top"><h4 id="sh-h">Automation run · invoice-intake</h4><div class="st"><i id="sti"></i><span id="stt">running</span></div></div>
       <div class="prog"><i id="pb"></i></div>
-      <div class="log" id="log"></div>
-      <div class="find" id="find">
-        <div class="row"><div><b data-i="f1h">11 invoices booked</b><small data-i="f1">Matched to a purchase order · posted to accounting</small></div><span class="hrs">22 min</span><span class="sev l">AUTO</span></div>
-        <div class="row"><div><b data-i="f2h">1 invoice for review</b><small data-i="f2">Unknown supplier · waiting for a person, with the extracted fields ready</small></div><span class="hrs">2 min</span><span class="sev m">HUMAN</span></div>
-        <div class="row"><div><b data-i="f3h">2 reminders archived</b><small data-i="f3">Payment reminders for invoices already paid</small></div><span class="hrs">4 min</span><span class="sev l">AUTO</span></div>
-        <div class="row"><div><b data-i="f4h">Cost this month</b><small data-i="f4">€4.20 of a €50 cap · switch-off documented</small></div><span class="hrs">cap</span><span class="sev l">OK</span></div>
-        <div class="row"><div><b data-i="f5h">Evaluation set</b><small data-i="f5">48 real examples with known answers · all passed before this run</small></div><span class="hrs">48/48</span><span class="sev l">OK</span></div>
-        <div class="row"><div><b data-i="f6h">Summary posted</b><small data-i="f6">Finance channel · who to call when it stops</small></div><span class="hrs">done</span><span class="sev l">OK</span></div>
-      </div>
+      <div class="view" id="view"><div class="log" id="log"></div><div class="find" id="find"></div></div>
     </div>
   </div>
-  <p class="shot-note" data-i="shot_note">Example run with made-up names. Yours shows your own workflow, your own numbers.</p>
+  <p class="shot-note" data-i="shot_note">Click an item on the left. Runs and reports are examples with made-up names; the cases are real work, anonymized, without client names.</p>
 </div>
 
 <section class="s" id="services"><div class="wrap">
@@ -202,9 +199,8 @@
 Object.assign(window.SCUTTLE_NL.t, {
   n_sectors: "Sectoren",
   h1: "Automatiseer het werk<br>dat je team herhaalt", sub: "Automatisering · Beveiliging · Eindhoven", cta1: "Begin met één workflow", cta2: "Bekijk de prijzen", cmd_b: "beveiligingsrelease 21 okt 2026 · 8.4.26 → 8.4.27 · twee kritieke RCE-lekken gedicht · is die van jou gepatcht?",
-  sd_h: "Automatiseringen", now: "nu", sd_r: "Rapporten", sd_r1: "Runlog", sd_r2: "Kosten deze maand", sd_r3: "Evaluatieset", sh_h: "Automatiseringsrun · invoice-intake", sh_run: "bezig",
-  f1h: "11 facturen geboekt", f1: "Gekoppeld aan een inkooporder · geboekt in de administratie", f2h: "1 factuur ter controle", f2: "Onbekende leverancier · wacht op een mens, met de uitgelezen velden klaar", f3h: "2 herinneringen gearchiveerd", f3: "Betalingsherinneringen voor al betaalde facturen", f4h: "Kosten deze maand", f4: "€4,20 van een plafond van €50 · uitschakelen gedocumenteerd", f5h: "Evaluatieset", f5: "48 echte voorbeelden met bekende antwoorden · allemaal geslaagd vóór deze run", f6h: "Samenvatting geplaatst", f6: "Financekanaal · wie te bellen als het stopt",
-  shot_note: "Voorbeeldrun met verzonnen namen. Die van jou toont je eigen workflow en je eigen cijfers.",
+  sd_h: "Automatiseringen", now: "nu", sd_r: "Rapporten", sd_r1: "Health Check", sd_r2: "Roadmap", sd_r3: "Security assessment", sd_c: "Cases, geanonimiseerd", sd_c1: "Kostenbesparing", sd_c2: "API ontmoet AI", sd_c3: "Migratie in gebruik",
+  shot_note: "Klik links op een onderdeel. Runs en rapporten zijn voorbeelden met verzonnen namen; de cases zijn echt werk, geanonimiseerd, zonder klantnamen.",
   sv_h: "De basis voor een bedrijf dat op automatisering draait", sv_p: "Agents en koppelingen die het repeterende werk doen, beveiliging die het veilig houdt, één developer die het draaiend houdt. Vaste scope per stap, niets live zonder rollback.",
   gl_build: "Automatiseer het repeterende werk, bouw wat ontbreekt.", gl_assess: "Weet waar je staat voordat er iets wordt aangeraakt.", gl_run: "Houd het veilig, geback-upt en gedocumenteerd.",
   g_build: "Automatiseren",
