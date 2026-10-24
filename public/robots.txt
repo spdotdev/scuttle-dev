@@ -10,3 +10,4 @@ Sitemap: https://scuttle.dev/sitemap.xml
 # Disallow admin/dev paths if any
 Disallow: /src/
 Disallow: /.git/
+Disallow: /clients

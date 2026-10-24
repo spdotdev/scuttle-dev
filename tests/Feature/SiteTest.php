@@ -95,7 +95,8 @@ class SiteTest extends TestCase
     {
         $this->get('http://scuttle.dev/robots.txt')
             ->assertOk()
-            ->assertSee('Sitemap:');
+            ->assertSee('Sitemap:')
+            ->assertSee('Disallow: /clients');
     }
 
     public function test_the_mail_signature_logo_is_served_as_a_png(): void
