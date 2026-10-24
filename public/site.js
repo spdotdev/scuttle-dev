@@ -1,13 +1,41 @@
-/* scuttle.dev: language, theme, menu, report animation, reveals, QR modal. No tracking. */
+/* scuttle.dev: language, theme, menus, decrypt headline, lights, report animation, reveals, QR modal. No tracking. */
 (function () {
   var $ = function (id) { return document.getElementById(id); };
   var root = document.documentElement;
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789<>/{}#*';
+
+  // Scramble text into place, like a decrypt. Keeps tags (for example <br>) and spaces.
+  function decrypt(el, ms) {
+    if (reduce || !el) return;
+    var html = el.innerHTML, parts = html.split(/(<[^>]+>)/), total = 0;
+    parts.forEach(function (p) { if (p && p[0] !== '<') total += p.length; });
+    if (!total) return;
+    var start = null, w = el.offsetWidth;
+    el.style.minWidth = w ? w + 'px' : '';
+    function frame(ts) {
+      if (start === null) start = ts;
+      var k = Math.min(1, (ts - start) / (ms || 900)), done = Math.floor(k * total), idx = 0, out = '';
+      parts.forEach(function (p) {
+        if (!p) return;
+        if (p[0] === '<') { out += p; return; }
+        for (var i = 0; i < p.length; i++, idx++) {
+          var ch = p[i];
+          if (ch === ' ' || ch === ' ' || idx < done) out += ch;
+          else out += GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+        }
+      });
+      el.innerHTML = out;
+      if (k < 1) requestAnimationFrame(frame); else { el.innerHTML = html; el.style.minWidth = ''; }
+    }
+    requestAnimationFrame(frame);
+  }
 
   // Dutch strings. English is the text already in the HTML.
   var T = window.SCUTTLE_NL || { t: {}, ph: {} };
   var base = {};
   document.querySelectorAll('[data-i]').forEach(function (e) { base[e.dataset.i] = base[e.dataset.i] || e.innerHTML; });
-  function lang(l) {
+  function lang(l, animate) {
     root.lang = l;
     document.querySelectorAll('[data-i]').forEach(function (e) {
       var k = e.dataset.i;
@@ -18,23 +46,53 @@
     if (nl) nl.setAttribute('aria-pressed', l === 'nl');
     try { localStorage.setItem('lang', l); } catch (e) {}
     updateEol();
+    if (animate) document.querySelectorAll('[data-dec]').forEach(function (h) { decrypt(h, 700); });
   }
-  if ($('en')) $('en').onclick = function () { lang('en'); };
-  if ($('nl')) $('nl').onclick = function () { lang('nl'); };
+  if ($('en')) $('en').onclick = function () { lang('en', true); };
+  if ($('nl')) $('nl').onclick = function () { lang('nl', true); };
 
-  // Theme: light unless the visitor chose dark here before.
+  // Theme: light unless the visitor chose dark here before (the head script already applied it).
   function theme(t) {
     if (t === 'dark') root.setAttribute('data-theme', 'dark'); else root.removeAttribute('data-theme');
     try { localStorage.setItem('theme', t); } catch (e) {}
   }
-  try { if (localStorage.getItem('theme') === 'dark') theme('dark'); } catch (e) {}
   if ($('theme')) $('theme').onclick = function () { theme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); };
 
-  // Phone menu.
-  var links = $('links');
+  // Phone menu and the products menu.
+  var links = $('links'), megaBtn = $('mega-btn'), hasMega = $('has-mega');
   if ($('burger') && links) {
     $('burger').onclick = function () { links.classList.toggle('open'); };
-    links.addEventListener('click', function () { links.classList.remove('open'); });
+    links.addEventListener('click', function (e) { if (e.target.closest('a')) links.classList.remove('open'); });
+  }
+  if (megaBtn) {
+    megaBtn.onclick = function () { megaBtn.setAttribute('aria-expanded', megaBtn.getAttribute('aria-expanded') !== 'true'); };
+    document.addEventListener('click', function (e) { if (hasMega && !hasMega.contains(e.target)) megaBtn.setAttribute('aria-expanded', 'false'); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') megaBtn.setAttribute('aria-expanded', 'false'); });
+  }
+
+  // Brand: the letters rearrange on hover, the mark turns (CSS).
+  var brandTxt = document.querySelector('.brand [data-scr]');
+  if (brandTxt && !reduce) {
+    var busy = false;
+    brandTxt.parentNode.addEventListener('mouseenter', function () {
+      if (busy) return; busy = true;
+      decrypt(brandTxt, 450);
+      setTimeout(function () { busy = false; }, 600);
+    });
+  }
+
+  // Headline decrypt on load.
+  document.querySelectorAll('[data-dec]').forEach(function (h) { decrypt(h, 950); });
+
+  // Status lights: one flashes briefly every so often.
+  var lights = [].slice.call(document.querySelectorAll('.lt'));
+  if (lights.length && !reduce) {
+    setInterval(function () {
+      if (document.hidden) return;
+      var l = lights[Math.floor(Math.random() * lights.length)];
+      l.classList.add('on');
+      setTimeout(function () { l.classList.remove('on'); }, 420);
+    }, 650);
   }
 
   // Copy the command in the hero.
@@ -103,7 +161,7 @@
     }, { threshold: 0.1 });
     rv.forEach(function (e, i) { e.style.transitionDelay = (i % 4) * 60 + 'ms'; io.observe(e); });
   }
-  setTimeout(function () { document.querySelectorAll('.rv:not(.in)').forEach(function (e) { e.classList.add('in'); }); }, 2000);
+  setTimeout(function () { document.querySelectorAll('.rv:not(.in)').forEach(function (e) { e.classList.add('in'); }); }, 1500);
 
   // QR code modal (vCard).
   var modal = $('qr-modal'), openQr = $('open-qr'), closeQr = $('close-qr'), ov = $('qr-overlay');

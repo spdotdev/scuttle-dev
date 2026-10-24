@@ -2,6 +2,7 @@
 
 namespace Spdotdev\ScuttleDev\Tests\Feature;
 
+use Spdotdev\ScuttleDev\Catalog;
 use Spdotdev\ScuttleDev\Tests\TestCase;
 
 class SiteTest extends TestCase
@@ -51,8 +52,6 @@ class SiteTest extends TestCase
 
         $this->assertStringContainsString('KvK 96040947', $html);
         $this->assertStringContainsString('NL005184584B85', $html);
-        $this->assertStringContainsString('from €1,600', $html);
-        $this->assertStringContainsString('€90 per hour', $html);
         $this->assertStringNotContainsStringIgnoringCase('draft', $html);
         $this->assertStringNotContainsStringIgnoringCase('hosintra', $html);
         $this->assertStringNotContainsString('hello@scuttle.dev', $html);
@@ -115,7 +114,7 @@ class SiteTest extends TestCase
 
     public function test_every_page_links_the_shared_stylesheet_script_and_logo(): void
     {
-        foreach (['/', '/privacy', '/legacy-health-check', '/case-studies/phalcon-to-laravel'] as $path) {
+        foreach (['/', '/privacy', '/pricing', '/legacy-health-check', '/products/modernization', '/case-studies/phalcon-to-laravel'] as $path) {
             $this->get('http://scuttle.dev'.$path)
                 ->assertOk()
                 ->assertSee('vendor/scuttle/site.css', false)
@@ -146,6 +145,51 @@ class SiteTest extends TestCase
             ->assertSee('/legacy-health-check', false);
 
         $this->get('http://scuttle.dev/sitemap.xml')->assertSee('https://scuttle.dev/case-studies/phalcon-to-laravel', false);
+    }
+
+    public function test_the_pricing_page_explains_the_rate_and_lists_every_product(): void
+    {
+        $html = (string) $this->get('http://scuttle.dev/pricing')->assertOk()->getContent();
+
+        $this->assertStringContainsString('€90', $html);
+        $this->assertStringContainsString('from €1,600', $html);
+        $this->assertStringContainsString('excl. VAT', $html);
+        $this->assertStringContainsString('14 days', $html);
+        foreach (Catalog::all() as $p) {
+            $this->assertStringContainsString($p['name'], $html);
+        }
+        $this->assertStringNotContainsStringIgnoringCase('subscription', $html);
+        $this->get('http://scuttle.dev/sitemap.xml')->assertSee('https://scuttle.dev/pricing', false);
+    }
+
+    public function test_every_product_has_a_page_in_the_menu_and_in_the_sitemap(): void
+    {
+        $home = (string) $this->get('http://scuttle.dev/')->assertOk()->getContent();
+        $sitemap = (string) $this->get('http://scuttle.dev/sitemap.xml')->getContent();
+
+        foreach (Catalog::all() as $p) {
+            $url = Catalog::url($p);
+            $page = (string) $this->get($url)->assertOk()->getContent();
+            $this->assertSame(1, substr_count($page, '<h1'), $url);
+            $this->assertStringContainsString($p['price'], $page, $url);
+            $this->assertStringContainsString('href="https://plan.scuttle.dev/book/stas"', $page, $url);
+            $this->assertGreaterThanOrEqual(2, substr_count($home, 'href="'.$url.'"'), $url.' appears in the menu and the tiles');
+            $this->assertStringContainsString('<loc>'.Catalog::canonical($p).'</loc>', $sitemap, $url);
+        }
+        $this->assertCount(12, Catalog::all());
+        $this->get('http://scuttle.dev/products/legacy-health-check')->assertNotFound();
+        $this->get('http://scuttle.dev/products/nope')->assertNotFound();
+    }
+
+    public function test_home_copy_is_broad_and_has_no_reference_button(): void
+    {
+        $home = (string) $this->get('http://scuttle.dev/')->assertOk()->getContent();
+
+        $this->assertStringNotContainsString('Ask for references', $home);
+        $this->assertStringNotContainsString('run on PHP', $home);
+        $this->assertStringContainsString('cannot switch off', $home);
+        $this->assertStringContainsString('id="mega"', $home);
+        $this->assertStringContainsString('data-dec', $home);
     }
 
     public function test_the_new_pages_do_not_name_the_client(): void

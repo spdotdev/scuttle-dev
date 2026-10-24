@@ -9,7 +9,7 @@
   <meta name="author" content="Scuttle Development" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="@yield('canonical')" />
-  <meta name="theme-color" content="#5454D4" />
+  <meta name="theme-color" content="#f5f5f5" />
 
   <link rel="icon" type="image/svg+xml" href="{{ secure_asset('vendor/scuttle/icon.svg') }}" />
   <link rel="icon" type="image/png" sizes="32x32" href="{{ secure_asset('vendor/scuttle/favicon-32x32.png') }}" />
@@ -29,18 +29,33 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="{{ secure_asset('vendor/scuttle/site.css') }}" />
+  <script>try{if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
   @yield('head')
 </head>
 
 <body>
+  @php($groups = \Spdotdev\ScuttleDev\Catalog::grouped())
   <nav class="top" aria-label="Main navigation"><div class="wrap">
-    <a class="brand" href="{{ route('scuttle.home') }}" aria-label="Scuttle Development home"><img alt="" src="{{ secure_asset('vendor/scuttle/logo.svg') }}" width="30" height="24"><span>Scuttle</span></a>
+    <a class="brand" href="{{ route('scuttle.home') }}" aria-label="Scuttle Development home"><img alt="" src="{{ secure_asset('vendor/scuttle/logo.svg') }}" width="30" height="24"><span data-scr="Scuttle">Scuttle</span></a>
     <div class="links" id="links">
+      <div class="has-mega" id="has-mega">
+        <button type="button" id="mega-btn" aria-expanded="false" aria-controls="mega"><span data-i="n_products">Products</span><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="mega" id="mega">
+          @foreach($groups as $key => $items)
+          <div class="col">
+            <small data-i="g_{{ $key }}">{{ \Spdotdev\ScuttleDev\Catalog::GROUPS[$key] }}</small>
+            @foreach($items as $p)
+            <a href="{{ \Spdotdev\ScuttleDev\Catalog::url($p) }}">{{ $p['name'] }}</a>
+            @endforeach
+          </div>
+          @endforeach
+        </div>
+      </div>
+      <a href="{{ route('scuttle.pricing') }}" data-i="n_pricing">Pricing</a>
       @hasSection('homelinks')
         @yield('homelinks')
       @else
-        <a href="{{ route('scuttle.home') }}#services" data-i="n_services">Services</a>
-        <a href="{{ route('scuttle.health-check') }}" data-i="n_hc">Health Check</a>
+        <a href="{{ route('scuttle.home') }}#work" data-i="n_work">Work</a>
         <a href="{{ route('scuttle.case-study') }}" data-i="n_case">Case study</a>
         <a href="{{ route('scuttle.home') }}#contact" data-i="n_contact">Contact</a>
       @endif
@@ -59,16 +74,18 @@
     @yield('content')
   </main>
 
-  <footer><div class="wrap">
-    <div class="col"><div class="brand"><img alt="" src="{{ secure_asset('vendor/scuttle/logo.svg') }}" width="30" height="24"><span>Scuttle</span></div><p style="max-width:24em;font-size:13.5px;color:var(--muted)" data-i="ft_p">Legacy PHP modernization and security, by one senior developer in Eindhoven.</p></div>
-    <div class="col"><small data-i="ft_site">Site</small><a href="{{ route('scuttle.home') }}#services" data-i="n_services">Services</a><a href="{{ route('scuttle.health-check') }}" data-i="n_hc">Health Check</a><a href="{{ route('scuttle.case-study') }}" data-i="n_case">Case study</a><a href="{{ route('scuttle.home') }}#contact" data-i="n_contact">Contact</a></div>
-    <div class="col"><small data-i="ft_company">Company</small><a href="{{ route('scuttle.home') }}#about" data-i="ft_about">About</a><a href="https://www.linkedin.com/in/stanislavplotnikov/" rel="noopener" target="_blank">LinkedIn</a><a href="https://github.com/spdotdev" rel="noopener" target="_blank">GitHub</a><a href="https://splotnikov.dev" rel="noopener" target="_blank">splotnikov.dev</a></div>
+  <div class="wrap"><footer>
+    <div class="col"><div class="brand"><img alt="" src="{{ secure_asset('vendor/scuttle/logo.svg') }}" width="30" height="24"><span>Scuttle</span></div><p data-i="ft_p">Software kept in support, modernized in steps and secured, by one senior developer in Eindhoven.</p></div>
+    <div class="col"><small data-i="n_products">Products</small>
+      @foreach($groups as $key => $items)@foreach(array_slice($items, 0, 2) as $p)<a href="{{ \Spdotdev\ScuttleDev\Catalog::url($p) }}">{{ $p['name'] }}</a>@endforeach @endforeach
+      <a href="{{ route('scuttle.pricing') }}" data-i="n_pricing">Pricing</a></div>
+    <div class="col"><small data-i="ft_company">Company</small><a href="{{ route('scuttle.home') }}#about" data-i="ft_about">About</a><a href="{{ route('scuttle.case-study') }}" data-i="n_case">Case study</a><a href="{{ route('scuttle.home') }}#contact" data-i="n_contact">Contact</a><a href="https://www.linkedin.com/in/stanislavplotnikov/" rel="noopener" target="_blank">LinkedIn</a><a href="https://github.com/spdotdev" rel="noopener" target="_blank">GitHub</a><a href="https://splotnikov.dev" rel="noopener" target="_blank">splotnikov.dev</a></div>
     <div class="col"><small data-i="ft_legal">Legal</small><a href="{{ route('scuttle.privacy') }}" data-i="ft_privacy">Privacy</a><a href="{{ route('scuttle.legal', ['name' => 'TERMS_AND_CONDITIONS']) }}" data-i="ft_terms">Terms and conditions</a><a href="{{ route('scuttle.legal', ['name' => 'ALGEMENE_VOORWAARDEN']) }}">Algemene voorwaarden</a><a href="{{ route('scuttle.legal', ['name' => 'NDA']) }}">NDA</a></div>
     <div class="bottom"><span>© {{ date('Y') }} SCUTTLE DEVELOPMENT · KVK 96040947 · BTW NL005184584B85</span><span>EINDHOVEN, NL</span></div>
-  </div></footer>
+  </footer></div>
 
   <script>
-    window.SCUTTLE_NL = { t: { n_services: "Diensten", n_hc: "Health Check", n_case: "Casestudy", n_contact: "Contact", n_book: "Plan een gesprek", ft_p: "Modernisering en beveiliging van legacy PHP, door één senior developer in Eindhoven.", ft_site: "Site", ft_company: "Bedrijf", ft_about: "Over mij", ft_legal: "Juridisch", ft_privacy: "Privacy", ft_terms: "Terms and conditions" }, ph: {} };
+    window.SCUTTLE_NL = { t: { n_products: "Producten", g_assess: "Beoordelen", g_build: "Bouwen", g_run: "Beheren", n_pricing: "Prijzen", n_work: "Werk", n_case: "Casestudy", n_contact: "Contact", n_book: "Plan een gesprek", ft_p: "Software binnen support gehouden, in stappen gemoderniseerd en beveiligd, door één senior developer in Eindhoven.", ft_company: "Bedrijf", ft_about: "Over mij", ft_legal: "Juridisch", ft_privacy: "Privacy", ft_terms: "Terms and conditions" }, ph: {} };
   </script>
   @stack('nl')
   <script src="{{ secure_asset('vendor/scuttle/site.js') }}" defer></script>

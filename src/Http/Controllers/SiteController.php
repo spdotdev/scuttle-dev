@@ -4,6 +4,7 @@ namespace Spdotdev\ScuttleDev\Http\Controllers;
 
 use Illuminate\Http\Response;
 use Illuminate\View\View;
+use Spdotdev\ScuttleDev\Catalog;
 
 class SiteController
 {
@@ -19,10 +20,23 @@ class SiteController
         return view('scuttle::privacy');
     }
 
-    public function healthCheck(): View
+    public function pricing(): View
     {
         // @phpstan-ignore argument.type (the scuttle:: namespace is registered at runtime via loadViewsFrom, so it is not resolvable during package-only static analysis)
-        return view('scuttle::health-check');
+        return view('scuttle::pricing');
+    }
+
+    public function healthCheck(): View
+    {
+        return $this->productView('legacy-health-check');
+    }
+
+    public function product(string $slug): View
+    {
+        // The Health Check keeps its own address.
+        abort_if($slug === 'legacy-health-check', 404);
+
+        return $this->productView($slug);
     }
 
     public function caseStudy(): View
@@ -51,6 +65,15 @@ class SiteController
     {
         return $this->staticFile('mail/signature-logo.png', 'image/png')
             ->header('Cache-Control', 'public, max-age=604800');
+    }
+
+    private function productView(string $slug): View
+    {
+        $p = Catalog::get($slug);
+        $related = array_values(array_filter(Catalog::all(), fn (array $o) => $o['group'] === $p['group'] && $o['slug'] !== $slug));
+
+        // @phpstan-ignore argument.type (the scuttle:: namespace is registered at runtime via loadViewsFrom, so it is not resolvable during package-only static analysis)
+        return view('scuttle::product', ['p' => $p, 'related' => $related]);
     }
 
     /**
