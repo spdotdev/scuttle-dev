@@ -1,40 +1,36 @@
 @extends('scuttle::layout')
+@php($C = \Spdotdev\ScuttleDev\Catalog::class)
 
-@section('title', 'Phalcon to Laravel, module by module')
-@section('description', 'Case study: an incremental migration of a multi-tenant operations platform from Phalcon to Laravel, with no big-bang switch and 60 percent lower latency, using the Strangler Fig pattern.')
-@section('canonical', 'https://scuttle.dev/case-studies/phalcon-to-laravel')
+@section('title', $c['title'])
+@section('description', 'Case study: '.$c['lead'])
+@section('canonical', 'https://scuttle.dev/case-studies/'.$c['slug'])
 
 @section('content')
 <article class="wrap page">
-  <span class="lbl dot">Case study · client anonymized</span>
-  <h1>Phalcon to Laravel, module by module</h1>
-  <p class="lead">An incremental migration of a multi-tenant operations platform: no big-bang switch, no rewrite from scratch, and 60 percent lower latency.</p>
+  <span class="lbl dot">Case study · {{ $c['kicker'] }}</span>
+  <h1>{{ $c['title'] }}</h1>
+  <p class="lead">{{ $c['lead'] }}</p>
 
   <div class="facts">
-    <div><b>60%</b> lower latency</div>
-    <div><b>PHP 8.4</b> up from PHP 7.4</div>
-    <div><b>Phalcon 5.9</b> up from Phalcon 3.4</div>
+    @foreach($c['facts'] as $f)<div><b>{{ $f[0] }}</b>{{ $f[1] }}</div>@endforeach
   </div>
 
   <h2>The situation</h2>
-  <p>The platform ran on a legacy Phalcon system. It could not scale, and specialist developers for the framework were hard to find. A rewrite was out of the question: the system runs its customers' daily operations, so a big-bang switch was too risky.</p>
+  <p>{{ $c['situation'] }}</p>
 
   <h2>The approach</h2>
-  <p>I used the Strangler Fig pattern. Instead of replacing the system in one go, I built a thin PHP layer that lets the old Phalcon code and the new Laravel code run side by side. Parts of the application moved over one at a time, and each step was small enough to verify on its own. A wrong assumption could only break one thing, and never the whole platform.</p>
-  <p>The platform was also upgraded from PHP 7.4 to PHP 8.4 and from Phalcon 3.4 to Phalcon 5.9, so the runtime stayed supported while the migration went on.</p>
+  <ul>@foreach($c['approach'] as $a)<li>{{ $a }}</li>@endforeach</ul>
 
   <h2>The result</h2>
-  <ul>
-    <li>The customers kept working in the platform during the whole migration. Each release was small and had a rollback.</li>
-    <li>60 percent lower latency.</li>
-    <li>A supported runtime, and a codebase on a framework that developers actually know.</li>
-  </ul>
+  <ul>@foreach($c['result'] as $r)<li>{{ $r }}</li>@endforeach</ul>
 
   <h2>Technology</h2>
-  <p>PHP, Laravel, Phalcon, MySQL, Docker, Ansible, GitHub Actions. The client is anonymized and the work is covered by confidentiality. References on request.</p>
+  <p>{{ $c['stack'] }}</p>
 
   <aside class="callout">
-    <p>Does your application look like this? The <a href="{{ route('scuttle.health-check') }}">Health Check</a> is a fixed-price, two-day assessment that ends in a step-by-step plan.</p>
+    <p>The products behind this: @foreach($c['products'] as $i => $slug)<a href="{{ $C::url($C::get($slug)) }}">{{ $C::get($slug)['name'] }}</a>@if($i < count($c['products']) - 1), @endif @endforeach. Want to talk about something like it? <a href="{{ route('scuttle.contact.page') }}?about={{ rawurlencode($C::get($c['products'][0])['name']) }}">Use the contact form</a> or <a href="{{ config('scuttle-dev.booking_url') }}">book a call</a>.</p>
   </aside>
+
+  <p class="updated" style="margin-top:32px">More case studies: @foreach(\Spdotdev\ScuttleDev\Cases::all() as $o)@if($o['slug'] !== $c['slug'])<a href="{{ \Spdotdev\ScuttleDev\Cases::url($o['slug']) }}">{{ $o['title'] }}</a> · @endif @endforeach</p>
 </article>
 @endsection

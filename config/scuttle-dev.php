@@ -7,4 +7,12 @@ return [
 
     // The public booking page in sd-plan behind every "Book a call" button.
     'booking_url' => env('SCUTTLE_BOOKING_URL', 'https://plan.scuttle.dev/book/stas'),
+
+    // Where the contact form delivers.
+    'contact_to' => env('SCUTTLE_CONTACT_TO', 'info@scuttle.dev'),
+
+    // Cloudflare Turnstile (the bot check on the contact form). Without keys the
+    // form falls back to a honeypot plus a signed minimum fill time.
+    'turnstile_site_key' => env('SCUTTLE_TURNSTILE_SITE_KEY', ''),
+    'turnstile_secret' => env('SCUTTLE_TURNSTILE_SECRET', ''),
 ];

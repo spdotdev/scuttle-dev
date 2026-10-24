@@ -70,11 +70,16 @@
   </div></section>
 
   <section class="s tight"><div class="wrap">
+    @php($cs = collect(\Spdotdev\ScuttleDev\Cases::all())->first(fn ($c) => in_array($p['slug'], $c['products'], true)) ?? \Spdotdev\ScuttleDev\Cases::get('phalcon-to-laravel'))
     <figure class="quote rv">
-      <blockquote>Phalcon to Laravel, module by module, while the platform stayed in daily use. No big-bang switch, no rewrite from scratch.</blockquote>
-      <figcaption><b>Multi-tenant operations platform</b><span>Client anonymized · <a href="{{ route('scuttle.case-study') }}">read the case study</a></span></figcaption>
+      <blockquote>{{ $cs['quote'] }}</blockquote>
+      <figcaption><b>{{ $cs['kicker'] }}</b><span><a href="{{ \Spdotdev\ScuttleDev\Cases::url($cs['slug']) }}">Read the case study: {{ $cs['title'] }}</a></span></figcaption>
     </figure>
   </div></section>
+
+  @if($p['slug'] === 'ai-integration')
+    @include('scuttle::partials.ai-extra')
+  @endif
 
   @if(count($related))
   <section class="s tight"><div class="wrap">
@@ -89,10 +94,10 @@
 
   <section class="cta-end"><div class="wrap">
     <div class="cta-box rv">
-      <img alt="" src="{{ secure_asset('vendor/scuttle/logo.svg') }}" width="46" height="37">
-      <h2>Ready to talk about {{ $p['name'] }}?</h2>
-      <p>Tell me what you are running. I reply within one working day with a first opinion, free.</p>
-      <div class="row"><a class="btn" href="{{ config('scuttle-dev.booking_url') }}">Book a call</a><a class="btn o" href="mailto:info@scuttle.dev?subject={{ rawurlencode($p['name']) }}">Email info@scuttle.dev</a><a class="btn o" href="tel:+31618233175">+31 6 18 23 31 75</a></div>
+      @include('scuttle::partials.logo', ['id' => 'cta', 'w' => 46, 'h' => 37])
+      <h2>{{ $p['cta'][0] }}</h2>
+      <p>{{ $p['cta'][1] }}</p>
+      <div class="row"><a class="btn" href="{{ route('scuttle.contact.page') }}?about={{ rawurlencode($p['name']) }}">Use the contact form</a><a class="btn o" href="{{ config('scuttle-dev.booking_url') }}">Book a call</a><a class="btn o" href="mailto:info@scuttle.dev?subject={{ rawurlencode($p['name']) }}">Email info@scuttle.dev</a></div>
     </div>
   </div></section>
 </article>

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Spdotdev\ScuttleDev\Http\Controllers\ContactController;
 use Spdotdev\ScuttleDev\Http\Controllers\SiteController;
 
 Route::domain(config('scuttle-dev.domain'))
@@ -14,7 +15,12 @@ Route::domain(config('scuttle-dev.domain'))
         Route::get('/products/{slug}', [SiteController::class, 'product'])
             ->where('slug', '[a-z0-9-]+')
             ->name('scuttle.product');
-        Route::get('/case-studies/phalcon-to-laravel', [SiteController::class, 'caseStudy'])->name('scuttle.case-study');
+        Route::get('/contact', [SiteController::class, 'contact'])->name('scuttle.contact.page');
+        Route::get('/case-studies/{slug}', [SiteController::class, 'caseStudy'])->where('slug', '[a-z0-9-]+')->name('scuttle.case');
+        Route::post('/contact', [ContactController::class, 'send'])->middleware('throttle:6,1')->name('scuttle.contact');
+
+        // The vCard at the root with the right media type, so phones open it as a contact.
+        Route::get('/scuttle.vcf', [SiteController::class, 'vcard'])->name('scuttle.vcard');
 
         // Crawler files served at the site root.
         Route::get('/robots.txt', [SiteController::class, 'robots'])->name('scuttle.robots');

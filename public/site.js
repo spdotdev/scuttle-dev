@@ -3,7 +3,7 @@
   var $ = function (id) { return document.getElementById(id); };
   var root = document.documentElement;
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789<>/{}#*';
+  var GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789<>/{}[]#*&%$@!?=+~^|';
 
   // Scramble text into place, like a decrypt. Keeps tags (for example <br>) and spaces.
   function decrypt(el, ms) {
@@ -11,8 +11,9 @@
     var html = el.innerHTML, parts = html.split(/(<[^>]+>)/), total = 0;
     parts.forEach(function (p) { if (p && p[0] !== '<') total += p.length; });
     if (!total) return;
-    var start = null, w = el.offsetWidth;
-    el.style.minWidth = w ? w + 'px' : '';
+    var start = null, lh = parseFloat(getComputedStyle(el).lineHeight) || 40, oneLine = el.offsetHeight < lh * 1.6 && html.indexOf('<br') < 0;
+    // Random glyphs are wider than the real letters: keep a one-line headline on one line while it settles.
+    if (oneLine) el.style.whiteSpace = 'nowrap';
     function frame(ts) {
       if (start === null) start = ts;
       var k = Math.min(1, (ts - start) / (ms || 900)), done = Math.floor(k * total), idx = 0, out = '';
@@ -26,7 +27,7 @@
         }
       });
       el.innerHTML = out;
-      if (k < 1) requestAnimationFrame(frame); else { el.innerHTML = html; el.style.minWidth = ''; }
+      if (k < 1) requestAnimationFrame(frame); else { el.innerHTML = html; el.style.whiteSpace = ''; }
     }
     requestAnimationFrame(frame);
   }
@@ -72,15 +73,37 @@
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') megaBtn.setAttribute('aria-expanded', 'false'); });
   }
 
-  // Brand: the letters rearrange on hover, the mark turns (CSS).
-  var brandTxt = document.querySelector('.brand [data-scr]');
+  // Brand: the letters rearrange on hover and the three squares fade in again from nothing.
+  var brandTxt = document.querySelector('.brand [data-scr]'), brandLogo = document.querySelector('.brand .lg');
   if (brandTxt && !reduce) {
     var busy = false;
     brandTxt.parentNode.addEventListener('mouseenter', function () {
       if (busy) return; busy = true;
       decrypt(brandTxt, 450);
-      setTimeout(function () { busy = false; }, 600);
+      if (brandLogo) { brandLogo.classList.remove('anim'); void brandLogo.getBoundingClientRect(); brandLogo.classList.add('anim'); }
+      setTimeout(function () { busy = false; }, 900);
     });
+  }
+
+  // Case studies: swipe, arrows, dots, auto-rotate every 7 s (paused on hover, off under reduced motion).
+  var car = $('car'), track = $('car-track');
+  if (car && track) {
+    var slides = [].slice.call(track.children), n = slides.length, idx = 0, dots = $('car-dots'), auto, x0 = null;
+    slides.forEach(function (_, i) { var d = document.createElement('button'); d.type = 'button'; d.setAttribute('aria-label', 'Case ' + (i + 1)); d.onclick = function () { go(i, true); }; dots.appendChild(d); });
+    var go = function (i, manual) {
+      idx = (i + n) % n; track.style.transform = 'translateX(' + (-idx * 100) + '%)';
+      [].slice.call(dots.children).forEach(function (d, j) { d.classList.toggle('on', j === idx); });
+      if (manual) restart();
+    };
+    var restart = function () { clearInterval(auto); if (!reduce) auto = setInterval(function () { if (!document.hidden) go(idx + 1); }, 7000); };
+    $('car-prev').onclick = function () { go(idx - 1, true); };
+    $('car-next').onclick = function () { go(idx + 1, true); };
+    car.addEventListener('mouseenter', function () { clearInterval(auto); });
+    car.addEventListener('mouseleave', restart);
+    car.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+    car.addEventListener('touchend', function (e) { if (x0 === null) return; var dx = e.changedTouches[0].clientX - x0; x0 = null; if (Math.abs(dx) > 40) go(idx + (dx < 0 ? 1 : -1), true); }, { passive: true });
+    document.addEventListener('keydown', function (e) { if (e.target.closest && e.target.closest('#car')) { if (e.key === 'ArrowRight') go(idx + 1, true); if (e.key === 'ArrowLeft') go(idx - 1, true); } });
+    go(0); restart();
   }
 
   // Headline decrypt on load.
@@ -113,78 +136,92 @@
     var esc = function (x) { return String(x).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
     var run = function (log, rows) { return { kind: 'run', log: log, rows: rows }; };
     var D = {
-      'invoice-intake': Object.assign(run([
-        ['00:00', 'watch inbox → 14 new attachments', ''],
-        ['00:01', 'classify → 12 invoices, 2 payment reminders', ''],
-        ['00:02', 'extract fields → 12/12 · confidence ≥ 0.98', 'ok'],
-        ['00:03', 'match purchase orders → 11 matched, 1 unknown supplier', 'warn'],
-        ['00:04', 'post to accounting → 11 booked', 'ok'],
-        ['00:05', 'unknown supplier → queued for a person (1)', 'warn'],
-        ['00:05', 'reminders → 2 already paid, archived', ''],
-        ['00:06', 'evaluation set → 48/48 pass', 'ok'],
-        ['00:06', 'cost this run → €0.14 · 41 s', 'ac'],
-        ['00:06', 'summary posted to #finance ✓', 'ok']
+      'server-setup': Object.assign(run([
+        ['09:14:02', 'ansible-playbook site.yml --limit new-droplet', 'ac'],
+        ['09:14:09', 'digitalocean → droplet created · ams3 · 2 vCPU · 4 GB', 'ok'],
+        ['09:14:41', 'ssh ready · root login disabled · deploy user with key only', 'ok'],
+        ['09:15:10', 'hardening → firewall 22/80/443 · fail2ban · unattended security updates', 'ok'],
+        ['09:15:48', 'docker + compose installed · log rotation set', 'ok'],
+        ['09:16:20', 'caddy up → certificate requested and issued for app.example.nl', 'ok'],
+        ['09:17:05', 'app deployed from the registry · migrations run · health check 200', 'ok'],
+        ['09:17:30', 'backups → nightly dump to object storage · first restore test scheduled', ''],
+        ['09:17:44', 'monitoring → uptime, disk, certificate alerts to one phone', 'ok'],
+        ['09:17:51', 'done · 3 min 49 s · same playbook for staging and production', 'ac']
       ], [
-        ['11 invoices booked', 'Matched to a purchase order · posted to accounting', '22 min', 'l', 'AUTO'],
-        ['1 invoice for review', 'Unknown supplier · waiting for a person, with the extracted fields ready', '2 min', 'm', 'HUMAN'],
-        ['2 reminders archived', 'Payment reminders for invoices already paid', '4 min', 'l', 'AUTO'],
-        ['Cost this month', '€4.20 of a €50 cap · switch-off documented', 'cap', 'l', 'OK'],
-        ['Evaluation set', '48 real examples with known answers · all passed before this run', '48/48', 'l', 'OK'],
-        ['Summary posted', 'Finance channel · who to call when it stops', 'done', 'l', 'OK']
-      ]), { title: 'Automation run · invoice-intake', done: 'done · 14 processed' }),
+        ['3 min 49 s from nothing to a hardened server', 'Droplet, firewall, Docker, TLS, app, backups, alerts. By hand this is most of a day, and never twice the same.', 'hardening', 'l', 'ANSIBLE'],
+        ['Same playbook, every server', 'Staging and production are the same machine; a new server is a line in a file, not a weekend.', 'hardening', 'l', 'REPEAT'],
+        ['Rebuild instead of repair', 'When a server misbehaves it is rebuilt from the playbook, with the data restored from last night.', 'maintenance-retainer', 'l', 'OK'],
+        ['Sold as', 'Hardening and Secure Pipeline, or inside any build and modernization step', 'hardening', 'l', '→']
+      ]), { title: 'Automation run · server-setup (Ansible, DigitalOcean)', done: 'done · 3 min 49 s' }),
+      'release-pipeline': Object.assign(run([
+        ['14:02:10', 'git push → pull request #412 opened', ''],
+        ['14:02:15', 'ci → lint, static analysis, 312 tests · 1 min 40 s', 'ok'],
+        ['14:03:58', 'security gates → dependency audit, secret scan, SAST · clean', 'ok'],
+        ['14:04:30', 'review → agent review posted 2 comments, human approves', ''],
+        ['14:09:12', 'merge → image built and tagged v2.31.0', 'ok'],
+        ['14:10:05', 'deploy → staging, smoke test 200, then production', 'ok'],
+        ['14:11:20', 'post-deploy → migrations ok, error rate flat, rollback image kept', 'ok'],
+        ['14:11:26', 'done · 9 min from push to production · nobody touched a server', 'ac']
+      ], [
+        ['9 minutes from push to production', 'Tests, security gates, review, build, staging, production, in one pipeline that fails fast.', 'hardening', 'l', 'CI/CD'],
+        ['Nothing merges red', 'A failing test or a leaked secret stops the release before a person has to notice.', 'hardening', 'l', 'GATE'],
+        ['Rollback in one command', 'The previous image stays tagged; undoing a release takes a minute, not a night.', 'full-stack-build', 'l', 'SAFE'],
+        ['Sold as', 'Hardening and Secure Pipeline, included in every Full-stack Build', 'full-stack-build', 'l', '→']
+      ]), { title: 'Automation run · release-pipeline (GitHub Actions)', done: 'done · 9 min' }),
+      'claude-skill': Object.assign(run([
+        ['14:21:00', 'skill release-notes → merged pull requests since v2.30.0: 14', ''],
+        ['14:21:04', 'read each PR: title, description, linked issue, changed files', ''],
+        ['14:21:30', 'group → 3 features, 8 fixes, 2 security, 1 internal', 'ok'],
+        ['14:21:38', 'write notes in the house style · link every item to its PR', 'ok'],
+        ['14:21:40', 'check → no internal ticket numbers, no customer names, no secrets', 'ok'],
+        ['14:21:45', 'draft release v2.31.0 opened for a human to publish', 'ac']
+      ], [
+        ['45 seconds instead of an hour', 'Release notes that used to be written on Friday afternoon, done before the deploy finishes.', 'ai-integration', 'l', 'SKILL'],
+        ['Your procedure, written down', 'A skill is the checklist the agent must follow: what to read, how to write, what never to include.', 'ai-integration', 'l', 'REPEAT'],
+        ['A person still publishes', 'The agent drafts; the release button stays human.', 'ai-integration', 'l', 'HUMAN'],
+        ['Sold as', 'AI Integration: custom skills for the chores your team repeats', 'ai-integration', 'l', '→']
+      ]), { title: 'Automation run · release-notes skill (Claude Code)', done: 'done · 45 s' }),
+      'mcp-gateway': Object.assign(run([
+        ['10:42:12', 'assistant → "which orders of customer 4471 are late?"', ''],
+        ['10:42:12', 'mcp gateway → tool orders.search(customer=4471, late=true)', 'ac'],
+        ['10:42:12', 'auth → read-only token of the asking user · audit row written', 'ok'],
+        ['10:42:13', 'product api → 3 orders · 1.1 s', 'ok'],
+        ['10:42:13', 'assistant → answer with order numbers and promised dates', ''],
+        ['10:42:13', 'write tools → not exposed; every call logged', 'ok']
+      ], [
+        ['One MCP server in front of the API', 'The assistant gets named tools, not raw database access.', 'ai-integration', 'l', 'LIVE'],
+        ['Read-only by default', 'Write tools exist only where a human approves the action.', 'ai-integration', 'l', 'OK'],
+        ['Every call audited', 'Who asked what, which tool ran, what came back.', 'integrations', 'l', 'OK'],
+        ['Sold as', 'AI Integration, on top of Integrations when the API is not there yet', 'ai-integration', 'l', '→']
+      ]), { title: 'Live tool call · mcp-gateway (Model Context Protocol)', done: 'answered · 1.1 s' }),
       'lead-followup': Object.assign(run([
-        ['00:00', 'crm → 9 leads without a reply after 5 days', ''],
-        ['00:01', 'read last thread per lead → 9/9', ''],
-        ['00:02', 'draft follow-up in the sender\'s own words → 9 drafts', 'ok'],
-        ['00:03', 'policy check → no price promises, no new claims', 'ok'],
-        ['00:04', '2 drafts mention a date → routed to a person', 'warn'],
-        ['00:05', '7 drafts queued for one-click approval', 'ac'],
-        ['00:05', 'nothing sent without a human tap ✓', 'ok']
+        ['08:30:00', 'crm → 9 leads without a reply after 5 days', ''],
+        ['08:30:06', 'read last thread per lead → 9/9', ''],
+        ['08:30:40', 'draft follow-up in the sender\'s own words → 9 drafts', 'ok'],
+        ['08:30:52', 'policy check → no price promises, no new claims', 'ok'],
+        ['08:31:00', '2 drafts mention a date → routed to a person', 'warn'],
+        ['08:31:05', '7 drafts queued for one-click approval', 'ac'],
+        ['08:31:05', 'nothing sent without a human tap ✓', 'ok']
       ], [
-        ['7 drafts ready', 'Each one shown with the thread it answers; approve or edit, then send', '35 min', 'l', 'AUTO'],
-        ['2 for a person', 'They mention a meeting date; a human decides', '', 'm', 'HUMAN'],
-        ['0 sent by the agent', 'Sending stays a human action by design', '', 'l', 'OK'],
-        ['Cost this run', '€0.09 · 28 s', '', 'l', 'OK']
+        ['7 drafts ready at 08:31', 'Each one shown with the thread it answers; approve or edit, then send. About 35 minutes of writing saved a day.', 'ai-integration', 'l', 'AUTO'],
+        ['2 for a person', 'They mention a meeting date; a human decides.', 'ai-integration', 'm', 'HUMAN'],
+        ['Sending stays human', 'The agent drafts; a person taps send, by design.', 'ai-integration', 'l', 'OK'],
+        ['Sold as', 'AI Integration, connected to your CRM through Integrations', 'ai-integration', 'l', '→']
       ]), { title: 'Automation run · lead-followup', done: 'done · 7 drafts' }),
       'ticket-triage': Object.assign(run([
-        ['00:00', 'helpdesk → 23 new tickets overnight', ''],
-        ['00:01', 'classify → 14 how-to, 6 bugs, 3 billing', ''],
-        ['00:02', 'how-to → answered from the manual, sources linked (14)', 'ok'],
-        ['00:03', 'bugs → reproduced 4, logs attached, 2 need more info', 'warn'],
-        ['00:04', 'billing → never automated, handed to finance (3)', ''],
-        ['00:05', 'priority set on all 23 · P1: 1 (payment page down)', 'bad'],
-        ['00:05', 'P1 → on-call paged ✓', 'ok']
+        ['07:00:00', 'helpdesk → 23 new tickets overnight', ''],
+        ['07:00:08', 'classify → 14 how-to, 6 bugs, 3 billing', ''],
+        ['07:00:35', 'how-to → answered from the manual, sources linked (14)', 'ok'],
+        ['07:01:20', 'bugs → reproduced 4, logs attached, 2 need more info', 'warn'],
+        ['07:01:25', 'billing → never automated, handed to finance (3)', ''],
+        ['07:01:30', 'priority set on all 23 · P1: 1 (payment page down)', 'bad'],
+        ['07:01:31', 'P1 → on-call paged ✓', 'ok']
       ], [
-        ['14 answered', 'From the product manual, with the source paragraph quoted; a person sees them first', '48 min', 'l', 'AUTO'],
-        ['6 bugs prepared', 'Steps, logs and environment attached to each ticket', '30 min', 'l', 'AUTO'],
-        ['3 billing', 'Handed to finance untouched, by rule', '', 'm', 'HUMAN'],
-        ['1 P1 paged', 'Payment page down; found within 4 minutes of the ticket', '', 'h', 'P1']
+        ['14 answered before 07:02', 'From the product manual, with the source paragraph quoted; a person sees them first. About 48 minutes a day.', 'ai-integration', 'l', 'AUTO'],
+        ['6 bugs prepared', 'Steps, logs and environment attached to each ticket.', 'ai-integration', 'l', 'AUTO'],
+        ['1 P1 paged', 'Payment page down; found within 90 seconds of the ticket.', 'maintenance-retainer', 'h', 'P1'],
+        ['Sold as', 'AI Integration, with the Maintenance Retainer watching the P1s', 'ai-integration', 'l', '→']
       ]), { title: 'Automation run · ticket-triage', done: 'done · 23 triaged' }),
-      'nightly-report': Object.assign(run([
-        ['02:00', 'orders, stock, failed jobs, queue depth → collected', ''],
-        ['02:01', 'compare with the same weekday last 8 weeks', ''],
-        ['02:02', 'anomaly → refunds 3.1× normal (webshop, after 18:00)', 'bad'],
-        ['02:02', 'anomaly → 0 failed jobs, 0 queue backlog', 'ok'],
-        ['02:03', 'one-page report written, numbers linked to their source', 'ok'],
-        ['02:03', 'sent to 3 people · 07:00 delivery', 'ac']
-      ], [
-        ['Refunds 3.1× normal', 'Flagged with the orders behind it; turned out to be one bulk order cancelled', '', 'h', 'FLAG'],
-        ['Everything else normal', 'Shown as one line, not twenty charts', '', 'l', 'OK'],
-        ['Report at 07:00', 'Same layout every day, numbers click through to their source', '15 min', 'l', 'AUTO']
-      ]), { title: 'Automation run · nightly-report', done: 'done · 1 flag' }),
-      'mcp-gateway': Object.assign(run([
-        ['00:00', 'assistant → "which orders of customer 4471 are late?"', ''],
-        ['00:00', 'mcp gateway → tool orders.search(customer=4471, late=true)', 'ac'],
-        ['00:00', 'auth → read-only token of the asking user · audit row written', 'ok'],
-        ['00:01', 'product api → 3 orders · 1.1 s', 'ok'],
-        ['00:01', 'assistant → answer with order numbers and promised dates', ''],
-        ['00:01', 'write tools → not exposed; every call logged', 'ok']
-      ], [
-        ['One MCP server in front of the API', 'The assistant gets named tools, not raw database access', '', 'l', 'LIVE'],
-        ['Read-only by default', 'Write tools exist only where a human approves the action', '', 'l', 'OK'],
-        ['Every call audited', 'Who asked what, which tool ran, what came back', '', 'l', 'OK'],
-        ['Works with Claude and others', 'MCP is an open standard; the same gateway serves every assistant', '', 'l', 'OK']
-      ]), { title: 'Live tool call · mcp-gateway', done: 'answered · 1.1 s' }),
 
       'health-check': { kind: 'report', title: 'Report · Health Check', done: '12 pages · 2 shown', pages: [
         '<div class="ph"><span>Health Check</span><span>scuttle.dev</span></div><h5>Health Check: order platform</h5><p>Two-day assessment, read-only. Report for the owner and the developer who inherits the system.</p><h6>Summary</h6><p>The platform earns money every day and runs on a runtime that stopped receiving fixes. Three items need work this quarter; the rest can wait and is priced below. Around 11 hours of manual work per week can be automated with the integrations already in place.</p><h6>Top findings</h6><table><tr><th>Finding</th><th class="r">Hours</th><th class="r">Risk</th></tr><tr><td>Runtime out of support</td><td class="r">24</td><td class="r"><span class="tag h">HIGH</span></td></tr><tr><td>Backups never restored</td><td class="r">3</td><td class="r"><span class="tag h">HIGH</span></td></tr><tr><td>Order export by hand, daily</td><td class="r">12</td><td class="r"><span class="tag m">AUTOMATE</span></td></tr><tr><td>No runbook</td><td class="r">4</td><td class="r"><span class="tag l">LOW</span></td></tr></table><span class="pn">1 / 12</span>',
@@ -207,23 +244,24 @@
                ['What I built', '<ul><li>An agent that reads the inbox, extracts the fields and matches orders</li><li>Posts to accounting only when the match is certain; the rest goes to a person with the fields pre-filled</li><li>An evaluation set of 48 real invoices it must pass before any change ships</li><li>A cost cap, a monthly report and a switch-off documented in the runbook</li></ul>'],
                ['Result', '<p>Two hours of review a month instead of twenty-two of typing. At EUR 45 an hour of staff time that is about EUR 900 a month back, against a build quoted per step at EUR 90 an hour and a model cost under EUR 5 a month.</p><p class="note">Worked example with illustrative numbers. Your own numbers come out of the Health Check.</p>']],
         cta: [['Start with one workflow', '/products/ai-integration'], ['Health Check', '/health-check']] },
-      'case-mcp': { kind: 'story', title: 'Case · API meets AI (MCP gateway)', done: 'anonymized', nums: [['1', 'MCP server in front of the API'], ['14', 'read tools exposed'], ['0', 'write tools without approval'], ['100%', 'of calls audited']],
+      'case-mcp': { kind: 'story', title: 'Case · API meets AI (MCP gateway)', done: 'anonymized', nums: [['1', 'MCP server in front of the API'], ['14', 'read tools exposed'], ['human', 'approval before any write'], ['every call', 'audited']],
         cols: [['Situation', '<p>A software product with a mature REST API. Customers started asking whether they could use an AI assistant on their own data. The team did not want a chatbot bolted on, and did not want the model anywhere near the database.</p>'],
                ['What I built', '<ul><li>An MCP server (Model Context Protocol, the open standard assistants use to call tools) in front of the existing API</li><li>Named, read-only tools with the user\'s own permissions; no raw queries</li><li>Audit log of every call: who, which tool, what came back</li><li>Write actions only through tools that need a human approval step</li></ul>'],
                ['Result', '<p>Customers connect Claude or another assistant and ask questions in plain language; the product answers from its own API, within the rights that user already had. The API did not change. Client anonymized; the pattern is reusable for any product with an API.</p>']],
         cta: [['AI Integration', '/products/ai-integration'], ['Integrations', '/products/integrations']] },
-      'case-migration': { kind: 'story', title: 'Case · Migration while in daily use', done: 'anonymized', nums: [['60%', 'lower latency'], ['7.4 → 8.4', 'PHP, back in support'], ['0', 'rewrites from scratch'], ['0', 'planned stops for users']],
+      'case-migration': { kind: 'story', title: 'Case · Migration while in daily use', done: 'anonymized', nums: [['60%', 'lower latency'], ['7.4 → 8.4', 'PHP, back in support'], ['3.4 → 5.9', 'framework, on the way'], ['in use', 'the whole migration']],
         cols: [['Situation', '<p>A hotel operations platform on an old framework and an unsupported PHP. Specialists for the framework were hard to find, and a rewrite was too risky for a system hotels use every day.</p>'],
                ['What I built', '<ul><li>A thin layer that lets old and new code run side by side (Strangler Fig)</li><li>Modules moved one at a time, each release small, each with a rollback</li><li>PHP 7.4 to 8.4 and the framework upgraded on the way, so the runtime stayed supported during the migration</li></ul>'],
                ['Result', '<p>The hotels kept working through the whole migration. 60 percent lower latency, a supported runtime, a codebase developers know. Client anonymized, covered by confidentiality.</p>']],
-        cta: [['Read the case study', '/case-studies/phalcon-to-laravel'], ['Modernization in Steps', '/products/modernization']] }
+        cta: [['Read the case study', '/case-studies/phalcon-to-laravel'], ['Modernization', '/products/modernization']] }
     };
     var pb = $('pb'), stt = $('stt'), sti = $('sti'), shH = $('sh-h'), timers = [], cur = null;
     var clear = function () { timers.forEach(clearTimeout); timers = []; };
     var later = function (f, ms) { timers.push(setTimeout(f, ms)); };
     var show = function (k) {
       var d = D[k]; if (!d || cur === k) return; cur = k; clear();
-      [].slice.call(side.querySelectorAll('.it')).forEach(function (b) { b.classList.toggle('on', b.dataset.k === k); });
+      [].slice.call(side.querySelectorAll('.it')).forEach(function (b) { b.classList.toggle('on', b.dataset.k === k); b.style.setProperty('--p', 0); });
+      main.scrollTop = 0;
       shH.textContent = d.title; stt.textContent = d.kind === 'run' ? 'running' : 'opened'; sti.className = ''; pb.style.width = '0';
       view.style.animation = 'none'; void view.offsetWidth; view.style.animation = '';
       if (d.kind === 'run') {
@@ -236,8 +274,8 @@
           later(function () { r.classList.add('in'); pb.style.width = ((i + 1) / d.log.length * 100) + '%'; }, 300 + i * (reduce ? 0 : 380));
         });
         d.rows.forEach(function (x) {
-          var r = document.createElement('div'); r.className = 'row';
-          r.innerHTML = '<div><b>' + esc(x[0]) + '</b><small>' + esc(x[1]) + '</small></div><span class="hrs">' + esc(x[2]) + '</span><span class="sev ' + x[3] + '">' + esc(x[4]) + '</span>';
+          var r = document.createElement('a'); r.className = 'row'; r.href = '/products/' + x[2]; r.title = 'See the product behind this';
+          r.innerHTML = '<div><b>' + esc(x[0]) + '</b><small>' + esc(x[1]) + '</small></div><span class="sev ' + x[3] + '">' + esc(x[4]) + '</span>';
           find.appendChild(r);
         });
         later(function () {
@@ -261,8 +299,24 @@
         view.innerHTML = g; pb.style.width = '100%'; later(function () { stt.textContent = d.done; sti.className = 'ok'; }, 400);
       }
     };
-    side.addEventListener('click', function (e) { var b = e.target.closest('.it'); if (b) show(b.dataset.k); });
-    var started = false, first = function () { if (started) return; started = true; show('invoice-intake'); };
+    // Auto-rotate through the menu; a click pauses it for a while, hovering pauses it.
+    var keys = [].slice.call(side.querySelectorAll('.it')).map(function (b) { return b.dataset.k; }), ROT = 11000, rotT = null, rotStart = 0, hold = false, hover = false, raf;
+    var tick = function () {
+      var on = side.querySelector('.it.on');
+      if (on && !hold && !hover) on.style.setProperty('--p', Math.min(1, (Date.now() - rotStart) / ROT));
+      raf = requestAnimationFrame(tick);
+    };
+    var rotate = function () {
+      clearTimeout(rotT); rotStart = Date.now();
+      rotT = setTimeout(function () {
+        if (hold || hover || document.hidden) { rotate(); return; }
+        show(keys[(keys.indexOf(cur) + 1) % keys.length]); rotate();
+      }, ROT);
+    };
+    main.addEventListener('mouseenter', function () { hover = true; }); main.addEventListener('mouseleave', function () { hover = false; rotStart = Date.now(); rotate(); });
+    side.addEventListener('mouseenter', function () { hover = true; }); side.addEventListener('mouseleave', function () { hover = false; });
+    side.addEventListener('click', function (e) { var b = e.target.closest('.it'); if (b) { show(b.dataset.k); hold = true; clearTimeout(rotT); setTimeout(function () { hold = false; rotate(); }, 30000); } });
+    var started = false, first = function () { if (started) return; started = true; show('server-setup'); if (!reduce) { rotate(); raf = requestAnimationFrame(tick); } };
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) first(); }); }, { threshold: 0.2 }).observe(main);
     }
@@ -279,14 +333,31 @@
   }
   setTimeout(function () { document.querySelectorAll('.rv:not(.in)').forEach(function (e) { e.classList.add('in'); }); }, 1500);
 
-  // QR code modal (vCard).
-  var modal = $('qr-modal'), openQr = $('open-qr'), closeQr = $('close-qr'), ov = $('qr-overlay');
-  if (modal && openQr && closeQr && ov) {
-    var close = function () { modal.classList.remove('active'); modal.setAttribute('aria-hidden', 'true'); };
-    openQr.onclick = function () { modal.classList.add('active'); modal.setAttribute('aria-hidden', 'false'); };
-    closeQr.onclick = close;
-    ov.onclick = close;
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && modal.classList.contains('active')) close(); });
+  // Modals: QR code, photo, map (the map iframe is created only when opened).
+  function modal(id, openBtn) {
+    var m = $(id); if (!m) return;
+    var close = function () { m.classList.remove('active'); m.setAttribute('aria-hidden', 'true'); };
+    var open = function () {
+      m.classList.add('active'); m.setAttribute('aria-hidden', 'false');
+      var f = m.querySelector('.frame[data-src]');
+      if (f && !f.firstChild) { var i = document.createElement('iframe'); i.src = f.dataset.src; i.loading = 'lazy'; i.referrerPolicy = 'no-referrer-when-downgrade'; i.setAttribute('allowfullscreen', ''); i.title = 'Map'; f.appendChild(i); }
+    };
+    if (openBtn) openBtn.onclick = open;
+    [].slice.call(m.querySelectorAll('[data-close], .ov, .x')).forEach(function (b) { b.addEventListener('click', close); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && m.classList.contains('active')) close(); });
+  }
+  modal('qr-modal', $('open-qr'));
+  modal('pic-modal', $('open-pic'));
+  modal('map-modal', $('open-map'));
+
+  // Contact form: preselect the product from ?about= and scroll to a sent or failed form.
+  var cf = $('cform');
+  if (cf) {
+    try {
+      var about = new URLSearchParams(location.search).get('about'), sel = $('cf-about');
+      if (about && sel) [].slice.call(sel.options).forEach(function (o) { if (o.value === about) sel.value = about; });
+    } catch (e) {}
+    if (cf.querySelector('.sent, .err')) setTimeout(function () { cf.scrollIntoView({ block: 'center' }); }, 100);
   }
 
   try { if (localStorage.getItem('lang') === 'nl') lang('nl'); } catch (e) {}

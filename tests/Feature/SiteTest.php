@@ -2,7 +2,11 @@
 
 namespace Spdotdev\ScuttleDev\Tests\Feature;
 
+use Illuminate\Support\Facades\Mail;
+use Spdotdev\ScuttleDev\Cases;
 use Spdotdev\ScuttleDev\Catalog;
+use Spdotdev\ScuttleDev\Http\Controllers\ContactController;
+use Spdotdev\ScuttleDev\Mail\ContactMessage;
 use Spdotdev\ScuttleDev\Tests\TestCase;
 
 class SiteTest extends TestCase
@@ -38,9 +42,18 @@ class SiteTest extends TestCase
         $html = $this->get('http://scuttle.dev/')->assertOk()->getContent();
 
         $this->assertSame(1, substr_count($html, '<h1'));
-        $this->assertStringContainsString('vendor/scuttle/scuttledev.vcf', $html);
-        $this->assertStringContainsString('vendor/scuttle/qr/svg/My_QR_Code_1-4096.svg', $html);
-        $this->assertStringContainsString('id="qr-modal"', $html);
+        $this->assertStringNotContainsString('maps.google', $html);
+
+        $contact = (string) $this->get('http://scuttle.dev/contact')->assertOk()->getContent();
+        $this->assertStringContainsString('/scuttle.vcf', $contact);
+        $this->assertStringContainsString('vendor/scuttle/qr/scuttle-vcard.svg', $contact);
+        $this->assertStringContainsString('id="qr-modal"', $contact);
+        $this->assertStringContainsString('id="pic-modal"', $contact);
+        $this->assertStringContainsString('id="map-modal"', $contact);
+        $this->assertStringNotContainsString('<iframe', $contact);
+        $this->assertStringContainsString('kvk.nl/zoeken/?source=all&amp;q=96040947', $contact);
+        $this->assertStringContainsString('id="cform"', $contact);
+        $this->assertSame(1, substr_count($contact, '<h1'));
         $this->assertStringNotContainsString('maps.google', $html);
         $this->assertStringNotContainsString('<iframe', $html);
         $this->assertStringNotContainsString('/services/', $html);
@@ -50,7 +63,7 @@ class SiteTest extends TestCase
     {
         $html = $this->get('http://scuttle.dev/')->assertOk()->getContent();
 
-        $this->assertStringContainsString('KvK 96040947', $html);
+        $this->assertStringContainsString('KvK 96040947', (string) $this->get('http://scuttle.dev/contact')->getContent());
         $this->assertStringContainsString('NL005184584B85', $html);
         $this->assertStringNotContainsStringIgnoringCase('draft', $html);
         $this->assertStringNotContainsStringIgnoringCase('hosintra', $html);
@@ -114,12 +127,12 @@ class SiteTest extends TestCase
 
     public function test_every_page_links_the_shared_stylesheet_script_and_logo(): void
     {
-        foreach (['/', '/privacy', '/pricing', '/health-check', '/products/modernization', '/case-studies/phalcon-to-laravel'] as $path) {
+        foreach (['/', '/privacy', '/pricing', '/contact', '/health-check', '/products/modernization', '/case-studies/phalcon-to-laravel'] as $path) {
             $this->get('http://scuttle.dev'.$path)
                 ->assertOk()
                 ->assertSee('vendor/scuttle/site.css', false)
                 ->assertSee('vendor/scuttle/site.js', false)
-                ->assertSee('vendor/scuttle/logo.svg', false)
+                ->assertSee('class="lg', false)
                 ->assertSee('vendor/scuttle/icon.svg', false);
         }
     }
@@ -131,7 +144,7 @@ class SiteTest extends TestCase
             ->assertSee('Health Check')
             ->assertDontSee('Legacy Health Check')
             ->assertSee('Legacy check')
-            ->assertSee('from EUR 1,600', false)
+            ->assertSee('EUR 1,080', false)
             ->assertSee('https://scuttle.dev/health-check', false);
 
         $this->get('http://scuttle.dev/legacy-health-check')->assertRedirect('/health-check')->assertStatus(301);
@@ -141,31 +154,36 @@ class SiteTest extends TestCase
 
     public function test_the_site_points_at_no_client_and_leads_with_automation(): void
     {
-        foreach (['/', '/pricing', '/health-check', '/products/ai-integration', '/case-studies/phalcon-to-laravel'] as $path) {
+        foreach (['/', '/pricing', '/contact', '/health-check', '/products/ai-integration', '/products/modernization', '/case-studies/phalcon-to-laravel', '/case-studies/business-on-agents'] as $path) {
             $html = (string) $this->get('http://scuttle.dev'.$path)->assertOk()->getContent();
-            foreach (['hotel', 'hosintra', 'rental-platform', 'webshop-legacy', 'erp-bridge', 'Legacy Health Check'] as $word) {
+            foreach (['hotel', 'hosintra', 'rental-platform', 'webshop-legacy', 'erp-bridge', 'Legacy Health Check', 'Modernization in Steps', '<b>0</b>'] as $word) {
                 $this->assertStringNotContainsStringIgnoringCase($word, $html, $path.' must not contain '.$word);
             }
         }
         $home = (string) $this->get('http://scuttle.dev/')->getContent();
         $this->assertStringContainsString('Automate the work', $home);
         $this->assertStringContainsString('Automation · Security · Eindhoven', $home);
-        $this->assertStringContainsString('invoice-intake', $home);
+        $this->assertStringContainsString('server-setup', $home);
         $this->assertStringContainsString('8.4.26 → 8.4.27', $home);
         $this->assertSame(3, substr_count($home, 'data-th="'), 'three-way theme control: system, light, dark');
-        $this->assertSame(11, substr_count($home, 'class="it'), 'eleven clickable items in the demo panel');
+        $this->assertSame(12, substr_count($home, 'class="it'), 'twelve clickable items in the demo panel');
         $this->assertStringNotContainsString('end of life since', $home);
     }
 
-    public function test_the_case_study_page_renders_and_links_to_the_health_check(): void
+    public function test_every_case_study_renders_without_zeros_and_is_in_the_sitemap(): void
     {
-        $this->get('http://scuttle.dev/case-studies/phalcon-to-laravel')
-            ->assertOk()
-            ->assertSee('Phalcon to Laravel, module by module')
-            ->assertSee('60%', false)
-            ->assertSee('/health-check', false);
-
-        $this->get('http://scuttle.dev/sitemap.xml')->assertSee('https://scuttle.dev/case-studies/phalcon-to-laravel', false);
+        $sitemap = (string) $this->get('http://scuttle.dev/sitemap.xml')->getContent();
+        foreach (Cases::all() as $c) {
+            $page = (string) $this->get('http://scuttle.dev/case-studies/'.$c['slug'])->assertOk()->getContent();
+            $this->assertStringContainsString($c['title'], $page);
+            $this->assertStringContainsString('/products/', $page);
+            $this->assertStringNotContainsString('<b>0</b>', $page);
+            $this->assertStringContainsString('<loc>https://scuttle.dev/case-studies/'.$c['slug'].'</loc>', $sitemap);
+        }
+        $this->assertCount(4, Cases::all());
+        $this->get('http://scuttle.dev/case-studies/phalcon-to-laravel')->assertSee('60%', false);
+        $this->get('http://scuttle.dev/case-studies/nope')->assertNotFound();
+        $this->get('http://scuttle.dev/sitemap.xml')->assertSee('https://scuttle.dev/contact', false);
     }
 
     public function test_the_pricing_page_explains_the_rate_and_lists_every_product(): void
@@ -173,8 +191,12 @@ class SiteTest extends TestCase
         $html = (string) $this->get('http://scuttle.dev/pricing')->assertOk()->getContent();
 
         $this->assertStringContainsString('€90', $html);
-        $this->assertStringContainsString('from €1,600', $html);
+        $this->assertStringContainsString('€1,080', $html);
+        $this->assertStringContainsString('12 hours × EUR 90', $html);
+        $this->assertStringContainsString('from €720', $html);
         $this->assertStringContainsString('excl. VAT', $html);
+        $this->assertSame(8, substr_count($html, 'class="plan"') + substr_count($html, 'class="plan hi"'), 'two blocks of four');
+        $this->assertSame(3, substr_count($html, 'class="badge"'), 'the promoted ones carry a badge');
         $this->assertStringContainsString('14 days', $html);
         foreach (Catalog::all() as $p) {
             $this->assertStringContainsString($p['name'], $html);
@@ -211,6 +233,62 @@ class SiteTest extends TestCase
         $this->assertStringContainsString('cannot switch off', $home);
         $this->assertStringContainsString('id="mega"', $home);
         $this->assertStringContainsString('data-dec', $home);
+        $this->assertSame(0, substr_count($home, 'href="https://splotnikov.dev"'), 'splotnikov.dev is not in the footer');
+        $this->assertSame(2, substr_count((string) $this->get('http://scuttle.dev/contact')->getContent(), 'href="https://splotnikov.dev"'), 'splotnikov.dev in the About text and its links on the contact page');
+        $this->assertStringContainsString('id="car-track"', $home);
+        $this->assertSame(4, substr_count($home, 'class="case"'), 'four case studies in the carousel');
+        $this->assertStringNotContainsString('<b>0</b>', $home);
+    }
+
+    public function test_the_vcard_is_served_as_a_contact_file_and_the_qr_carries_it(): void
+    {
+        $r = $this->get('http://scuttle.dev/scuttle.vcf')->assertOk()
+            ->assertHeader('Content-Type', 'text/vcard; charset=utf-8');
+        $v = (string) $r->getContent();
+        $this->assertStringStartsWith("BEGIN:VCARD\r\nVERSION:3.0\r\n", $v);
+        $this->assertStringContainsString("\r\nFN:Stanislav Plotnikov\r\n", $v);
+        $this->assertStringContainsString('TEL;TYPE=WORK,CELL,VOICE,PREF:+31618233175', $v);
+        $this->assertStringContainsString('EMAIL;TYPE=INTERNET,WORK,PREF:info@scuttle.dev', $v);
+        $this->assertStringContainsString('PHOTO;ENCODING=b;TYPE=JPEG:', $v);
+        $this->assertStringNotContainsString('gmail', $v);
+        $this->assertStringEndsWith("END:VCARD\r\n", $v);
+        foreach (explode("\r\n", $v) as $line) {
+            $this->assertLessThanOrEqual(76, strlen($line), 'vCard lines are folded at 75 bytes');
+        }
+        $this->assertFileExists(__DIR__.'/../../public/qr/scuttle-vcard.svg');
+    }
+
+    public function test_the_contact_form_sends_mail_and_blocks_bots(): void
+    {
+        Mail::fake();
+        $ok = ['name' => 'Test Person', 'email' => 'test@example.com', 'about' => 'Health Check', 'message' => 'We run a Laravel shop and the exports take hours.'];
+        $token = ContactController::token();
+
+        // Too fast: the signed timestamp is newer than 3 seconds.
+        $this->from('http://scuttle.dev/')->post('http://scuttle.dev/contact', $ok + ['t' => $token])
+            ->assertRedirect('http://scuttle.dev/')->assertSessionHasErrors('message');
+        Mail::assertNothingSent();
+
+        $old = (string) (time() - 10);
+        $oldToken = $old.'.'.hash_hmac('sha256', $old, (string) config('app.key'));
+
+        // Honeypot filled: rejected.
+        $this->from('http://scuttle.dev/')->post('http://scuttle.dev/contact', $ok + ['t' => $oldToken, 'website' => 'http://spam'])
+            ->assertSessionHasErrors('website');
+
+        // Forged signature: rejected.
+        $this->from('http://scuttle.dev/')->post('http://scuttle.dev/contact', $ok + ['t' => $old.'.forged'])
+            ->assertSessionHasErrors('message');
+        Mail::assertNothingSent();
+
+        // A real message: mailed to info@scuttle.dev with the sender as reply-to.
+        $this->from('http://scuttle.dev/')->post('http://scuttle.dev/contact', $ok + ['t' => $oldToken])
+            ->assertRedirect('http://scuttle.dev/')->assertSessionHas('contact_sent', true)->assertSessionHasNoErrors();
+        Mail::assertSent(ContactMessage::class, function (ContactMessage $mail) {
+            $mail->build();
+
+            return $mail->hasTo('info@scuttle.dev') && $mail->hasReplyTo('test@example.com') && $mail->about === 'Health Check';
+        });
     }
 
     public function test_the_new_pages_do_not_name_the_client(): void

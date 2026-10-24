@@ -4,6 +4,7 @@ namespace Spdotdev\ScuttleDev\Http\Controllers;
 
 use Illuminate\Http\Response;
 use Illuminate\View\View;
+use Spdotdev\ScuttleDev\Cases;
 use Spdotdev\ScuttleDev\Catalog;
 
 class SiteController
@@ -39,10 +40,16 @@ class SiteController
         return $this->productView($slug);
     }
 
-    public function caseStudy(): View
+    public function caseStudy(string $slug): View
     {
         // @phpstan-ignore argument.type (the scuttle:: namespace is registered at runtime via loadViewsFrom, so it is not resolvable during package-only static analysis)
-        return view('scuttle::case-study');
+        return view('scuttle::case-study', ['c' => Cases::get($slug)]);
+    }
+
+    public function contact(): View
+    {
+        // @phpstan-ignore argument.type (the scuttle:: namespace is registered at runtime via loadViewsFrom, so it is not resolvable during package-only static analysis)
+        return view('scuttle::contact');
     }
 
     public function robots(): Response
@@ -59,6 +66,13 @@ class SiteController
     {
         return $this->staticFile('legal/'.$name.'.pdf', 'application/pdf')
             ->header('Content-Disposition', 'inline; filename="'.$name.'.pdf"');
+    }
+
+    public function vcard(): Response
+    {
+        return $this->staticFile('scuttledev.vcf', 'text/vcard; charset=utf-8')
+            ->header('Content-Disposition', 'attachment; filename="scuttle-development.vcf"')
+            ->header('Cache-Control', 'public, max-age=86400');
     }
 
     public function signatureLogo(): Response
