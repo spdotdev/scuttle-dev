@@ -15,7 +15,7 @@
     </div>
   </header>
 
-  <div class="wrap">
+  <div class="wrap contact-grid" id="about">
     <form class="cform light" method="post" action="{{ route('scuttle.contact') }}" id="cform">
       @csrf
       <input type="hidden" name="t" value="{{ \Spdotdev\ScuttleDev\Http\Controllers\ContactController::token() }}">
@@ -38,9 +38,7 @@
       @endif
       <div class="cf-foot"><button class="btn" type="submit" data-i="ctp_send">Send</button><a class="btn o" href="{{ config('scuttle-dev.booking_url') }}"><span data-i="ctp_book">Or book a call</span></a><small data-i="ctp_note">No tracking, no newsletter. Your message goes to info@scuttle.dev and nowhere else.</small></div>
     </form>
-  </div>
-
-  <div class="wrap contact two-c" id="about">
+    <div class="side-cards">
     <div class="cc rv">
       <span class="lbl" data-i="ctp_c">Company</span>
       <div class="line"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Scuttle Development<br><button class="lnk" id="open-map" type="button" title="Show on the map" data-i="ctp_addr">Dirigentplein 144<br>5642 RK Eindhoven<br>The Netherlands</button></span></div>
@@ -61,6 +59,7 @@
           <div class="soc"><a href="https://www.linkedin.com/in/stanislavplotnikov/" rel="noopener" target="_blank">LinkedIn</a><a href="https://github.com/spdotdev" rel="noopener" target="_blank">GitHub</a><a href="https://splotnikov.dev" rel="noopener" target="_blank">splotnikov.dev</a></div></div>
       </div>
     </div>
+  </div>
   </div>
 
   <div id="qr-modal" class="modal" aria-hidden="true" role="dialog" aria-label="QR code with my contact details">

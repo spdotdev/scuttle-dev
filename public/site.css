@@ -495,3 +495,9 @@ footer .bottom{grid-column:1/-1;border-top:1px solid var(--dark-line);padding-to
 @media (max-width:700px){.cookie{flex-direction:column;align-items:stretch}.cookie .row{justify-content:flex-end}}
 .rv{opacity:0;transform:translateY(16px);transition:opacity .6s,transform .6s}.rv.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+
+/* contact page: the form and the two cards side by side, same width as the page */
+.contact-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:24px;align-items:start;padding:0 0 72px}
+.contact-grid .cform.light{max-width:none}
+.contact-grid .side-cards{display:grid;gap:24px}
+@media (max-width:980px){.contact-grid{grid-template-columns:minmax(0,1fr);padding-bottom:48px}}

@@ -129,7 +129,7 @@ class SiteTest extends TestCase
 
     public function test_every_page_links_the_shared_stylesheet_script_and_logo(): void
     {
-        foreach (['/', '/privacy', '/pricing', '/contact', '/work', '/case-studies', '/blog', '/company', '/projects', '/projects/manual/docs', '/health-check', '/services/modernization', '/case-studies/phalcon-to-laravel'] as $path) {
+        foreach (['/', '/privacy', '/pricing', '/contact', '/work', '/case-studies', '/news', '/company', '/projects', '/projects/manual/docs', '/health-check', '/services/modernization', '/case-studies/phalcon-to-laravel'] as $path) {
             $this->get('http://scuttle.dev'.$path)
                 ->assertOk()
                 ->assertSee('vendor/scuttle/site.css', false)
@@ -156,7 +156,7 @@ class SiteTest extends TestCase
 
     public function test_the_site_points_at_no_client_and_leads_with_automation(): void
     {
-        foreach (['/', '/pricing', '/contact', '/health-check', '/services/ai-integration', '/services/modernization', '/case-studies/phalcon-to-laravel', '/case-studies/business-on-agents', '/work', '/company', '/blog', '/projects'] as $path) {
+        foreach (['/', '/pricing', '/contact', '/health-check', '/services/ai-integration', '/services/modernization', '/case-studies/phalcon-to-laravel', '/case-studies/business-on-agents', '/work', '/company', '/news', '/projects'] as $path) {
             $html = (string) $this->get('http://scuttle.dev'.$path)->assertOk()->getContent();
             foreach (['hotel', 'hosintra', 'rental-platform', 'webshop-legacy', 'erp-bridge', 'Legacy Health Check', 'Modernization in Steps', '<b>0</b>'] as $word) {
                 $this->assertStringNotContainsStringIgnoringCase($word, $html, $path.' must not contain '.$word);
@@ -298,7 +298,7 @@ class SiteTest extends TestCase
     public function test_the_new_sections_render_and_the_menu_lists_them(): void
     {
         $home = (string) $this->get('http://scuttle.dev/')->assertOk()->getContent();
-        foreach (['/work', '/case-studies', '/projects', '/blog', '/company', '/contact', '/pricing'] as $path) {
+        foreach (['/work', '/case-studies', '/projects', '/news', '/company', '/contact', '/pricing'] as $path) {
             $this->assertStringContainsString('href="http://scuttle.dev'.$path.'"', $home, $path.' in the menu');
         }
         $this->assertStringContainsString('>Services<', $home);
@@ -307,8 +307,8 @@ class SiteTest extends TestCase
 
         $sitemap = (string) $this->get('http://scuttle.dev/sitemap.xml')->getContent();
         foreach (Posts::all() as $post) {
-            $this->get('http://scuttle.dev/blog/'.$post['slug'])->assertOk()->assertSee($post['title']);
-            $this->assertStringContainsString('<loc>https://scuttle.dev/blog/'.$post['slug'].'</loc>', $sitemap);
+            $this->get('http://scuttle.dev/news/'.$post['slug'])->assertOk()->assertSee($post['title']);
+            $this->assertStringContainsString('<loc>https://scuttle.dev/news/'.$post['slug'].'</loc>', $sitemap);
         }
         foreach (Projects::all() as $pr) {
             $this->get('http://scuttle.dev/projects/'.$pr['slug'])->assertOk()->assertSee($pr['name']);
@@ -318,7 +318,11 @@ class SiteTest extends TestCase
                 $this->get('http://scuttle.dev/projects/'.$pr['slug'].'/docs')->assertNotFound();
             }
         }
-        $this->get('http://scuttle.dev/blog/nope')->assertNotFound();
+        $this->get('http://scuttle.dev/news/nope')->assertNotFound();
+        $this->get('http://scuttle.dev/blog')->assertStatus(301)->assertRedirect('/news');
+        foreach (Posts::all() as $post) {
+            $this->get('http://scuttle.dev/blog/'.$post['slug'])->assertStatus(301)->assertRedirect('/news/'.$post['slug']);
+        }
         $this->get('http://scuttle.dev/projects/nope')->assertNotFound();
 
         // Contact: the form comes first, then two cards, nothing in between.
@@ -356,12 +360,12 @@ class SiteTest extends TestCase
      */
     public function test_every_page_is_translatable(): void
     {
-        $paths = ['/', '/pricing', '/health-check', '/contact', '/work', '/case-studies', '/case-studies/phalcon-to-laravel', '/blog', '/company', '/projects', '/projects/manual'];
+        $paths = ['/', '/pricing', '/health-check', '/contact', '/work', '/case-studies', '/case-studies/phalcon-to-laravel', '/news', '/company', '/projects', '/projects/manual'];
         foreach (Catalog::all() as $p) {
             $paths[] = parse_url(Catalog::url($p), PHP_URL_PATH);
         }
         foreach (Posts::all() as $post) {
-            $paths[] = '/blog/'.$post['slug'];
+            $paths[] = '/news/'.$post['slug'];
         }
         // The shell's own keys, from the layout; a page must mark its own text on top of those.
         preg_match_all('/\b([a-z0-9_]+): "/', (string) file_get_contents(__DIR__.'/../../resources/views/layout.blade.php'), $shell);

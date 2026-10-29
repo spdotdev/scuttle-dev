@@ -60,16 +60,16 @@ class SiteController
         return view('scuttle::cases');
     }
 
-    public function blog(): View
+    public function news(): View
     {
         // @phpstan-ignore argument.type (the scuttle:: namespace is registered at runtime via loadViewsFrom, so it is not resolvable during package-only static analysis)
-        return view('scuttle::blog');
+        return view('scuttle::news');
     }
 
-    public function post(string $slug): View
+    public function newsPost(string $slug): View
     {
         // @phpstan-ignore argument.type (the scuttle:: namespace is registered at runtime via loadViewsFrom, so it is not resolvable during package-only static analysis)
-        return view('scuttle::post', ['post' => Posts::get($slug)]);
+        return view('scuttle::news-post', ['post' => Posts::get($slug)]);
     }
 
     public function company(): View

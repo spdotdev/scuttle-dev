@@ -3,7 +3,7 @@
 
 @section('title', $post['title'])
 @section('description', $post['summary'])
-@section('canonical', 'https://scuttle.dev/blog/'.$post['slug'])
+@section('canonical', 'https://scuttle.dev/news/'.$post['slug'])
 
 @section('content')
 <article class="wrap page">
@@ -28,11 +28,14 @@
   @endforeach
   @if($list)</ul>@endif
 
+  @php($sold = $C::get($post['sells']))
+  <p class="updated" style="margin-top:32px"><span data-i="blp_about">This article is about:</span> <a href="{{ $C::url($sold) }}">{{ $sold['name'] }}</a></p>
+
   <aside class="callout">
     <p><span data-i="blp_rel">Related:</span> @foreach($post['products'] as $i => $slug)<a href="{{ $C::url($C::get($slug)) }}">{{ $C::get($slug)['name'] }}</a>@if($i < count($post['products']) - 1), @endif @endforeach. <span data-i="blp_q">Questions about your own situation go through the <a href="{{ route('scuttle.contact.page') }}">contact form</a>.</span></p>
   </aside>
 
-  <p class="updated" style="margin-top:32px"><span data-i="blp_more">More notes:</span> @foreach(\Spdotdev\ScuttleDev\Posts::all() as $o)@if($o['slug'] !== $post['slug'])<a href="{{ route('scuttle.post', ['slug' => $o['slug']]) }}">{{ $o['title'] }}</a> · @endif @endforeach <a href="{{ route('scuttle.blog') }}" data-i="blp_all">all posts</a></p>
+  <p class="updated" style="margin-top:32px"><span data-i="blp_more">More news:</span> @foreach(\Spdotdev\ScuttleDev\Posts::all() as $o)@if($o['slug'] !== $post['slug'])<a href="{{ route('scuttle.news.post', ['slug' => $o['slug']]) }}">{{ $o['title'] }}</a> · @endif @endforeach <a href="{{ route('scuttle.news') }}" data-i="blp_all">all news</a></p>
 </article>
 @endsection
 
@@ -45,8 +48,9 @@ $nl = [
     'blp_date' => \Carbon\Carbon::parse($post['date'])->locale('nl')->translatedFormat('j M Y'),
     'blp_rel' => 'Gerelateerd:',
     'blp_q' => 'Vragen over je eigen situatie lopen via het <a href="'.e(route('scuttle.contact.page')).'">contactformulier</a>.',
-    'blp_more' => 'Meer notities:',
-    'blp_all' => 'alle berichten',
+    'blp_more' => 'Meer nieuws:',
+    'blp_all' => 'al het nieuws',
+    'blp_about' => 'Dit artikel gaat over:',
 ];
 ?>
 <script>

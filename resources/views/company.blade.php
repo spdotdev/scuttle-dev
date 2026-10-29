@@ -68,7 +68,7 @@
         <li data-i="cp_n2"><a href="{{ route('scuttle.pricing') }}">Pricing</a>: one rate, two ways to buy it, every price on the page.</li>
         <li data-i="cp_n3"><a href="{{ route('scuttle.cases') }}">Case studies</a>: work, told the way it went.</li>
         <li data-i="cp_n4"><a href="{{ route('scuttle.projects') }}">Projects</a>: open source and own products, with documentation.</li>
-        <li data-i="cp_n5"><a href="{{ route('scuttle.blog') }}">Blog</a>: short notes from the work.</li>
+        <li data-i="cp_n5"><a href="{{ route('scuttle.news') }}">News</a>: what changed in the field and what it means for your software.</li>
       </ul>
     </div>
   </div></section>
@@ -129,7 +129,7 @@ Object.assign(window.SCUTTLE_NL.t, {
  "cp_n2": "<a href=\"/pricing\">Prijzen</a>: één tarief, twee manieren om het te kopen, elke prijs op de pagina.",
  "cp_n3": "<a href=\"/case-studies\">Casestudy's</a>: werk, verteld zoals het ging.",
  "cp_n4": "<a href=\"/projects\">Projecten</a>: open source en eigen producten, met documentatie.",
- "cp_n5": "<a href=\"/blog\">Blog</a>: korte notities uit het werk."
+ "cp_n5": "<a href=\"/news\">Nieuws</a>: wat er veranderd is in het vak en wat dat voor je software betekent."
 });
 </script>
 @endpush

@@ -20,7 +20,7 @@ class PreviewDumpTest extends TestCase
         }
         is_dir($dir) || mkdir($dir, 0755, true);
 
-        $pages = ['/' => 'index', '/pricing' => 'pricing', '/health-check' => 'legacy-health-check', '/contact' => 'contact', '/work' => 'work', '/case-studies' => 'cases', '/blog' => 'blog', '/blog/an-mcp-server-in-front-of-your-api' => 'post', '/company' => 'company', '/projects' => 'projects', '/projects/manual' => 'project', '/projects/manual/docs' => 'docs', '/case-studies/phalcon-to-laravel' => 'case', '/case-studies/api-meets-ai' => 'case-mcp', '/privacy' => 'privacy'];
+        $pages = ['/' => 'index', '/pricing' => 'pricing', '/health-check' => 'legacy-health-check', '/contact' => 'contact', '/work' => 'work', '/case-studies' => 'cases', '/news' => 'news', '/news/an-mcp-server-in-front-of-your-api' => 'news-post', '/company' => 'company', '/projects' => 'projects', '/projects/manual' => 'project', '/projects/manual/docs' => 'docs', '/case-studies/phalcon-to-laravel' => 'case', '/case-studies/api-meets-ai' => 'case-mcp', '/privacy' => 'privacy'];
         foreach (Catalog::all() as $p) {
             if (! isset($p['route'])) {
                 $pages['/services/'.$p['slug']] = 'p-'.$p['slug'];

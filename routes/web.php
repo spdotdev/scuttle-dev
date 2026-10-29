@@ -18,8 +18,10 @@ Route::domain(config('scuttle-dev.domain'))
         Route::get('/products/{slug}', fn (string $slug) => redirect('/services/'.$slug, 301))->where('slug', '[a-z0-9-]+');
         Route::get('/work', [SiteController::class, 'work'])->name('scuttle.work');
         Route::get('/case-studies', [SiteController::class, 'cases'])->name('scuttle.cases');
-        Route::get('/blog', [SiteController::class, 'blog'])->name('scuttle.blog');
-        Route::get('/blog/{slug}', [SiteController::class, 'post'])->where('slug', '[a-z0-9-]+')->name('scuttle.post');
+        Route::get('/news', [SiteController::class, 'news'])->name('scuttle.news');
+        Route::get('/news/{slug}', [SiteController::class, 'newsPost'])->where('slug', '[a-z0-9-]+')->name('scuttle.news.post');
+        Route::redirect('/blog', '/news', 301);
+        Route::get('/blog/{slug}', fn (string $slug) => redirect('/news/'.$slug, 301))->where('slug', '[a-z0-9-]+');
         Route::get('/company', [SiteController::class, 'company'])->name('scuttle.company');
         Route::get('/projects', [SiteController::class, 'projects'])->name('scuttle.projects');
         Route::get('/projects/{slug}', [SiteController::class, 'project'])->where('slug', '[a-z0-9-]+')->name('scuttle.project');
