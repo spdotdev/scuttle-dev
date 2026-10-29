@@ -51,8 +51,8 @@ $nl = [
     'bl_cta_b2' => 'Plan een gesprek',
 ];
 foreach (array_values(\Spdotdev\ScuttleDev\Posts::all()) as $i => $post) {
-    $nl['bl_'.$i.'_t'] = $post['nl']['title'];
-    $nl['bl_'.$i.'_s'] = $post['nl']['summary'];
+    $nl['bl_'.$i.'_t'] = e($post['nl']['title']);
+    $nl['bl_'.$i.'_s'] = e($post['nl']['summary']);
 }
 ?>
 <script>
