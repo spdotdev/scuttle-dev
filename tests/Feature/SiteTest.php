@@ -384,4 +384,19 @@ class SiteTest extends TestCase
             }
         }
     }
+
+    public function test_an_sd_cms_article_maps_to_a_post_and_lands_in_the_sitemap(): void
+    {
+        $article = (object) ['slug' => 'from-cms', 'title' => 'From the CMS', 'summary' => 'Sum', 'body' => "First.\n\n## Head\n\n- one\n- two\n\nLast.", 'tags' => ['PHP', 'News'], 'published_at' => new \DateTimeImmutable('2026-11-02 10:00:00'), 'title_nl' => 'Uit het CMS', 'summary_nl' => null, 'sells' => 'maintenance-retainer'];
+        $post = Posts::fromArticle($article);
+
+        $this->assertSame('from-cms', $post['slug']);
+        $this->assertSame('2026-11-02', $post['date']);
+        $this->assertSame(['First.', '## Head', '- one', '- two', 'Last.'], $post['body']);
+        $this->assertSame(['title' => 'Uit het CMS', 'summary' => 'Sum'], $post['nl']);
+        $this->assertSame(['maintenance-retainer'], $post['products']);
+        $this->assertSame('maintenance-retainer', $post['sells']);
+        $this->assertArrayHasKey('php-security-release-october-2026', Posts::all(), 'built-in articles stay without sd-cms');
+        $this->get('http://scuttle.dev/sitemap.xml')->assertOk()->assertSee('<urlset', false);
+    }
 }

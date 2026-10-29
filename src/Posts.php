@@ -2,6 +2,8 @@
 
 namespace Spdotdev\ScuttleDev;
 
+use Illuminate\Support\Facades\Schema;
+
 /**
  * News articles. Scuttle Development is the company side of scuttle.dev, so every article
  * is written to sell one service on the site (the `sells` key, a key of Catalog::all()),
@@ -14,9 +16,71 @@ namespace Spdotdev\ScuttleDev;
 final class Posts
 {
     /**
+     * Published articles from sd-cms (written over MCP, reviewed in the host's
+     * Filament panel) first, then the built-in ones; an article with the same slug
+     * replaces the built-in one.
+     *
      * @return array<string, Post>
      */
     public static function all(): array
+    {
+        return self::fromCms() + self::builtIn();
+    }
+
+    /**
+     * @return array<string, Post>
+     */
+    private static function fromCms(): array
+    {
+        $class = 'Spdotdev\\SdCms\\Models\\CmsArticle';
+        if (! class_exists($class)) {
+            return [];
+        }
+        try {
+            if (! Schema::hasTable('cms_articles')) {
+                return [];
+            }
+            $posts = [];
+            // sd-cms is an optional sibling package in the host, not a dependency of this one.
+            foreach ($class::published('scuttle')->get() as $article) {
+                $post = self::fromArticle($article);
+                $posts[$post['slug']] = $post;
+            }
+
+            return $posts;
+        } catch (\Throwable) {
+            return [];
+        }
+    }
+
+    /**
+     * Map one sd-cms article (any object with its columns) to the Post shape.
+     *
+     * @return Post
+     */
+    public static function fromArticle(object $a): array
+    {
+        // One entry per non-empty line: a paragraph, a "## " heading or a "- " list item, as the view renders them.
+        $body = array_values(array_filter(array_map('trim', preg_split('/\R/', (string) $a->body) ?: []), fn (string $l): bool => $l !== ''));
+        $date = $a->published_at instanceof \DateTimeInterface ? $a->published_at->format('Y-m-d') : substr((string) ($a->published_at ?? date('Y-m-d')), 0, 10);
+
+        return [
+            'slug' => (string) $a->slug,
+            'title' => (string) $a->title,
+            'date' => $date,
+            'summary' => (string) $a->summary,
+            'tags' => array_values(array_map('strval', (array) ($a->tags ?? []))),
+            'body' => $body,
+            'products' => ($a->sells ?? '') !== '' ? [(string) $a->sells] : [],
+            'sells' => (string) ($a->sells ?? ''),
+            'nl' => ['title' => (string) ($a->title_nl ?: $a->title), 'summary' => (string) ($a->summary_nl ?: $a->summary)],
+        ];
+    }
+
+    /**
+     * @return array<string, Post>
+     */
+    public static function builtIn(): array
     {
         return [
             'php-security-release-october-2026' => [
