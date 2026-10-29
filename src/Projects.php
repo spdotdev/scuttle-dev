@@ -7,7 +7,8 @@ namespace Spdotdev\ScuttleDev;
  * Client projects appear here only with the client's written consent (see GitHub issue #1).
  *
  * @phpstan-type Section array{id:string, title:string, body:list<string>}
- * @phpstan-type Project array{slug:string, name:string, kind:string, short:string, lead:string, repo:string, stack:list<string>, status:string, products:list<string>, docs:list<Section>}
+ * @phpstan-type ProjectNl array{kind:string, short:string, lead:string, status:string}
+ * @phpstan-type Project array{slug:string, name:string, kind:string, short:string, lead:string, repo:string, stack:list<string>, status:string, products:list<string>, docs:list<Section>, nl:ProjectNl}
  */
 final class Projects
 {
@@ -27,6 +28,7 @@ final class Projects
                 'stack' => ['Claude Code', 'Markdown', 'Mermaid', 'HTML', 'PDF'],
                 'status' => 'Public, MIT licence, README in seven languages',
                 'products' => ['handover-pack', 'ai-integration'],
+                'nl' => ['kind' => 'Open source · Claude Code-skill', 'short' => 'Genereert een uitgebreid, visueel vormgegeven handboek voor elke codebase.', 'lead' => 'Een skill voor AI-codeeragents die een codebase leest en er een handboek van schrijft: architectuur, toestandsdiagrammen, stroomdiagrammen, procedures. Elke run levert een gepubliceerde HTML-pagina en een Markdown-bestand dat in het project wordt vastgelegd; optioneel een los HTML-bestand en een PDF.', 'status' => 'Openbaar, MIT-licentie, README in zeven talen'],
                 'docs' => [
                     ['id' => 'install', 'title' => 'Install', 'body' => ['Clone the repository into your Claude Code skills directory:', '```git clone https://github.com/spdotdev/skill-manual.git ~/.claude/skills/manual```', 'Then run /manual inside a project, or ask Claude for detailed project documentation. The README describes the setup for other hosts (Claude on the web, Codex, Gemini).']],
                     ['id' => 'usage', 'title' => 'Usage', 'body' => ['```/manual                          # writes MANUAL.md and publishes a page\n/manual docs/ARCHITECTURE.md     # custom output path\n/manual --html                   # also writes a standalone MANUAL.html\n/manual --pdf                    # also renders MANUAL.pdf```', 'Standing defaults go in the project\'s CLAUDE.md: manual output, manual html, manual pdf.']],
@@ -44,6 +46,7 @@ final class Projects
                 'stack' => ['Laravel', 'Sanctum', 'Reverb', 'MySQL', 'Kotlin', 'Jetpack Compose', 'MCP', 'Docker'],
                 'status' => 'Live in production, functionally complete MVP plus phase 2',
                 'products' => ['full-stack-build', 'android-app', 'ai-integration'],
+                'nl' => ['kind' => 'Eigen product · Laravel, Android, MCP', 'short' => 'Een privé voorraadbeheerder voor meerdere huishoudens: API, Android-app, beheer en een MCP-server.', 'lead' => 'Een multi-tenant voorraadproduct in drie delen: een Laravel-backend als Composer-pakket met een versioned API, een Kotlin Android-client en een MCP-server, zodat een AI-assistent vragen over de voorraad kan beantwoorden zonder de database aan te raken. Live op inventory.scuttle.dev.', 'status' => 'Live in productie, functioneel complete MVP plus fase 2'],
                 'docs' => [
                     ['id' => 'surfaces', 'title' => 'What is mounted', 'body' => ['Everything is host-based routed on one domain:', '- Web app: login, register, password reset, join a household by code, the inventory UI.', '- API: /api/v1, headless REST and JSON with Sanctum bearer tokens; the contract lives in docs/specs/api-contract.md.', '- Live updates: a private channel per household over Reverb.', '- App-version feed: the latest published Android release, so the app can prompt for updates.', '- Admin API and an HTTP MCP server with the same operator tools.', '- Health: a JSON liveness, version and database probe.']],
                     ['id' => 'install', 'title' => 'Install into a host app', 'body' => ['```composer require spdotdev/inventory```', 'The service provider is auto-discovered; migrations run with the host\'s php artisan migrate. All tables carry the inventory_ prefix.']],
@@ -61,6 +64,7 @@ final class Projects
                 'stack' => ['Go', 'Python', 'MCP', 'SQLite'],
                 'status' => 'Fork of lharries/whatsapp-mcp with my own operations fixes',
                 'products' => ['ai-integration', 'integrations'],
+                'nl' => ['kind' => 'Open source · fork, dagelijks in gebruik', 'short' => 'Een MCP-server waarmee een assistent WhatsApp-berichten kan zoeken, lezen en versturen via een persoonlijk account.', 'lead' => 'Een Model Context Protocol-server voor WhatsApp: een Go-bridge spreekt het WhatsApp-web multi-device-protocol en slaat berichten lokaal op, een Python MCP-server biedt zoek-, lees- en verstuurtools aan Claude. Mijn fork draait de meldingen en herinneringen van mijn eigen bedrijf.', 'status' => 'Fork van lharries/whatsapp-mcp met mijn eigen fixes voor de dagelijkse praktijk'],
                 'docs' => [
                     ['id' => 'parts', 'title' => 'The two parts', 'body' => ['- The bridge (Go): connects to WhatsApp as a linked device, scans a QR code once, stores chats and messages in SQLite.', '- The MCP server (Python): tools to list chats, search messages and contacts, download media and send text, files or voice messages.']],
                     ['id' => 'caution', 'title' => 'Read before running', 'body' => ['Like many MCP servers this one combines private data, untrusted content and the ability to act. Treat every message the model reads as untrusted input, and keep sending behind a human approval. That is how I run it.']],
@@ -76,6 +80,7 @@ final class Projects
                 'stack' => ['Bun', 'TypeScript', 'Claude Code CLI', 'Telegram Bot API'],
                 'status' => 'Reference implementation, cross-platform daemon setup included',
                 'products' => ['ai-integration'],
+                'nl' => ['kind' => 'Open source · referentiepatroon', 'short' => 'Een minimaal patroon om Claude Code als altijd-aan Telegram-bot te draaien.', 'lead' => 'Je stuurt een bericht op Telegram, de relay start de Claude Code CLI en stuurt het antwoord terug. De eenvoudigste manier om vanaf een telefoon bij alle tools van Claude Code te komen, inclusief MCP-servers. Een referentie-implementatie om aan te passen, geen product.', 'status' => 'Referentie-implementatie, inclusief daemon-setup voor meerdere platformen'],
                 'docs' => [],
             ],
             'scuttle-dev' => [
@@ -88,6 +93,7 @@ final class Projects
                 'stack' => ['Laravel', 'Blade', 'Geist', 'PHPUnit', 'Playwright'],
                 'status' => 'Public repository, versioned by git tag, deployed through the host app',
                 'products' => ['full-stack-build'],
+                'nl' => ['kind' => 'Open source · deze website', 'short' => 'Deze site als Laravel-pakket: één shell, diensten, prijzen, casestudy\'s, blog, contact, tests.', 'lead' => 'De site die je nu leest, geleverd als Composer-pakket dat via host-gebaseerde routing in een Laravel-hostapplicatie wordt gemount. Alles is data in PHP-klassen (diensten, casestudy\'s, posts, projecten), één stylesheet, één script, geen tracking tenzij je ermee instemt, en een testsuite die faalt op de marketingregels.', 'status' => 'Openbare repository, versies via git-tags, uitgerold via de hostapplicatie'],
                 'docs' => [
                     ['id' => 'shape', 'title' => 'The shape', 'body' => ['- src/Catalog.php: the twelve services in three groups, one source for the menu, the home page, pricing and the service pages.', '- src/Cases.php, src/Posts.php, src/Projects.php: case studies, blog posts, projects with docs.', '- resources/views/layout.blade.php: the shell; public/site.css and public/site.js: the only stylesheet and script.', '- tests/Feature/SiteTest.php: renders every page and fails on client traces, zeros as claims and missing links.']],
                     ['id' => 'ship', 'title' => 'How a change ships', 'body' => ['Change, test, push to main, tag. The host app pins the package by tag, bumps its lock, and its CI deploys. A static dump of every page can be written with one test and screenshotted headlessly at desktop and phone width.']],

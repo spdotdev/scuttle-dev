@@ -7,7 +7,7 @@ namespace Spdotdev\ScuttleDev;
  * Body paragraphs are plain text; a line starting with "## " is a heading, a line
  * starting with "- " is a list item.
  *
- * @phpstan-type Post array{slug:string, title:string, date:string, summary:string, tags:list<string>, body:list<string>, products:list<string>}
+ * @phpstan-type Post array{slug:string, title:string, date:string, summary:string, tags:list<string>, body:list<string>, products:list<string>, nl:array{title:string, summary:string}}
  */
 final class Posts
 {
@@ -35,6 +35,7 @@ final class Posts
                     'If you do not know what you run, or who would do the update, that is exactly the question the Health Check answers in two days.',
                 ],
                 'products' => ['maintenance-retainer', 'modernization', 'legacy-health-check'],
+                'nl' => ['title' => 'PHP 8.4.27, 8.3.36 en 8.5.12: wat de beveiligingsrelease van 21 oktober voor jou betekent', 'summary' => 'Twee kritieke bugs waarmee zonder inloggen code op afstand kan draaien, verholpen in elke ondersteunde PHP-versie. Wat je vandaag moet doen, en wat het zegt over draaien op een versie zonder support.'],
             ],
             'an-mcp-server-in-front-of-your-api' => [
                 'slug' => 'an-mcp-server-in-front-of-your-api',
@@ -56,6 +57,7 @@ final class Posts
                     'The API did not change. A new assistant, or a new model, is a configuration change. I built this pattern for my own inventory product and it is the one I sell as AI Integration; the case study is on this site.',
                 ],
                 'products' => ['ai-integration', 'integrations'],
+                'nl' => ['title' => 'Waarom ik een MCP-server voor een API zet in plaats van het model de database te geven', 'summary' => 'Klanten vragen om een AI-assistent op hun data. De veilige manier om ja te zeggen is een kleine gateway met benoemde tools, de eigen rechten van de gebruiker en een log van elke aanroep.'],
             ],
             'what-two-days-of-health-check-buy' => [
                 'slug' => 'what-two-days-of-health-check-buy',
@@ -77,6 +79,7 @@ final class Posts
                     'A report in plain language with findings ranked by value and risk and hours per item, and a walkthrough call. The price is 12 hours at EUR 90, EUR 1,080 excl. VAT, and it is separate from any work that follows. The plan is the product; you can take it to anyone.',
                 ],
                 'products' => ['legacy-health-check'],
+                'nl' => ['title' => 'Wat twee dagen Health Check je opleveren', 'summary' => 'Twaalf uur, alleen-lezen, een schriftelijk rapport. Dit is waar ik naar kijk, wat je terugkrijgt en wat het kost: EUR 1,080 excl. btw.'],
             ],
         ];
     }

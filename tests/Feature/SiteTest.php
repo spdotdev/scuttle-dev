@@ -53,7 +53,7 @@ class SiteTest extends TestCase
         $this->assertStringContainsString('id="pic-modal"', $contact);
         $this->assertStringContainsString('id="map-modal"', $contact);
         $this->assertStringNotContainsString('<iframe', $contact);
-        $this->assertStringContainsString('kvk.nl/zoeken/?source=all&amp;q=96040947', $contact);
+        $this->assertStringContainsString('kvk.nl/zoeken/#/96040947000061394009/', $contact);
         $this->assertStringContainsString('id="cform"', $contact);
         $this->assertSame(1, substr_count($contact, '<h1'));
         $this->assertStringNotContainsString('maps.google', $html);
@@ -347,5 +347,37 @@ class SiteTest extends TestCase
         $this->assertStringNotContainsStringIgnoringCase('hosintra', $page);
         $this->assertStringNotContainsStringIgnoringCase('zero downtime', $page);
         $this->assertStringNotContainsString('0</b> minutes', $page);
+    }
+
+    /**
+     * Every page can be switched to Dutch: the switch is in the bar, and every
+     * element marked data-i has a Dutch string on that page (shell keys live in
+     * the layout, page keys are pushed into the nl stack).
+     */
+    public function test_every_page_is_translatable(): void
+    {
+        $paths = ['/', '/pricing', '/health-check', '/contact', '/work', '/case-studies', '/case-studies/phalcon-to-laravel', '/blog', '/company', '/projects', '/projects/manual'];
+        foreach (Catalog::all() as $p) {
+            $paths[] = parse_url(Catalog::url($p), PHP_URL_PATH);
+        }
+        foreach (Posts::all() as $post) {
+            $paths[] = '/blog/'.$post['slug'];
+        }
+        // The shell's own keys, from the layout; a page must mark its own text on top of those.
+        preg_match_all('/\b([a-z0-9_]+): "/', (string) file_get_contents(__DIR__.'/../../resources/views/layout.blade.php'), $shell);
+        foreach ($paths as $path) {
+            $html = (string) $this->get('http://scuttle.dev'.$path)->assertOk()->getContent();
+            $this->assertStringContainsString('id="nl"', $html, $path.' has the language switch');
+            $this->assertStringContainsString('Object.assign(window.SCUTTLE_NL.t', $html, $path.' pushes its Dutch strings');
+            preg_match_all('/data-i="([A-Za-z0-9_]+)"/', $html, $m);
+            $own = array_diff(array_unique($m[1]), $shell[1]);
+            $this->assertGreaterThanOrEqual(8, count($own), $path.' marks its own text for translation (found '.count($own).' keys)');
+            foreach (array_unique($m[1]) as $key) {
+                $this->assertTrue(
+                    (bool) preg_match('/[{,\s]"?'.preg_quote($key, '/').'"?\s*:/', $html),
+                    $path.' has no Dutch string for data-i="'.$key.'"'
+                );
+            }
+        }
     }
 }

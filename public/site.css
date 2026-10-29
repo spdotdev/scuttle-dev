@@ -58,6 +58,9 @@ nav.top .wrap{display:flex;align-items:center;gap:12px}
 .mega .col a{display:block;padding:7px 0;font-size:14.5px;color:var(--ink2);white-space:nowrap}
 .mega .col a:hover{color:var(--ink)}
 .right{display:flex;gap:8px;align-items:center}
+/* the bar must not move when the language changes: the button keeps the width of its longest label, the links keep their slot */
+nav.top .cta{min-width:150px;justify-content:center}
+.links>a,.has-mega button span{display:inline-block;text-align:center;min-width:var(--w,auto)}
 .seg{display:flex;border:1px solid var(--line);border-radius:4px;overflow:hidden;font:500 11px "Geist Mono",monospace}
 .seg button{border:0;background:none;color:var(--muted);padding:9px 10px;cursor:pointer;font:inherit}
 .seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
@@ -374,7 +377,7 @@ footer .bottom{grid-column:1/-1;border-top:1px solid var(--dark-line);padding-to
 .plan{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:24px 22px 26px;display:grid;gap:12px;align-content:start}
 .plan.hi{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink)}
 .plan .ph2{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
-.plan h3{font-size:20px}
+.plan h3{font:500 15px "Geist Mono",monospace;letter-spacing:.08em;text-transform:uppercase;line-height:1.3}
 .plan .amt{font-size:26px;letter-spacing:-.02em;font-weight:500;white-space:nowrap}.plan .amt small{font:400 12px "Geist Mono",monospace;color:var(--muted);margin-left:2px}
 .plan p{font-size:14px;color:var(--muted);min-height:3.2em}
 .plan hr{border:0;border-top:1px dashed var(--line2);margin:4px 0}

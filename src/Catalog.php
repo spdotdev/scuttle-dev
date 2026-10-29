@@ -9,7 +9,7 @@ namespace Spdotdev\ScuttleDev;
  * Prices: only the Legacy Health Check has a set price. Every other product is
  * quoted per step at EUR 90 per hour excl. VAT, after a free intro call.
  *
- * @phpstan-type Product array{slug:string, group:string, name:string, short:string, lead:string, price:string, price_note:string, features:list<array{0:string,1:string}>, steps:list<string>, not:string, illus:string, cta:array{0:string,1:string}, route?:string}
+ * @phpstan-type Product array{slug:string, group:string, name:string, short:string, lead:string, price:string, price_note:string, features:list<array{0:string,1:string}>, steps:list<string>, not:string, illus:string, cta:array{0:string,1:string}, nl:array{lead:string, short:string, price:string, price_note:string, features:list<array{0:string,1:string}>, steps:list<string>, not:string, cta:array{0:string,1:string}}, route?:string}
  */
 final class Catalog
 {
@@ -27,6 +27,13 @@ final class Catalog
         'build' => 'Automate the repetitive work, build what is missing.',
         'assess' => 'Know where you stand before anything is touched.',
         'run' => 'Keep it secure, backed up and documented.',
+    ];
+
+    /** @var array<string, string> group key => Dutch label (same words as g_* in the layout) */
+    public const GROUPS_NL = [
+        'build' => 'Automatiseren',
+        'assess' => 'Beoordelen',
+        'run' => 'Beheren',
     ];
 
     /**
@@ -60,6 +67,28 @@ final class Catalog
                 'not' => 'No guaranteed accuracy, no agent with write access to production without a human step, no vendor lock-in: the model is swappable by design.',
                 'illus' => 'agent',
                 'cta' => ['Which task would you hand to an agent first?', 'Tell me where the hours go today and what a good answer looks like. I reply within one working day with the use case I would start with, free.'],
+                'nl' => [
+                    'lead' => 'Eén workflow waar AI meetbaar tijd bespaart, naar productie gebracht: een Claude-agent met eigen skills, een MCP-server die hem benoemde tools geeft op je systemen, retrieval (RAG) over je eigen documenten, en browserautomatisering waar geen API is. De waarde zit in het veilig verbinden van het model met jouw kennis en jouw tools. Ik draai mijn eigen bedrijf op dit patroon.',
+                    'short' => 'Agents, eigen skills, MCP-servers, RAG over je data. Eén use case naar productie.',
+                    'price' => 'Op offerte per use case, EUR 90 per uur excl. btw',
+                    'price_note' => 'Modelkosten zijn voor jou en begrensd. Een evaluatieset bepaalt of het live gaat.',
+                    'features' => [
+                        ['Eerst één use case', 'Gekozen op meetbaar bespaarde uren, niet op de demo. Facturen inlezen, leads opvolgen, tickets sorteren, rapportage, een vragenbox over je data.'],
+                        ['Agents met eigen skills', 'Een Claude-agent die in stappen met je tools werkt en geschreven skills volgt: jouw werkwijze, jouw controles, jouw toon.'],
+                        ['MCP-server op je systemen', 'Model Context Protocol: benoemde tools met rechten vóór je API of database, zodat elke assistent ze kan gebruiken en elke aanroep gelogd wordt.'],
+                        ['RAG over je documenten', 'Retrieval met bronnen bij elk antwoord; embeddings lokaal gebouwd als de data je servers niet mag verlaten.'],
+                        ['Evaluatieset en vangrails', 'Echte voorbeelden met bekende antwoorden, wat de agent nooit mag doen, wat een mens moet doen, een maandelijks kostenplafond en een gedocumenteerde uitschakelknop.'],
+                        ['Kleine modellen waar het past', 'Gefinetunede of lokale modellen (Ollama, Whisper, een getrainde wake word) voor taken die snel, offline of goedkoop moeten zijn.'],
+                    ],
+                    'steps' => [
+                        'Introgesprek: waar gaan de uren nu heen, hoe ziet een goed antwoord eruit, welke data mag het pand verlaten.',
+                        'Evaluatieset en een dun prototype daartegen, met het model gekozen per stap.',
+                        'Productiebouw met de MCP-tools, retrieval, vangrails, logging en het kostenplafond.',
+                        'Overdracht, met het runbook en de evaluatieset zodat je latere wijzigingen en modelwissels zelf kunt beoordelen.',
+                    ],
+                    'not' => 'Geen gegarandeerde nauwkeurigheid, geen agent met schrijftoegang tot productie zonder menselijke stap, geen vendor lock-in: het model is per ontwerp verwisselbaar.',
+                    'cta' => ['Welke taak geef je als eerste aan een agent?', 'Vertel me waar de uren nu heen gaan en hoe een goed antwoord eruitziet. Binnen één werkdag antwoord ik met de use case waarmee ik zou beginnen, gratis.'],
+                ],
             ],
 
             'integrations' => [
@@ -87,6 +116,28 @@ final class Catalog
                 'not' => 'No scraping of systems that offer no API without the owner agreeing, no "it works on my machine" switches. Partner fees and licences are theirs, not in my quote.',
                 'illus' => 'integrations',
                 'cta' => ['Which two systems should talk?', 'Name them and the direction of the data. I reply within one working day with how I would connect them and what to watch, free.'],
+                'nl' => [
+                    'lead' => 'De systemen koppelen die je al gebruikt: boekingssystemen, betaalproviders, ERP, mailplatforms, scanners en partner-API\'s. Gebouwd om retries, storingen en een andere kant die van gedachten verandert te overleven.',
+                    'short' => 'Systemen die betrouwbaar met elkaar praten: boekingen, betalingen, ERP, mail.',
+                    'price' => 'Op offerte per koppeling, EUR 90 per uur excl. btw',
+                    'price_note' => 'Bij dunne documentatie gaat eerst een spike van een paar uur tegen de echte API vooraf.',
+                    'features' => [
+                        ['Idempotent door ontwerp', 'Een webhook die twee keer binnenkomt of een job die opnieuw draait int, mailt of boekt nooit dubbel.'],
+                        ['Queues en retries', 'Het werk gebeurt op de achtergrond met backoff, dead letters en alerts.'],
+                        ['Mapping op papier', 'Welk veld waarheen gaat, wat de bron van waarheid is, wat er bij een conflict gebeurt.'],
+                        ['Monitoring', 'Je ziet de laatste geslaagde sync en de fouten, geen stille gaten.'],
+                        ['Eerst sandbox', 'Elke provider getest tegen zijn testomgeving voordat er productiesleutels bestaan.'],
+                        ['Runbook', 'Hoe je opnieuw draait, hoe je herhaalt, wie je belt aan de andere kant.'],
+                    ],
+                    'steps' => [
+                        'Introgesprek: de systemen, de richting van de data, de volumes.',
+                        'Spike tegen de echte API, daarna een vaste scope.',
+                        'Bouwen met tests en een run in de sandbox.',
+                        'Overgang naar productie met monitoring en het runbook.',
+                    ],
+                    'not' => 'Geen scraping van systemen zonder API zonder dat de eigenaar akkoord is, geen "het werkt op mijn machine"-overgangen. Partnerkosten en licenties zijn van hen, niet in mijn offerte.',
+                    'cta' => ['Welke twee systemen moeten met elkaar praten?', 'Noem ze en de richting van de data. Binnen één werkdag antwoord ik hoe ik ze zou koppelen en waar je op moet letten, gratis.'],
+                ],
             ],
 
             'full-stack-build' => [
@@ -114,6 +165,28 @@ final class Catalog
                 'not' => 'No design agency in the middle, no framework for the sake of it. I build what is agreed, and I say so when a feature is not worth its price.',
                 'illus' => 'build',
                 'cta' => ['What should the first version do?', 'Describe the one thing it must do on day one. I reply within one working day with what milestone one would contain and roughly cost, free.'],
+                'nl' => [
+                    'lead' => 'Een nieuwe webapplicatie van begin tot eind gebouwd door één persoon: het ontwerp van de schermen, de architectuur, de backend, de front end, de API, de hosting en het releaseproces. Voor een idee, een spreadsheetproces of een product dat zijn eerste versie ontgroeid is.',
+                    'short' => 'Ontwerp, architectuur, backend, front end, API, hosting: een nieuwe applicatie van begin tot eind gebouwd.',
+                    'price' => 'Op offerte per mijlpaal, EUR 90 per uur excl. btw',
+                    'price_note' => 'Een eerste werkende versie is een eigen mijlpaal, zodat je het ziet draaien voordat de rest gepland wordt.',
+                    'features' => [
+                        ['Ontwerp', 'Eerst samen schermen schetsen: wat elke gebruiker ziet en doet, in de volgorde waarin hij het doet. Gewone, snelle pagina\'s boven decoratie.'],
+                        ['Architectuur', 'Datamodel, rollen en tenancy, wat met wat praat, wat nooit mag falen. Vastgelegd als beslisnotities vóór de eerste regel code.'],
+                        ['Backend', 'Laravel: authenticatie, rollen, queues, mail, geplande jobs, Filament-beheerschermen, multi-tenant waar het product dat nodig heeft.'],
+                        ['Front end', 'Standaard server-rendered Blade met Alpine.js: geen buildpijplijn om te onderhouden, werkt op elk apparaat. Een single-page app alleen als het product er echt een nodig heeft.'],
+                        ['API en koppelingen', 'REST-endpoints voor apps en partners, webhooks die veilig tegen retries zijn, een MCP-server als AI-assistenten het moeten kunnen gebruiken.'],
+                        ['Hosting, tests en release', 'Docker op een server die van jou is, back-ups, monitoring, TLS; featuretests bij elke wijziging, CI die rode merges blokkeert, deploy en rollback met één commando.'],
+                    ],
+                    'steps' => [
+                        'Introgesprek en een scope van één pagina: wie het gebruikt, wat het eerst moet kunnen.',
+                        'Mijlpaal één: de kleinste versie die echt werk doet, live op staging.',
+                        'Mijlpaal twee en verder, elk vooraf afgebakend en geprijsd.',
+                        'Live, overdrachtspakket, optioneel een retainer.',
+                    ],
+                    'not' => 'Geen ontwerpbureau ertussen, geen framework om het framework. Ik bouw wat is afgesproken, en ik zeg het als een feature zijn prijs niet waard is.',
+                    'cta' => ['Wat moet de eerste versie kunnen?', 'Beschrijf het ene ding dat het op dag één moet doen. Binnen één werkdag antwoord ik wat mijlpaal één zou bevatten en ongeveer kost, gratis.'],
+                ],
             ],
 
             'modernization' => [
@@ -141,6 +214,28 @@ final class Catalog
                 'not' => 'No rewrite from scratch, no three-month branch, no licence costs hidden in the quote. If a step turns out bigger than quoted, you hear it before the hours are spent.',
                 'illus' => 'migration',
                 'cta' => ['Which layer is the oldest in your stack?', 'Tell me the PHP version, the framework and where it is hosted. I reply within one working day with the first step I would take, free.'],
+                'nl' => [
+                    'lead' => 'Alles onder je applicatie bijgewerkt en toekomstbestendig gemaakt: de PHP-versie, het framework, de database, de webserver, de manier van hosten en de manier van releasen. In stappen, terwijl het systeem de hele tijd in gebruik blijft, zodat niets stilvalt en elke stap teruggedraaid kan worden.',
+                    'short' => 'PHP, framework, database, webserver en hosting bijgewerkt, terwijl het systeem blijft draaien.',
+                    'price' => 'Op offerte per stap, EUR 90 per uur excl. btw',
+                    'price_note' => 'Elke stap krijgt een eigen scope en prijs voordat hij begint. Je kunt na elke stap stoppen.',
+                    'features' => [
+                        ['PHP-upgrades', '7.x naar 8.x, 8.1 naar 8.4 of 8.5: deprecations opgelost, extensies passend gemaakt, de testsuite die het bewijst vóór de omschakeling.'],
+                        ['Framework-upgrades en verhuizingen', 'Oude Laravel naar huidige Laravel, Phalcon of een eigen framework naar Laravel, module voor module, oud en nieuw naast elkaar.'],
+                        ['Database en runtime', 'MySQL 5.7 naar 8, MariaDB, Redis, PHP-FPM-tuning; het besturingssysteem weer onder support gebracht.'],
+                        ['Webserver en TLS', 'Apache of nginx naar Caddy waar dat loont: automatische certificaten, HTTP/2 en 3, één leesbare config.'],
+                        ['Containers en hosting', 'Docker op een server die van jou is, standaard DigitalOcean; staging en productie dezelfde machine; een verhuizing van shared hosting of een oude VPS inbegrepen.'],
+                        ['Releaseproces', 'Git, CI met tests en beveiligingscontroles, deploy met één commando, rollback met één commando. Dependencies volgens schema geaudit en bijgewerkt.'],
+                    ],
+                    'steps' => [
+                        'Health Check of een bestaand plan: de volgorde van de stappen, eerst het vangnet.',
+                        'Stap één afgebakend, geprijsd en goedgekeurd; tests geschreven rond het huidige gedrag.',
+                        'Bouwen, testen, releasen, controleren. Kleine releases, waar mogelijk wekelijks.',
+                        'Volgende stap, of stoppen. Het overdrachtspakket wordt na elke stap bijgewerkt.',
+                    ],
+                    'not' => 'Geen rewrite from scratch, geen branch van drie maanden, geen verborgen licentiekosten in de offerte. Als een stap groter blijkt dan geoffreerd, hoor je dat voordat de uren zijn besteed.',
+                    'cta' => ['Welke laag in je stack is het oudst?', 'Vertel me de PHP-versie, het framework en waar het gehost wordt. Binnen één werkdag antwoord ik met de eerste stap die ik zou zetten, gratis.'],
+                ],
             ],
 
             'android-app' => [
@@ -168,6 +263,28 @@ final class Catalog
                 'not' => 'No iOS in this offer, no app for the sake of an app when a responsive web page does the job. I say so in the intro call.',
                 'illus' => 'phone',
                 'cta' => ['Who would use the app, and where?', 'Tell me the job it must do on the floor or in the field. I reply within one working day with the first screen I would build, free.'],
+                'nl' => [
+                    'lead' => 'Een native Android-app in Kotlin met Jetpack Compose, bovenop de API die je hebt of een nieuwe Laravel-backend die ernaast gebouwd wordt. Voor buitendienst, scanners, interne tools en producten die met een slechte verbinding moeten werken.',
+                    'short' => 'Kotlin en Jetpack Compose, op je API of een nieuwe Laravel-backend.',
+                    'price' => 'Op offerte per mijlpaal, EUR 90 per uur excl. btw',
+                    'price_note' => 'Interne distributie of Play Store, jouw keuze; de storeaccounts blijven op jouw naam.',
+                    'features' => [
+                        ['Kotlin en Compose', 'Actuele Android-tooling, geen cross-platformlaag om later te debuggen.'],
+                        ['Werkt offline', 'Lokale opslag en sync, zodat een verbroken verbinding geen werk kost.'],
+                        ['Camera en scannen', 'Barcodes, foto\'s en documenten rechtstreeks in je systeem.'],
+                        ['Backend inbegrepen', 'Een Laravel-API met authenticatie, rollen en een beheerpaneel als je er geen hebt.'],
+                        ['Releasepijplijn', 'Ondertekende builds vanuit CI, interne testtrack, versie-releases.'],
+                        ['Testen op apparaten', 'Getest op echte apparaten, niet alleen in de emulator.'],
+                    ],
+                    'steps' => [
+                        'Introgesprek: wie het gebruikt, waar, op welke apparaten.',
+                        'Mijlpaal één: het hoofdscherm dat echt werk doet met jouw data.',
+                        'Verdere mijlpalen, elk afgebakend en geprijsd.',
+                        'Release, overdracht, storevermelding als je dat wilt.',
+                    ],
+                    'not' => 'Geen iOS in dit aanbod, geen app omwille van de app als een responsive webpagina het werk doet. Dat zeg ik in het introgesprek.',
+                    'cta' => ['Wie gebruikt de app, en waar?', 'Vertel me welke taak het op de werkvloer of in het veld moet doen. Binnen één werkdag antwoord ik met het eerste scherm dat ik zou bouwen, gratis.'],
+                ],
             ],
 
             'legacy-health-check' => [
@@ -197,6 +314,29 @@ final class Catalog
                 'not' => 'It is not a rewrite, it is not a penetration test, and I make no changes to your production systems. I do not need production data. If the report shows that more is needed, you get a clear scope and price before anything starts.',
                 'illus' => 'report',
                 'cta' => ['Not sure where to start? Start here.', 'Twelve hours, read-only, a plan you can hold me to. Tell me what you run and I check that the Health Check fits before anything is booked.'],
+                'nl' => [
+                    'lead' => 'Een beoordeling in twee dagen van je applicatie en de manier waarop die draait. Je krijgt een schriftelijk rapport over waar automatisering uren bespaart, wat risicovol is, welke onderdelen buiten support zijn (de legacy-check) en een plan in stappen dat het bedrijf niet stilzet.',
+                    'short' => 'Beoordeling in twee dagen: kansen voor automatisering, risico\'s, een plan in stappen.',
+                    'price' => 'Vaste prijs, EUR 1,080 excl. btw (12 uur)',
+                    'price_note' => 'Twee dagen review, 12 uur × EUR 90. Een gratis introgesprek gaat vooraf.',
+                    'features' => [
+                        ['Schriftelijk rapport', 'In gewone taal, bevindingen gerangschikt op waarde en risico, uren per punt.'],
+                        ['Kansen voor automatisering', 'Het repeterende werk in en rond het systeem, met de uren die het nu kost en wat een agent of koppeling zou besparen.'],
+                        ['Legacy-check', 'Besturingssysteem, PHP, database, framework en belangrijke dependencies naast hun officiële end-of-lifedatums gelegd.'],
+                        ['Snelle beveiligingsscan', 'Configuratie, dependencies met bekende kwetsbaarheden, omgang met secrets, basis van serverhardening.'],
+                        ['Architectuurreview', 'Waar wijzigen riskant is, verborgen koppelingen, hoe goed de code door tests gedekt is.'],
+                        ['Plan in stappen', 'Volgorde van het werk en bandbreedtes voor de inspanning. Oud en nieuw draaien naast elkaar, niets valt stil.'],
+                        ['Doorloopgesprek', 'We lopen het rapport samen door en ik beantwoord elke vraag.'],
+                    ],
+                    'steps' => [
+                        'Een kort introgesprek, gratis, om te checken dat de Health Check bij je situatie past.',
+                        'Je geeft me leestoegang tot de code en een korte rondleiding over hoe het gehost wordt.',
+                        'Twee dagen review.',
+                        'Het rapport, gevolgd door het doorloopgesprek.',
+                    ],
+                    'not' => 'Het is geen rewrite, het is geen penetratietest en ik breng geen wijzigingen aan in je productiesystemen. Ik heb geen productiedata nodig. Als het rapport laat zien dat er meer nodig is, krijg je een duidelijke scope en prijs voordat iets begint.',
+                    'cta' => ['Weet je niet waar je moet beginnen? Begin hier.', 'Twaalf uur, alleen-lezen, een plan waar je me aan kunt houden. Vertel me wat je draait en ik controleer of de Health Check past voordat er iets geboekt wordt.'],
+                ],
             ],
 
             'security-assessment' => [
@@ -224,6 +364,28 @@ final class Catalog
                 'not' => 'No testing without written authorization, no denial of service, no social engineering unless it is named in the scope. I do not test systems you do not own.',
                 'illus' => 'shield',
                 'cta' => ['What would hurt most if it leaked?', 'Tell me what the system holds and who can reach it. I reply within one working day with the scope I would test first, free, and nothing is tested without written authorization.'],
+                'nl' => [
+                    'lead' => 'Een kwetsbaarhedenonderzoek of penetratietest van een webapplicatie, API of serveromgeving die van jou is. Bevindingen gerangschikt op ernst, elk met adviezen om te herstellen, en een hertest als de fixes erin zitten.',
+                    'short' => 'Kwetsbaarhedenscan of pentest van een applicatie, met een hertest.',
+                    'price' => 'Quick scan EUR 720 excl. btw (8 uur); volledige assessment op offerte per fase, EUR 90 per uur excl. btw',
+                    'price_note' => 'Scope, testvenster en schriftelijke toestemming zijn afgesproken voordat er iets getest wordt.',
+                    'features' => [
+                        ['Eerst schriftelijke toestemming', 'Scope, testvenster, noodcontacten en toestemming van derden als je elders host.'],
+                        ['Applicatietesten', 'Authenticatie, toegangscontrole, injectie, bedrijfslogica, sessiebeheer, bestandsafhandeling.'],
+                        ['Infrastructuurcheck', 'Open poorten, TLS-configuratie, blootgestelde services, verouderde software met bekende kwetsbaarheden.'],
+                        ['Gerangschikte bevindingen', 'Ernst, bewijs, impact in bedrijfstermen en de oplossing per punt.'],
+                        ['Hersteladvies', 'Concrete wijzigingen voor je developers, of ik voer ze samen met jou door.'],
+                        ['Hertest', 'Elke bevinding na de fix opnieuw gecontroleerd, met een sluitrapport.'],
+                    ],
+                    'steps' => [
+                        'Introgesprek: wat je draait, waar je je zorgen over maakt, wat onaangeroerd moet blijven.',
+                        'Scope en spelregels op papier, door jou ondertekend.',
+                        'Testen binnen het afgesproken venster, alleen-lezen op productie tenzij anders afgesproken.',
+                        'Rapport en doorloopgesprek, daarna de hertest na jouw fixes.',
+                    ],
+                    'not' => 'Geen testen zonder schriftelijke toestemming, geen denial of service, geen social engineering tenzij het in de scope genoemd is. Ik test geen systemen die niet van jou zijn.',
+                    'cta' => ['Wat zou het meeste pijn doen als het uitlekt?', 'Vertel me wat het systeem bevat en wie erbij kan. Binnen één werkdag antwoord ik met de scope die ik als eerste zou testen, gratis, en er wordt niets getest zonder schriftelijke toestemming.'],
+                ],
             ],
 
             'architecture-review' => [
@@ -251,6 +413,28 @@ final class Catalog
                 'not' => 'I do not build the chosen design in this engagement and I do not negotiate with vendors for you. Both can follow as their own step.',
                 'illus' => 'options',
                 'cta' => ['What is the decision on the table?', 'Stack, cloud, integration, build or buy: write the question in one sentence. I reply within one working day with what I would need to look at before I answer it, free.'],
+                'nl' => [
+                    'lead' => 'Voor een besluit over stack, cloud, koppeling of zelf bouwen versus kopen. Ik vergelijk de opties op kosten, risico en pasvorm met je team, en schrijf een advies op waar je me aan kunt houden.',
+                    'short' => 'Opties vergeleken, een schriftelijk advies, beslisnotities.',
+                    'price' => 'Vaste prijs, EUR 1,440 excl. btw (16 uur)',
+                    'price_note' => 'Twee dagen. Grotere vragen worden na het introgesprek geoffreerd, als de vraag duidelijk is.',
+                    'features' => [
+                        ['De vraag, opgeschreven', 'Wat er besloten wordt, voor wanneer, en wat een verkeerd antwoord kost.'],
+                        ['Opties vergeleken', 'Twee tot vier realistische routes, elk met kosten, risico, teampasvorm en uitweg.'],
+                        ['Advies', 'Eén antwoord, met de redenen en de voorwaarden waaronder het verandert.'],
+                        ['Roadmap', 'De eerste stappen op volgorde, met bandbreedtes voor de inspanning.'],
+                        ['Beslisnotities', 'Korte documenten in je repository, zodat de redenering personeelswisselingen overleeft.'],
+                        ['Reviewsessie', 'Eén sessie met je team of leverancier om het resultaat uit te dagen.'],
+                    ],
+                    'steps' => [
+                        'Introgesprek en de opgeschreven vraag.',
+                        'Systeemoverzicht, randvoorwaarden en een benoemde beslisser aan jouw kant.',
+                        'Analyse en het schriftelijke advies.',
+                        'Reviewsessie en de definitieve versie.',
+                    ],
+                    'not' => 'Ik bouw het gekozen ontwerp niet in deze opdracht en ik onderhandel niet met leveranciers voor je. Beide kunnen als eigen stap volgen.',
+                    'cta' => ['Welk besluit ligt er op tafel?', 'Stack, cloud, koppeling, bouwen of kopen: schrijf de vraag in één zin. Binnen één werkdag antwoord ik wat ik zou willen bekijken voordat ik hem beantwoord, gratis.'],
+                ],
             ],
 
             'hardening' => [
@@ -278,6 +462,28 @@ final class Catalog
                 'not' => 'This is not a penetration test of the application itself; that is the Security Assessment. No uptime guarantees from one person.',
                 'illus' => 'lock',
                 'cta' => ['When was the last restore test?', 'If the answer is "never" or "not sure", that is the first thing I would do. Tell me where it runs and I reply within one working day, free.'],
+                'nl' => [
+                    'lead' => 'De server en de leveringspijplijn veilig gemaakt: poorten dicht, TLS actueel, secrets uit de code, scans op dependencies en secrets bij elke wijziging, en back-ups die echt zijn teruggezet. Een schriftelijke kwaliteitslat die je team kan vasthouden.',
+                    'short' => 'Aanvalsoppervlak gesloten, beveiligingscontroles in CI, back-ups die terug te zetten zijn.',
+                    'price' => 'Op offerte per omgeving, EUR 90 per uur excl. btw',
+                    'price_note' => 'Inbegrepen in elk moderniseringsproject. Los te boeken voor een systeem dat je hebt geërfd.',
+                    'features' => [
+                        ['Serverhardening', 'Firewall, SSH, TLS, updates, gebruikers en sudo, logging. Gecontroleerd aan de hand van een schriftelijke lijst.'],
+                        ['Secrets op orde', 'Uit de repository, naar een vault of omgeving, geroteerd waar ze zijn uitgelekt.'],
+                        ['Beveiligingscontroles in CI', 'Dependency-audit, secretscan en statische analyse die de build laten falen.'],
+                        ['Back-ups die terug te zetten zijn', 'Een restore uitgevoerd en getimed, opgeschreven met de hersteltijd.'],
+                        ['Monitoring en alerts', 'Uptime, schijf, certificaten en mislukte jobs bereiken een mens voordat een klant het doet.'],
+                        ['Kwaliteitslat op papier', 'Cijfers en de commando\'s die ze controleren, zodat niemand de lat ongemerkt verlaagt.'],
+                    ],
+                    'steps' => [
+                        'Introgesprek en leestoegang tot de server en de pijplijn.',
+                        'Lijst met bevindingen, gerangschikt, met de uren per punt.',
+                        'Fixes in afgesproken volgorde, elk gecontroleerd.',
+                        'Schriftelijke kwaliteitslat en het runbook overgedragen.',
+                    ],
+                    'not' => 'Dit is geen penetratietest van de applicatie zelf; dat is de Security assessment. Geen uptimegaranties van één persoon.',
+                    'cta' => ['Wanneer was de laatste restoretest?', 'Als het antwoord "nooit" of "weet ik niet" is, is dat het eerste wat ik zou doen. Vertel me waar het draait en ik antwoord binnen één werkdag, gratis.'],
+                ],
             ],
 
             'maintenance-retainer' => [
@@ -305,6 +511,28 @@ final class Catalog
                 'not' => 'New features beyond the block are quoted separately. Response times are targets, not guarantees: I am one person and I say so.',
                 'illus' => 'retainer',
                 'cta' => ['Who keeps it running after the developer leaves?', 'Tell me what it is and how often it changes. I reply within one working day with the block size I would start with, free.'],
+                'nl' => [
+                    'lead' => 'Voor een systeem dat je wilt laten draaien door de persoon die het kent. Een maandelijks blok uren voor beveiligingspatches, monitoring, back-ups, kleine wijzigingen en de vragen ertussendoor, met elke maand een kort rapport.',
+                    'short' => 'Een maandelijks urenblok: patches, monitoring, kleine wijzigingen, een rapport.',
+                    'price' => 'Vanaf EUR 720 per maand excl. btw (8 uur)',
+                    'price_note' => 'Blokken van 8, 16 of 24 uur per maand à EUR 90. Ongebruikte uren worden gerapporteerd, niet verstopt.',
+                    'features' => [
+                        ['Patchen', 'Besturingssysteem, PHP, framework en dependencies onder support gehouden.'],
+                        ['Monitoring', 'Uptime, certificaten, schijf, queues en mislukte jobs bewaakt, met een reactiedoel.'],
+                        ['Back-ups', 'Gecontroleerd, en volgens schema echt teruggezet.'],
+                        ['Kleine wijzigingen', 'Tickets uit het blok gepakt, in de volgorde die jij bepaalt.'],
+                        ['Maandrapport', 'Gebruikte uren, wat er veranderd is, wat eraan komt, wat ik adviseer.'],
+                        ['Noodpad', 'Hoe je me bereikt, en wat er gebeurt als ik niet beschikbaar ben.'],
+                    ],
+                    'steps' => [
+                        'Introgesprek en een blik op het systeem, of direct na een project van mij.',
+                        'Blokgrootte en reactiedoelen schriftelijk afgesproken.',
+                        'Maandelijkse cyclus: patches, monitoring, tickets, rapport.',
+                        'Elk kwartaal een review: groter, kleiner of stoppen.',
+                    ],
+                    'not' => 'Nieuwe features buiten het blok worden apart geoffreerd. Reactietijden zijn doelen, geen garanties: ik ben één persoon en ik zeg dat eerlijk.',
+                    'cta' => ['Wie houdt het draaiend nadat de developer weg is?', 'Vertel me wat het is en hoe vaak het verandert. Binnen één werkdag antwoord ik met de blokgrootte waarmee ik zou beginnen, gratis.'],
+                ],
             ],
 
             'compliance' => [
@@ -332,6 +560,28 @@ final class Catalog
                 'not' => 'This is technical work, not legal advice and not a certification. Fines, lawyers and the auditor itself are not in the quote.',
                 'illus' => 'checklist',
                 'cta' => ['Who is asking for the evidence, and by when?', 'Name the regime and the deadline. I reply within one working day with what the gap analysis would cover, free.'],
+                'nl' => [
+                    'lead' => 'Voor een bedrijf dat zijn technische maatregelen moet aantonen aan een toezichthouder, een auditor of een grotere klant. Een gap-analyse tegen NIS2, AVG of DORA, een herstelplan, en de maatregelen ingevoerd met bewijs dat je kunt overhandigen.',
+                    'short' => 'NIS2, AVG en DORA: gap-analyse, herstel, bewijs.',
+                    'price' => 'Op offerte per regime, EUR 90 per uur excl. btw',
+                    'price_note' => 'De gap-analyse is een vast aantal dagen; herstel wordt per punt geoffreerd op basis van de bevindingen.',
+                    'features' => [
+                        ['Scope op papier', 'Welk regime, welke systemen, welke eigenaren, welk bewijs door wie nodig is.'],
+                        ['Gap-analyse', 'Technische maatregelen getoetst aan de eis, in een tabel die je aan de auditor kunt geven.'],
+                        ['Herstelplan', 'Gerangschikt op risico en inspanning, met uren per punt.'],
+                        ['Maatregelen ingevoerd', 'Toegangsbeheer, logging, back-ups, versleuteling, patchen, incidentafhandeling.'],
+                        ['Bewijspakket', 'Screenshots, configuratie-exports en procedures, gedateerd en opgeslagen waar jij kiest.'],
+                        ['Verwerkersovereenkomst', 'Aanwezig als ik persoonsgegevens voor je verwerk, zoals de AVG vereist.'],
+                    ],
+                    'steps' => [
+                        'Introgesprek: wie wat vraagt, voor wanneer.',
+                        'Gap-analyse, vaste dagen.',
+                        'Herstel in afgesproken volgorde.',
+                        'Bewijspakket en een overdracht aan wie de auditor te woord staat.',
+                    ],
+                    'not' => 'Dit is technisch werk, geen juridisch advies en geen certificering. Boetes, advocaten en de auditor zelf zitten niet in de offerte.',
+                    'cta' => ['Wie vraagt om het bewijs, en voor wanneer?', 'Noem het regime en de deadline. Binnen één werkdag antwoord ik wat de gap-analyse zou omvatten, gratis.'],
+                ],
             ],
 
             'handover-pack' => [
@@ -359,6 +609,28 @@ final class Catalog
                 'not' => 'No secrets in the pack itself, ever. It points to the vault, it does not replace it.',
                 'illus' => 'docs',
                 'cta' => ['Could someone else run it from the documentation tonight?', 'If that question makes you nervous, send me the name of the system. I reply within one working day with what the pack would contain, free.'],
+                'nl' => [
+                    'lead' => 'Alles wat de volgende developer nodig heeft om het systeem zonder mij te draaien: hoe het werkt, hoe je deployt en terugdraait, hoe je een back-up terugzet, welke accounts er zijn en van wie, de genomen beslissingen en de bekende risico\'s. Inbegrepen in elk project, en los te boeken voor een systeem dat je hebt geërfd.',
+                    'short' => 'Runbook, architectuur, beslissingen, accounts, risico\'s. Van jou om te houden.',
+                    'price' => 'Inbegrepen in elk project. Los: op offerte, EUR 90 per uur excl. btw',
+                    'price_note' => 'Een systeem van gebruikelijke omvang vergt een paar dagen om goed te documenteren.',
+                    'features' => [
+                        ['Runbook', 'Deployen, terugdraaien, restoren, een secret roteren, een gebruiker toevoegen. Stap voor stap, getest door het te volgen.'],
+                        ['Architectuurnotities', 'De onderdelen, hoe ze praten, waar de data staat, met een diagram dat klopt met de werkelijkheid.'],
+                        ['Accounts en eigenaarschap', 'Elk account en domein, op wiens naam, hoe je erin komt zonder mij. Geen secrets in het document.'],
+                        ['Beslisnotities', 'Waarom dingen zijn zoals ze zijn, zodat niemand per ongeluk een goede beslissing terugdraait.'],
+                        ['Bekende risico\'s', 'Wat het eerst breekt, wat de oplossing kost, waar je op moet letten.'],
+                        ['Contacten', 'Leveranciers, hosting, domein, de mensen die kunnen helpen.'],
+                    ],
+                    'steps' => [
+                        'Leestoegang en een rondleiding door wat je hebt.',
+                        'Opstellen terwijl de procedures echt gevolgd worden.',
+                        'Review met je team of de volgende developer.',
+                        'Definitieve versie in je repository.',
+                    ],
+                    'not' => 'Nooit secrets in het pakket zelf. Het wijst naar de vault, het vervangt de vault niet.',
+                    'cta' => ['Kan iemand anders het vanavond draaien met alleen de documentatie?', 'Als die vraag je zenuwachtig maakt, stuur me de naam van het systeem. Binnen één werkdag antwoord ik wat het pakket zou bevatten, gratis.'],
+                ],
             ],
 
         ];
@@ -407,5 +679,36 @@ final class Catalog
     public static function canonical(array $p): string
     {
         return 'https://scuttle.dev'.(string) parse_url(self::url($p), PHP_URL_PATH);
+    }
+
+    /**
+     * The Dutch strings of one product page, keyed by the data-i keys the product view uses.
+     *
+     * @param  Product  $p
+     * @return array<string, string>
+     */
+    public static function nl(array $p): array
+    {
+        $n = $p['nl'];
+        $out = [
+            'p_lead' => $n['lead'],
+            'p_price' => $n['price'].'.',
+            'p_pn' => $n['price_note'],
+            'p_not' => $n['not'],
+            'p_cta1' => $n['cta'][0],
+            'p_cta2' => $n['cta'][1],
+        ];
+        foreach ($n['features'] as $i => $f) {
+            $out['p_f'.$i.'t'] = $f[0];
+            $out['p_f'.$i.'d'] = $f[1];
+            if ($i < 4) {
+                $out['p_fm'.$i] = $f[0];
+            }
+        }
+        foreach ($n['steps'] as $i => $st) {
+            $out['p_s'.$i] = $st;
+        }
+
+        return $out;
     }
 }
