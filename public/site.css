@@ -4,7 +4,7 @@
 @font-face{font-family:"Geist Mono";font-style:normal;font-weight:400 500;font-display:swap;src:url(fonts/geist-mono-latin-ext.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF}
 @font-face{font-family:"Geist Mono";font-style:normal;font-weight:400 500;font-display:swap;src:url(fonts/geist-mono-latin.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 /* scuttle.dev, light first, Geist. Tokens on :root, dark overrides on [data-theme="dark"]. Light is page #f5f5f5 with grey plates #ebebeb and white cards; dark blocks are the report, the feature panel, the closing CTA and the footer. */
-:root{--bg:#f5f5f5;--plate:#ebebeb;--panel:#ffffff;--ink:#0a0a0a;--ink2:#3a3a3a;--muted:#6b6b6b;--line:#dadada;--line2:#c9c9c9;--dark:#101010;--dark2:#1b1b1b;--dark-line:#2a2a2a;--dark-muted:#9a9a9a;--acc:#CF5A26;--acc2:#E8936A;--ok:#2f9e62;--warn:#d7a21a;--bad:#d64b3f;color-scheme:light}
+:root{--bg:#f5f5f5;--plate:#ebebeb;--panel:#ffffff;--ink:#0a0a0a;--ink2:#3a3a3a;--muted:#616161;--line:#dadada;--line2:#c9c9c9;--dark:#101010;--dark2:#1b1b1b;--dark-line:#2a2a2a;--dark-muted:#9a9a9a;--acc:#AD4719;--acc2:#E8936A;--ok:#2f9e62;--warn:#d7a21a;--bad:#d64b3f;color-scheme:light}
 :root[data-theme="dark"]{--bg:#0b0b0b;--plate:#151515;--panel:#1b1b1b;--ink:#f2f2f2;--ink2:#cfcfcf;--muted:#8f8f8f;--line:#262626;--line2:#333;--dark:#000;--dark2:#121212;--acc:#E3835E;--acc2:#EFA98A;color-scheme:dark}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b0b0b;--plate:#151515;--panel:#1b1b1b;--ink:#f2f2f2;--ink2:#cfcfcf;--muted:#8f8f8f;--line:#262626;--line2:#333;--dark:#000;--dark2:#121212;--acc:#E3835E;--acc2:#EFA98A;color-scheme:dark}}
 *{box-sizing:border-box;margin:0}
@@ -337,7 +337,7 @@ footer .bottom{grid-column:1/-1;border-top:1px solid var(--dark-line);padding-to
 .ph .price{margin-top:18px;font-size:14px;color:var(--muted)}.ph .price b{font-weight:500;color:var(--ink)}
 .hero-plate{padding:40px}
 .mock{background:var(--dark);color:#d8d8d8;border-radius:10px;overflow:hidden;border:1px solid #222;box-shadow:0 40px 80px -40px rgba(0,0,0,.6)}
-.mock .bar{display:flex;align-items:center;gap:7px;padding:12px 16px;border-bottom:1px solid #222;font:400 12px "Geist Mono",monospace;color:#777}
+.mock .bar{display:flex;align-items:center;gap:7px;padding:12px 16px;border-bottom:1px solid #222;font:400 12px "Geist Mono",monospace;color:#8c8c8c}
 .mock .bar i{width:9px;height:9px;border-radius:50%;background:#2e2e2e}
 .mock .bar span{margin-left:10px}
 .mock .body{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:24px;padding:36px 40px;align-items:center;min-height:380px}
@@ -586,3 +586,13 @@ footer .bottom{grid-column:1/-1;border-top:1px solid var(--dark-line);padding-to
 
 /* long button labels (a Dutch service name after "Vraag naar") wrap instead of running off a 360 px screen */
 @media (max-width:600px){.btn{white-space:normal;text-align:center;line-height:1.3;height:auto;min-height:34px;padding:8px 14px}}
+
+/* archive: the year and month rows are plain toggles (a link inside a summary is nested interactive content); the filter link sits inside the open row */
+.arch summary b{flex:1;font-weight:400}.arch summary.cur b{color:var(--acc);font-weight:500}
+.arch details>a.sall{display:flex;align-items:center;min-height:24px;padding:2px 8px 2px 22px;font-size:13px;color:var(--ink2)}
+.arch details>a.sall:hover{color:var(--ink)}.arch details>a.sall.cur{color:var(--acc);font-weight:500}
+
+/* the "or book a call" link next to the send button: same colours as the button, in both themes */
+.cform .cf-foot .btn.o,.cform.light .cf-foot .btn.o{background:#b24a1c;border-color:#b24a1c;color:#fff}
+:root[data-theme="dark"] .cform .cf-foot .btn.o{background:var(--acc);border-color:var(--acc);color:#111}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .cform .cf-foot .btn.o{background:var(--acc);border-color:var(--acc);color:#111}}

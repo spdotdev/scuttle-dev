@@ -96,7 +96,7 @@
 <div class="wrap demo-wrap">
   <div class="shot-hint in4" aria-hidden="true"><svg viewBox="0 0 120 70" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M112 6c-30 2-62 10-80 36"/><path d="M40 30l-9 13 15 3"/></svg><span data-i="hint">A live window, not a picture. Click through, or let it play.</span></div>
   <div class="shot in4" id="demo" aria-label="Interactive examples: automation runs, reports and anonymized cases">
-    <aside class="side" id="side">
+    <div class="side" id="side">
       <div class="h"><span data-i="sd_h">Automations</span><span>6</span></div>
       <button class="it on" data-k="server-setup" type="button"><i class="led"></i><span>server-setup</span><small data-i="now">now</small></button>
       <button class="it" data-k="release-pipeline" type="button"><i class="led"></i><span>release-pipeline</span><small>14:02</small></button>
@@ -112,7 +112,7 @@
       <button class="it" data-k="case-cost" type="button"><i class="led"></i><span data-i="sd_c1">Cost saving</span><small>€</small></button>
       <button class="it" data-k="case-mcp" type="button"><i class="led"></i><span data-i="sd_c2">API meets AI</span><small>mcp</small></button>
       <button class="it" data-k="case-migration" type="button"><i class="led"></i><span data-i="sd_c3">Migration in use</span><small>live</small></button>
-    </aside>
+    </div>
     <div class="main" id="main">
       <div class="top"><p class="sh" id="sh-h">Automation run · server-setup</p><div class="st"><i id="sti"></i><span id="stt">running</span></div></div>
       <div class="prog"><i id="pb"></i></div>

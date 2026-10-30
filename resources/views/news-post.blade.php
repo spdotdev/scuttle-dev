@@ -36,9 +36,9 @@
   @php($sold = $C::get($post['sells']))
   <p class="updated" style="margin-top:32px"><span data-i="blp_about">This article is about:</span> <a href="{{ $C::url($sold) }}">{{ $sold['name'] }}</a></p>
 
-  <aside class="callout">
+  <div class="callout" role="note">
     <p><span data-i="blp_rel">Related:</span> @foreach($post['products'] as $i => $slug)<a href="{{ $C::url($C::get($slug)) }}">{{ $C::get($slug)['name'] }}</a>@if($i < count($post['products']) - 1), @endif @endforeach. <span data-i="blp_q">Questions about your own situation go through the <a href="{{ route('scuttle.contact.page') }}">contact form</a>.</span></p>
-  </aside>
+  </div>
 
   <p class="updated" style="margin-top:32px"><span data-i="blp_more">More news:</span> @foreach(\Spdotdev\ScuttleDev\Posts::all() as $o)@if($o['slug'] !== $post['slug'])<a href="{{ route('scuttle.news.post', ['slug' => $o['slug']]) }}">{{ $o['title'] }}</a> · @endif @endforeach <a href="{{ route('scuttle.news') }}" data-i="blp_all">all news</a></p>
 </article>

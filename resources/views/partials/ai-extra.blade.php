@@ -16,7 +16,7 @@
 <section class="s tight"><div class="wrap">
   <div class="plate rv">
     <div class="bh"><span class="lbl dot" data-i="ax_1">Which model for what</span><p data-i="ax_8">Picked per step, by job. The cheapest that passes the evaluation set wins; the expensive ones are for judgment, not for sorting mail.</p></div>
-    <div class="mtable">
+    <div class="mtable" tabindex="0" role="region" aria-label="Which model for what">
       <table>
         <thead><tr><th data-i="ax_32">Job</th><th data-i="ax_33">What I reach for</th><th data-i="ax_34">Why</th></tr></thead>
         <tbody>

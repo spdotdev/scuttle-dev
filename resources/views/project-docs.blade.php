@@ -7,7 +7,7 @@
 
 @section('content')
 <div class="wrap docs">
-  <aside class="docs-nav">
+  <nav class="docs-nav" aria-label="Projects">
     <small data-i="pjd_projects">Projects</small>
     @foreach(\Spdotdev\ScuttleDev\Projects::all() as $o)
       @if(count($o['docs']))<a href="{{ route('scuttle.project.docs', ['slug' => $o['slug']]) }}" @class(['cur' => $o['slug'] === $pr['slug']])>{{ $o['name'] }}</a>@endif
@@ -16,7 +16,7 @@
     <a href="{{ route('scuttle.project', ['slug' => $pr['slug']]) }}" data-i="pjd_overview">Overview</a>
     @foreach($pr['docs'] as $sec)<a href="#{{ $sec['id'] }}" class="sub">{{ $sec['title'] }}</a>@endforeach
     <a href="{{ $pr['repo'] }}" rel="noopener" target="_blank" data-i="pjd_repo">Repository ↗</a>
-  </aside>
+  </nav>
 
   <article class="docs-main">
     <span class="lbl dot" data-i="pjd_kind">Docs · {{ $pr['kind'] }}</span>
@@ -33,7 +33,7 @@
           @else
             @if($list)</ul>@php($list = false)@endif
             @if(str_starts_with($line, '```'))
-              <pre><code>{{ str_replace('\\n', "\n", trim($line, '`')) }}</code></pre>
+              <pre tabindex="0"><code>{{ str_replace('\\n', "\n", trim($line, '`')) }}</code></pre>
             @else
               <p>{{ $line }}</p>
             @endif
@@ -42,15 +42,15 @@
         @if($list)</ul>@endif
       </section>
     @endforeach
-    <aside class="callout">
+    <div class="callout" role="note">
       <p data-i="pjd_callout">Services behind this project: @foreach($pr['products'] as $i => $slug)<a href="{{ $C::url($C::get($slug)) }}">{{ $C::get($slug)['name'] }}</a>@if($i < count($pr['products']) - 1), @endif @endforeach. Found a mistake? <a href="{{ $pr['repo'] }}/issues" rel="noopener" target="_blank">Open an issue</a>.</p>
-    </aside>
+    </div>
   </article>
 
-  <aside class="docs-toc">
+  <nav class="docs-toc" aria-label="On this page">
     <small data-i="pjd_toc">On this page</small>
     @foreach($pr['docs'] as $sec)<a href="#{{ $sec['id'] }}">{{ $sec['title'] }}</a>@endforeach
-  </aside>
+  </nav>
 </div>
 @endsection
 

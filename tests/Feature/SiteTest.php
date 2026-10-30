@@ -157,6 +157,60 @@ class SiteTest extends TestCase
         }
     }
 
+    public function test_sitemap_urls_resolve_and_hreflang_pairs_are_reciprocal(): void
+    {
+        $host = 'scuttle.dev';
+        $xml = simplexml_load_string((string) $this->get('http://scuttle.dev/sitemap.xml')->assertOk()->getContent());
+        $this->assertNotFalse($xml, 'the sitemap is well-formed XML');
+        $xml->registerXPathNamespace('s', 'http://www.sitemaps.org/schemas/sitemap/0.9');
+
+        $seen = [];
+        $pairs = [];
+        foreach ($xml->url as $url) {
+            $loc = (string) $url->loc;
+            $this->assertStringStartsWith('https://'.$host, $loc);
+            $this->assertArrayNotHasKey($loc, $seen, $loc.' is listed twice');
+            $seen[$loc] = true;
+            $path = (string) parse_url($loc, PHP_URL_PATH) ?: '/';
+            $html = (string) $this->get('http://'.$host.$path)->assertOk()->getContent();
+            $this->assertStringContainsString('<link rel="canonical" href="'.$loc.'" />', $html, $loc.' names itself as canonical');
+            $robots = preg_match('#<meta name="robots" content="([^"]*)"#', $html, $r) ? $r[1] : '';
+            $this->assertStringNotContainsString('noindex', $robots, $loc.' is indexable');
+            foreach ($url->children('xhtml', true) as $alt) {
+                $attrs = $alt->attributes();
+                $pairs[$loc][(string) $attrs['hreflang']] = (string) $attrs['href'];
+            }
+            preg_match_all('#<link rel="alternate" hreflang="([^"]+)" href="([^"]+)" />#', $html, $m, PREG_SET_ORDER);
+            $inPage = [];
+            foreach ($m as $row) {
+                $inPage[$row[1]] = $row[2];
+            }
+            if (isset($pairs[$loc])) {
+                $this->assertSame($pairs[$loc], $inPage, $loc.': the sitemap alternates and the page alternates are the same');
+            }
+        }
+        foreach ($pairs as $loc => $alts) {
+            foreach (['en', 'nl'] as $lang) {
+                $this->assertArrayHasKey($lang, $alts, $loc.' lists '.$lang);
+                $this->assertArrayHasKey($alts[$lang], $seen, $loc.' points at '.$alts[$lang].' which is not in the sitemap');
+                // reciprocal: the other page lists this one under the same two languages
+                $this->assertSame($alts, $pairs[$alts[$lang]] ?? null, $alts[$lang].' does not list the same pair back');
+            }
+            $this->assertSame($alts['en'], $alts['x-default'], $loc.' x-default is the English page');
+        }
+    }
+
+    public function test_content_pages_set_no_cookie_and_the_contact_form_keeps_its_session(): void
+    {
+        foreach (['/', '/nl', '/pricing', '/health-check', '/services/modernization', '/privacy', '/news', '/case-studies/api-meets-ai', '/robots.txt', '/sitemap.xml'] as $path) {
+            $response = $this->get('http://scuttle.dev'.$path)->assertOk();
+            $this->assertEmpty($response->headers->getCookies(), $path.' sets a cookie');
+        }
+        $contact = $this->get('http://scuttle.dev/contact')->assertOk();
+        $this->assertNotEmpty($contact->headers->getCookies(), 'the contact page needs its session for the CSRF token');
+        $this->assertStringContainsString('name="_token"', (string) $contact->getContent());
+    }
+
     public function test_homepage_renders_on_the_configured_host(): void
     {
         $this->get('http://scuttle.dev/')

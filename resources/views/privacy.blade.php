@@ -25,7 +25,7 @@
     <p data-i="pv_why">I use this data to send a company one email about my services (software development, modernization of existing software, automation and security) and to follow up on replies. The legal basis is my legitimate interest in finding business customers (article 6(1)(f) GDPR).</p>
 
     <h2 data-i="pv_h_cookies">Cookies and statistics</h2>
-    <p data-i="pv_cookies">This site sets no tracking or analytics cookies and loads no third-party analytics. The only cookie is the technically necessary session cookie of the website itself. Should I ever add visitor statistics, the site will ask for your consent first, nothing will be set before you choose, and this statement will say what is measured and why.</p>
+    <p data-i="pv_cookies">This site sets no tracking or analytics cookies and loads no third-party analytics. Reading the pages sets no cookie at all. Only the contact page sets a technically necessary session cookie, which protects the form against forged requests and is gone after two hours. Should I ever add visitor statistics, the site will ask for your consent first, nothing will be set before you choose, and this statement will say what is measured and why.</p>
 
     <h2 data-i="pv_h_out">Opting out</h2>
     <p data-i="pv_out">Every email contains an unsubscribe link. You can also simply reply that you are not interested, or email <a href="mailto:stas@scuttle.dev">stas@scuttle.dev</a>. After that you receive no more email from me. After an opt-out I keep only the email address and the domain on a block list, so you are not approached again.</p>
@@ -63,7 +63,7 @@ $nl = [
     'pv_h_why' => 'Waarom',
     'pv_why' => 'Ik gebruik deze gegevens om een bedrijf eenmalig een e-mail te sturen over mijn diensten (softwareontwikkeling, modernisering van bestaande software, automatisering en beveiliging) en om reacties op te volgen. De grondslag is mijn gerechtvaardigd belang om zakelijke klanten te werven (artikel 6 lid 1 onder f AVG).',
     'pv_h_cookies' => 'Cookies en statistieken',
-    'pv_cookies' => 'Deze site zet geen tracking- of analysecookies en laadt geen analytics van derden. De enige cookie is het technisch noodzakelijke sessiecookie van de website zelf. Mocht ik ooit bezoekersstatistieken toevoegen, dan vraagt de site eerst om je toestemming, wordt er niets gezet voordat je kiest, en zegt deze verklaring wat er gemeten wordt en waarom.',
+    'pv_cookies' => 'Deze site zet geen tracking- of analysecookies en laadt geen analytics van derden. Het lezen van de pagina\'s zet helemaal geen cookie. Alleen de contactpagina zet een technisch noodzakelijke sessiecookie, die het formulier beschermt tegen vervalste verzoeken en na twee uur verdwijnt. Mocht ik ooit bezoekersstatistieken toevoegen, dan vraagt de site eerst om je toestemming, wordt er niets gezet voordat je kiest, en zegt deze verklaring wat er gemeten wordt en waarom.',
     'pv_h_out' => 'Afmelden',
     'pv_out' => 'Elke e-mail bevat een afmeldlink. Je kunt ook gewoon antwoorden dat je geen interesse hebt, of mailen naar <a href="mailto:stas@scuttle.dev">stas@scuttle.dev</a>. Daarna krijg je van mij geen e-mail meer. Na een afmelding bewaar ik alleen het e-mailadres en het domein op een blokkeerlijst, zodat je niet opnieuw benaderd wordt.',
     'pv_h_long' => 'Hoe lang',

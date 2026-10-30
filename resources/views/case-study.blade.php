@@ -27,9 +27,9 @@
   <h2 data-i="csp_tech_h">Technology</h2>
   <p data-i="csp_stack">{{ $c['stack'] }}</p>
 
-  <aside class="callout">
+  <div class="callout" role="note">
     <p data-i="csp_callout">The products behind this: @foreach($c['products'] as $i => $slug)<a href="{{ $C::url($C::get($slug)) }}">{{ $C::get($slug)['name'] }}</a>@if($i < count($c['products']) - 1), @endif @endforeach. Want to talk about something like it? <a href="{{ route('scuttle.contact.page') }}?about={{ rawurlencode($C::get($c['products'][0])['name']) }}">Use the contact form</a> or <a href="{{ config('scuttle-dev.booking_url') }}">book a call</a>.</p>
-  </aside>
+  </div>
 
   <p class="updated" style="margin-top:32px" data-i="csp_more">More case studies: @foreach(\Spdotdev\ScuttleDev\Cases::all() as $o)@if($o['slug'] !== $c['slug'])<a href="{{ \Spdotdev\ScuttleDev\Cases::url($o['slug']) }}">{{ $o['title'] }}</a> · @endif @endforeach</p>
 </article>
