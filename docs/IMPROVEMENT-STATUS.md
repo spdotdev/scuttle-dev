@@ -111,3 +111,9 @@ Question: which one set of changes brings the most qualified leads in 3 months. 
 
 ## Leads nobody sees (round 7)
 A lead that is stored but not mailed logs one `critical` line (lead id and the list command, no visitor data), so the existing log alerting can pick it up. The exact commands to list and purge leads on the server are kept in the private operations notes, not in this public repository.
+
+# Round 7 (2026-10-31, v0.7.27)
+- Projects: compared with the 16 public GitHub repositories and their READMEs. Added splotnikov.dev (site package) and Bitburner scripts (game automation); Inventory now names its public Android repository (inventory-laravel and inventory-android, both MIT). Checked against the READMEs: manual, whatsapp-mcp, claude-telegram-relay and scuttle.dev descriptions are accurate. Left out on purpose: forks other than whatsapp-mcp and claude-telegram-relay (memU), two archived repositories (the old static sites), the audio EQ notes (bypass), a chat-interface mockup (prompt), the older field-manual (superseded by manual) and scuttlemail-dev (internal outreach site, README of three lines). The inventory README links an inventory-mcp repository that is not public, so it is not linked.
+- Related reading on the five money pages (Health Check, Modernization, Hardening, Maintenance Retainer, AI Integration), EN and NL, with natural anchor text; NIS2 and the sample report link onward to Health Check, Hardening, the PHP check and pricing. The articles already linked to their services. Test: `test_money_pages_link_to_their_related_reading_in_both_languages`, plus the existing every-internal-link test.
+- A lead that is stored but not mailed now logs at `critical` level.
+- Live check after the deploy: 16 page runs of axe (EN and NL, light and dark) with 0 findings; the weekly link crawl found one 502 on /company during the deploy window, three later requests answered 200.
