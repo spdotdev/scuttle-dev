@@ -40,7 +40,7 @@
     <span class="lbl dot" data-i="pjp_indocs">In the docs</span>
     <div class="cards3" style="margin-top:18px">
       @foreach(array_slice($pr['docs'], 0, 3) as $sec)
-      <a class="c rv" href="{{ route('scuttle.project.docs', ['slug' => $pr['slug']]) }}#{{ $sec['id'] }}"><span class="lbl" data-i="pjp_doc">Docs</span><h3>{{ $sec['title'] }}</h3><p>{{ \Illuminate\Support\Str::limit(strip_tags($sec['body'][0]), 120) }}</p><span class="more" data-i="pjp_read">Read →</span></a>
+      <a class="c rv" href="{{ route('scuttle.project.docs', ['slug' => $pr['slug']]) }}#{{ $sec['id'] }}"><span class="lbl" data-i="pjp_doc">Docs</span><h2>{{ $sec['title'] }}</h2><p>{{ \Illuminate\Support\Str::limit(strip_tags($sec['body'][0]), 120) }}</p><span class="more" data-i="pjp_read">Read →</span></a>
       @endforeach
     </div>
   </div></section>

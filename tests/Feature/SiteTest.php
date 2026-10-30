@@ -45,6 +45,12 @@ class SiteTest extends TestCase
             preg_match_all('/<script type="application\/ld\+json">(.*?)<\/script>/s', $html, $blocks);
             $this->assertNotEmpty($blocks[1], $path.' has structured data');
             $this->assertStringNotContainsString('fonts.googleapis.com', $html, $path.' loads no Google Fonts');
+            preg_match_all('/<h([1-6])[ >]/', (string) preg_replace('#<script.*?</script>#s', '', $html), $levels);
+            $prev = 0;
+            foreach ($levels[1] as $level) {
+                $this->assertLessThanOrEqual($prev + 1, (int) $level, $path.' skips a heading level');
+                $prev = (int) $level;
+            }
             $this->assertStringContainsString('class="skip"', $html, $path.' has a skip link');
             foreach ($blocks[1] as $json) {
                 $data = json_decode($json, true);

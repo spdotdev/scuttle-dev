@@ -20,7 +20,7 @@
       @foreach(\Spdotdev\ScuttleDev\Cases::all() as $c)
       <a class="c rv cg" href="{{ \Spdotdev\ScuttleDev\Cases::url($c['slug']) }}">
         <span class="lbl" data-i="csi_{{ $loop->index }}_k">{{ $c['kicker'] }}</span>
-        <h3 data-i="csi_{{ $loop->index }}_t">{{ $c['title'] }}</h3>
+        <h2 data-i="csi_{{ $loop->index }}_t">{{ $c['title'] }}</h2>
         <p data-i="csi_{{ $loop->index }}_l">{{ $c['lead'] }}</p>
         <div class="facts3">@foreach($c['facts'] as $fi => $f)<div><b>{{ $f[0] }}</b><span data-i="csi_{{ $loop->parent->index }}_f{{ $fi }}">{{ $f[1] }}</span></div>@endforeach</div>
         <div class="tags">@foreach($c['products'] as $slug)<span>{{ $C::get($slug)['name'] }}</span>@endforeach</div>

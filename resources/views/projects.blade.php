@@ -20,7 +20,7 @@
       @foreach(\Spdotdev\ScuttleDev\Projects::all() as $pr)
       <a class="c rv cg" href="{{ route('scuttle.project', ['slug' => $pr['slug']]) }}">
         <span class="lbl" data-i="pj_{{ $loop->index }}_k">{{ $pr['kind'] }}</span>
-        <h3>{{ $pr['name'] }}</h3>
+        <h2>{{ $pr['name'] }}</h2>
         <p data-i="pj_{{ $loop->index }}_s">{{ $pr['short'] }}</p>
         <div class="tags">@foreach($pr['stack'] as $t)<span>{{ $t }}</span>@endforeach</div>
         <span class="more" data-i="{{ count($pr['docs']) ? 'pj_more_d' : 'pj_more' }}">{{ count($pr['docs']) ? 'Overview and docs →' : 'Overview →' }}</span>

@@ -20,7 +20,7 @@
       @foreach($C::all() as $p)
       <a class="tile rv" href="{{ $C::url($p) }}">
         <div class="img"><span class="k" data-i="g_{{ $p['group'] }}">{{ $C::GROUPS[$p['group']] }}</span>@include('scuttle::partials.illus', ['kind' => $p['illus']])</div>
-        <h3>{{ $p['name'] }}</h3><p>{{ $p['short'] }}</p>
+        <h2>{{ $p['name'] }}</h2><p>{{ $p['short'] }}</p>
       </a>
       @endforeach
     </div>
