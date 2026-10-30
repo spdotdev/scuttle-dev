@@ -811,4 +811,18 @@ class SiteTest extends TestCase
             $this->assertStringContainsString('<info>', $out, 'a style tag from a visitor is printed literally, not applied');
         }
     }
+
+    public function test_dutch_twins_have_a_dutch_title_and_description(): void
+    {
+        foreach (['/health-check/sample', '/php-check', '/nis2', '/company', '/health-check'] as $path) {
+            $en = (string) $this->get('http://scuttle.dev'.$path)->getContent();
+            $nl = (string) $this->get('http://scuttle.dev/nl'.$path)->getContent();
+            preg_match('#<title>([^<]*)</title>#', $en, $te);
+            preg_match('#<title>([^<]*)</title>#', $nl, $tn);
+            preg_match('#name="description" content="([^"]*)"#', $en, $de);
+            preg_match('#name="description" content="([^"]*)"#', $nl, $dn);
+            $this->assertNotSame($te[1], $tn[1], '/nl'.$path.' needs its own title');
+            $this->assertNotSame($de[1], $dn[1], '/nl'.$path.' needs its own description');
+        }
+    }
 }
