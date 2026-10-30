@@ -44,11 +44,11 @@ foreach ($related as $r) {
       <span class="lbl dot" data-i="p_grp">{{ $C::GROUPS[$p['group']] }} · {{ $idx }}</span>
       <h1 data-dec>{{ $p['name'] }}</h1>
       <p class="lead" data-i="p_lead">{{ $p['lead'] }}</p>
+      <p class="price"><b data-i="p_price">{{ $p['price'] }}.</b> <span data-i="p_pn">{{ $p['price_note'] }}</span></p>
       <div class="cta">
         <a class="btn" href="mailto:info@scuttle.dev?subject={{ rawurlencode($p['name']) }}"><span data-i="p_ask">Ask about {{ $p['name'] }}</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         <a class="btn o" href="{{ route('scuttle.pricing') }}" data-i="p_price_btn">How I price</a>
       </div>
-      <p class="price"><b data-i="p_price">{{ $p['price'] }}.</b> <span data-i="p_pn">{{ $p['price_note'] }}</span></p>
     </div>
   </header>
 

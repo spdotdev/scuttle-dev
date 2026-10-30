@@ -211,6 +211,18 @@ class SiteTest extends TestCase
         $this->assertStringContainsString('name="_token"', (string) $contact->getContent());
     }
 
+    public function test_the_pricing_glance_row_matches_the_catalog(): void
+    {
+        $html = (string) $this->get('http://scuttle.dev/pricing')->assertOk()->getContent();
+        $this->assertStringContainsString('class="glance"', $html);
+        $this->assertStringContainsString('EUR 90', $html);
+        $this->assertStringContainsString('Fixed price, EUR 1,080 excl. VAT (12 hours)', Catalog::get('legacy-health-check')['price']);
+        $this->assertStringContainsString('<b data-i="pr_g2b">EUR 1,080</b>', $html);
+        $this->assertStringContainsString('<b data-i="pr_g3b">from EUR 720</b>', $html);
+        $this->assertStringContainsString('Vanaf EUR 720 per maand', Catalog::get('maintenance-retainer')['nl']['price']);
+        $this->assertStringContainsString('<b data-i="pr_g2b">EUR 1.080</b>', (string) $this->get('http://scuttle.dev/nl/pricing')->getContent());
+    }
+
     public function test_homepage_renders_on_the_configured_host(): void
     {
         $this->get('http://scuttle.dev/')

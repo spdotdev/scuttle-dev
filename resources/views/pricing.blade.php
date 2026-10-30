@@ -14,6 +14,11 @@
       <span class="lbl dot" data-i="pr_l">Pricing</span>
       <h1 data-dec data-i="pr_h">One rate, two ways to buy it</h1>
       <p class="lead" data-i="pr_lead">I get asked what things cost before anything else, so here it is. One hourly rate for work by the hour or in steps, and fixed prices for the things with a fixed shape. Every amount is excl. VAT.</p>
+      <ul class="glance" aria-label="The prices at a glance">
+        <li><b data-i="pr_g1b">EUR 90</b><span data-i="pr_g1s">per hour, work by the hour or in steps</span></li>
+        <li><b data-i="pr_g2b">EUR 1,080</b><span data-i="pr_g2s">Health Check, two days, fixed</span></li>
+        <li><b data-i="pr_g3b">from EUR 720</b><span data-i="pr_g3s">a month, maintenance retainer</span></li>
+      </ul>
     </div>
   </header>
 
@@ -198,6 +203,12 @@ Object.assign(window.SCUTTLE_NL.t, @json(collect($C::all())->mapWithKeys(fn ($p)
 Object.assign(window.SCUTTLE_NL.t, {
  "pr_l": "Prijzen",
  "pr_h": "Eén tarief, twee manieren om het te kopen",
+ "pr_g1b": "EUR 90",
+ "pr_g1s": "per uur, werk per uur of in stappen",
+ "pr_g2b": "EUR 1.080",
+ "pr_g2s": "Health Check, twee dagen, vaste prijs",
+ "pr_g3b": "vanaf EUR 720",
+ "pr_g3s": "per maand, onderhoudsretainer",
  "pr_lead": "Ik krijg altijd eerst de vraag wat dingen kosten, dus hier staat het. Eén uurtarief voor werk per uur of in stappen, en vaste prijzen voor dingen met een vaste vorm. Alle bedragen zijn excl. btw.",
  "pr_p1l": "Per uur, per stap geoffreerd",
  "pr_p1p": "Voor werk waarvan de omvang pas blijkt als we ervoor zitten. Het tarief is overal gelijk; wat verandert is hoe het is verpakt. Alle bedragen excl. btw.",
