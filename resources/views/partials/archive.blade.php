@@ -1,8 +1,9 @@
-{{-- The archive beside a post list: years collapsed, months inside, days that link to the posts of that day; plus the page links.
+{{-- Variables also: $A (the Archive class), $ns (the view namespace).
+     The archive beside a post list: years collapsed, months inside, days that link to the posts of that day; plus the page links.
      Variables: $base (the list url), $tree (Archive::tree), $period (the active filter or ''), $page, $pages, $prefix (data-i prefix). --}}
 <aside class="arch">
   <small data-i="{{ $prefix }}_arch">Archive</small>
-  <a class="all{{ $period === '' ? ' cur' : '' }}" href="{{ $base }}" data-i="{{ $prefix }}_all">{{ $allLabel ?? 'All posts' }}</a>
+  <a class="all{{ $period === '' ? ' cur' : '' }}" href="{{ $base }}" data-i="{{ $prefix }}_all">All posts</a>
   @foreach($tree as $y => $months)
   <details class="y"{{ $loop->first || str_starts_with($period, (string) $y) ? ' open' : '' }}>
     <summary><a href="{{ $base }}?p={{ $y }}" class="{{ $period === (string) $y ? 'cur' : '' }}">{{ $y }}</a><span>{{ array_sum(array_map('array_sum', $months)) }}</span></summary>
@@ -18,4 +19,5 @@
     @endforeach
   </details>
   @endforeach
+  @include($ns.'::partials.calendar', ['A' => $A, 'base' => $base, 'tree' => $tree, 'period' => $period, 'prefix' => $prefix])
 </aside>
