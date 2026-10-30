@@ -28,17 +28,25 @@ class ContactController
             'cf-turnstile-response' => ['nullable', 'string'],
         ], ['website.max' => 'Something went wrong, please email me directly.']);
 
+        $to = (string) config('scuttle-dev.contact_to', 'info@scuttle.dev');
+
         if (! $this->humanEnough($request, $data)) {
-            return back()->withInput()->withErrors(['message' => 'The bot check failed. Please try again or email info@scuttle.dev directly.']);
+            return back()->withInput()->withErrors(['message' => 'The bot check failed. Please try again or email '.$to.' directly.']);
+        }
+
+        if (config('scuttle-dev.require_real_mailer', true) && in_array((string) config('mail.default'), ['log', 'array'], true)) {
+            Log::error('scuttle.dev contact form: the default mailer is '.config('mail.default').', so the message is not delivered', ['from' => $data['email']]);
+
+            return back()->withInput()->withErrors(['message' => 'Mail from this form is not working right now, and I do not want you to think it arrived. Please email '.$to.' directly or book a call.']);
         }
 
         try {
-            Mail::to((string) config('scuttle-dev.contact_to', 'info@scuttle.dev'))
+            Mail::to($to)
                 ->send(new ContactMessage($data['name'], $data['email'], (string) ($data['about'] ?? ''), $data['message'], (string) $request->ip()));
         } catch (\Throwable $e) {
             Log::error('scuttle.dev contact form could not send mail', ['error' => $e->getMessage()]);
 
-            return back()->withInput()->withErrors(['message' => 'The message could not be sent right now. Please email info@scuttle.dev directly.']);
+            return back()->withInput()->withErrors(['message' => 'The message could not be sent right now. Please email '.$to.' directly.']);
         }
 
         return back()->with('contact_sent', true);

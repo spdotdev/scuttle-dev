@@ -223,6 +223,26 @@ class SiteTest extends TestCase
         $this->assertStringContainsString('<b data-i="pr_g2b">EUR 1.080</b>', (string) $this->get('http://scuttle.dev/nl/pricing')->getContent());
     }
 
+    public function test_the_form_does_not_say_sent_when_the_mailer_only_logs(): void
+    {
+        config(['scuttle-dev.require_real_mailer' => true, 'mail.default' => 'log']);
+        $page = $this->get('http://scuttle.dev/contact');
+        $token = ContactController::token();
+        $this->withSession([])->from('http://scuttle.dev/contact')->post('http://scuttle.dev/contact', [
+            'name' => 'A', 'email' => 'a@example.com', 'message' => 'A real message of enough length.', 't' => $token, 'website' => '',
+        ])->assertSessionHasErrors('message')->assertSessionMissing('contact_sent');
+    }
+
+    public function test_the_contact_session_cookie_has_no_shared_domain(): void
+    {
+        config(['session.domain' => '.scuttle.dev']);
+        $cookies = $this->get('http://scuttle.dev/contact')->assertOk()->headers->getCookies();
+        $this->assertNotEmpty($cookies);
+        foreach ($cookies as $cookie) {
+            $this->assertNull($cookie->getDomain(), $cookie->getName().' must be a host-only cookie on scuttle.dev');
+        }
+    }
+
     public function test_homepage_renders_on_the_configured_host(): void
     {
         $this->get('http://scuttle.dev/')
