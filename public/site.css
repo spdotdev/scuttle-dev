@@ -501,3 +501,16 @@ footer .bottom{grid-column:1/-1;border-top:1px solid var(--dark-line);padding-to
 .contact-grid .cform.light{max-width:none}
 .contact-grid .side-cards{display:grid;gap:24px}
 @media (max-width:980px){.contact-grid{grid-template-columns:minmax(0,1fr);padding-bottom:48px}}
+
+/* trust block: dark panel, four tiles with a pill that reads like a badge, every tile a link to its proof */
+.dark-panel.trust{grid-template-columns:minmax(0,.9fr) minmax(0,1.5fr);align-items:center}
+.dark-panel.trust .dh p{color:var(--dark-muted);margin-top:12px;font-size:15px;max-width:30em}
+.lnk-arrow{display:inline-block;margin-top:16px;font:500 12px "Geist Mono",monospace;letter-spacing:.04em;text-transform:uppercase;color:var(--acc2)}
+.tiles4{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.tt{display:flex;gap:16px;align-items:center;background:#161616;border:1px solid #262626;border-radius:10px;padding:20px 22px;transition:border-color .25s,transform .25s;color:#f2f2f2}
+.tt:hover{border-color:var(--acc2);transform:translateY(-2px)}
+.tt .ti{width:52px;height:52px;border-radius:50%;background:#222;display:grid;place-items:center;flex:none;color:var(--acc2)}.tt .ti svg{width:24px;height:24px}
+.tt b{display:block;font-weight:500;font-size:16px;margin-bottom:8px}
+.tt .pill{display:inline-flex;align-items:center;gap:8px;border:1px solid #3a3a3a;border-radius:6px;padding:5px 10px;font:500 11px "Geist Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:#e8e8e8}
+.tt .pill svg{width:13px;height:13px;color:var(--acc2)}
+@media (max-width:980px){.dark-panel.trust{grid-template-columns:1fr}.tiles4{grid-template-columns:1fr}}

@@ -81,11 +81,13 @@ class SiteTest extends TestCase
 
     public function test_privacy_page_renders_and_is_linked(): void
     {
-        $this->get('http://scuttle.dev/privacy')
-            ->assertOk()
-            ->assertSee('Privacyverklaring')
-            ->assertSee('stas@scuttle.dev')
-            ->assertSee('Afmelden');
+        $privacy = (string) $this->get('http://scuttle.dev/privacy')->assertOk()->getContent();
+        foreach (['Privacy statement', 'Privacyverklaring', 'stas@scuttle.dev', 'Opting out', 'Afmelden', 'Anthropic', 'no tracking or analytics cookies', 'geen tracking- of analysecookies', '30 October 2026'] as $needle) {
+            $this->assertStringContainsString($needle, $privacy);
+        }
+        $this->assertStringNotContainsString('Gemini', $privacy, 'the lead tooling runs on Anthropic since 2026-10-28');
+        $article = substr($privacy, (int) strpos($privacy, '<article'), (int) strpos($privacy, '</article>') - (int) strpos($privacy, '<article'));
+        $this->assertStringNotContainsString('Google Analytics', $article, 'no analytics on the site today');
 
         $this->get('http://scuttle.dev/')->assertSee('/privacy', false);
         $this->get('http://scuttle.dev/sitemap.xml')->assertSee('https://scuttle.dev/privacy', false);
@@ -241,6 +243,11 @@ class SiteTest extends TestCase
         $this->assertStringContainsString('id="car-track"', $home);
         $this->assertSame(4, substr_count($home, 'class="case"'), 'four case studies in the carousel');
         $this->assertStringNotContainsString('<b>0</b>', $home);
+        $this->assertStringContainsString('id="trust"', $home, 'the trust block');
+        $this->assertSame(4, substr_count($home, 'class="tt"'), 'four trust tiles');
+        foreach (['SOC 2', 'ISO 27001', 'certified', 'Certified'] as $claim) {
+            $this->assertStringNotContainsString($claim, $home, 'no certificate we do not hold');
+        }
     }
 
     public function test_the_vcard_is_served_as_a_contact_file_and_the_qr_carries_it(): void
@@ -341,7 +348,6 @@ class SiteTest extends TestCase
         $this->assertStringContainsString('id="cookie"', $home);
         $this->assertStringContainsString('window.SCUTTLE_GA = "G-TEST1234"', $home);
         $this->assertStringNotContainsString('googletagmanager.com/gtag/js?id=', $home, 'the analytics script is never in the HTML, only loaded after Agree');
-        $this->get('http://scuttle.dev/privacy')->assertSee('Google Analytics');
     }
 
     public function test_the_new_pages_do_not_name_the_client(): void
@@ -360,7 +366,7 @@ class SiteTest extends TestCase
      */
     public function test_every_page_is_translatable(): void
     {
-        $paths = ['/', '/pricing', '/health-check', '/contact', '/work', '/case-studies', '/case-studies/phalcon-to-laravel', '/news', '/company', '/projects', '/projects/manual'];
+        $paths = ['/', '/pricing', '/health-check', '/contact', '/work', '/case-studies', '/case-studies/phalcon-to-laravel', '/news', '/company', '/projects', '/projects/manual', '/privacy'];
         foreach (Catalog::all() as $p) {
             $paths[] = parse_url(Catalog::url($p), PHP_URL_PATH);
         }
