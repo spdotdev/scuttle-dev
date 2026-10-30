@@ -24,7 +24,7 @@
   <title>{{ $seoTitle }}</title>
   <meta name="description" content="{{ $seoDesc }}" />
   <meta name="author" content="Scuttle Development" />
-  <meta name="robots" content="index, follow" />
+  <meta name="robots" content="@yield('robots', 'index, follow')" />
   <link rel="canonical" href="@yield('canonical')" />
   @if($paired)
   <link rel="alternate" hreflang="en" href="{{ \Spdotdev\ScuttleDev\Dutch::enUrl($enPath) }}" />

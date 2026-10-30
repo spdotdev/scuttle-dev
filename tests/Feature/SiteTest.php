@@ -99,6 +99,7 @@ class SiteTest extends TestCase
         $this->get('http://scuttle.dev/work')->assertRedirect('/services')->assertStatus(301);
         $this->get('http://scuttle.dev/nl/work')->assertRedirect('/nl/services')->assertStatus(301);
         $sitemap = (string) $this->get('http://scuttle.dev/sitemap.xml')->getContent();
+        $this->assertNotFalse(simplexml_load_string($sitemap), 'the sitemap is well-formed XML');
         $this->assertStringContainsString('<loc>https://scuttle.dev/nl</loc>', $sitemap);
         $this->assertStringContainsString('<loc>https://scuttle.dev/nl/services/modernization</loc>', $sitemap);
         $this->assertStringContainsString('hreflang="nl" href="https://scuttle.dev/nl/pricing"', $sitemap);
@@ -144,6 +145,15 @@ class SiteTest extends TestCase
             }
             $status = $this->get('http://scuttle.dev'.$href)->getStatusCode();
             $this->assertContains($status, [200, 301], $href.' linked from '.$from.' answers '.$status);
+        }
+    }
+
+    public function test_missing_pages_get_the_site_own_404(): void
+    {
+        foreach (['/nope', '/services/nope', '/news/nope', '/nl/news'] as $path) {
+            $r = $this->get('http://scuttle.dev'.$path)->assertNotFound();
+            $r->assertSee('That page does not exist', false);
+            $r->assertSee('noindex', false);
         }
     }
 
