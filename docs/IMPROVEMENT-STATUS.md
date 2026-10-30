@@ -24,7 +24,7 @@ Legend: done = changed, tested, live. checked = audited, nothing to change. open
 | Card titles after the page title are h2 | v0.7.14 | /work, /case-studies, /news, /projects, project pages: no skipped heading level (test added) |
 | News archive: out-of-month calendar days readable, year and month links 24 px high | v0.7.15 | Lighthouse accessibility 91 to 100 |
 | Decrypt headline pins width as well as height | v0.7.16 | splotnikov.dev home layout shift 0.238 to passing |
-| nginx on d051 (sd-admin repo): text static files gzip, 1 hour cache, fonts 30 days, Google Fonts removed from the CSP | sd-admin | HTML is never compressed (CSRF tokens) |
+| nginx on the production server (sd-admin repo): text static files gzip, 1 hour cache, fonts 30 days, Google Fonts removed from the CSP | sd-admin | HTML is never compressed (CSRF tokens) |
 
 ## Measured (Lighthouse mobile, live, before to after)
 | Page | Accessibility | Layout shift |
@@ -98,7 +98,7 @@ Question: which one set of changes brings the most qualified leads in 3 months. 
 - Released earlier today and now live: /health-check/sample, /php-check, /nis2 and their /nl twins (commit 789bcc9).
 - axe on the live site, 390 px, light and dark: 0 findings on 10 scuttle.dev pages and 2 splotnikov.dev pages (EN and NL).
 ## Blocked
-- The contact form cannot send: the live form answers "Mail from this form is not working right now" (checked by a real POST on 2026-10-30; the host's default mailer is `log`). The fix is in the package (v0.7.22): set `SCUTTLE_CONTACT_MAIL_DSN` and `SCUTTLE_CONTACT_MAIL_FROM` in the host `.env` on d051. Needs SMTP credentials only Stas has.
+- The contact form cannot send: the live form answers "Mail from this form is not working right now" (checked by a real POST on 2026-10-30; the host's default mailer is `log`). The fix is in the package (v0.7.22): set `SCUTTLE_CONTACT_MAIL_DSN` and `SCUTTLE_CONTACT_MAIL_FROM` in the host `.env` on the production server. Needs SMTP credentials only Stas has.
 ## Not done
 - Eindhoven/Brabant page (council: a line, not a page; the line is on /company and /contact), analytics and UTM links (Stas decides), sample report from a real redacted example (the page says it is illustrative).
 
@@ -107,7 +107,7 @@ Question: which one set of changes brings the most qualified leads in 3 months. 
 - **Security review fixes (v0.7.25).** Failure logs hold only the exception class and, for a database error, the SQLSTATE (never the message or bindings); control characters and invalid UTF-8 are rejected at validation (the message keeps newline and tab); the command strips control characters and escapes console tags before printing. Tests pin all three.
 - **Dutch twins of /health-check/sample, /php-check and /nis2 had English titles and descriptions** (found while auditing, live HTML): fixed in v0.7.26 with a test over five pages.
 - Lighthouse mobile (lab) on 2026-10-31, accessibility, best practices, SEO and agentic browsing all 100: /health-check, /health-check/sample, /php-check, /nis2, /nl/nis2, /company (scuttle.dev), /cv (splotnikov.dev). The tool does not report performance; round 4 measured 96 to 100.
-- Not possible from here: listing the stored leads on d051. The ssh read was refused by the auto mode classifier (category Production Reads), so the stored row of the live test was not read back.
+- Not possible from here: listing the stored leads on the production server. The ssh read was refused by the auto mode classifier (category Production Reads), so the stored row of the live test was not read back.
 
 ## Leads nobody sees (round 7)
 A lead that is stored but not mailed logs one `critical` line (lead id and the list command, no visitor data), so the existing log alerting can pick it up. The exact commands to list and purge leads on the server are kept in the private operations notes, not in this public repository.

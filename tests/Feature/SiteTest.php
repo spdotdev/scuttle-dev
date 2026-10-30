@@ -269,8 +269,9 @@ class SiteTest extends TestCase
         $php = (string) $this->get('http://scuttle.dev/php-check')->assertOk()->getContent();
         // The four rows of php.net/supported-versions.php read on 2026-10-30; update the page and this test when php.net changes.
         foreach (['8.2', '8 Dec 2022', '31 Dec 2026', '8.3', '31 Dec 2027', '8.4', '31 Dec 2028', '8.5', '31 Dec 2029'] as $cell) {
-            $this->assertStringContainsString('<td>'.$cell.'</td>', $php, $cell);
+            $this->assertMatchesRegularExpression('#<td[^>]*>'.preg_quote($cell, '#').'</td>#', $php, $cell);
         }
+        $this->assertStringContainsString('>8 dec 2022</td>', (string) $this->get('http://scuttle.dev/nl/php-check')->getContent());
         $this->assertStringContainsString('href="https://www.php.net/supported-versions.php"', $php);
         $this->assertStringContainsString('EUR 1,080', $php);
         $this->assertStringContainsString('composer audit', $php);

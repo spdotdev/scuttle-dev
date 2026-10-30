@@ -22,7 +22,7 @@ $nl = [
     'nx_3_h' => 'Waarom ook een kleine leverancier het merkt',
     'nx_3_p' => 'De wet verplicht organisaties de risico\'s in hun toeleveringsketen in kaart te brengen en maatregelen te nemen. Ze mogen eisen stellen aan de cyberbeveiliging van hun rechtstreekse leveranciers. In de praktijk komt dat als een contractclausule of een vragenlijst: hoe ga je om met patches, toegang, back-ups en incidenten. Een leverancier die met een document kan antwoorden, wint van een die met een belofte antwoordt.',
     'nx_4_h' => 'De Cyber Resilience Act is een tweede spoor',
-    'nx_4_p' => 'De Cyber Resilience Act, Verordening (EU) 2024/2847, gaat over producten, niet over organisaties. Hij is in werking getreden op 10 december 2024. De meldplicht voor actief uitgebuite kwetsbaarheden geldt sinds 11 september 2026. De hoofdverplichtingen voor fabrikanten van producten met digitale elementen gelden vanaf 11 december 2027. De Commissie publiceerde op 27 juli 2026 praktische richtlijnen voor bedrijven van elke omvang en zegt dat de verordening een bijzondere benadering kent voor vrije en opensourcesoftware. Lever je software die anderen installeren of draaien, lees het dan nu, niet in 2027.',
+    'nx_4_p' => 'De Cyber Resilience Act, Verordening (EU) 2024/2847, gaat over producten, niet over organisaties. Hij is in werking getreden op 10 december 2024. De meldplicht voor actief uitgebuite kwetsbaarheden geldt sinds 11 september 2026. De hoofdverplichtingen voor fabrikanten van producten met digitale elementen gelden vanaf 11 december 2027. De Europese Commissie publiceerde op 27 juli 2026 praktische richtlijnen voor bedrijven van elke omvang en zegt dat de verordening een bijzondere benadering kent voor vrije en opensourcesoftware. Lever je software die anderen installeren of draaien, lees het dan nu, niet in 2027.',
     'nx_5_h' => 'Waar ik bij help',
     'nx_5_p' => 'Het technische deel: een gap-analyse tegen NIS2, AVG of DORA, met jouw maatregelen per eis getoetst in een tabel die je aan een auditor of een klant kunt geven, en het herstel in een afgesproken volgorde. Het is technisch werk, geen juridisch advies en geen certificering. Boetes, advocaten en de auditor zelf zitten niet in de offerte.',
     'nx_5_p2' => 'Compliance Alignment: op offerte per regime, EUR 90 per uur excl. btw. Wil je eerst weten waar je technisch staat, dan is de Security quick scan een vaste prijs van EUR 720 excl. btw (8 uur).',
@@ -30,6 +30,9 @@ $nl = [
     'nx_5_r' => 'De maatregelen zelf zijn grotendeels <a href="/services/hardening">Hardening</a>-werk. Wil je eerst een overzicht voordat je beslist, dan bevat de <a href="/health-check">Health Check</a> een snelle beveiligingsscan, en het <a href="/health-check/sample">voorbeeldrapport</a> laat zien hoe bevindingen worden opgeschreven.',
     'nx_5_b' => 'Plan een gesprek',
     'nx_6_h' => 'Bronnen, gelezen op 30 oktober 2026',
+    'nx_s2' => 'NCTV: vragen en antwoorden over de Cyberbeveiligingswet',
+    'nx_s3' => 'Staatsblad 2026, 189: Cyberbeveiligingsbesluit, artikel 35 (inwerkingtreding 15 augustus 2026)',
+    'nx_s4' => 'Europese Commissie: Cyber Resilience Act',
     'nx_c_h' => 'Heeft een klant je erom gevraagd?',
     'nx_c_p' => 'Vertel me welke klant welke vraag stelde. Ik reageer binnen één werkdag met een eerste mening, gratis.',
 ];
@@ -69,9 +72,9 @@ $nl = [
   <h2 data-i="nx_6_h">Sources, read on 30 October 2026</h2>
   <ul>
     <li><a href="https://www.ncsc.nl/cyberbeveiligingswet-nis2" rel="noopener">NCSC: Cyberbeveiligingswet (NIS2)</a></li>
-    <li><a href="https://www.nctv.nl/onderwerpen/c/cyberbeveiligingswet/vragen-en-antwoorden" rel="noopener">NCTV: questions and answers about the Cyberbeveiligingswet</a></li>
-    <li><a href="https://zoek.officielebekendmakingen.nl/stb-2026-189.html" rel="noopener">Staatsblad 2026, 189: Cyberbeveiligingsbesluit, article 35 (entry into force 15 August 2026)</a></li>
-    <li><a href="https://digital-strategy.ec.europa.eu/en/policies/cyber-resilience-act" rel="noopener">European Commission: Cyber Resilience Act</a></li>
+    <li><a href="https://www.nctv.nl/onderwerpen/c/cyberbeveiligingswet/vragen-en-antwoorden" rel="noopener" data-i="nx_s2">NCTV: questions and answers about the Cyberbeveiligingswet</a></li>
+    <li><a href="https://zoek.officielebekendmakingen.nl/stb-2026-189.html" rel="noopener" data-i="nx_s3">Staatsblad 2026, 189: Cyberbeveiligingsbesluit, article 35 (entry into force 15 August 2026)</a></li>
+    <li><a href="https://digital-strategy.ec.europa.eu/en/policies/cyber-resilience-act" rel="noopener" data-i="nx_s4">European Commission: Cyber Resilience Act</a></li>
   </ul>
 
   <h2 data-i="nx_c_h">Did a customer ask you for this?</h2>

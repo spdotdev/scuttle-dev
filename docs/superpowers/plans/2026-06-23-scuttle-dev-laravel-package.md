@@ -15,9 +15,9 @@
 - Package **`spdotdev/scuttle-dev`**, `type: library`, namespace **`Spdotdev\ScuttleDev\`**, PSR-4 root `src/`.
 - PHP **`^8.3`**; **`illuminate/support: ^13.0`** (match the host app's Laravel 13).
 - Distribution **GitHub VCS + git tags only — no Packagist**. First tag **`v0.1.0`**. Repo **public**, owner `spdotdev`.
-- **Host has no PHP/Composer.** Use the the host app container (`make composer`, `make art`, `docker compose exec app ...` from `/home/dev/<host-app>`) or one-off: `docker run --rm -v /home/dev/scuttle-dev:/app -w /app composer:2 <cmd>`.
-- The static repo **`/home/dev/scuttledev` is never modified or committed to**. Copy assets FROM it.
-- Package working dir: **`/home/dev/scuttle-dev`** (exists; contains only `docs/`, `.superpowers/`).
+- **Host has no PHP/Composer.** Use the the host app container (`make composer`, `make art`, `docker compose exec app ...` from `~/<host-app>`) or one-off: `docker run --rm -v ~/scuttle-dev:/app -w /app composer:2 <cmd>`.
+- The static repo **`~/scuttledev` is never modified or committed to**. Copy assets FROM it.
+- Package working dir: **`~/scuttle-dev`** (exists; contains only `docs/`, `.superpowers/`).
 - Asset namespace: all site assets published to **`public/vendor/scuttle/`**; views reference them via **`{{ asset('vendor/scuttle/...') }}`** (host-adaptive).
 - Domain config: `config('scuttle-dev.domain')` ← `env('SCUTTLE_DOMAIN', 'scuttle.dev')`.
 - Marker string for assertions: **`Scuttle Development`**.
@@ -27,7 +27,7 @@
 
 ### Task 1: Package skeleton + tooling
 
-**Files:** Create `composer.json`, `.gitignore`, `pint.json`, `phpstan.neon`, `phpunit.xml` in `/home/dev/scuttle-dev/`.
+**Files:** Create `composer.json`, `.gitignore`, `pint.json`, `phpstan.neon`, `phpunit.xml` in `~/scuttle-dev/`.
 
 - [ ] **Step 1: `composer.json`**
 
@@ -117,11 +117,11 @@ parameters:
 </phpunit>
 ```
 
-- [ ] **Step 6: Validate** — `docker run --rm -v /home/dev/scuttle-dev:/app -w /app composer:2 validate --no-check-publish` → "valid" (missing-lock warning OK).
+- [ ] **Step 6: Validate** — `docker run --rm -v ~/scuttle-dev:/app -w /app composer:2 validate --no-check-publish` → "valid" (missing-lock warning OK).
 
 - [ ] **Step 7: git init + commit**
 ```bash
-cd /home/dev/scuttle-dev
+cd ~/scuttle-dev
 git init -q
 git add composer.json .gitignore pint.json phpstan.neon phpunit.xml docs
 git commit -q -m "chore: package skeleton and tooling config"
@@ -132,25 +132,25 @@ Do NOT add `.superpowers/`.
 
 ### Task 2: Collect assets and port the page
 
-**Files:** Create `resources/views/site.blade.php` (from `/home/dev/scuttledev/index.html`) and populate `public/`.
+**Files:** Create `resources/views/site.blade.php` (from `~/scuttledev/index.html`) and populate `public/`.
 
 - [ ] **Step 1: Copy the page**
 ```bash
-cd /home/dev/scuttle-dev
+cd ~/scuttle-dev
 mkdir -p resources/views public
-cp /home/dev/scuttledev/index.html resources/views/site.blade.php
+cp ~/scuttledev/index.html resources/views/site.blade.php
 ```
 
 - [ ] **Step 2: Rewrite asset references to the vendor namespace** (root-absolute asset paths → host-adaptive `asset()`):
 ```bash
-cd /home/dev/scuttle-dev
+cd ~/scuttle-dev
 sed -i -E "s#(href|src|content)=\"/(profile\.png|logo-bw\.png|logo\.png|og-image\.png|hero-bg\.png|founder_portrait\.png|favicon-16x16\.png|favicon-32x32\.png|android-chrome-192x192\.png|android-chrome-512x512\.png|apple-touch-icon\.png|site\.webmanifest|qr/[^\"]+|legal/[^\"]+)\"#\1=\"{{ asset('vendor/scuttle/\2') }}\"#g" resources/views/site.blade.php
 sed -i -E "s#href=\"scuttledev\.vcf\"#href=\"{{ asset('vendor/scuttle/scuttledev.vcf') }}\"#g" resources/views/site.blade.php
 ```
 
 - [ ] **Step 3: Verify the rewrite**
 ```bash
-cd /home/dev/scuttle-dev
+cd ~/scuttle-dev
 echo "marker:" $(grep -c 'Scuttle Development' resources/views/site.blade.php)
 echo "remaining root-absolute asset refs (expect none):"
 grep -noE '(href|src|content)="/(profile|logo|og-image|hero-bg|founder|favicon|android-chrome|apple-touch|site\.webmanifest|qr/|legal/)[^"]*"' resources/views/site.blade.php || echo NONE
@@ -161,8 +161,8 @@ Expected: marker ≥1; "NONE" for both remaining-ref checks; asset() count ≥ 1
 
 - [ ] **Step 4: Collect all generated assets into `public/`** (preserve `legal/` and `qr/` subtrees):
 ```bash
-cd /home/dev/scuttle-dev
-SRC=/home/dev/scuttledev
+cd ~/scuttle-dev
+SRC=~/scuttledev
 # root images, favicons, og, manifest, seo
 cp "$SRC"/profile.png "$SRC"/logo-bw.png "$SRC"/logo.png "$SRC"/og-image.png \
    "$SRC"/hero-bg.png "$SRC"/founder_portrait.png \
@@ -178,7 +178,7 @@ cp -r "$SRC"/qr public/qr
 
 - [ ] **Step 5: Verify assets present**
 ```bash
-cd /home/dev/scuttle-dev
+cd ~/scuttle-dev
 echo "legal pdfs:" $(ls public/legal/*.pdf | wc -l)
 echo "qr files:" $(find public/qr -type f | wc -l)
 ls public/*.png public/*.webmanifest public/*.txt public/*.xml public/*.vcf
@@ -187,7 +187,7 @@ Expected: 4 legal pdfs, qr files > 0, all listed files present. Note: `site.webm
 
 - [ ] **Step 6: Commit**
 ```bash
-cd /home/dev/scuttle-dev
+cd ~/scuttle-dev
 git add resources public
 git commit -q -m "feat: port scuttle.dev page and collect site assets"
 ```
@@ -300,11 +300,11 @@ class ScuttleDevServiceProvider extends ServiceProvider
 }
 ```
 
-- [ ] **Step 5: Lint** — `docker run --rm -v /home/dev/scuttle-dev:/app -w /app composer:2 sh -c "find src config routes -name '*.php' -print0 | xargs -0 -n1 php -l"` → all "No syntax errors detected".
+- [ ] **Step 5: Lint** — `docker run --rm -v ~/scuttle-dev:/app -w /app composer:2 sh -c "find src config routes -name '*.php' -print0 | xargs -0 -n1 php -l"` → all "No syntax errors detected".
 
 - [ ] **Step 6: Commit**
 ```bash
-cd /home/dev/scuttle-dev
+cd ~/scuttle-dev
 git add src config routes
 git commit -q -m "feat: service provider, config, domain routes, controller"
 ```
@@ -505,17 +505,17 @@ on the DigitalOcean server. Nothing here is automated yet.
 
 - [ ] **Step 7: Run the full local gate**
 ```bash
-cd /home/dev/scuttle-dev
-docker run --rm -v /home/dev/scuttle-dev:/app -w /app composer:2 install --no-interaction --no-progress
-docker run --rm -v /home/dev/scuttle-dev:/app -w /app composer:2 ./vendor/bin/pint --test
-docker run --rm -v /home/dev/scuttle-dev:/app -w /app composer:2 ./vendor/bin/phpstan analyse --no-progress --memory-limit=512M
-docker run --rm -v /home/dev/scuttle-dev:/app -w /app composer:2 php -d memory_limit=512M vendor/bin/phpunit
+cd ~/scuttle-dev
+docker run --rm -v ~/scuttle-dev:/app -w /app composer:2 install --no-interaction --no-progress
+docker run --rm -v ~/scuttle-dev:/app -w /app composer:2 ./vendor/bin/pint --test
+docker run --rm -v ~/scuttle-dev:/app -w /app composer:2 ./vendor/bin/phpstan analyse --no-progress --memory-limit=512M
+docker run --rm -v ~/scuttle-dev:/app -w /app composer:2 php -d memory_limit=512M vendor/bin/phpunit
 ```
 Expected: Pint PASS, Larastan "No errors", PHPUnit all green. If Pint flags style, run it in fix mode (`./vendor/bin/pint`) and re-commit. If a route 500s, inspect the Blade error (CSS `@`-rule) and escape narrowly.
 
 - [ ] **Step 8: Commit**
 ```bash
-cd /home/dev/scuttle-dev
+cd ~/scuttle-dev
 git add .github README.md CLAUDE.md docs/cutover-runbook.md phpunit.xml tests
 git commit -q -m "docs+ci+tests: CI, README, CLAUDE.md, runbook, testbench suite"
 ```
@@ -524,7 +524,7 @@ git commit -q -m "docs+ci+tests: CI, README, CLAUDE.md, runbook, testbench suite
 
 ### Task 5: Publish to GitHub and tag v0.1.0 — OUTWARD-FACING (pause for user OK)
 
-- [ ] **Step 1:** `cd /home/dev/scuttle-dev && gh repo create spdotdev/scuttle-dev --public --source=. --remote=origin` then rename branch to `main` if needed (`git branch -m master main`) and `git push -u origin main`.
+- [ ] **Step 1:** `cd ~/scuttle-dev && gh repo create spdotdev/scuttle-dev --public --source=. --remote=origin` then rename branch to `main` if needed (`git branch -m master main`) and `git push -u origin main`.
 - [ ] **Step 2:** `git tag -a v0.1.0 -m "v0.1.0 — initial scuttle.dev site package" && git push origin v0.1.0`.
 - [ ] **Step 3:** Verify `git ls-remote --tags origin` shows `v0.1.0` and `gh repo view spdotdev/scuttle-dev --json visibility` is PUBLIC.
 
@@ -532,9 +532,9 @@ git commit -q -m "docs+ci+tests: CI, README, CLAUDE.md, runbook, testbench suite
 
 ### Task 6: Wire into the host app and verify — OUTWARD-FACING (pause for user OK)
 
-**Files (in `/home/dev/<host-app>`, on a feature branch):** modify `composer.json`, `.env.example`/`.env`; add `tests/Feature/ScuttleSiteTest.php`. (Landing route already host-scoped; host already drops global static SEO files — no further routing changes needed.)
+**Files (in `~/<host-app>`, on a feature branch):** modify `composer.json`, `.env.example`/`.env`; add `tests/Feature/ScuttleSiteTest.php`. (Landing route already host-scoped; host already drops global static SEO files — no further routing changes needed.)
 
-- [ ] **Step 1:** `cd /home/dev/<host-app> && git checkout -b feat/scuttle-dev-site-package`.
+- [ ] **Step 1:** `cd ~/<host-app> && git checkout -b feat/scuttle-dev-site-package`.
 - [ ] **Step 2: failing test** — create `tests/Feature/ScuttleSiteTest.php`:
 ```php
 <?php
@@ -561,7 +561,7 @@ Run `make art cmd="test --filter=ScuttleSiteTest"` → FAIL (404, package not re
 
 - [ ] **Step 3: require** — add the VCS repo + require:
 ```bash
-cd /home/dev/<host-app>
+cd ~/<host-app>
 make composer cmd="config repositories.scuttle-dev vcs https://github.com/spdotdev/scuttle-dev"
 make composer cmd="require spdotdev/scuttle-dev:^0.1"
 ```
@@ -580,7 +580,7 @@ Then `make art cmd="config:clear"`.
 
 - [ ] **Step 7: e2e via nginx**
 ```bash
-cd /home/dev/<host-app>
+cd ~/<host-app>
 curl -s -H 'Host: scuttle.dev' http://localhost:8080/ | grep -c 'Scuttle Development'
 curl -s -o /dev/null -w '%{http_code} %{content_type}\n' -H 'Host: scuttle.dev' http://localhost:8080/robots.txt
 curl -s -o /dev/null -w '%{http_code}\n' -H 'Host: scuttle.dev' http://localhost:8080/vendor/scuttle/profile.png
@@ -593,7 +593,7 @@ Expected: scuttle homepage marker ≥1; robots 200 text/plain; profile.png + leg
 
 - [ ] **Step 8: Pint + Larastan + commit**
 ```bash
-cd /home/dev/<host-app>
+cd ~/<host-app>
 docker compose exec app ./vendor/bin/pint
 docker compose exec app ./vendor/bin/phpstan analyse --memory-limit=512M
 git add composer.json composer.lock .env.example tests/Feature/ScuttleSiteTest.php

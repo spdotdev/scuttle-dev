@@ -7,6 +7,18 @@
 
 @php
 $nl = [
+    'pc_d00' => '8 dec 2022',
+    'pc_d01' => '31 dec 2024',
+    'pc_d02' => '31 dec 2026',
+    'pc_d10' => '23 nov 2023',
+    'pc_d11' => '31 dec 2025',
+    'pc_d12' => '31 dec 2027',
+    'pc_d20' => '21 nov 2024',
+    'pc_d21' => '31 dec 2026',
+    'pc_d22' => '31 dec 2028',
+    'pc_d30' => '20 nov 2025',
+    'pc_d31' => '31 dec 2027',
+    'pc_d32' => '31 dec 2029',
     'pc_l' => 'PHP-versiecheck',
     'pc_h' => 'Welke PHP-versie draait je systeem, en tot wanneer krijgt die beveiligingsupdates?',
     'pc_lead' => 'Een check van tien minuten die je zelf kunt doen, met de data van php.net. Maakt het antwoord je ongerust, dan zet een Health Check het om in een plan: twee dagen, alleen lezen, EUR 1.080 excl. btw, vaste prijs.',
@@ -54,10 +66,10 @@ $nl = [
     <table class="tbl">
       <thead><tr><th data-i="pc_th0">Version</th><th data-i="pc_th1">Released</th><th data-i="pc_th2">Active support until</th><th data-i="pc_th3">Security fixes until</th></tr></thead>
       <tbody>
-        <tr><td>8.2</td><td>8 Dec 2022</td><td>31 Dec 2024</td><td>31 Dec 2026</td></tr>
-        <tr><td>8.3</td><td>23 Nov 2023</td><td>31 Dec 2025</td><td>31 Dec 2027</td></tr>
-        <tr><td>8.4</td><td>21 Nov 2024</td><td>31 Dec 2026</td><td>31 Dec 2028</td></tr>
-        <tr><td>8.5</td><td>20 Nov 2025</td><td>31 Dec 2027</td><td>31 Dec 2029</td></tr>
+        <tr><td>8.2</td><td data-i="pc_d00">8 Dec 2022</td><td data-i="pc_d01">31 Dec 2024</td><td data-i="pc_d02">31 Dec 2026</td></tr>
+        <tr><td>8.3</td><td data-i="pc_d10">23 Nov 2023</td><td data-i="pc_d11">31 Dec 2025</td><td data-i="pc_d12">31 Dec 2027</td></tr>
+        <tr><td>8.4</td><td data-i="pc_d20">21 Nov 2024</td><td data-i="pc_d21">31 Dec 2026</td><td data-i="pc_d22">31 Dec 2028</td></tr>
+        <tr><td>8.5</td><td data-i="pc_d30">20 Nov 2025</td><td data-i="pc_d31">31 Dec 2027</td><td data-i="pc_d32">31 Dec 2029</td></tr>
       </tbody>
     </table>
   </div>
