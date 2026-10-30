@@ -23,6 +23,7 @@ Legend: done = changed, tested, live. checked = audited, nothing to change. open
 | Project pages: description from the lead sentence | v0.7.13 | was a 70 character one-liner |
 | Card titles after the page title are h2 | v0.7.14 | /work, /case-studies, /news, /projects, project pages: no skipped heading level (test added) |
 | News archive: out-of-month calendar days readable, year and month links 24 px high | v0.7.15 | Lighthouse accessibility 91 to 100 |
+| Decrypt headline pins width as well as height | v0.7.16 | splotnikov.dev home layout shift 0.238 to passing |
 | nginx on d051 (sd-admin repo): text static files gzip, 1 hour cache, fonts 30 days, Google Fonts removed from the CSP | sd-admin | HTML is never compressed (CSRF tokens) |
 
 ## Measured (Lighthouse mobile, live, before to after)
@@ -39,3 +40,4 @@ Legend: done = changed, tested, live. checked = audited, nothing to change. open
 - The host sets a session cookie on every page (`sd-admin-session`). The privacy page says so ("the only cookie is the technically necessary session cookie"), so nothing to fix on the site.
 - No hreflang: Dutch is a switch on the same address, not a separate URL, so there is nothing to point at. Separate Dutch URLs would be a bigger decision.
 
+Final live check 2026-10-30: Lighthouse mobile 100 in all four categories on /, /pricing, /contact, /services/ai-integration, /news, /company, /projects/manual/docs, /case-studies/api-meets-ai (scuttle.dev) and /, /projects, /blog, /cv (splotnikov.dev). site.css 50 KB to 15 KB and site.js 34 KB to 13 KB over the wire.
