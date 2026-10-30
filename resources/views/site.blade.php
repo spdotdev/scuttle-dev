@@ -77,19 +77,6 @@
 
 <section class="s" id="services"><div class="wrap">
   <div class="center rv"><h2 data-i="sv_h">The foundation for a business that runs on automation</h2><p data-i="sv_p">Agents and integrations that do the repetitive work, security that keeps it safe, one developer who keeps it running. A fixed scope per step, nothing deployed without a rollback.</p></div>
-  <div class="cards3">
-    @foreach($groups as $key => $items)
-    <div class="c g rv">
-      <span class="lbl">{{ sprintf('%02d', $loop->iteration) }} <span data-i="g_{{ $key }}">{{ $C::GROUPS[$key] }}</span></span>
-      <h3 data-i="gl_{{ $key }}">{{ $C::GROUP_LINES[$key] }}</h3>
-      <div class="pl">
-        @foreach($items as $p)
-        <a href="{{ $C::url($p) }}"><i class="lt"></i><span>{{ $p['name'] }}</span><small>{{ $p['short'] }}</small></a>
-        @endforeach
-      </div>
-    </div>
-    @endforeach
-  </div>
 </div></section>
 
 <section class="s tight" id="stack"><div class="wrap">

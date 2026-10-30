@@ -189,11 +189,6 @@ a.c:hover{transform:translateY(-3px);border-color:var(--line2)}
 .c h3{font-size:18px}
 .c p{font-size:14.5px;color:var(--muted)}
 .c .more{font:500 12px "Geist Mono",monospace;letter-spacing:.04em;text-transform:uppercase;color:var(--acc)}
-.c.g h3{font-size:20px;text-wrap:balance}
-.c.g .pl{display:grid;margin-top:6px;border-top:1px solid var(--line)}
-.c.g .pl a{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);font-size:15px;font-weight:500;color:var(--ink)}
-.c.g .pl a small{grid-column:2;font-weight:400;font-size:13px;color:var(--muted)}
-.c.g .pl a:hover span{color:var(--acc)}
 @media (max-width:980px){.cards3{grid-template-columns:minmax(0,1fr)}}
 
 /* belts: worked with, tools */
