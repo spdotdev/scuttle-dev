@@ -88,3 +88,16 @@ Checks without Lighthouse: every internal link on every page type answers 200 or
 - **Buyer on a phone:** the price now sits above the buttons on every service page (Health Check: EUR 1,080 before "Ask about Health Check"); the pricing page shows the three prices a buyer looks for (EUR 90 per hour, Health Check EUR 1,080, retainer from EUR 720) as a row under the headline in both languages.
 - **CI on both repos was red since round 2** (Larastan error in the 404 handler); found and fixed in this round, green now. Lesson: read the CI result before calling a release done.
 - **Not done:** Core Web Vitals field data from the CrUX API (using the Google key from KeePass was blocked by the permission classifier; lab data only; the sites are small, field data may not exist for them anyway).
+
+# Round 5 (2026-10-30, v0.7.23)
+## Council, small version
+Question: which one set of changes brings the most qualified leads in 3 months. Advisors: contrarian, first principles, outsider (a Brabant factory owner), executor (four small sonnet agents, low effort). Left out: expansionist, the anonymous peer round; no CRM reply report was readable, so no reply data went in. Agreed by all four: (1) the contact flow is the gate, (2) the About / how I work answer belongs on the existing Company page, not a new page, (3) proof only from public facts, (4) FAQ is cheap and useful for the Health Check but no rich-result win (Google shows FAQ results for almost no sites), (5) Eindhoven is a line, not a page (a town page is doorway work). The contrarian also wanted analytics and UTM links; that is Stas's decision (privacy rule, GitHub issue #5), not built.
+## Done
+- FAQ (visible text and FAQPage data word for word, EN and NL) on /health-check, /services/modernization, /services/hardening, /services/maintenance-retainer; every answer restates a fact already on the page or in the catalog (`src/Faq.php`); tests: `test_faq_blocks_match_their_faqpage_data_in_both_languages`, `test_faq_prices_match_the_catalog`.
+- /company: "What you can check yourself" (16 public repositories, Lighthouse and axe numbers of 30 Oct 2026 from round 4, the PHP check and the sample report, why client work has no names) and "What happens when you write" (free thirty-minute call, NDA, quote valid 14 days, runbook handover).
+- Released earlier today and now live: /health-check/sample, /php-check, /nis2 and their /nl twins (commit 789bcc9).
+- axe on the live site, 390 px, light and dark: 0 findings on 10 scuttle.dev pages and 2 splotnikov.dev pages (EN and NL).
+## Blocked
+- The contact form cannot send: the live form answers "Mail from this form is not working right now" (checked by a real POST on 2026-10-30; the host's default mailer is `log`). The fix is in the package (v0.7.22): set `SCUTTLE_CONTACT_MAIL_DSN` and `SCUTTLE_CONTACT_MAIL_FROM` in the host `.env` on d051. Needs SMTP credentials only Stas has.
+## Not done
+- Eindhoven/Brabant page (council: a line, not a page; the line is on /company and /contact), analytics and UTM links (Stas decides), sample report from a real redacted example (the page says it is illustrative).
