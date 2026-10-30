@@ -70,3 +70,7 @@ Checks without Lighthouse: every internal link on every page type answers 200 or
 - Outreach messages in the CRM that link to scuttle.dev should link Dutch recipients to `/nl/...` (sd-crm templates, not this repo).
 - The hero of splotnikov.dev still leads with "I turn legacy technical debt into infrastructure that scales"; only the line under the name was reordered to automation first. The hero sentence is Stas's wording, so it is his call.
 
+# Round 3 (2026-10-30)
+- Dutch read in the browser (all 23 Dutch pages at 360 px, language and layout): one overflow found and fixed (the button "Vraag naar Hardening and Secure Pipeline" ran 21 px off a 360 px screen; buttons now wrap under 600 px). Wording fixes in the Dutch: thousands separators (EUR 1.080, EUR 1.440), "verholpen" instead of "gedicht", "besluitenlogboek", "Blijft van jou", "getraind wake word", "Er ligt iets plat", "het assessment", "herbouw" for rewrite, the case title on product pages in Dutch, the contact select options and the English fact heads of the case carousel ("Op het apparaat", "Klein model", "Eén patroon", "Eén tik van mij").
+- Duplicate addresses: trailing slash and index.php now 301 to the clean address on both sites (nginx in sd-admin); uppercase paths, `//`, `.html` and `/home` answer 404, not 200, so no other variants exist.
+

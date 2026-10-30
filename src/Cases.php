@@ -207,6 +207,7 @@ final class Cases
     public static function nlStrings(): array
     {
         $labels = ['phalcon-to-laravel' => 'Phalcon → Laravel', 'api-meets-ai' => 'API → MCP → AI', 'wake-word-model' => 'audio → klein model', 'business-on-agents' => 'agents → pipeline'];
+        $firsts = ['On device' => 'Op het apparaat', 'Small model' => 'Klein model', 'One pattern' => 'Eén patroon', 'Human tap' => 'Eén tik van mij', 'Evaluation set' => 'Evaluatieset', 'Daily caps' => 'Dagelijkse limieten'];
         $out = [];
         foreach (self::all() as $slug => $c) {
             $out['cxk_'.$slug] = $c['nl']['kicker'];
@@ -214,7 +215,8 @@ final class Cases
             $out['cxt_'.$slug] = $c['nl']['title'];
             $out['cxl_'.$slug] = $labels[$slug] ?? $c['nl']['title'];
             foreach ([0, 1] as $i) {
-                $out['cxf'.$i.'_'.$slug] = $c['facts'][$i][0].' · '.$c['nl']['facts'][$i];
+                $head = $c['facts'][$i][0];
+                $out['cxf'.$i.'_'.$slug] = ($firsts[$head] ?? $head).' · '.$c['nl']['facts'][$i];
             }
         }
 

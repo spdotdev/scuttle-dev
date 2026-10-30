@@ -40,7 +40,7 @@ final class Catalog
         'android-app' => 'Android App: Kotlin en Jetpack Compose',
         'security-assessment' => 'Security Assessment: kwetsbaarhedenscan of pentest',
         'architecture-review' => 'Architecture Review: opties en een advies',
-        'hardening' => 'Hardening en Secure Pipeline voor je servers',
+        'hardening' => 'Hardening and Secure Pipeline voor je servers',
         'maintenance-retainer' => 'Maintenance Retainer: patches en monitoring per maand',
         'compliance' => 'Compliance Alignment: NIS2, AVG en DORA',
         'handover-pack' => 'Handover Pack: runbook, architectuur, besluiten',
@@ -110,7 +110,7 @@ final class Catalog
                         ['MCP-server op je systemen', 'Model Context Protocol: benoemde tools met rechten vóór je API of database, zodat elke assistent ze kan gebruiken en elke aanroep gelogd wordt.'],
                         ['RAG over je documenten', 'Retrieval met bronnen bij elk antwoord; embeddings lokaal gebouwd als de data je servers niet mag verlaten.'],
                         ['Evaluatieset en vangrails', 'Echte voorbeelden met bekende antwoorden, wat de agent nooit mag doen, wat een mens moet doen, een maandelijks kostenplafond en een gedocumenteerde uitschakelknop.'],
-                        ['Kleine modellen waar het past', 'Gefinetunede of lokale modellen (Ollama, Whisper, een getrainde wake word) voor taken die snel, offline of goedkoop moeten zijn.'],
+                        ['Kleine modellen waar het past', 'Gefinetunede of lokale modellen (Ollama, Whisper, een getraind wake word) voor taken die snel, offline of goedkoop moeten zijn.'],
                     ],
                     'steps' => [
                         'Introgesprek: waar gaan de uren nu heen, hoe ziet een goed antwoord eruit, welke data mag het pand verlaten.',
@@ -154,7 +154,7 @@ final class Catalog
                     'price' => 'Op offerte per koppeling, EUR 90 per uur excl. btw',
                     'price_note' => 'Bij dunne documentatie gaat eerst een spike van een paar uur tegen de echte API vooraf.',
                     'features' => [
-                        ['Idempotent door ontwerp', 'Een webhook die twee keer binnenkomt of een job die opnieuw draait int, mailt of boekt nooit dubbel.'],
+                        ['Idempotent door ontwerp', 'Een webhook die twee keer binnenkomt of een job die opnieuw draait incasseert, mailt of boekt nooit dubbel.'],
                         ['Queues en retries', 'Het werk gebeurt op de achtergrond met backoff, dead letters en alerts.'],
                         ['Mapping op papier', 'Welk veld waarheen gaat, wat de bron van waarheid is, wat er bij een conflict gebeurt.'],
                         ['Monitoring', 'Je ziet de laatste geslaagde sync en de fouten, geen stille gaten.'],
@@ -167,7 +167,7 @@ final class Catalog
                         'Bouwen met tests en een run in de sandbox.',
                         'Overgang naar productie met monitoring en het runbook.',
                     ],
-                    'not' => 'Geen scraping van systemen zonder API zonder dat de eigenaar akkoord is, geen "het werkt op mijn machine"-overgangen. Partnerkosten en licenties zijn van hen, niet in mijn offerte.',
+                    'not' => 'Geen scraping van systemen zonder API en zonder akkoord van de eigenaar, geen overdracht met "het werkt bij mij". Partnerkosten en licenties zijn van hen, niet in mijn offerte.',
                     'cta' => ['Welke twee systemen moeten met elkaar praten?', 'Noem ze en de richting van de data. Binnen één werkdag antwoord ik hoe ik ze zou koppelen en waar je op moet letten, gratis.'],
                 ],
             ],
@@ -265,7 +265,7 @@ final class Catalog
                         'Bouwen, testen, releasen, controleren. Kleine releases, waar mogelijk wekelijks.',
                         'Volgende stap, of stoppen. Het overdrachtspakket wordt na elke stap bijgewerkt.',
                     ],
-                    'not' => 'Geen rewrite from scratch, geen branch van drie maanden, geen verborgen licentiekosten in de offerte. Als een stap groter blijkt dan geoffreerd, hoor je dat voordat de uren zijn besteed.',
+                    'not' => 'Geen herbouw vanaf nul, geen branch van drie maanden, geen verborgen licentiekosten in de offerte. Als een stap groter blijkt dan geoffreerd, hoor je dat voordat de uren zijn besteed.',
                     'cta' => ['Welke laag in je stack is het oudst?', 'Vertel me de PHP-versie, het framework en waar het gehost wordt. Binnen één werkdag antwoord ik met de eerste stap die ik zou zetten, gratis.'],
                 ],
             ],
@@ -349,7 +349,7 @@ final class Catalog
                 'nl' => [
                     'lead' => 'Een beoordeling in twee dagen van je applicatie en de manier waarop die draait. Je krijgt een schriftelijk rapport over waar automatisering uren bespaart, wat risicovol is, welke onderdelen buiten support zijn (de legacy-check) en een plan in stappen dat het bedrijf niet stilzet.',
                     'short' => 'Beoordeling in twee dagen: kansen voor automatisering, risico\'s, een plan in stappen.',
-                    'price' => 'Vaste prijs, EUR 1,080 excl. btw (12 uur)',
+                    'price' => 'Vaste prijs, EUR 1.080 excl. btw (12 uur)',
                     'price_note' => 'Twee dagen review, 12 uur × EUR 90. Een gratis introgesprek gaat vooraf.',
                     'features' => [
                         ['Schriftelijk rapport', 'In gewone taal, bevindingen gerangschikt op waarde en risico, uren per punt.'],
@@ -366,7 +366,7 @@ final class Catalog
                         'Twee dagen review.',
                         'Het rapport, gevolgd door het doorloopgesprek.',
                     ],
-                    'not' => 'Het is geen rewrite, het is geen penetratietest en ik breng geen wijzigingen aan in je productiesystemen. Ik heb geen productiedata nodig. Als het rapport laat zien dat er meer nodig is, krijg je een duidelijke scope en prijs voordat iets begint.',
+                    'not' => 'Het is geen herbouw, het is geen penetratietest en ik breng geen wijzigingen aan in je productiesystemen. Ik heb geen productiedata nodig. Als het rapport laat zien dat er meer nodig is, krijg je een duidelijke scope en prijs voordat iets begint.',
                     'cta' => ['Weet je niet waar je moet beginnen? Begin hier.', 'Twaalf uur, alleen-lezen, een plan waar je me aan kunt houden. Vertel me wat je draait en ik controleer of de Health Check past voordat er iets geboekt wordt.'],
                 ],
             ],
@@ -399,7 +399,7 @@ final class Catalog
                 'nl' => [
                     'lead' => 'Een kwetsbaarhedenonderzoek of penetratietest van een webapplicatie, API of serveromgeving die van jou is. Bevindingen gerangschikt op ernst, elk met adviezen om te herstellen, en een hertest als de fixes erin zitten.',
                     'short' => 'Kwetsbaarhedenscan of pentest van een applicatie, met een hertest.',
-                    'price' => 'Quick scan EUR 720 excl. btw (8 uur); volledige assessment op offerte per fase, EUR 90 per uur excl. btw',
+                    'price' => 'Quick scan EUR 720 excl. btw (8 uur); volledig assessment op offerte per fase, EUR 90 per uur excl. btw',
                     'price_note' => 'Scope, testvenster en schriftelijke toestemming zijn afgesproken voordat er iets getest wordt.',
                     'features' => [
                         ['Eerst schriftelijke toestemming', 'Scope, testvenster, noodcontacten en toestemming van derden als je elders host.'],
@@ -447,8 +447,8 @@ final class Catalog
                 'cta' => ['What is the decision on the table?', 'Stack, cloud, integration, build or buy: write the question in one sentence. I reply within one working day with what I would need to look at before I answer it, free.'],
                 'nl' => [
                     'lead' => 'Voor een besluit over stack, cloud, koppeling of zelf bouwen versus kopen. Ik vergelijk de opties op kosten, risico en pasvorm met je team, en schrijf een advies op waar je me aan kunt houden.',
-                    'short' => 'Opties vergeleken, een schriftelijk advies, beslisnotities.',
-                    'price' => 'Vaste prijs, EUR 1,440 excl. btw (16 uur)',
+                    'short' => 'Opties vergeleken, een schriftelijk advies, een besluitenlogboek.',
+                    'price' => 'Vaste prijs, EUR 1.440 excl. btw (16 uur)',
                     'price_note' => 'Twee dagen. Grotere vragen worden na het introgesprek geoffreerd, als de vraag duidelijk is.',
                     'features' => [
                         ['De vraag, opgeschreven', 'Wat er besloten wordt, voor wanneer, en wat een verkeerd antwoord kost.'],
@@ -643,7 +643,7 @@ final class Catalog
                 'cta' => ['Could someone else run it from the documentation tonight?', 'If that question makes you nervous, send me the name of the system. I reply within one working day with what the pack would contain, free.'],
                 'nl' => [
                     'lead' => 'Alles wat de volgende developer nodig heeft om het systeem zonder mij te draaien: hoe het werkt, hoe je deployt en terugdraait, hoe je een back-up terugzet, welke accounts er zijn en van wie, de genomen beslissingen en de bekende risico\'s. Inbegrepen in elk project, en los te boeken voor een systeem dat je hebt geërfd.',
-                    'short' => 'Runbook, architectuur, beslissingen, accounts, risico\'s. Van jou om te houden.',
+                    'short' => 'Runbook, architectuur, beslissingen, accounts, risico\'s. Blijft van jou.',
                     'price' => 'Inbegrepen in elk project. Los: op offerte, EUR 90 per uur excl. btw',
                     'price_note' => 'Een systeem van gebruikelijke omvang vergt een paar dagen om goed te documenteren.',
                     'features' => [

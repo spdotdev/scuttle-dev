@@ -137,6 +137,6 @@ foreach ($related as $r) {
 
 @push('nl')
 <script>
-Object.assign(window.SCUTTLE_NL.t, @json(\Spdotdev\ScuttleDev\Cases::nlStrings() + $nl + ['p_case' => 'Lees de casestudy: '.$cs['title']]));
+Object.assign(window.SCUTTLE_NL.t, @json(\Spdotdev\ScuttleDev\Cases::nlStrings() + $nl + ['p_case' => 'Lees de casestudy: '.$cs['nl']['title']]));
 </script>
 @endpush

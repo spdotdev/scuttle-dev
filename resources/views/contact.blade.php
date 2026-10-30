@@ -31,7 +31,7 @@
         <label><span data-i="ctp_n">Name</span><input type="text" name="name" required maxlength="120" value="{{ old('name') }}" autocomplete="name"></label>
         <label><span data-i="ctp_e">Email</span><input type="email" name="email" required maxlength="160" value="{{ old('email') }}" autocomplete="email"></label>
       </div>
-      <label><span data-i="ctp_a">About</span><select name="about" id="cf-about"><option value="">Not sure yet</option>@foreach($C::all() as $cp)<option value="{{ $cp['name'] }}" @selected(old('about', request('about')) === $cp['name'])>{{ $cp['name'] }}</option>@endforeach<option value="Something else" @selected(old('about', request('about')) === 'Something else')>Something else</option></select></label>
+      <label><span data-i="ctp_a">About</span><select name="about" id="cf-about"><option value="" data-i="ctp_ns">Not sure yet</option>@foreach($C::all() as $cp)<option value="{{ $cp['name'] }}" @selected(old('about', request('about')) === $cp['name'])>{{ $cp['name'] }}</option>@endforeach<option value="Something else" @selected(old('about', request('about')) === 'Something else') data-i="ctp_se">Something else</option></select></label>
       <label><span data-i="ctp_m">What are you running, and where do the hours go?</span><textarea name="message" required minlength="10" maxlength="4000" rows="7">{{ old('message') }}</textarea></label>
       @if(config('scuttle-dev.turnstile_site_key'))
         <div class="cf-turnstile" data-sitekey="{{ config('scuttle-dev.turnstile_site_key') }}"></div>
@@ -94,6 +94,8 @@
 <script>
 Object.assign(window.SCUTTLE_NL.t, {
  "ctp_sent": "Verstuurd. Ik reageer binnen één werkdag.",
+ "ctp_ns": "Nog niet zeker",
+ "ctp_se": "Iets anders",
  "ctp_l": "Contact",
  "ctp_h": "Vertel me wat je draait",
  "ctp_lead": "Wat het doet, waar de uren heen gaan, wat niet mag stilvallen. Ik reageer binnen één werkdag met een eerste mening, gratis. Een lastige vraag krijgt wat ik eerst moet bekijken voordat ik antwoord, geen ontwijking.",

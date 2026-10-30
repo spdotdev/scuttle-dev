@@ -583,3 +583,6 @@ footer .bottom{grid-column:1/-1;border-top:1px solid var(--dark-line);padding-to
 /* the language switch is two links when the page exists in both languages, two buttons otherwise */
 .seg a{display:block;color:var(--muted);padding:9px 10px;text-decoration:none}
 .seg a[aria-current="true"]{background:var(--ink);color:var(--bg)}
+
+/* long button labels (a Dutch service name after "Vraag naar") wrap instead of running off a 360 px screen */
+@media (max-width:600px){.btn{white-space:normal;text-align:center;line-height:1.3;height:auto;min-height:34px;padding:8px 14px}}

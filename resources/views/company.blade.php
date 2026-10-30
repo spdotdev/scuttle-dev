@@ -94,7 +94,7 @@ Object.assign(window.SCUTTLE_NL.t, {
  "cp_w_l": "Hoe ik werk",
  "cp_s1": "Eerst beoordelen, dan aanraken. Een schriftelijk plan met de volgorde van stappen, zodat niets stilvalt terwijl het gebeurt.",
  "cp_s2": "Kleine releases, elk met een rollback. Tests rond het oude gedrag voordat het verandert.",
- "cp_s3": "Automatiseer wat zich herhaalt, doe met de hand wat oordeel vraagt. Een mens tikt af voordat er iets naar buiten gaat.",
+ "cp_s3": "Automatiseer wat zich herhaalt, doe met de hand wat oordeel vraagt. Een mens geeft akkoord voordat er iets naar buiten gaat.",
  "cp_s4": "Alles opgeschreven in je repository: runbook, besluiten, architectuur. De accounts zijn vanaf dag één van jou.",
  "cp_b_l": "Wat ik vind van software",
  "cp_be1": "<b>Rendement boven trends.</b> Een stack kies je op de mensen die hem kunnen draaien en op de totale kosten, niet op wat dit jaar populair is.",
