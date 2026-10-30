@@ -563,3 +563,7 @@ footer .bottom{grid-column:1/-1;border-top:1px solid var(--dark-line);padding-to
 .badge,.cform .cf-foot .btn{background:#b24a1c;border-color:#b24a1c;color:#fff}
 :root[data-theme="dark"] .badge,:root[data-theme="dark"] .cform .cf-foot .btn{background:var(--acc);border-color:var(--acc);color:#111}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .badge,:root:not([data-theme="light"]) .cform .cf-foot .btn{background:var(--acc);border-color:var(--acc);color:#111}}
+
+/* skip link: first tab stop, visible only when focused */
+.skip{position:absolute;left:12px;top:-60px;z-index:100;background:var(--ink);color:var(--bg);padding:10px 14px;border-radius:4px;font:500 13px "Geist Mono",monospace;text-decoration:none}
+.skip:focus{top:12px}

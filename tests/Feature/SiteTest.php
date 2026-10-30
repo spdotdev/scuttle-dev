@@ -44,6 +44,8 @@ class SiteTest extends TestCase
             $this->assertLessThanOrEqual(160, mb_strlen(html_entity_decode($d[1])), $path.' description length');
             preg_match_all('/<script type="application\/ld\+json">(.*?)<\/script>/s', $html, $blocks);
             $this->assertNotEmpty($blocks[1], $path.' has structured data');
+            $this->assertStringNotContainsString('fonts.googleapis.com', $html, $path.' loads no Google Fonts');
+            $this->assertStringContainsString('class="skip"', $html, $path.' has a skip link');
             foreach ($blocks[1] as $json) {
                 $data = json_decode($json, true);
                 $this->assertIsArray($data, $path.' ld+json parses');

@@ -68,6 +68,7 @@
 
 <body>
   @php($groups = \Spdotdev\ScuttleDev\Catalog::grouped())
+  <a class="skip" href="#top" data-i="skip">Skip to content</a>
   <nav class="top" aria-label="Main navigation"><div class="wrap">
     <a class="brand" href="{{ route('scuttle.home') }}" aria-label="Scuttle Development home">@include('scuttle::partials.logo', ['id' => 'nav'])<span data-scr="Scuttle">Scuttle</span></a>
     <div class="links" id="links">
@@ -115,7 +116,7 @@
   </footer></div>
 
   <script>
-    window.SCUTTLE_NL = { t: { n_products: "Diensten", n_projects: "Projecten", n_news: "Nieuws", n_company: "Bedrijf", g_assess: "Beoordelen", g_build: "Automatiseren", g_run: "Beheren", n_pricing: "Prijzen", n_work: "Werk", n_case: "Casestudy's", n_contact: "Contact", n_book: "Plan een gesprek", ft_p: "Automatisering met AI-agents en koppelingen, veilige software die blijft draaien, door één senior developer in Eindhoven.", ft_company: "Bedrijf", ft_about: "Over mij", ft_legal: "Juridisch", ft_privacy: "Privacy", ft_terms: "Terms and conditions", ck_p: "Deze website gebruikt één soort cookie: Google Analytics, om te zien welke pagina's gelezen worden. Er wordt niets gezet voordat je kiest. Weiger en de site werkt precies hetzelfde; ga akkoord en het analytics-script laadt, onder de voorwaarden in de <a href=\"/privacy\">privacyverklaring</a>.", ck_deny: "Weigeren", ck_agree: "Akkoord" }, ph: {} };
+    window.SCUTTLE_NL = { t: { skip: "Naar de inhoud", n_products: "Diensten", n_projects: "Projecten", n_news: "Nieuws", n_company: "Bedrijf", g_assess: "Beoordelen", g_build: "Automatiseren", g_run: "Beheren", n_pricing: "Prijzen", n_work: "Werk", n_case: "Casestudy's", n_contact: "Contact", n_book: "Plan een gesprek", ft_p: "Automatisering met AI-agents en koppelingen, veilige software die blijft draaien, door één senior developer in Eindhoven.", ft_company: "Bedrijf", ft_about: "Over mij", ft_legal: "Juridisch", ft_privacy: "Privacy", ft_terms: "Terms and conditions", ck_p: "Deze website gebruikt één soort cookie: Google Analytics, om te zien welke pagina's gelezen worden. Er wordt niets gezet voordat je kiest. Weiger en de site werkt precies hetzelfde; ga akkoord en het analytics-script laadt, onder de voorwaarden in de <a href=\"/privacy\">privacyverklaring</a>.", ck_deny: "Weigeren", ck_agree: "Akkoord" }, ph: {} };
   </script>
   @stack('nl')
   @if(config('scuttle-dev.ga_id'))
