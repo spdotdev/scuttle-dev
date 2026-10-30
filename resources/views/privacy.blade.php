@@ -7,7 +7,7 @@
 @section('content')
 <article class="wrap page">
     <h1 data-i="pv_h1">Privacy statement</h1>
-    <p class="updated" data-i="pv_upd">Last updated: 30 October 2026</p>
+    <p class="updated" data-i="pv_upd">Last updated: 31 October 2026</p>
 
     <h2 data-i="pv_h_who">Who I am</h2>
     <p data-i="pv_who">Scuttle Development is the sole proprietorship of Stanislav Plotnikov, freelance developer and software architect in Eindhoven, the Netherlands. For anything about your data, email me at <a href="mailto:stas@scuttle.dev">stas@scuttle.dev</a>.</p>
@@ -19,7 +19,7 @@
       <li>a general business email address (such as info@) and phone number;</li>
       <li>data from the public Chamber of Commerce register and public job postings.</li>
     </ul>
-    <p data-i="pv_what2">If you email me or reply to an email of mine, I keep those messages. I collect no sensitive personal data.</p>
+    <p data-i="pv_what2">If you email me or reply to an email of mine, I keep those messages. If you write through the contact form, I store your name, email address, subject and message on my own server, so a message is not lost when email fails, together with a keyed hash of your IP address (not the address itself) to keep abuse in check. I collect no sensitive personal data.</p>
 
     <h2 data-i="pv_h_why">Why</h2>
     <p data-i="pv_why">I use this data to send a company one email about my services (software development, modernization of existing software, automation and security) and to follow up on replies. The legal basis is my legitimate interest in finding business customers (article 6(1)(f) GDPR).</p>
@@ -53,13 +53,13 @@
 <?php
 $nl = [
     'pv_h1' => 'Privacyverklaring',
-    'pv_upd' => 'Laatst bijgewerkt: 30 oktober 2026',
+    'pv_upd' => 'Laatst bijgewerkt: 31 oktober 2026',
     'pv_h_who' => 'Wie ik ben',
     'pv_who' => 'Scuttle Development is de eenmanszaak van Stanislav Plotnikov, freelance developer en software architect in Eindhoven. Voor alles over je gegevens kun je me mailen op <a href="mailto:stas@scuttle.dev">stas@scuttle.dev</a>.',
     'pv_h_what' => 'Welke gegevens ik gebruik',
     'pv_what' => 'Om bedrijven te benaderen die een developer kunnen gebruiken, verzamel ik openbare zakelijke gegevens:',
     'pv_what_l' => '<li>bedrijfsnaam, website, vestigingsplaats en branche;</li><li>een algemeen zakelijk e-mailadres (zoals info@) en telefoonnummer;</li><li>gegevens uit het openbare KvK-register en openbare vacatures.</li>',
-    'pv_what2' => 'Als je me mailt of op een e-mail van mij reageert, bewaar ik die berichten. Ik verzamel geen gevoelige persoonsgegevens.',
+    'pv_what2' => 'Als je me mailt of op een e-mail van mij reageert, bewaar ik die berichten. Als je via het contactformulier schrijft, sla ik je naam, e-mailadres, onderwerp en bericht op mijn eigen server op, zodat een bericht niet verloren gaat als e-mail uitvalt, samen met een gehashte vorm van je IP-adres (niet het adres zelf) om misbruik te beperken. Ik verzamel geen gevoelige persoonsgegevens.',
     'pv_h_why' => 'Waarom',
     'pv_why' => 'Ik gebruik deze gegevens om een bedrijf eenmalig een e-mail te sturen over mijn diensten (softwareontwikkeling, modernisering van bestaande software, automatisering en beveiliging) en om reacties op te volgen. De grondslag is mijn gerechtvaardigd belang om zakelijke klanten te werven (artikel 6 lid 1 onder f AVG).',
     'pv_h_cookies' => 'Cookies en statistieken',

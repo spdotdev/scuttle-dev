@@ -3,11 +3,13 @@
 namespace Spdotdev\ScuttleDev\Tests\Feature;
 
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Schema;
 use Spdotdev\ScuttleDev\Cases;
 use Spdotdev\ScuttleDev\Catalog;
 use Spdotdev\ScuttleDev\Faq;
 use Spdotdev\ScuttleDev\Http\Controllers\ContactController;
 use Spdotdev\ScuttleDev\Mail\ContactMessage;
+use Spdotdev\ScuttleDev\Models\ContactLead;
 use Spdotdev\ScuttleDev\Posts;
 use Spdotdev\ScuttleDev\Projects;
 use Spdotdev\ScuttleDev\Tests\TestCase;
@@ -231,7 +233,10 @@ class SiteTest extends TestCase
         $token = ContactController::token();
         $this->withSession([])->from('http://scuttle.dev/contact')->post('http://scuttle.dev/contact', [
             'name' => 'A', 'email' => 'a@example.com', 'message' => 'A real message of enough length.', 't' => $this->agedToken(), 'website' => '',
-        ])->assertSessionHasErrors('message')->assertSessionMissing('contact_sent');
+        ])->assertSessionHas('contact_sent', 'stored')->assertSessionHasNoErrors();
+        $lead = ContactLead::query()->sole();
+        $this->assertSame('not_configured', $lead->mail_status);
+        $this->assertSame('a@example.com', $lead->email);
     }
 
     public function test_a_contact_mail_dsn_makes_the_form_deliverable_even_when_the_default_mailer_logs(): void
@@ -241,7 +246,8 @@ class SiteTest extends TestCase
         $this->get('http://scuttle.dev/contact');
         $this->withSession([])->from('http://scuttle.dev/contact')->post('http://scuttle.dev/contact', [
             'name' => 'A', 'email' => 'a@example.com', 'message' => 'A real message of enough length.', 't' => $this->agedToken(), 'website' => '',
-        ])->assertSessionHas('contact_sent', true);
+        ])->assertSessionHas('contact_sent', 'mailed');
+        $this->assertSame('sent', ContactLead::query()->sole()->mail_status);
         $this->assertSame('smtp://user:secret@127.0.0.1:2525', config('mail.mailers.contact_form.url'));
     }
 
@@ -340,7 +346,7 @@ class SiteTest extends TestCase
     public function test_privacy_page_renders_and_is_linked(): void
     {
         $privacy = (string) $this->get('http://scuttle.dev/privacy')->assertOk()->getContent();
-        foreach (['Privacy statement', 'Privacyverklaring', 'stas@scuttle.dev', 'Opting out', 'Afmelden', 'Anthropic', 'no tracking or analytics cookies', 'geen tracking- of analysecookies', '30 October 2026'] as $needle) {
+        foreach (['Privacy statement', 'Privacyverklaring', 'stas@scuttle.dev', 'Opting out', 'Afmelden', 'Anthropic', 'no tracking or analytics cookies', 'geen tracking- of analysecookies', '31 October 2026'] as $needle) {
             $this->assertStringContainsString($needle, $privacy);
         }
         $this->assertStringNotContainsString('Gemini', $privacy, 'the lead tooling runs on Anthropic since 2026-10-28');
@@ -553,7 +559,8 @@ class SiteTest extends TestCase
 
         // A real message: mailed to info@scuttle.dev with the sender as reply-to.
         $this->from('http://scuttle.dev/')->post('http://scuttle.dev/contact', $ok + ['t' => $oldToken])
-            ->assertRedirect('http://scuttle.dev/')->assertSessionHas('contact_sent', true)->assertSessionHasNoErrors();
+            ->assertRedirect('http://scuttle.dev/')->assertSessionHas('contact_sent', 'mailed')->assertSessionHasNoErrors();
+        $this->assertSame(1, ContactLead::query()->count(), 'only the real message is stored, not the rejected ones');
         Mail::assertSent(ContactMessage::class, function (ContactMessage $mail) {
             $mail->build();
             $rendered = $mail->render(); // the real bug of 2026-10-24: a view variable named message collides with Laravel's Message object
@@ -711,5 +718,57 @@ class SiteTest extends TestCase
         $this->assertStringContainsString('EUR 1,080', Catalog::get('legacy-health-check')['price']);
         $this->assertStringContainsString('EUR 1.080', Faq::for('legacy-health-check')[0]['an']);
         $this->assertStringContainsString('EUR 720', Faq::for('maintenance-retainer')[0]['a']);
+    }
+
+    /** @return array<string, string> */
+    private function validForm(array $over = []): array
+    {
+        return $over + ['name' => 'Anna', 'email' => 'anna@example.com', 'about' => 'Health Check', 'message' => 'We run an old PHP portal and need a plan.', 't' => $this->agedToken(), 'website' => ''];
+    }
+
+    public function test_a_stored_lead_survives_a_mail_failure(): void
+    {
+        config(['scuttle-dev.require_real_mailer' => true, 'mail.default' => 'smtp', 'scuttle-dev.mail_dsn' => '']);
+        Mail::shouldReceive('mailer')->andThrow(new \RuntimeException('smtp down'));
+        $this->from('http://scuttle.dev/nl/contact')->post('http://scuttle.dev/contact', $this->validForm())
+            ->assertSessionHas('contact_sent', 'stored')->assertSessionHasNoErrors();
+        $lead = ContactLead::query()->sole();
+        $this->assertSame('failed', $lead->mail_status);
+        $this->assertSame('nl', $lead->language);
+        $this->assertSame('/nl/contact', $lead->page);
+    }
+
+    public function test_the_page_says_saved_and_not_sent_when_only_stored(): void
+    {
+        config(['scuttle-dev.require_real_mailer' => true, 'mail.default' => 'log']);
+        $this->from('http://scuttle.dev/contact')->post('http://scuttle.dev/contact', $this->validForm())->assertSessionHas('contact_sent', 'stored');
+        $html = (string) $this->withSession(['contact_sent' => 'stored'])->get('http://scuttle.dev/contact')->getContent();
+        $this->assertStringContainsString('Received and saved', $html);
+        $this->assertStringNotContainsString('data-i="ctp_sent"', $html);
+    }
+
+    public function test_the_ip_is_stored_only_as_a_hash(): void
+    {
+        $this->withServerVariables(['REMOTE_ADDR' => '203.0.113.9'])->from('http://scuttle.dev/contact')->post('http://scuttle.dev/contact', $this->validForm());
+        $lead = ContactLead::query()->sole();
+        $this->assertSame(32, strlen((string) $lead->ip_hash));
+        $this->assertStringNotContainsString('203.0.113.9', json_encode($lead->getAttributes()));
+    }
+
+    public function test_nothing_is_stored_when_the_message_cannot_be_stored(): void
+    {
+        Schema::drop('scuttle_contact_leads');
+        $this->from('http://scuttle.dev/contact')->post('http://scuttle.dev/contact', $this->validForm())
+            ->assertSessionHasErrors('message')->assertSessionMissing('contact_sent');
+    }
+
+    public function test_the_leads_command_lists_and_purges_only_test_rows(): void
+    {
+        $this->from('http://scuttle.dev/contact')->post('http://scuttle.dev/contact', $this->validForm());
+        $this->from('http://scuttle.dev/contact')->post('http://scuttle.dev/contact', $this->validForm(['name' => '[TEST] check']));
+        $this->assertSame(1, ContactLead::query()->where('is_test', true)->count());
+        $this->artisan('scuttle:contact-leads')->expectsOutputToContain('2 shown, 2 stored in total')->assertSuccessful();
+        $this->artisan('scuttle:contact-leads', ['--purge-test' => true])->expectsOutputToContain('Deleted 1 test')->assertSuccessful();
+        $this->assertSame(['Anna'], ContactLead::query()->pluck('name')->all());
     }
 }

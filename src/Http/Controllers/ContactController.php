@@ -8,11 +8,12 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Spdotdev\ScuttleDev\Mail\ContactMessage;
+use Spdotdev\ScuttleDev\Models\ContactLead;
 
 /**
  * The contact form: validated, rate limited, bot-checked (Cloudflare Turnstile
  * when keys are configured, otherwise a honeypot plus a signed minimum fill
- * time), then mailed to the configured address.
+ * time), stored in the database, then mailed to the configured address when a mail transport exists.
  */
 class ContactController
 {
@@ -34,6 +35,25 @@ class ContactController
             return back()->withInput()->withErrors(['message' => 'The bot check failed. Please try again or email '.$to.' directly.']);
         }
 
+        // Store first. A valid message is never lost because mail is down; success is shown only when it is stored.
+        $path = (string) parse_url((string) $request->headers->get('referer', ''), PHP_URL_PATH);
+        try {
+            $lead = ContactLead::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'about' => $data['about'] ?? null,
+                'message' => $data['message'],
+                'language' => $path === '/nl' || str_starts_with($path, '/nl/') ? 'nl' : 'en',
+                'page' => $path !== '' ? mb_substr($path, 0, 200) : null,
+                'ip_hash' => substr(hash_hmac('sha256', (string) $request->ip(), (string) config('app.key')), 0, 32),
+                'is_test' => str_starts_with(strtolower($data['name']), '[test]'),
+            ]);
+        } catch (\Throwable $e) {
+            Log::error('scuttle.dev contact form: the message could not be stored', ['error' => $e->getMessage()]);
+
+            return back()->withInput()->withErrors(['message' => 'Your message could not be saved right now, and I do not want you to think it arrived. Please email '.$to.' directly or book a call.']);
+        }
+
         $mailer = null;
         if ((string) config('scuttle-dev.mail_dsn', '') !== '') {
             config(['mail.mailers.contact_form' => ['transport' => 'smtp', 'url' => (string) config('scuttle-dev.mail_dsn')]]);
@@ -41,21 +61,24 @@ class ContactController
         }
 
         if ($mailer === null && config('scuttle-dev.require_real_mailer', true) && in_array((string) config('mail.default'), ['log', 'array'], true)) {
-            Log::error('scuttle.dev contact form: the default mailer is '.config('mail.default').', so the message is not delivered', ['from' => $data['email']]);
+            Log::warning('scuttle.dev contact form: no mail transport (set SCUTTLE_CONTACT_MAIL_DSN and SCUTTLE_CONTACT_MAIL_FROM); lead #'.$lead->id.' is stored, no mail was sent. List: php artisan scuttle:contact-leads --unmailed');
+            $lead->update(['mail_status' => 'not_configured']);
 
-            return back()->withInput()->withErrors(['message' => 'Mail from this form is not working right now, and I do not want you to think it arrived. Please email '.$to.' directly or book a call.']);
+            return back()->with('contact_sent', 'stored');
         }
 
         try {
             Mail::mailer($mailer)->to($to)
-                ->send(new ContactMessage($data['name'], $data['email'], (string) ($data['about'] ?? ''), $data['message'], (string) $request->ip()));
+                ->send(new ContactMessage($data['name'], $data['email'], (string) ($data['about'] ?? ''), $data['message'], (string) $lead->ip_hash));
+            $lead->update(['mail_status' => 'sent', 'mailed_at' => now()]);
         } catch (\Throwable $e) {
-            Log::error('scuttle.dev contact form could not send mail', ['error' => $e->getMessage()]);
+            Log::error('scuttle.dev contact form could not send mail; lead #'.$lead->id.' is stored', ['error' => $e->getMessage()]);
+            $lead->update(['mail_status' => 'failed']);
 
-            return back()->withInput()->withErrors(['message' => 'The message could not be sent right now. Please email '.$to.' directly.']);
+            return back()->with('contact_sent', 'stored');
         }
 
-        return back()->with('contact_sent', true);
+        return back()->with('contact_sent', 'mailed');
     }
 
     /**

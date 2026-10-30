@@ -19,7 +19,7 @@ class ContactMessage extends Mailable
 
     public function build(): static
     {
-        $body = "Name: {$this->name}\nEmail: {$this->email}\nAbout: ".($this->about !== '' ? $this->about : '-')."\n\n{$this->text}\n\n--\nSent from the scuttle.dev contact form · IP {$this->ip}";
+        $body = "Name: {$this->name}\nEmail: {$this->email}\nAbout: ".($this->about !== '' ? $this->about : '-')."\n\n{$this->text}\n\n--\nSent from the scuttle.dev contact form · visitor {$this->ip}";
 
         $from = (string) config('scuttle-dev.mail_from', '');
         if ($from !== '') {

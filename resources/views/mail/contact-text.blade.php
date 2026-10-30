@@ -5,4 +5,4 @@ About: {{ $about !== '' ? $about : '-' }}
 {{ $text }}
 
 --
-Sent from the scuttle.dev contact form · IP {{ $ip }}
+Sent from the scuttle.dev contact form · visitor {{ $ip }}

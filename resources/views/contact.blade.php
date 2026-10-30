@@ -21,7 +21,9 @@
       @csrf
       <input type="hidden" name="t" value="{{ \Spdotdev\ScuttleDev\Http\Controllers\ContactController::token() }}">
       <div class="hp" aria-hidden="true"><label>Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
-      @if(session('contact_sent'))
+      @if(session('contact_sent') === 'stored')
+        <div class="sent" role="status"><b data-i="ctp_stored">Received and saved. I could not send it on by email just now, but I have it and I will answer you at the address you gave. If it is urgent, email info@scuttle.dev.</b></div>
+      @elseif(session('contact_sent'))
         <div class="sent" role="status"><b data-i="ctp_sent">Sent. I reply within one working day.</b></div>
       @endif
       @if($errors->any())
@@ -94,6 +96,7 @@
 <script>
 Object.assign(window.SCUTTLE_NL.t, {
  "ctp_sent": "Verstuurd. Ik reageer binnen één werkdag.",
+ "ctp_stored": "Ontvangen en bewaard. Ik kon het nu niet per e-mail doorsturen, maar ik heb het en ik antwoord op het adres dat je opgaf. Is het dringend, mail dan info@scuttle.dev.",
  "ctp_ns": "Nog niet zeker",
  "ctp_se": "Iets anders",
  "ctp_l": "Contact",
