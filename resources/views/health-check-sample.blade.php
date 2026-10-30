@@ -45,6 +45,7 @@ $nl = [
     'sm_7_3' => 'Dag 2, ochtend: het plan in stappen met urenbereiken.',
     'sm_7_4' => 'Dag 2, middag: schrijven, nalezen, het rapport opmaken.',
     'sm_7_5' => 'Daarna: het doorloopgesprek.',
+    'sm_r' => 'De versietabel is het soort ding dat je zelf in tien minuten kunt nakijken met de <a href="/php-check">PHP-versiecheck</a>. Wijzen de bevindingen op beveiligingsregels, dan is <a href="/services/hardening">Hardening</a> de dienst die ze oplost, en de <a href="/pricing">prijzenpagina</a> laat zien wat elke stap kost.',
     'sm_c_h' => 'Wil je er zo een voor jouw systeem?',
     'sm_c_p' => 'Twee dagen, alleen lezen, vaste prijs EUR 1.080 excl. btw (12 uur × EUR 90). Vertel me wat je draait en ik controleer of de Health Check past voordat er iets geboekt wordt.',
     'sm_c_b1' => 'Plan een gesprek',
@@ -110,6 +111,8 @@ $nl = [
     <li data-i="sm_7_4">Day 2, afternoon: writing, proofreading, laying out the report.</li>
     <li data-i="sm_7_5">After: the walkthrough call.</li>
   </ul>
+
+  <p data-i="sm_r">The version table is the kind of thing you can check yourself in ten minutes with the <a href="{{ route('scuttle.php-check') }}">PHP version check</a>. If the findings point at security rules, <a href="{{ route('scuttle.product', ['slug' => 'hardening']) }}">Hardening</a> is the service that fixes them, and the <a href="{{ route('scuttle.pricing') }}">pricing page</a> shows what each step costs.</p>
 
   <h2 data-i="sm_c_h">Want one for your system?</h2>
   <p data-i="sm_c_p">Two days, read-only, fixed price EUR 1,080 excl. VAT (12 hours × EUR 90). Tell me what you run and I check that the Health Check fits before anything is booked.</p>

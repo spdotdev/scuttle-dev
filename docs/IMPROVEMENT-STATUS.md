@@ -108,3 +108,6 @@ Question: which one set of changes brings the most qualified leads in 3 months. 
 - **Dutch twins of /health-check/sample, /php-check and /nis2 had English titles and descriptions** (found while auditing, live HTML): fixed in v0.7.26 with a test over five pages.
 - Lighthouse mobile (lab) on 2026-10-31, accessibility, best practices, SEO and agentic browsing all 100: /health-check, /health-check/sample, /php-check, /nis2, /nl/nis2, /company (scuttle.dev), /cv (splotnikov.dev). The tool does not report performance; round 4 measured 96 to 100.
 - Not possible from here: listing the stored leads on d051. The ssh read was refused by the auto mode classifier (category Production Reads), so the stored row of the live test was not read back.
+
+## Leads nobody sees (round 7)
+A lead that is stored but not mailed logs one `critical` line (lead id and the list command, no visitor data), so the existing log alerting can pick it up. The exact commands to list and purge leads on the server are kept in the private operations notes, not in this public repository.

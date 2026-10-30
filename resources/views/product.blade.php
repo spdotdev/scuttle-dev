@@ -26,7 +26,8 @@ $nl = $C::nl($p) + [
     'p_more' => 'Lees meer →',
 ];
 $faq = \Spdotdev\ScuttleDev\Faq::for($p['slug']);
-$nl += ['p_faq_l' => 'Vragen', 'p_faq_h' => 'Vragen die ik krijg'] + \Spdotdev\ScuttleDev\Faq::nl($p['slug']);
+$rel = \Spdotdev\ScuttleDev\Links::for($p['slug']);
+$nl += ['p_faq_l' => 'Vragen', 'p_faq_h' => 'Vragen die ik krijg', 'p_rl_l' => 'Verder lezen'] + \Spdotdev\ScuttleDev\Faq::nl($p['slug']) + \Spdotdev\ScuttleDev\Links::nl($p['slug']);
 foreach ($related as $r) {
     $nl['p_rs_'.str_replace('-', '_', $r['slug'])] = $r['nl']['short'];
 }
@@ -146,6 +147,19 @@ foreach ($related as $r) {
       @foreach($related as $r)
       <a class="c rv" href="{{ $C::url($r) }}"><span class="lbl">{{ $C::GROUPS[$r['group']] }}</span><h3>{{ $r['name'] }}</h3><p data-i="p_rs_{{ str_replace('-', '_', $r['slug']) }}">{{ $r['short'] }}</p><span class="more" data-i="p_more">Read more →</span></a>
       @endforeach
+    </div>
+  </div></section>
+  @endif
+
+  @if(count($rel))
+  <section class="s tight"><div class="wrap">
+    <div class="plate rv">
+      <span class="lbl dot" data-i="p_rl_l">Related reading</span>
+      <ul class="terms">
+        @foreach($rel as $i => $l)
+        <li><a href="{{ url($l['path']) }}" data-i="p_rl{{ $i }}">{{ $l['en'] }}</a></li>
+        @endforeach
+      </ul>
     </div>
   </div></section>
   @endif

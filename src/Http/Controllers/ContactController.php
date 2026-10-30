@@ -62,7 +62,7 @@ class ContactController
         }
 
         if ($mailer === null && config('scuttle-dev.require_real_mailer', true) && in_array((string) config('mail.default'), ['log', 'array'], true)) {
-            Log::warning('scuttle.dev contact form: no mail transport (set SCUTTLE_CONTACT_MAIL_DSN and SCUTTLE_CONTACT_MAIL_FROM); lead #'.$lead->id.' is stored, no mail was sent. List: php artisan scuttle:contact-leads --unmailed');
+            Log::critical('scuttle.dev contact form: no mail transport (set SCUTTLE_CONTACT_MAIL_DSN and SCUTTLE_CONTACT_MAIL_FROM); lead #'.$lead->id.' is stored, no mail was sent. List: php artisan scuttle:contact-leads --unmailed');
             $lead->update(['mail_status' => 'not_configured']);
 
             return back()->with('contact_sent', 'stored');
@@ -73,7 +73,7 @@ class ContactController
                 ->send(new ContactMessage($data['name'], $data['email'], (string) ($data['about'] ?? ''), $data['message'], (string) $lead->ip_hash));
             $lead->update(['mail_status' => 'sent', 'mailed_at' => now()]);
         } catch (\Throwable $e) {
-            Log::error('scuttle.dev contact form could not send mail; lead #'.$lead->id.' is stored', self::safeContext($e));
+            Log::critical('scuttle.dev contact form could not send mail; lead #'.$lead->id.' is stored', self::safeContext($e));
             $lead->update(['mail_status' => 'failed']);
 
             return back()->with('contact_sent', 'stored');

@@ -10,6 +10,7 @@ use Spdotdev\ScuttleDev\Cases;
 use Spdotdev\ScuttleDev\Catalog;
 use Spdotdev\ScuttleDev\Faq;
 use Spdotdev\ScuttleDev\Http\Controllers\ContactController;
+use Spdotdev\ScuttleDev\Links;
 use Spdotdev\ScuttleDev\Mail\ContactMessage;
 use Spdotdev\ScuttleDev\Models\ContactLead;
 use Spdotdev\ScuttleDev\Posts;
@@ -823,6 +824,42 @@ class SiteTest extends TestCase
             preg_match('#name="description" content="([^"]*)"#', $nl, $dn);
             $this->assertNotSame($te[1], $tn[1], '/nl'.$path.' needs its own title');
             $this->assertNotSame($de[1], $dn[1], '/nl'.$path.' needs its own description');
+        }
+    }
+
+    public function test_a_lead_without_a_sent_mail_raises_a_critical_log_line_with_no_visitor_data(): void
+    {
+        config(['scuttle-dev.require_real_mailer' => true, 'mail.default' => 'log']);
+        Log::shouldReceive('critical')->once()->withArgs(function (string $msg, array $ctx = []): bool {
+            foreach (['Anna', 'anna@example.com', 'old PHP portal'] as $secret) {
+                if (stripos($msg.json_encode($ctx), $secret) !== false) {
+                    return false;
+                }
+            }
+
+            return str_contains($msg, 'lead #1') && str_contains($msg, 'scuttle:contact-leads --unmailed');
+        });
+        $this->from('http://scuttle.dev/contact')->post('http://scuttle.dev/contact', $this->validForm())->assertSessionHas('contact_sent', 'stored');
+    }
+
+    public function test_money_pages_link_to_their_related_reading_in_both_languages(): void
+    {
+        foreach (Links::all() as $slug => $links) {
+            $path = $slug === 'legacy-health-check' ? '/health-check' : '/services/'.$slug;
+            $en = (string) $this->get('http://scuttle.dev'.$path)->assertOk()->getContent();
+            $nl = (string) $this->get('http://scuttle.dev/nl'.$path)->assertOk()->getContent();
+            foreach ($links as $l) {
+                $this->assertStringContainsString('href="http://scuttle.dev'.$l['path'].'"', $en, $path.' links to '.$l['path']);
+                $this->assertStringContainsString($l['nl'], html_entity_decode(strip_tags($nl), ENT_QUOTES | ENT_HTML5), $path.' Dutch text for '.$l['path']);
+                $this->get('http://scuttle.dev'.$l['path'])->assertOk();
+            }
+        }
+        $this->assertStringContainsString('href="http://scuttle.dev/news/what-two-days-of-health-check-buy"', (string) $this->get('http://scuttle.dev/health-check')->getContent());
+        foreach (['/nis2' => ['/health-check', '/services/hardening', '/health-check/sample'], '/health-check/sample' => ['/php-check', '/services/hardening', '/pricing']] as $page => $targets) {
+            $html = (string) $this->get('http://scuttle.dev'.$page)->getContent();
+            foreach ($targets as $t) {
+                $this->assertStringContainsString('href="http://scuttle.dev'.$t.'"', $html, $page.' links to '.$t);
+            }
         }
     }
 }

@@ -27,6 +27,7 @@ $nl = [
     'nx_5_p' => 'Het technische deel: een gap-analyse tegen NIS2, AVG of DORA, met jouw maatregelen per eis getoetst in een tabel die je aan een auditor of een klant kunt geven, en het herstel in een afgesproken volgorde. Het is technisch werk, geen juridisch advies en geen certificering. Boetes, advocaten en de auditor zelf zitten niet in de offerte.',
     'nx_5_p2' => 'Compliance Alignment: op offerte per regime, EUR 90 per uur excl. btw. Wil je eerst weten waar je technisch staat, dan is de Security quick scan een vaste prijs van EUR 720 excl. btw (8 uur).',
     'nx_5_a' => 'Lees over Compliance Alignment',
+    'nx_5_r' => 'De maatregelen zelf zijn grotendeels <a href="/services/hardening">Hardening</a>-werk. Wil je eerst een overzicht voordat je beslist, dan bevat de <a href="/health-check">Health Check</a> een snelle beveiligingsscan, en het <a href="/health-check/sample">voorbeeldrapport</a> laat zien hoe bevindingen worden opgeschreven.',
     'nx_5_b' => 'Plan een gesprek',
     'nx_6_h' => 'Bronnen, gelezen op 30 oktober 2026',
     'nx_c_h' => 'Heeft een klant je erom gevraagd?',
@@ -62,6 +63,8 @@ $nl = [
   <p data-i="nx_5_p">The technical part: a gap analysis against NIS2, GDPR or DORA, with your measures tested against each requirement in a table you can hand to an auditor or a customer, and the remediation done in an agreed order. It is technical work, not legal advice and not a certification. Fines, lawyers and the auditor are not in the quote.</p>
   <p data-i="nx_5_p2">Compliance Alignment: quoted per regime, EUR 90 per hour excl. VAT. If you first want to know where you stand technically, the security quick scan is a fixed EUR 720 excl. VAT (8 hours).</p>
   <p style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn" href="{{ config('scuttle-dev.booking_url') }}" data-i="nx_5_b">Book a call</a><a class="btn o" href="{{ $C::url($C::get('compliance')) }}" data-i="nx_5_a">Read about Compliance Alignment</a></p>
+
+  <p data-i="nx_5_r">The measures themselves are mostly <a href="{{ route('scuttle.product', ['slug' => 'hardening']) }}">Hardening</a> work. If you want a first overview before you decide, the <a href="{{ route('scuttle.health-check') }}">Health Check</a> includes a security quick scan, and the <a href="{{ route('scuttle.health-check.sample') }}">sample report</a> shows how findings are written down.</p>
 
   <h2 data-i="nx_6_h">Sources, read on 30 October 2026</h2>
   <ul>
