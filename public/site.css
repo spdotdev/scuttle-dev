@@ -93,7 +93,7 @@ nav.top .cta{min-width:150px;justify-content:center}
 .in3{animation:up .7s .8s cubic-bezier(.2,.8,.2,1) both}
 .in4{animation:shotin .9s .6s cubic-bezier(.2,.8,.2,1) both}
 h1[data-dec]{font-variant-numeric:tabular-nums}
-@media (max-width:600px){.hero{padding:56px 0 40px}.cmd{font-size:11.5px;gap:6px;display:grid;width:100%;text-align:left;padding:10px 12px}.cmd>span{display:grid;gap:2px}.cmd b span{display:block}.cmd b span+span::before{content:"· "}}
+@media (max-width:600px){.hero{padding:56px 0 40px}.hero h1 br{display:none}.cmd{font-size:11.5px;gap:6px;display:grid;width:100%;text-align:left;padding:10px 12px}.cmd>span{display:grid;gap:2px}.cmd b span{display:block}.cmd b span+span::before{content:"· "}}
 
 /* report panel */
 .demo-wrap{position:relative}
