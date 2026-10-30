@@ -2,7 +2,9 @@
 @php($C = \Spdotdev\ScuttleDev\Catalog::class)
 
 @section('title', $pr['name'])
-@section('description', $pr['short'])
+@php($first = \Illuminate\Support\Str::before($pr['lead'], '. '))
+@php($desc = (mb_strlen($first) >= 70 && mb_strlen($first) <= 158) ? rtrim($first, '.').'.' : $pr['short'])
+@section('description', $desc)
 @section('canonical', 'https://scuttle.dev/projects/'.$pr['slug'])
 
 @section('content')
