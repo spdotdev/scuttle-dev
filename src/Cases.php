@@ -198,6 +198,29 @@ final class Cases
         return $all[$slug];
     }
 
+    /**
+     * The Dutch strings for the places where a case is shown outside its own page (home carousel,
+     * services page, product pages), keyed by slug so every view can use the same keys.
+     *
+     * @return array<string, string>
+     */
+    public static function nlStrings(): array
+    {
+        $labels = ['phalcon-to-laravel' => 'Phalcon → Laravel', 'api-meets-ai' => 'API → MCP → AI', 'wake-word-model' => 'audio → klein model', 'business-on-agents' => 'agents → pipeline'];
+        $out = [];
+        foreach (self::all() as $slug => $c) {
+            $out['cxk_'.$slug] = $c['nl']['kicker'];
+            $out['cxq_'.$slug] = $c['nl']['quote'];
+            $out['cxt_'.$slug] = $c['nl']['title'];
+            $out['cxl_'.$slug] = $labels[$slug] ?? $c['nl']['title'];
+            foreach ([0, 1] as $i) {
+                $out['cxf'.$i.'_'.$slug] = $c['facts'][$i][0].' · '.$c['nl']['facts'][$i];
+            }
+        }
+
+        return $out;
+    }
+
     public static function url(string $slug): string
     {
         return route('scuttle.case', ['slug' => $slug]);

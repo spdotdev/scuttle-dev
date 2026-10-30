@@ -1,15 +1,15 @@
 @extends('scuttle::layout')
 @php($C = \Spdotdev\ScuttleDev\Catalog::class)
 
-@section('title', 'Work')
-@section('description', 'What I deliver: twelve fixed deliverables, each one leaving a document in your repository, and the brands and tools behind them.')
-@section('canonical', 'https://scuttle.dev/work')
+@section('title', 'Services')
+@section('description', 'The twelve services and what you hold afterwards: a report, a running server, a pipeline, a document in your repository. Fixed shape, open prices.')
+@section('canonical', 'https://scuttle.dev/services')
 
 @section('content')
 <article class="prod">
   <header class="wrap ph">
     <div>
-      <span class="lbl dot" data-i="wk_l">Work</span>
+      <span class="lbl dot" data-i="wk_l">Services</span>
       <h1 data-dec data-i="wk_h1">What I deliver</h1>
       <p class="lead" data-i="wk_lead">Services say what I do; this page says what you hold afterwards. Every engagement ends in something you can point at: a report, a running server, a release pipeline, a document in your repository. Twelve of them, each with a fixed shape.</p>
     </div>
@@ -20,7 +20,7 @@
       @foreach($C::all() as $p)
       <a class="tile rv" href="{{ $C::url($p) }}">
         <div class="img"><span class="k" data-i="g_{{ $p['group'] }}">{{ $C::GROUPS[$p['group']] }}</span>@include('scuttle::partials.illus', ['kind' => $p['illus']])</div>
-        <h2>{{ $p['name'] }}</h2><p>{{ $p['short'] }}</p>
+        <h2>{{ $p['name'] }}</h2><p data-i="t_{{ $p['slug'] }}">{{ $p['short'] }}</p>
       </a>
       @endforeach
     </div>
@@ -58,7 +58,7 @@
     <span class="lbl dot" data-i="wk_s_l">Seen in practice</span>
     <div class="cards3" style="margin-top:18px">
       @foreach(array_slice(\Spdotdev\ScuttleDev\Cases::all(), 0, 3) as $c)
-      <a class="c rv" href="{{ \Spdotdev\ScuttleDev\Cases::url($c['slug']) }}"><span class="lbl">{{ $c['kicker'] }}</span><h3>{{ $c['title'] }}</h3><p>{{ $c['quote'] }}</p><span class="more" data-i="wk_more">Read the case study →</span></a>
+      <a class="c rv" href="{{ \Spdotdev\ScuttleDev\Cases::url($c['slug']) }}"><span class="lbl" data-i="cxk_{{ $c['slug'] }}">{{ $c['kicker'] }}</span><h3 data-i="cxt_{{ $c['slug'] }}">{{ $c['title'] }}</h3><p data-i="cxq_{{ $c['slug'] }}">{{ $c['quote'] }}</p><span class="more" data-i="wk_more">Read the case study →</span></a>
       @endforeach
     </div>
   </div></section>
@@ -76,8 +76,9 @@
 
 @push('nl')
 <script>
+Object.assign(window.SCUTTLE_NL.t, @json(collect($C::all())->mapWithKeys(fn ($p) => ['t_'.$p['slug'] => $p['nl']['short']])->all() + \Spdotdev\ScuttleDev\Cases::nlStrings()));
 Object.assign(window.SCUTTLE_NL.t, {
- "wk_l": "Werk",
+ "wk_l": "Diensten",
  "wk_h1": "Wat ik oplever",
  "wk_lead": "Diensten zeggen wat ik doe; deze pagina zegt wat je daarna in handen hebt. Elke opdracht eindigt in iets waar je naar kunt wijzen: een rapport, een draaiende server, een releasepipeline, een document in je repository. Twaalf stuks, elk met een vaste vorm.",
  "wk_d_l": "Elke keer achtergelaten",

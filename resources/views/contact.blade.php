@@ -21,7 +21,7 @@
       <input type="hidden" name="t" value="{{ \Spdotdev\ScuttleDev\Http\Controllers\ContactController::token() }}">
       <div class="hp" aria-hidden="true"><label>Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
       @if(session('contact_sent'))
-        <div class="sent" role="status"><b>Sent. I reply within one working day.</b></div>
+        <div class="sent" role="status"><b data-i="ctp_sent">Sent. I reply within one working day.</b></div>
       @endif
       @if($errors->any())
         <div class="err" role="alert">{{ $errors->first() }}</div>
@@ -92,6 +92,7 @@
 @push('nl')
 <script>
 Object.assign(window.SCUTTLE_NL.t, {
+ "ctp_sent": "Verstuurd. Ik reageer binnen één werkdag.",
  "ctp_l": "Contact",
  "ctp_h": "Vertel me wat je draait",
  "ctp_lead": "Wat het doet, waar de uren heen gaan, wat niet mag stilvallen. Ik reageer binnen één werkdag met een eerste mening, gratis. Een lastige vraag krijgt wat ik eerst moet bekijken voordat ik antwoord, geen ontwijking.",

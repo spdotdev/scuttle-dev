@@ -17,7 +17,7 @@ class SiteTest extends TestCase
     {
         $home = $this->get('http://scuttle.dev/')->assertOk()->getContent();
         // The top bar button and the contact section both lead to the booking page in sd-plan.
-        $this->assertSame(2, substr_count($home, 'href="https://plan.scuttle.dev/book/stas"'));
+        $this->assertSame(3, substr_count($home, 'href="https://plan.scuttle.dev/book/stas"'), 'the offer in the hero, the top bar and the contact section');
         $this->assertStringNotContainsString('subject=Call%20about', $home);
 
         $this->get('http://scuttle.dev/health-check')->assertOk()
@@ -26,7 +26,7 @@ class SiteTest extends TestCase
 
     public function test_search_snippets_fit_and_structured_data_is_valid(): void
     {
-        $paths = ['/', '/pricing', '/health-check', '/contact', '/work', '/case-studies', '/news', '/company', '/projects', '/privacy'];
+        $paths = ['/', '/pricing', '/health-check', '/contact', '/services', '/case-studies', '/news', '/company', '/projects', '/privacy'];
         foreach (Catalog::all() as $p) {
             $paths[] = parse_url(Catalog::url($p), PHP_URL_PATH);
         }
@@ -60,6 +60,53 @@ class SiteTest extends TestCase
         }
         $this->assertStringContainsString('og:type" content="article"', (string) $this->get('http://scuttle.dev/news/'.array_values(Posts::all())[0]['slug'])->getContent());
         $this->assertStringContainsString('og:type" content="website"', (string) $this->get('http://scuttle.dev/pricing')->getContent());
+    }
+
+    public function test_dutch_twins_are_real_pages_with_hreflang(): void
+    {
+        $paths = ['/', '/pricing', '/health-check', '/services', '/contact', '/company', '/privacy', '/case-studies'];
+        foreach (Catalog::all() as $p) {
+            $paths[] = parse_url(Catalog::url($p), PHP_URL_PATH);
+        }
+        foreach (Cases::all() as $c) {
+            $paths[] = '/case-studies/'.$c['slug'];
+        }
+        foreach ($paths as $path) {
+            $nlPath = '/nl'.($path === '/' ? '' : $path);
+            $nl = (string) $this->get('http://scuttle.dev'.$nlPath)->assertOk()->getContent();
+            $en = (string) $this->get('http://scuttle.dev'.$path)->assertOk()->getContent();
+            $this->assertStringContainsString('<html lang="nl"', $nl, $nlPath);
+            $this->assertStringContainsString('<link rel="canonical" href="https://scuttle.dev'.$nlPath.'" />', $nl, $nlPath.' canonical');
+            foreach ([$en, $nl] as $html) {
+                $this->assertStringContainsString('hreflang="nl" href="https://scuttle.dev'.$nlPath.'"', $html, $path.' hreflang nl');
+                $this->assertStringContainsString('hreflang="x-default" href="https://scuttle.dev'.($path === '/' ? '/' : $path).'"', $html, $path.' hreflang x-default');
+            }
+            preg_match('/<title>(.*?)<\/title>/s', $nl, $t);
+            preg_match('/name="description" content="(.*?)"/s', $nl, $d);
+            $this->assertLessThanOrEqual(70, mb_strlen(html_entity_decode($t[1])), $nlPath.' title');
+            $this->assertLessThanOrEqual(160, mb_strlen(html_entity_decode($d[1])), $nlPath.' description');
+            $this->assertNotSame(strip_tags($en), strip_tags($nl), $nlPath.' differs from English');
+            preg_match_all('/<script type="application\/ld\+json">(.*?)<\/script>/s', $nl, $blocks);
+            foreach ($blocks[1] as $json) {
+                $this->assertIsArray(json_decode($json, true), $nlPath.' ld+json parses');
+            }
+            // paired links in the Dutch page stay Dutch; unpaired ones stay as they are
+            $this->assertStringNotContainsString('href="https://scuttle.dev/pricing"', preg_replace('#<(link|a [^>]*hreflang)[^>]*>#', '', $nl), $nlPath.' links to /nl/pricing');
+        }
+        $this->assertStringContainsString('Automatiseer het werk', (string) $this->get('http://scuttle.dev/nl')->getContent());
+        $this->get('http://scuttle.dev/nl/news')->assertNotFound();
+        $this->get('http://scuttle.dev/nl/projects')->assertNotFound();
+        $this->get('http://scuttle.dev/work')->assertRedirect('/services')->assertStatus(301);
+        $this->get('http://scuttle.dev/nl/work')->assertRedirect('/nl/services')->assertStatus(301);
+        $sitemap = (string) $this->get('http://scuttle.dev/sitemap.xml')->getContent();
+        $this->assertStringContainsString('<loc>https://scuttle.dev/nl</loc>', $sitemap);
+        $this->assertStringContainsString('<loc>https://scuttle.dev/nl/services/modernization</loc>', $sitemap);
+        $this->assertStringContainsString('hreflang="nl" href="https://scuttle.dev/nl/pricing"', $sitemap);
+        $this->assertStringNotContainsString('/nl/news', $sitemap);
+        // pages without a twin keep the in-place switch and carry no hreflang
+        $news = (string) $this->get('http://scuttle.dev/news')->getContent();
+        $this->assertStringNotContainsString('hreflang="nl"', $news);
+        $this->assertStringContainsString('<button id="nl"', $news);
     }
 
     public function test_homepage_renders_on_the_configured_host(): void
@@ -169,7 +216,7 @@ class SiteTest extends TestCase
 
     public function test_every_page_links_the_shared_stylesheet_script_and_logo(): void
     {
-        foreach (['/', '/privacy', '/pricing', '/contact', '/work', '/case-studies', '/news', '/company', '/projects', '/projects/manual/docs', '/health-check', '/services/modernization', '/case-studies/phalcon-to-laravel'] as $path) {
+        foreach (['/', '/privacy', '/pricing', '/contact', '/services', '/case-studies', '/news', '/company', '/projects', '/projects/manual/docs', '/health-check', '/services/modernization', '/case-studies/phalcon-to-laravel'] as $path) {
             $this->get('http://scuttle.dev'.$path)
                 ->assertOk()
                 ->assertSee('vendor/scuttle/site.css', false)
@@ -196,7 +243,7 @@ class SiteTest extends TestCase
 
     public function test_the_site_points_at_no_client_and_leads_with_automation(): void
     {
-        foreach (['/', '/pricing', '/contact', '/health-check', '/services/ai-integration', '/services/modernization', '/case-studies/phalcon-to-laravel', '/case-studies/business-on-agents', '/work', '/company', '/news', '/projects'] as $path) {
+        foreach (['/', '/pricing', '/contact', '/health-check', '/services/ai-integration', '/services/modernization', '/case-studies/phalcon-to-laravel', '/case-studies/business-on-agents', '/services', '/company', '/news', '/projects'] as $path) {
             $html = (string) $this->get('http://scuttle.dev'.$path)->assertOk()->getContent();
             foreach (['hotel', 'hosintra', 'rental-platform', 'webshop-legacy', 'erp-bridge', 'Legacy Health Check', 'Modernization in Steps', '<b>0</b>'] as $word) {
                 $this->assertStringNotContainsStringIgnoringCase($word, $html, $path.' must not contain '.$word);
@@ -273,7 +320,9 @@ class SiteTest extends TestCase
 
         $this->assertStringNotContainsString('Ask for references', $home);
         $this->assertStringNotContainsString('run on PHP', $home);
-        $this->assertStringContainsString('cannot switch off', $home);
+        $this->assertStringContainsString('Start with a Health Check', $home);
+        $this->assertStringContainsString('EUR 1,080', $home);
+        $this->assertStringNotContainsString('id="sectors"', $home, 'the sectors block is gone (council, 2026-10-30)');
         $this->assertStringContainsString('id="mega"', $home);
         $this->assertStringContainsString('data-dec', $home);
         $this->assertSame(0, substr_count($home, 'href="https://splotnikov.dev"'), 'splotnikov.dev is not in the footer');
@@ -343,7 +392,7 @@ class SiteTest extends TestCase
     public function test_the_new_sections_render_and_the_menu_lists_them(): void
     {
         $home = (string) $this->get('http://scuttle.dev/')->assertOk()->getContent();
-        foreach (['/work', '/case-studies', '/projects', '/news', '/company', '/contact', '/pricing'] as $path) {
+        foreach (['/services', '/case-studies', '/projects', '/news', '/company', '/contact', '/pricing'] as $path) {
             $this->assertStringContainsString('href="http://scuttle.dev'.$path.'"', $home, $path.' in the menu');
         }
         $this->assertStringContainsString('>Services<', $home);
@@ -404,7 +453,7 @@ class SiteTest extends TestCase
      */
     public function test_every_page_is_translatable(): void
     {
-        $paths = ['/', '/pricing', '/health-check', '/contact', '/work', '/case-studies', '/case-studies/phalcon-to-laravel', '/news', '/company', '/projects', '/projects/manual', '/privacy'];
+        $paths = ['/', '/pricing', '/health-check', '/contact', '/services', '/case-studies', '/case-studies/phalcon-to-laravel', '/news', '/company', '/projects', '/projects/manual', '/privacy'];
         foreach (Catalog::all() as $p) {
             $paths[] = parse_url(Catalog::url($p), PHP_URL_PATH);
         }

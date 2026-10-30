@@ -103,8 +103,8 @@ foreach ($related as $r) {
   <section class="s tight"><div class="wrap">
     @php($cs = collect(\Spdotdev\ScuttleDev\Cases::all())->first(fn ($c) => in_array($p['slug'], $c['products'], true)) ?? \Spdotdev\ScuttleDev\Cases::get('phalcon-to-laravel'))
     <figure class="quote rv">
-      <blockquote>{{ $cs['quote'] }}</blockquote>
-      <figcaption><b>{{ $cs['kicker'] }}</b><span><a data-i="p_case" href="{{ \Spdotdev\ScuttleDev\Cases::url($cs['slug']) }}">Read the case study: {{ $cs['title'] }}</a></span></figcaption>
+      <blockquote data-i="cxq_{{ $cs['slug'] }}">{{ $cs['quote'] }}</blockquote>
+      <figcaption><b data-i="cxk_{{ $cs['slug'] }}">{{ $cs['kicker'] }}</b><span><a data-i="p_case" href="{{ \Spdotdev\ScuttleDev\Cases::url($cs['slug']) }}">Read the case study: {{ $cs['title'] }}</a></span></figcaption>
     </figure>
   </div></section>
 
@@ -136,6 +136,6 @@ foreach ($related as $r) {
 
 @push('nl')
 <script>
-Object.assign(window.SCUTTLE_NL.t, @json($nl + ['p_case' => 'Lees de casestudy: '.$cs['title']]));
+Object.assign(window.SCUTTLE_NL.t, @json(\Spdotdev\ScuttleDev\Cases::nlStrings() + $nl + ['p_case' => 'Lees de casestudy: '.$cs['title']]));
 </script>
 @endpush
