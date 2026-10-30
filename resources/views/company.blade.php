@@ -53,6 +53,27 @@
   </div></section>
 
   <section class="s tight"><div class="wrap two">
+    <div class="plate rv" id="proof">
+      <span class="lbl dot" data-i="cp_pr_l">What you can check yourself</span>
+      <ul class="terms">
+        <li data-i="cp_pr1"><b>Public code.</b> Sixteen repositories are public on <a href="https://github.com/spdotdev" rel="noopener" target="_blank">GitHub</a>, including <a href="https://github.com/spdotdev/scuttle-dev" rel="noopener" target="_blank">this website</a>, with its tests and its commit history.</li>
+        <li data-i="cp_pr2"><b>Measured on my own sites.</b> On 30 October 2026 I ran Lighthouse (mobile, lab) on all 73 pages of scuttle.dev and splotnikov.dev: 100 for accessibility, best practices and SEO on every page, 96 to 100 for performance. An automated accessibility test (axe) found nothing in light or dark theme.</li>
+        <li data-i="cp_pr3"><b>Tools you can run.</b> The <a href="{{ route('scuttle.php-check') }}">PHP version check</a> and the <a href="{{ route('scuttle.health-check.sample') }}">sample Health Check report</a> show how I work before you write.</li>
+        <li data-i="cp_pr4"><b>Client work stays private.</b> Client names are covered by NDA, so the <a href="{{ route('scuttle.cases') }}">case studies</a> are told without names.</li>
+      </ul>
+    </div>
+    <div class="plate rv">
+      <span class="lbl dot" data-i="cp_ex_l">What happens when you write</span>
+      <ol class="steps">
+        <li><span>01</span><p data-i="cp_ex1">You write or book a call. I am one person, so I answer myself.</p></li>
+        <li><span>02</span><p data-i="cp_ex2">The first call is free, thirty minutes, and ends with a straight answer: yes, no, or what I need to look at first.</p></li>
+        <li><span>03</span><p data-i="cp_ex3">A mutual NDA is available before details are shared. Prices are on this site, and a written quote is valid for 14 days.</p></li>
+        <li><span>04</span><p data-i="cp_ex4">The work is handed over with a runbook in your repository, so it does not depend on me being around.</p></li>
+      </ol>
+    </div>
+  </div></section>
+
+  <section class="s tight"><div class="wrap two">
     <div class="plate rv" id="careers">
       <span class="lbl dot" data-i="cp_ww_l">Working with me</span>
       <p class="not" data-i="cp_ww_p">There are no vacancies; this is a one-person company by design. Three ways we can still work together:</p>
@@ -116,6 +137,16 @@ Object.assign(window.SCUTTLE_NL.t, {
  "cp_fa5p": "<a href=\"/legal/ALGEMENE_VOORWAARDEN.pdf\">Algemene voorwaarden</a>, <a href=\"/legal/GEHEIMHOUDINGSOVEREENKOMST.pdf\">wederzijdse NDA</a>, <a href=\"/privacy\">privacyverklaring</a>. 14 dagen betaaltermijn, 7 dagen acceptatie, rechten gaan over na volledige betaling.",
  "cp_fa6b": "Achtergrond",
  "cp_fa6p": "Programmeren sinds de jaren 2000, eerst PHP, daarna Python, Kotlin en AI-tooling. In loondienst bij bureaus en productbedrijven, freelance sinds 2024. Meer op <a href=\"https://splotnikov.dev\" rel=\"noopener\" target=\"_blank\">splotnikov.dev</a>.",
+ "cp_pr_l": "Wat je zelf kunt controleren",
+ "cp_pr1": "<b>Openbare code.</b> Zestien repositories zijn openbaar op <a href=\"https://github.com/spdotdev\" rel=\"noopener\" target=\"_blank\">GitHub</a>, waaronder <a href=\"https://github.com/spdotdev/scuttle-dev\" rel=\"noopener\" target=\"_blank\">deze website</a>, met tests en commitgeschiedenis.",
+ "cp_pr2": "<b>Gemeten op mijn eigen sites.</b> Op 30 oktober 2026 draaide ik Lighthouse (mobiel, lab) op alle 73 pagina's van scuttle.dev en splotnikov.dev: 100 voor toegankelijkheid, best practices en SEO op elke pagina, 96 tot 100 voor prestaties. Een geautomatiseerde toegankelijkheidstest (axe) vond niets in het lichte of donkere thema.",
+ "cp_pr3": "<b>Tools die je zelf kunt draaien.</b> De <a href=\"/php-check\">PHP-versiecheck</a> en het <a href=\"/health-check/sample\">voorbeeldrapport van de Health Check</a> laten zien hoe ik werk voordat je schrijft.",
+ "cp_pr4": "<b>Klantwerk blijft privé.</b> Klantnamen vallen onder geheimhouding, daarom zijn de <a href=\"/case-studies\">casestudy's</a> zonder namen verteld.",
+ "cp_ex_l": "Wat er gebeurt als je schrijft",
+ "cp_ex1": "Je schrijft of plant een gesprek. Ik ben één persoon, dus ik antwoord zelf.",
+ "cp_ex2": "Het eerste gesprek is gratis, dertig minuten, en eindigt met een eerlijk antwoord: ja, nee, of wat ik eerst moet bekijken.",
+ "cp_ex3": "Een wederzijdse NDA is beschikbaar voordat details worden gedeeld. De prijzen staan op deze site en een schriftelijke offerte is 14 dagen geldig.",
+ "cp_ex4": "Het werk wordt overgedragen met een runbook in je repository, zodat het niet afhangt van mijn aanwezigheid.",
  "cp_ww_l": "Samenwerken",
  "cp_ww_p": "Er zijn geen vacatures; dit is bewust een eenmansbedrijf. Op drie manieren kunnen we toch samenwerken:",
  "cp_ww1": "<b>Bureaus:</b> ervaren handen op het project van jouw klant tegen een dagtarief, onder jouw voorwaarden of de mijne, eerst NDA. Zie <a href=\"/pricing\">prijzen</a>.",

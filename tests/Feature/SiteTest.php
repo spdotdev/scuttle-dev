@@ -5,6 +5,7 @@ namespace Spdotdev\ScuttleDev\Tests\Feature;
 use Illuminate\Support\Facades\Mail;
 use Spdotdev\ScuttleDev\Cases;
 use Spdotdev\ScuttleDev\Catalog;
+use Spdotdev\ScuttleDev\Faq;
 use Spdotdev\ScuttleDev\Http\Controllers\ContactController;
 use Spdotdev\ScuttleDev\Mail\ContactMessage;
 use Spdotdev\ScuttleDev\Posts;
@@ -671,5 +672,44 @@ class SiteTest extends TestCase
         $t = (string) (time() - 10);
 
         return $t.'.'.hash_hmac('sha256', $t, (string) config('app.key'));
+    }
+
+    public function test_faq_blocks_match_their_faqpage_data_in_both_languages(): void
+    {
+        foreach (['/services/modernization', '/health-check', '/services/hardening', '/services/maintenance-retainer'] as $path) {
+            foreach (['', '/nl'] as $prefix) {
+                $nl = $prefix === '/nl';
+                $html = (string) $this->get('http://scuttle.dev'.$prefix.$path)->assertOk()->getContent();
+                preg_match_all('#<script type="application/ld\+json">(.*?)</script>#s', $html, $m);
+                $faq = null;
+                foreach ($m[1] as $json) {
+                    $d = json_decode($json, true, 512, JSON_THROW_ON_ERROR);
+                    if (($d['@type'] ?? '') === 'FAQPage') {
+                        $faq = $d;
+                    }
+                }
+                $this->assertNotNull($faq, $prefix.$path.' has FAQPage data');
+                $slug = $path === '/health-check' ? 'legacy-health-check' : basename($path);
+                $items = Faq::for($slug);
+                $this->assertCount(count($items), $faq['mainEntity']);
+                foreach ($items as $i => $f) {
+                    $q = $nl ? $f['qn'] : $f['q'];
+                    $a = $nl ? $f['an'] : $f['a'];
+                    $this->assertSame($q, $faq['mainEntity'][$i]['name']);
+                    $this->assertSame($a, $faq['mainEntity'][$i]['acceptedAnswer']['text']);
+                    $this->assertStringContainsString(htmlspecialchars($q, ENT_QUOTES | ENT_HTML5), $html, 'question visible: '.$q);
+                    $this->assertStringContainsString(htmlspecialchars($a, ENT_QUOTES | ENT_HTML5), $html, 'answer visible: '.$a);
+                }
+            }
+        }
+    }
+
+    public function test_faq_prices_match_the_catalog(): void
+    {
+        $hc = Faq::for('legacy-health-check')[0]['a'];
+        $this->assertStringContainsString('EUR 1,080', $hc);
+        $this->assertStringContainsString('EUR 1,080', Catalog::get('legacy-health-check')['price']);
+        $this->assertStringContainsString('EUR 1.080', Faq::for('legacy-health-check')[0]['an']);
+        $this->assertStringContainsString('EUR 720', Faq::for('maintenance-retainer')[0]['a']);
     }
 }

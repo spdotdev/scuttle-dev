@@ -25,6 +25,8 @@ $nl = $C::nl($p) + [
     'p_also' => 'Ook bij '.$C::GROUPS_NL[$p['group']],
     'p_more' => 'Lees meer →',
 ];
+$faq = \Spdotdev\ScuttleDev\Faq::for($p['slug']);
+$nl += ['p_faq_l' => 'Vragen', 'p_faq_h' => 'Vragen die ik krijg'] + \Spdotdev\ScuttleDev\Faq::nl($p['slug']);
 foreach ($related as $r) {
     $nl['p_rs_'.str_replace('-', '_', $r['slug'])] = $r['nl']['short'];
 }
@@ -37,6 +39,10 @@ foreach ($related as $r) {
 
 @section('head')
   <script type="application/ld+json">{!! json_encode(['@'.'context' => 'https://schema.org', '@type' => 'Service', 'name' => $p['name'], 'description' => $p['short'], 'url' => $C::canonical($p), 'serviceType' => $p['name'], 'provider' => ['@type' => 'ProfessionalService', 'name' => 'Scuttle Development', 'url' => 'https://scuttle.dev']], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}</script>
+  @if(count($faq))
+  @php($faqNl = request()->is('nl') || request()->is('nl/*'))
+  <script type="application/ld+json">{!! json_encode(['@'.'context' => 'https://schema.org', '@type' => 'FAQPage', 'mainEntity' => array_map(fn ($f) => ['@type' => 'Question', 'name' => $faqNl ? $f['qn'] : $f['q'], 'acceptedAnswer' => ['@type' => 'Answer', 'text' => $faqNl ? $f['an'] : $f['a']]], $faq)], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}</script>
+  @endif
 @endsection
 
 @section('content')
@@ -113,6 +119,21 @@ foreach ($related as $r) {
       <figcaption><b data-i="cxk_{{ $cs['slug'] }}">{{ $cs['kicker'] }}</b><span><a data-i="p_case" href="{{ \Spdotdev\ScuttleDev\Cases::url($cs['slug']) }}">Read the case study: {{ $cs['title'] }}</a></span></figcaption>
     </figure>
   </div></section>
+
+  @if(count($faq))
+  <section class="s tight"><div class="wrap">
+    <div class="plate rv faq">
+      <span class="lbl dot" data-i="p_faq_l">Questions</span>
+      <h2 data-i="p_faq_h">Questions I get</h2>
+      <dl>
+        @foreach($faq as $i => $f)
+        <dt data-i="p_q{{ $i }}">{{ $f['q'] }}</dt>
+        <dd data-i="p_a{{ $i }}">{{ $f['a'] }}</dd>
+        @endforeach
+      </dl>
+    </div>
+  </div></section>
+  @endif
 
   @if($p['slug'] === 'ai-integration')
     @include('scuttle::partials.ai-extra')
