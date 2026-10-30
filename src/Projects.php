@@ -8,7 +8,7 @@ namespace Spdotdev\ScuttleDev;
  *
  * @phpstan-type Section array{id:string, title:string, body:list<string>}
  * @phpstan-type ProjectNl array{kind:string, short:string, lead:string, status:string}
- * @phpstan-type Project array{slug:string, name:string, kind:string, short:string, lead:string, repo:string, stack:list<string>, status:string, products:list<string>, docs:list<Section>, nl:ProjectNl}
+ * @phpstan-type Project array{slug:string, name:string, kind:string, short:string, meta?:string, lead:string, repo:string, stack:list<string>, status:string, products:list<string>, docs:list<Section>, nl:ProjectNl}
  */
 final class Projects
 {
@@ -41,6 +41,7 @@ final class Projects
                 'name' => 'Inventory',
                 'kind' => 'Own product · Laravel, Android, MCP',
                 'short' => 'A private, multi-household home-stock manager: API, Android app, admin and an MCP server.',
+                'meta' => 'Own household stock product in three parts: a Laravel API, a Kotlin Android app and an MCP server so an AI assistant can answer what is in the house.',
                 'lead' => 'A multi-tenant inventory product built as three parts: a Laravel backend shipped as a Composer package with a versioned API, a Kotlin Android client, and an MCP server so an AI assistant can answer questions about the stock without touching the database. Live at inventory.scuttle.dev.',
                 'repo' => 'https://github.com/spdotdev/inventory-laravel',
                 'stack' => ['Laravel', 'Sanctum', 'Reverb', 'MySQL', 'Kotlin', 'Jetpack Compose', 'MCP', 'Docker'],
@@ -59,6 +60,7 @@ final class Projects
                 'name' => 'WhatsApp MCP',
                 'kind' => 'Open source · fork, in daily use',
                 'short' => 'An MCP server that lets an assistant search, read and send WhatsApp messages through a personal account.',
+                'meta' => 'A Model Context Protocol server for WhatsApp: a Go bridge stores messages locally, a Python server gives Claude search, read and send tools.',
                 'lead' => 'A Model Context Protocol server for WhatsApp: a Go bridge speaks the WhatsApp web multi-device protocol and stores messages locally, a Python MCP server exposes search, read and send tools to Claude. My fork runs the alerts and reminders of my own business.',
                 'repo' => 'https://github.com/spdotdev/whatsapp-mcp',
                 'stack' => ['Go', 'Python', 'MCP', 'SQLite'],

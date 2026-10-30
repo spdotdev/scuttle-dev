@@ -1,7 +1,8 @@
 @extends('scuttle::layout')
 @php($C = \Spdotdev\ScuttleDev\Catalog::class)
 
-@section('title', 'Services')
+@section('title', 'Services: twelve services, automation first')
+@section('crumb', 'Services')
 @section('description', 'The twelve services and what you hold afterwards: a report, a running server, a pipeline, a document in your repository. Fixed shape, open prices.')
 @section('canonical', 'https://scuttle.dev/services')
 

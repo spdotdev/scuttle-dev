@@ -2,7 +2,8 @@
 @php($C = \Spdotdev\ScuttleDev\Catalog::class)
 @php($groups = $C::grouped())
 
-@section('title', 'Pricing')
+@section('title', 'Pricing: EUR 90 per hour and fixed prices')
+@section('crumb', 'Pricing')
 @section('description', 'How Scuttle Development prices its work: EUR 90 per hour excl. VAT for hourly work and projects in steps, and fixed prices for the Health Check (EUR 1,080), a security quick scan, an architecture review and the maintenance retainer. No plans to pick, no surprises.')
 @section('canonical', 'https://scuttle.dev/pricing')
 

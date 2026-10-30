@@ -109,6 +109,44 @@ class SiteTest extends TestCase
         $this->assertStringContainsString('<button id="nl"', $news);
     }
 
+    public function test_every_internal_link_and_social_image_resolves(): void
+    {
+        $pages = ['/', '/pricing', '/health-check', '/services', '/contact', '/company', '/privacy', '/case-studies', '/news', '/projects', '/nl', '/nl/pricing', '/nl/services', '/nl/contact', '/nl/case-studies'];
+        foreach (Catalog::all() as $p) {
+            $pages[] = parse_url(Catalog::url($p), PHP_URL_PATH);
+        }
+        foreach (Cases::all() as $c) {
+            $pages[] = '/case-studies/'.$c['slug'];
+        }
+        foreach (Posts::all() as $post) {
+            $pages[] = '/news/'.$post['slug'];
+        }
+        foreach (Projects::all() as $pr) {
+            $pages[] = '/projects/'.$pr['slug'];
+            if (count($pr['docs'])) {
+                $pages[] = '/projects/'.$pr['slug'].'/docs';
+            }
+        }
+        $links = [];
+        foreach ($pages as $page) {
+            $html = (string) $this->get('http://scuttle.dev'.$page)->assertOk()->getContent();
+            preg_match_all('#<a\b[^>]*\shref="(?:https://scuttle\.dev)?(/[^"\#]*)#', $html, $m);
+            foreach ($m[1] as $href) {
+                $links[$href] = $page;
+            }
+            if (preg_match('#og:image" content="https://scuttle\.dev/vendor/scuttle/(og/[a-z0-9-]+\.png)"#', $html, $img)) {
+                $this->assertFileExists(__DIR__.'/../../public/'.$img[1], $page.' social image exists');
+            }
+        }
+        foreach ($links as $href => $from) {
+            if (preg_match('#\.(pdf|vcf|png|svg|jpg)$#', $href) && ! str_starts_with($href, '/legal')) {
+                continue;
+            }
+            $status = $this->get('http://scuttle.dev'.$href)->getStatusCode();
+            $this->assertContains($status, [200, 301], $href.' linked from '.$from.' answers '.$status);
+        }
+    }
+
     public function test_homepage_renders_on_the_configured_host(): void
     {
         $this->get('http://scuttle.dev/')

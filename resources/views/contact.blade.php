@@ -1,7 +1,8 @@
 @extends('scuttle::layout')
 @php($C = \Spdotdev\ScuttleDev\Catalog::class)
 
-@section('title', 'Contact')
+@section('title', 'Contact: tell me what you are running')
+@section('crumb', 'Contact')
 @section('description', 'Contact Scuttle Development in Eindhoven: the form, info@scuttle.dev, +31 6 18 23 31 75, a vCard and QR code, the address and the Chamber of Commerce number.')
 @section('canonical', 'https://scuttle.dev/contact')
 

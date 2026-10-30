@@ -1,6 +1,7 @@
 @extends('scuttle::layout')
 
-@section('title', 'News')
+@section('title', 'News: what changed and what it means')
+@section('crumb', 'News')
 @section('description', 'News from Scuttle Development: what changed in the field, what it means for your software, and which service answers it.')
 @section('canonical', 'https://scuttle.dev/news')
 

@@ -16,6 +16,7 @@
         $seoDesc = preg_match('/^(.{80,}(?<!excl)(?<!e\.g)[.!?])\s/us', $cut, $m) ? $m[1] : rtrim(preg_replace('/\s+\S*$/u', '', mb_substr($rawDesc, 0, 157)), " ,.:;-").'…';
     }
     $canon = trim($__env->yieldContent('canonical'));
+    $crumbName = trim($__env->yieldContent('crumb'));
     $enPath = '/'.trim((string) parse_url($canon, PHP_URL_PATH), '/');
     $isNl = request()->is('nl') || request()->is('nl/*');
     $paired = \Spdotdev\ScuttleDev\Dutch::paired($enPath);
@@ -42,7 +43,9 @@
   <meta property="og:url" content="{{ $canon }}" />
   <meta property="og:title" content="{{ $seoTitle }}" />
   <meta property="og:description" content="{{ $seoDesc }}" />
-  <meta property="og:image" content="{{ secure_asset('vendor/scuttle/og-image.png') }}" />
+  <meta property="og:image" content="{{ \Spdotdev\ScuttleDev\Dutch::ogImage($enPath) }}" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="Scuttle Development: automation, AI and security for business software" />
   <meta property="og:site_name" content="Scuttle Development" />
   <meta property="og:locale" content="en_GB" />
@@ -50,7 +53,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="{{ $seoTitle }}" />
   <meta name="twitter:description" content="{{ $seoDesc }}" />
-  <meta name="twitter:image" content="{{ secure_asset('vendor/scuttle/og-image.png') }}" />
+  <meta name="twitter:image" content="{{ \Spdotdev\ScuttleDev\Dutch::ogImage($enPath) }}" />
   @php
     // BreadcrumbList for every inner page: Home, the section it lives in, the page.
     $path = trim(parse_url($canon, PHP_URL_PATH) ?: '', '/');
@@ -60,7 +63,7 @@
         foreach ($segs as $i => $seg) {
             $acc .= '/'.$seg; $last = $i === count($segs) - 1;
             if ($seg === 'services') continue;
-            $crumbs[] = [$last ? $rawTitle : ($names[$seg] ?? \Illuminate\Support\Str::headline($seg)), 'https://scuttle.dev'.$acc];
+            $crumbs[] = [$last ? ($crumbName ?: $rawTitle) : ($names[$seg] ?? \Illuminate\Support\Str::headline($seg)), 'https://scuttle.dev'.$acc];
         }
         $ld = ['@context' => 'https://schema.org', '@type' => 'BreadcrumbList', 'itemListElement' => array_map(fn ($c, $k) => ['@type' => 'ListItem', 'position' => $k + 1, 'name' => $c[0], 'item' => $c[1]], $crumbs, array_keys($crumbs))];
     }

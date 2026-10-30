@@ -64,13 +64,13 @@ final class Dutch
         $p = '/'.trim($enPath, '/');
         $fixed = [
             '/' => ['Automatisering, AI en beveiliging voor je bedrijfssoftware', 'Automatiseer het werk dat je team herhaalt: AI-agents, koppelingen en veilige software die blijft draaien. Eén senior developer in Eindhoven.'],
-            '/pricing' => ['Prijzen', 'Eén tarief, twee manieren om te kopen: EUR 90 per uur excl. btw, of een vaste prijs voor de Health Check, de security quick scan en de architectuurreview.'],
-            '/health-check' => ['Health Check', 'Beoordeling in twee dagen: kansen voor automatisering, risico\'s en een stappenplan. Vaste prijs EUR 1.080 excl. btw (12 uur).'],
-            '/services' => ['Diensten', 'De twaalf diensten en wat je daarna in handen hebt: een rapport, een draaiende server, een pipeline, een document in je repository. Open prijzen.'],
-            '/contact' => ['Contact', 'Neem contact op met Scuttle Development in Eindhoven: het formulier, info@scuttle.dev, telefoon, vCard en adres. Ik reageer binnen één werkdag.'],
-            '/company' => ['Het bedrijf', 'Scuttle Development: één senior developer en solution architect in Eindhoven, opgericht in 2024. Hoe ik werk, waar ik in geloof en hoe je met me werkt.'],
+            '/pricing' => ['Prijzen: EUR 90 per uur en vaste prijzen', 'Eén tarief, twee manieren om te kopen: EUR 90 per uur excl. btw, of een vaste prijs voor de Health Check, de security quick scan en de architectuurreview.'],
+            '/health-check' => [Catalog::SEO_TITLES_NL['legacy-health-check'], 'Beoordeling in twee dagen: kansen voor automatisering, risico\'s en een stappenplan. Vaste prijs EUR 1.080 excl. btw (12 uur).'],
+            '/services' => ['Diensten: twaalf diensten, automatisering voorop', 'De twaalf diensten en wat je daarna in handen hebt: een rapport, een draaiende server, een pipeline, een document in je repository. Open prijzen.'],
+            '/contact' => ['Contact: vertel me wat je draait', 'Neem contact op met Scuttle Development in Eindhoven: het formulier, info@scuttle.dev, telefoon, vCard en adres. Ik reageer binnen één werkdag.'],
+            '/company' => ['Het bedrijf: één senior developer in Eindhoven', 'Scuttle Development: één senior developer en solution architect in Eindhoven, opgericht in 2024. Hoe ik werk, waar ik in geloof en hoe je met me werkt.'],
             '/privacy' => ['Privacyverklaring', 'Welke gegevens Scuttle Development gebruikt en waarom, welke verwerkers meekijken, dat deze site geen tracking- of analysecookies zet en hoe je je gegevens laat verwijderen.'],
-            '/case-studies' => ['Casestudy\'s', 'Casestudy\'s van Scuttle Development: een migratie terwijl het platform in gebruik bleef, een API voor AI-assistenten, een klein model voor een wake word en een bedrijf op agents.'],
+            '/case-studies' => ['Casestudy\'s: werk zoals het ging', 'Casestudy\'s van Scuttle Development: een migratie terwijl het platform in gebruik bleef, een API voor AI-assistenten, een klein model voor een wake word en een bedrijf op agents.'],
         ];
         if (isset($fixed[$p])) {
             return $fixed[$p];
@@ -78,7 +78,7 @@ final class Dutch
         if (preg_match('#^/services/([a-z0-9-]+)$#', $p, $m) && isset(Catalog::all()[$m[1]])) {
             $c = Catalog::all()[$m[1]];
 
-            return [$c['name'], $c['nl']['short'].' '.$c['nl']['price'].'.'];
+            return [Catalog::SEO_TITLES_NL[$m[1]] ?? $c['name'], $c['nl']['short'].' '.$c['nl']['price'].'.'];
         }
         if (preg_match('#^/case-studies/([a-z0-9-]+)$#', $p, $m) && isset(Cases::all()[$m[1]])) {
             $c = Cases::all()[$m[1]];
@@ -87,6 +87,17 @@ final class Dutch
         }
 
         return ['', ''];
+    }
+
+    /** The social image for a page: its own card in public/og when one exists, else the shared one. */
+    public static function ogImage(string $enPath): string
+    {
+        $slug = str_replace('/', '-', trim($enPath, '/'));
+        if ($slug !== '' && preg_match('/^[a-z0-9-]+$/', $slug) && is_file(__DIR__.'/../public/og/'.$slug.'.png')) {
+            return secure_asset('vendor/scuttle/og/'.$slug.'.png');
+        }
+
+        return secure_asset('vendor/scuttle/og-image.png');
     }
 
     public static function fit(string $title, string $suffix = ' | Scuttle Development'): string

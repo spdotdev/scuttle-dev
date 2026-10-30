@@ -1,7 +1,8 @@
 @extends('scuttle::layout')
 
-@section('title', 'Company')
-@section('description', 'Scuttle Development: one senior developer and solution architect in Eindhoven, founded 2024. How I work, what I believe about software, the facts, and how to work with me as an agency or a peer.')
+@section('title', 'Company: one senior developer in Eindhoven')
+@section('crumb', 'Company')
+@section('description', 'One senior developer and solution architect in Eindhoven, founded 2024. How I work, what I believe about software, the facts, and how to work with me.')
 @section('canonical', 'https://scuttle.dev/company')
 
 @section('content')

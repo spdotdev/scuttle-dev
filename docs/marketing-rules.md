@@ -22,6 +22,9 @@ Rules from Stas for the words, numbers and structure of the site. Read before wr
 - **Promote what should be bought most.** Projects in steps and the maintenance retainer carry the badge; the Health Check is "where most start".
 - **Plain words, "I" not "we".** One person does the work and says so.
 
-## Structure of the site (2026-10-24)
+## Structure of the site, round 2 (2026-10-30, council)
+Menu: Services (hover menu, three groups, plus an "All services" link to `/services`, which replaced Work), Pricing, Case studies, Company, Contact, plus the Book a call button. News and Projects are in the footer. The sectors block is gone from the home page. The home leads with the automation headline, then one offer (Health Check, two days, EUR 1,080 excl. VAT) and one button; proof (cases) comes before the tiles and the demo panel moves below them. Pages that exist in both languages have real Dutch twins under `/nl/` with hreflang; send Dutch outreach links there. News bodies and project docs stay English only.
+
+## Structure of the site (2026-10-24, superseded in part by the round above)
 Menu: Services (hover menu, three groups), Pricing, Work, Case studies, Projects, News, Company, Contact, plus the Book a call button. Careers sits inside Company, never in the menu ("too many clicks for no reason"). Sectors is a home block, not a menu item. The word is services, not products: "we don't sell products, we sell services".
 Home: hero, interactive demo panel, three product groups, belts, 12 tiles, case study carousel, sectors, closing call to action that links to /contact. Products from `src/Catalog.php`, cases from `src/Cases.php`, pricing with two blocks of four, contact as its own page with the form, the vCard, the QR code, the address and the Chamber of Commerce link.

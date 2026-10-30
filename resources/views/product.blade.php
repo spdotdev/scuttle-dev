@@ -28,7 +28,8 @@ foreach ($related as $r) {
 }
 @endphp
 
-@section('title', $p['name'])
+@section('title', $C::SEO_TITLES[$p['slug']] ?? $p['name'])
+@section('crumb', $p['name'])
 @section('description', $p['short'].' '.$p['price'].'.')
 @section('canonical', $C::canonical($p))
 

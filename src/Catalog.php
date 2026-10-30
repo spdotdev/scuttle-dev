@@ -15,6 +15,38 @@ final class Catalog
 {
     public const HOURLY = 'EUR 90 per hour excl. VAT';
 
+    /** Search titles: the service and what it is, so the result says more than the name (council round 2, 2026-10-30). */
+    public const SEO_TITLES = [
+        'ai-integration' => 'AI Integration: agents, MCP servers and RAG',
+        'integrations' => 'Integrations for bookings, payments, ERP and mail',
+        'full-stack-build' => 'Full-stack Build: a web application end to end',
+        'modernization' => 'Modernization: PHP, framework and hosting up to date',
+        'android-app' => 'Android App: Kotlin and Jetpack Compose',
+        'security-assessment' => 'Security Assessment: vulnerability scan or pentest',
+        'architecture-review' => 'Architecture Review: options and a recommendation',
+        'hardening' => 'Hardening and Secure Pipeline for your servers',
+        'maintenance-retainer' => 'Maintenance Retainer: patches and monitoring monthly',
+        'compliance' => 'Compliance Alignment: NIS2, GDPR and DORA',
+        'handover-pack' => 'Handover Pack: runbook, architecture, decisions',
+        'legacy-health-check' => 'Health Check: two-day assessment, fixed price',
+    ];
+
+    /** @var array<string, string> */
+    public const SEO_TITLES_NL = [
+        'ai-integration' => 'AI Integration: agents, MCP-servers en RAG',
+        'integrations' => 'Integrations: systemen die betrouwbaar praten',
+        'full-stack-build' => 'Full-stack Build: een webapplicatie van begin tot eind',
+        'modernization' => 'Modernization: PHP, framework en hosting bijgewerkt',
+        'android-app' => 'Android App: Kotlin en Jetpack Compose',
+        'security-assessment' => 'Security Assessment: kwetsbaarhedenscan of pentest',
+        'architecture-review' => 'Architecture Review: opties en een advies',
+        'hardening' => 'Hardening en Secure Pipeline voor je servers',
+        'maintenance-retainer' => 'Maintenance Retainer: patches en monitoring per maand',
+        'compliance' => 'Compliance Alignment: NIS2, AVG en DORA',
+        'handover-pack' => 'Handover Pack: runbook, architectuur, besluiten',
+        'legacy-health-check' => 'Health Check: beoordeling in twee dagen, vaste prijs',
+    ];
+
     /** @var array<string, string> group key => label */
     public const GROUPS = [
         'build' => 'Automate',
