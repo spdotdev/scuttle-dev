@@ -39,6 +39,9 @@ Route::domain(config('scuttle-dev.domain'))
             Route::get('/privacy', [SiteController::class, 'privacy'])->name('scuttle.privacy');
             Route::get('/pricing', [SiteController::class, 'pricing'])->name('scuttle.pricing');
             Route::get('/health-check', [SiteController::class, 'healthCheck'])->name('scuttle.health-check');
+            Route::get('/health-check/sample', [SiteController::class, 'healthCheckSample'])->name('scuttle.health-check.sample');
+            Route::get('/php-check', [SiteController::class, 'phpCheck'])->name('scuttle.php-check');
+            Route::get('/nis2', [SiteController::class, 'nis2'])->name('scuttle.nis2');
             Route::redirect('/legacy-health-check', '/health-check', 301);
             Route::get('/services/{slug}', [SiteController::class, 'product'])
                 ->where('slug', '[a-z0-9-]+')
@@ -63,6 +66,9 @@ Route::domain(config('scuttle-dev.domain'))
                 Route::get('/privacy', [SiteController::class, 'privacy']);
                 Route::get('/pricing', [SiteController::class, 'pricing']);
                 Route::get('/health-check', [SiteController::class, 'healthCheck']);
+                Route::get('/health-check/sample', [SiteController::class, 'healthCheckSample']);
+                Route::get('/php-check', [SiteController::class, 'phpCheck']);
+                Route::get('/nis2', [SiteController::class, 'nis2']);
                 Route::get('/services', [SiteController::class, 'work']);
                 Route::get('/services/{slug}', [SiteController::class, 'product'])->where('slug', '[a-z0-9-]+');
                 Route::get('/case-studies', [SiteController::class, 'cases']);

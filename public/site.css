@@ -603,3 +603,18 @@ footer .bottom{grid-column:1/-1;border-top:1px solid var(--dark-line);padding-to
 .glance b{font:500 22px "Geist",sans-serif;letter-spacing:-.01em;color:var(--ink)}
 .glance span{font-size:13.5px;line-height:1.4;color:var(--muted)}
 @media (max-width:600px){.glance{grid-template-columns:1fr}.glance li{grid-template-columns:auto 1fr;align-items:baseline;gap:12px}}
+
+/* tables on the landing pages and the sample report */
+.tbl{width:100%;border-collapse:collapse;font-size:15px}
+.tbl th,.tbl td{text-align:left;padding:10px 12px;border-top:1px solid var(--line2);vertical-align:top}
+.tbl thead th{font:500 12px "Geist Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border-top:0}
+.mtable{overflow-x:auto;margin:14px 0}
+.page code{font:400 .92em "Geist Mono",monospace;background:var(--plate);padding:1px 5px;border-radius:3px}
+.page .ex{color:var(--ink2);border-left:2px solid var(--line2);padding-left:14px}
+.page .callout.who{display:grid;grid-template-columns:72px minmax(0,1fr);gap:18px;align-items:start}
+.page .callout.who img{border-radius:50%;object-fit:cover;width:72px;height:72px}
+.page .callout.who h2{margin:0 0 6px;font-size:18px}
+@media (max-width:600px){.page .callout.who{grid-template-columns:1fr}}
+.page .mtable{max-width:100%;min-width:0}.mtable table.tbl{min-width:0}.mtable table.tbl th,.mtable table.tbl td{padding:10px 10px 10px 0;font-size:14.5px;letter-spacing:0}
+/* a long Dutch compound word in a page title must break instead of pushing the page sideways */
+.page h1,.page h2,.page .lead{overflow-wrap:break-word;hyphens:auto}

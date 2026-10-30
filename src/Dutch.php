@@ -13,7 +13,7 @@ final class Dutch
     public const HOST = 'https://scuttle.dev';
 
     /** @var list<string> */
-    private const FIXED = ['/', '/pricing', '/health-check', '/services', '/contact', '/company', '/privacy', '/case-studies'];
+    private const FIXED = ['/', '/pricing', '/health-check', '/health-check/sample', '/php-check', '/nis2', '/services', '/contact', '/company', '/privacy', '/case-studies'];
 
     public static function paired(string $path): bool
     {

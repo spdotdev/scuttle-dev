@@ -35,6 +35,24 @@ class SiteController
         return $this->productView('legacy-health-check');
     }
 
+    public function healthCheckSample(): View
+    {
+        // @phpstan-ignore argument.type (the scuttle:: namespace is registered at runtime via loadViewsFrom, so it is not resolvable during package-only static analysis)
+        return view('scuttle::health-check-sample');
+    }
+
+    public function phpCheck(): View
+    {
+        // @phpstan-ignore argument.type (the scuttle:: namespace is registered at runtime via loadViewsFrom, so it is not resolvable during package-only static analysis)
+        return view('scuttle::php-check');
+    }
+
+    public function nis2(): View
+    {
+        // @phpstan-ignore argument.type (the scuttle:: namespace is registered at runtime via loadViewsFrom, so it is not resolvable during package-only static analysis)
+        return view('scuttle::nis2');
+    }
+
     public function product(string $slug): View
     {
         // The Health Check keeps its own address.

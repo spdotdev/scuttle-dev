@@ -26,7 +26,7 @@ class SiteTest extends TestCase
 
     public function test_search_snippets_fit_and_structured_data_is_valid(): void
     {
-        $paths = ['/', '/pricing', '/health-check', '/contact', '/services', '/case-studies', '/news', '/company', '/projects', '/privacy'];
+        $paths = ['/', '/pricing', '/health-check', '/health-check/sample', '/php-check', '/nis2', '/contact', '/services', '/case-studies', '/news', '/company', '/projects', '/privacy'];
         foreach (Catalog::all() as $p) {
             $paths[] = parse_url(Catalog::url($p), PHP_URL_PATH);
         }
@@ -64,7 +64,7 @@ class SiteTest extends TestCase
 
     public function test_dutch_twins_are_real_pages_with_hreflang(): void
     {
-        $paths = ['/', '/pricing', '/health-check', '/services', '/contact', '/company', '/privacy', '/case-studies'];
+        $paths = ['/', '/pricing', '/health-check', '/health-check/sample', '/php-check', '/nis2', '/services', '/contact', '/company', '/privacy', '/case-studies'];
         foreach (Catalog::all() as $p) {
             $paths[] = parse_url(Catalog::url($p), PHP_URL_PATH);
         }
@@ -112,7 +112,7 @@ class SiteTest extends TestCase
 
     public function test_every_internal_link_and_social_image_resolves(): void
     {
-        $pages = ['/', '/pricing', '/health-check', '/services', '/contact', '/company', '/privacy', '/case-studies', '/news', '/projects', '/nl', '/nl/pricing', '/nl/services', '/nl/contact', '/nl/case-studies'];
+        $pages = ['/', '/pricing', '/health-check', '/health-check/sample', '/php-check', '/nis2', '/services', '/contact', '/company', '/privacy', '/case-studies', '/news', '/projects', '/nl', '/nl/pricing', '/nl/services', '/nl/contact', '/nl/case-studies'];
         foreach (Catalog::all() as $p) {
             $pages[] = parse_url(Catalog::url($p), PHP_URL_PATH);
         }
@@ -202,7 +202,7 @@ class SiteTest extends TestCase
 
     public function test_content_pages_set_no_cookie_and_the_contact_form_keeps_its_session(): void
     {
-        foreach (['/', '/nl', '/pricing', '/health-check', '/services/modernization', '/privacy', '/news', '/case-studies/api-meets-ai', '/robots.txt', '/sitemap.xml'] as $path) {
+        foreach (['/', '/nl', '/pricing', '/health-check', '/health-check/sample', '/php-check', '/nis2', '/services/modernization', '/privacy', '/news', '/case-studies/api-meets-ai', '/robots.txt', '/sitemap.xml'] as $path) {
             $response = $this->get('http://scuttle.dev'.$path)->assertOk();
             $this->assertEmpty($response->headers->getCookies(), $path.' sets a cookie');
         }
@@ -241,6 +241,33 @@ class SiteTest extends TestCase
         foreach ($cookies as $cookie) {
             $this->assertNull($cookie->getDomain(), $cookie->getName().' must be a host-only cookie on scuttle.dev');
         }
+    }
+
+    public function test_landing_pages_carry_sourced_facts_and_say_what_is_illustrative(): void
+    {
+        $php = (string) $this->get('http://scuttle.dev/php-check')->assertOk()->getContent();
+        // The four rows of php.net/supported-versions.php read on 2026-10-30; update the page and this test when php.net changes.
+        foreach (['8.2', '8 Dec 2022', '31 Dec 2026', '8.3', '31 Dec 2027', '8.4', '31 Dec 2028', '8.5', '31 Dec 2029'] as $cell) {
+            $this->assertStringContainsString('<td>'.$cell.'</td>', $php, $cell);
+        }
+        $this->assertStringContainsString('href="https://www.php.net/supported-versions.php"', $php);
+        $this->assertStringContainsString('EUR 1,080', $php);
+        $this->assertStringContainsString('composer audit', $php);
+
+        $sample = (string) $this->get('http://scuttle.dev/health-check/sample')->assertOk()->getContent();
+        $this->assertStringContainsString('Illustration.', $sample);
+        $this->assertStringContainsString('invented', $sample);
+        $this->assertStringNotContainsString('hosintra', strtolower($sample));
+
+        $nis = (string) $this->get('http://scuttle.dev/nis2')->assertOk()->getContent();
+        foreach (['15 August 2026', '11 September 2026', '11 December 2027', 'Staatsblad 2026, 189', 'ncsc.nl/cyberbeveiligingswet-nis2', 'nctv.nl', 'digital-strategy.ec.europa.eu'] as $needle) {
+            $this->assertStringContainsString($needle, $nis, $needle);
+        }
+        $this->assertStringContainsString('I am not a lawyer', $nis);
+
+        $nl = (string) $this->get('http://scuttle.dev/nl/php-check')->assertOk()->getContent();
+        $this->assertStringContainsString('Welke PHP-versie draait je systeem', $nl);
+        $this->assertStringContainsString('<code>composer audit</code>', $nl);
     }
 
     public function test_homepage_renders_on_the_configured_host(): void
@@ -350,7 +377,7 @@ class SiteTest extends TestCase
 
     public function test_every_page_links_the_shared_stylesheet_script_and_logo(): void
     {
-        foreach (['/', '/privacy', '/pricing', '/contact', '/services', '/case-studies', '/news', '/company', '/projects', '/projects/manual/docs', '/health-check', '/services/modernization', '/case-studies/phalcon-to-laravel'] as $path) {
+        foreach (['/', '/privacy', '/pricing', '/contact', '/services', '/case-studies', '/news', '/company', '/projects', '/projects/manual/docs', '/health-check', '/health-check/sample', '/php-check', '/nis2', '/services/modernization', '/case-studies/phalcon-to-laravel'] as $path) {
             $this->get('http://scuttle.dev'.$path)
                 ->assertOk()
                 ->assertSee('vendor/scuttle/site.css', false)
@@ -377,7 +404,7 @@ class SiteTest extends TestCase
 
     public function test_the_site_points_at_no_client_and_leads_with_automation(): void
     {
-        foreach (['/', '/pricing', '/contact', '/health-check', '/services/ai-integration', '/services/modernization', '/case-studies/phalcon-to-laravel', '/case-studies/business-on-agents', '/services', '/company', '/news', '/projects'] as $path) {
+        foreach (['/', '/pricing', '/contact', '/health-check', '/health-check/sample', '/php-check', '/nis2', '/services/ai-integration', '/services/modernization', '/case-studies/phalcon-to-laravel', '/case-studies/business-on-agents', '/services', '/company', '/news', '/projects'] as $path) {
             $html = (string) $this->get('http://scuttle.dev'.$path)->assertOk()->getContent();
             foreach (['hotel', 'hosintra', 'rental-platform', 'webshop-legacy', 'erp-bridge', 'Legacy Health Check', 'Modernization in Steps', '<b>0</b>'] as $word) {
                 $this->assertStringNotContainsStringIgnoringCase($word, $html, $path.' must not contain '.$word);
@@ -587,7 +614,7 @@ class SiteTest extends TestCase
      */
     public function test_every_page_is_translatable(): void
     {
-        $paths = ['/', '/pricing', '/health-check', '/contact', '/services', '/case-studies', '/case-studies/phalcon-to-laravel', '/news', '/company', '/projects', '/projects/manual', '/privacy'];
+        $paths = ['/', '/pricing', '/health-check', '/health-check/sample', '/php-check', '/nis2', '/contact', '/services', '/case-studies', '/case-studies/phalcon-to-laravel', '/news', '/company', '/projects', '/projects/manual', '/privacy'];
         foreach (Catalog::all() as $p) {
             $paths[] = parse_url(Catalog::url($p), PHP_URL_PATH);
         }

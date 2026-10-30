@@ -5,6 +5,8 @@ $idx = sprintf('%02d', array_search($p['slug'], array_keys($C::all()), true) + 1
 $nl = $C::nl($p) + [
     'p_grp' => $C::GROUPS_NL[$p['group']].' · '.$idx,
     'p_ask' => 'Vraag naar '.$p['name'],
+    'p_samp' => 'Zo ziet het rapport eruit',
+    'p_phpc' => 'Check zelf je PHP-versie',
     'p_price_btn' => 'Zo reken ik',
     'p_what' => 'Wat je krijgt',
     'p_h2' => 'Eén opdracht. Duidelijke opleveringen.',
@@ -49,6 +51,9 @@ foreach ($related as $r) {
         <a class="btn" href="mailto:info@scuttle.dev?subject={{ rawurlencode($p['name']) }}"><span data-i="p_ask">Ask about {{ $p['name'] }}</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         <a class="btn o" href="{{ route('scuttle.pricing') }}" data-i="p_price_btn">How I price</a>
       </div>
+      @if(in_array($p['slug'], ['legacy-health-check', 'modernization'], true))
+      <p class="price">@if($p['slug'] === 'legacy-health-check')<a href="{{ route('scuttle.health-check.sample') }}" data-i="p_samp">See what the report looks like</a> · @endif<a href="{{ route('scuttle.php-check') }}" data-i="p_phpc">Check your PHP version yourself</a></p>
+      @endif
     </div>
   </header>
 
