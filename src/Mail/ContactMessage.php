@@ -21,6 +21,11 @@ class ContactMessage extends Mailable
     {
         $body = "Name: {$this->name}\nEmail: {$this->email}\nAbout: ".($this->about !== '' ? $this->about : '-')."\n\n{$this->text}\n\n--\nSent from the scuttle.dev contact form · IP {$this->ip}";
 
+        $from = (string) config('scuttle-dev.mail_from', '');
+        if ($from !== '') {
+            $this->from($from, 'Scuttle Development');
+        }
+
         return $this
             ->subject('scuttle.dev contact: '.($this->about !== '' ? $this->about : 'general').' · '.$this->name)
             ->replyTo($this->email, $this->name)
