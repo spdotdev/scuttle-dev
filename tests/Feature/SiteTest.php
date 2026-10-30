@@ -200,7 +200,7 @@ class SiteTest extends TestCase
         $this->assertStringContainsString('from €720', $html);
         $this->assertStringContainsString('excl. VAT', $html);
         $this->assertSame(8, substr_count($html, 'class="plan"') + substr_count($html, 'class="plan hi"'), 'two blocks of four');
-        $this->assertSame(3, substr_count($html, 'class="badge"'), 'the promoted ones carry a badge');
+        $this->assertSame(2, substr_count($html, 'class="badge"'), 'one recommended card per block carries a badge');
         $this->assertStringContainsString('14 days', $html);
         foreach (Catalog::all() as $p) {
             $this->assertStringContainsString($p['name'], $html);

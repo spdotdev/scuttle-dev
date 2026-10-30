@@ -18,12 +18,12 @@
 
   <div class="wrap">
     <div class="plate rv">
-      <div class="pb-h"><span class="lbl dot" data-i="pr_p1l">By the hour, quoted per step</span><p data-i="pr_p1p">For work whose size only shows once we look. The rate is the same everywhere; what changes is how it is packaged.</p></div>
+      <div class="pb-h"><span class="lbl dot" data-i="pr_p1l">By the hour, quoted per step</span><p data-i="pr_p1p">For work whose size only shows once we look. The rate is the same everywhere; what changes is how it is packaged. All amounts excl. VAT.</p></div>
       <div class="plans">
         <div class="plan hi">
           <span class="badge" data-i="pr_bd1">Recommended</span>
           <span class="lbl" data-i="pr_c1l">01 · Per step</span>
-          <div class="ph2"><h3 data-i="pr_c1h">Projects in steps</h3><div class="amt"><span data-i="pr_c1a">hours × €90</span><small data-i="pr_c1s">excl. VAT</small></div></div>
+          <h3 data-i="pr_c1h">Projects in steps</h3><div class="amt"><span data-i="pr_c1a">hours × €90</span><small data-i="pr_c1s">per step, quoted up front</small></div>
           <p data-i="pr_c1p">Automations, integrations, builds and security work. Every step gets its own written scope and price before it starts, and you see it running before the next one is quoted.</p>
           <hr>
           <ul>
@@ -35,7 +35,7 @@
         </div>
         <div class="plan">
           <span class="lbl" data-i="pr_c2l">02 · Per hour</span>
-          <div class="ph2"><h3 data-i="pr_c2h">Hourly work</h3><div class="amt"><span data-i="pr_c2a">€90</span><small data-i="pr_c2s">/hour excl. VAT</small></div></div>
+          <h3 data-i="pr_c2h">Hourly work</h3><div class="amt"><span data-i="pr_c2a">€90</span><small data-i="pr_c2s">per hour</small></div>
           <p data-i="pr_c2p">Small, well-defined tasks and anything that does not fit a scope yet.</p>
           <hr>
           <ul>
@@ -47,7 +47,7 @@
         </div>
         <div class="plan">
           <span class="lbl" data-i="pr_c3l">03 · Per day</span>
-          <div class="ph2"><h3 data-i="pr_c3h">Subcontracting</h3><div class="amt"><span data-i="pr_c3a">€720</span><small data-i="pr_c3s">/day excl. VAT</small></div></div>
+          <h3 data-i="pr_c3h">Subcontracting</h3><div class="amt"><span data-i="pr_c3a">€720</span><small data-i="pr_c3s">per day of 8 hours</small></div>
           <p data-i="pr_c3p">Senior hands on your client's project, under your terms or mine. Eight hours at the same rate, booked per day.</p>
           <hr>
           <ul>
@@ -59,7 +59,7 @@
         </div>
         <div class="plan">
           <span class="lbl" data-i="pr_c4l">04 · Per hour</span>
-          <div class="ph2"><h3 data-i="pr_c4h">Incident help</h3><div class="amt"><span data-i="pr_c4a">€90</span><small data-i="pr_c4s">/hour excl. VAT</small></div></div>
+          <h3 data-i="pr_c4h">Incident help</h3><div class="amt"><span data-i="pr_c4a">€90</span><small data-i="pr_c4s">per hour, no surcharge</small></div>
           <p data-i="pr_c4p">Something is down, the developer is gone, and it has to work today. Read-only on production until you say otherwise.</p>
           <hr>
           <ul>
@@ -75,12 +75,12 @@
 
   <div class="wrap" style="margin-top:24px">
     <div class="plate rv">
-      <div class="pb-h"><span class="lbl dot" data-i="pr_p2l">Fixed price, fixed shape</span><p data-i="pr_p2p">Known price before you say yes. Each one is a fixed number of hours at the same rate; the math is shown so nothing is hidden.</p></div>
+      <div class="pb-h"><span class="lbl dot" data-i="pr_p2l">Fixed price, fixed shape</span><p data-i="pr_p2p">Known price before you say yes. Each one is a fixed number of hours at the same rate; the math is shown so nothing is hidden. All amounts excl. VAT.</p></div>
       <div class="plans">
         <div class="plan hi">
-          <span class="badge" data-i="pr_bd2">Where most start</span>
+          <span class="badge" data-i="pr_bd2">Recommended</span>
           <span class="lbl" data-i="pr_c5l">05 · Fixed price</span>
-          <div class="ph2"><h3 data-i="pr_c5h">Health Check</h3><div class="amt"><span data-i="pr_c5a">€1,080</span><small data-i="pr_c5s">excl. VAT · 12 h</small></div></div>
+          <h3 data-i="pr_c5h">Health Check</h3><div class="amt"><span data-i="pr_c5a">€1,080</span><small data-i="pr_c5s">fixed, 12 hours</small></div>
           <p data-i="pr_c5p">Where automation saves hours, what is risky, which parts are out of support, and a step-by-step plan. Read-only, two days.</p>
           <hr>
           <ul>
@@ -90,10 +90,9 @@
           </ul>
           <a class="btn" href="{{ route('scuttle.health-check') }}"><span data-i="pr_c5b">Read what is in it →</span></a>
         </div>
-        <div class="plan hi">
-          <span class="badge" data-i="pr_bd3">Recommended</span>
+        <div class="plan">
           <span class="lbl" data-i="pr_c6l">06 · Per month</span>
-          <div class="ph2"><h3 data-i="pr_c6h">Maintenance retainer</h3><div class="amt"><span data-i="pr_c6a">from €720</span><small data-i="pr_c6s">/month excl. VAT · 8 h</small></div></div>
+          <h3 data-i="pr_c6h">Maintenance retainer</h3><div class="amt"><span data-i="pr_c6a">from €720</span><small data-i="pr_c6s">per month, blocks of 8 hours</small></div>
           <p data-i="pr_c6p">A monthly block of hours for patches, monitoring, backups, small changes and a report, by the person who knows the system.</p>
           <hr>
           <ul>
@@ -105,7 +104,7 @@
         </div>
         <div class="plan">
           <span class="lbl" data-i="pr_c7l">07 · Fixed price</span>
-          <div class="ph2"><h3 data-i="pr_c7h">Security quick scan</h3><div class="amt"><span data-i="pr_c7a">€720</span><small data-i="pr_c7s">excl. VAT · 8 h</small></div></div>
+          <h3 data-i="pr_c7h">Security quick scan</h3><div class="amt"><span data-i="pr_c7a">€720</span><small data-i="pr_c7s">fixed, 8 hours</small></div>
           <p data-i="pr_c7p">One day on your web application and server: open ports, TLS, headers, dependencies with known vulnerabilities, the obvious access-control holes. Written authorization first.</p>
           <hr>
           <ul>
@@ -117,7 +116,7 @@
         </div>
         <div class="plan">
           <span class="lbl" data-i="pr_c8l">08 · Fixed price</span>
-          <div class="ph2"><h3 data-i="pr_c8h">Architecture review</h3><div class="amt"><span data-i="pr_c8a">€1,440</span><small data-i="pr_c8s">excl. VAT · 16 h</small></div></div>
+          <h3 data-i="pr_c8h">Architecture review</h3><div class="amt"><span data-i="pr_c8a">€1,440</span><small data-i="pr_c8s">fixed, 16 hours</small></div>
           <p data-i="pr_c8p">A decision on stack, cloud, integration or build versus buy: options compared, a written recommendation, decision records.</p>
           <hr>
           <ul>
@@ -200,13 +199,13 @@ Object.assign(window.SCUTTLE_NL.t, {
  "pr_h": "Eén tarief, twee manieren om het te kopen",
  "pr_lead": "Ik krijg altijd eerst de vraag wat dingen kosten, dus hier staat het. Eén uurtarief voor werk per uur of in stappen, en vaste prijzen voor dingen met een vaste vorm. Alle bedragen zijn excl. btw.",
  "pr_p1l": "Per uur, per stap geoffreerd",
- "pr_p1p": "Voor werk waarvan de omvang pas blijkt als we ervoor zitten. Het tarief is overal gelijk; wat verandert is hoe het is verpakt.",
+ "pr_p1p": "Voor werk waarvan de omvang pas blijkt als we ervoor zitten. Het tarief is overal gelijk; wat verandert is hoe het is verpakt. Alle bedragen excl. btw.",
  "pr_p2l": "Vaste prijs, vaste vorm",
- "pr_p2p": "Je kent de prijs voordat je ja zegt. Elk pakket is een vast aantal uren tegen hetzelfde tarief; de som staat erbij zodat niets verborgen is.",
+ "pr_p2p": "Je kent de prijs voordat je ja zegt. Elk pakket is een vast aantal uren tegen hetzelfde tarief; de som staat erbij zodat niets verborgen is. Alle bedragen excl. btw.",
  "pr_c1l": "01 · Per stap",
  "pr_c1h": "Projecten in stappen",
  "pr_c1a": "uren × €90",
- "pr_c1s": "excl. btw",
+ "pr_c1s": "per stap, vooraf geoffreerd",
  "pr_c1p": "Automatiseringen, koppelingen, bouwwerk en beveiligingswerk. Elke stap krijgt vooraf een eigen schriftelijke scope en prijs, en je ziet hem draaien voordat de volgende wordt geoffreerd.",
  "pr_c1i0": "De offerte laat de som zien: geschatte uren maal het tarief, als bandbreedte.",
  "pr_c1i1": "Offerte 14 dagen geldig. Je kunt na elke stap stoppen.",
@@ -215,7 +214,7 @@ Object.assign(window.SCUTTLE_NL.t, {
  "pr_c2l": "02 · Per uur",
  "pr_c2h": "Werk per uur",
  "pr_c2a": "€90",
- "pr_c2s": "/uur excl. btw",
+ "pr_c2s": "per uur",
  "pr_c2p": "Kleine, duidelijke taken en alles wat nog niet in een scope past.",
  "pr_c2i0": "Maandelijks gefactureerd, met de uren per taak.",
  "pr_c2i1": "Optioneel een maximum per maand, vooraf afgesproken.",
@@ -224,7 +223,7 @@ Object.assign(window.SCUTTLE_NL.t, {
  "pr_c3l": "03 · Per dag",
  "pr_c3h": "Inhuur als onderaannemer",
  "pr_c3a": "€720",
- "pr_c3s": "/dag excl. btw",
+ "pr_c3s": "per dag van 8 uur",
  "pr_c3p": "Ervaren handen op het project van jouw klant, onder jouw voorwaarden of de mijne. Acht uur tegen hetzelfde tarief, per dag geboekt.",
  "pr_c3i0": "Jouw tools, jouw repository, jouw standaarden.",
  "pr_c3i1": "NDA getekend voordat er iets gedeeld wordt.",
@@ -233,7 +232,7 @@ Object.assign(window.SCUTTLE_NL.t, {
  "pr_c4l": "04 · Per uur",
  "pr_c4h": "Hulp bij incidenten",
  "pr_c4a": "€90",
- "pr_c4s": "/uur excl. btw",
+ "pr_c4s": "per uur, geen toeslag",
  "pr_c4p": "Iets ligt eruit, de ontwikkelaar is weg en het moet vandaag werken. Alleen-lezen op productie tot je anders zegt.",
  "pr_c4i0": "Zelfde tarief, geen spoedtoeslag.",
  "pr_c4i1": "Eerste uur: de oorzaak vinden en zeggen wat de oplossing kost.",
@@ -242,7 +241,7 @@ Object.assign(window.SCUTTLE_NL.t, {
  "pr_c5l": "05 · Vaste prijs",
  "pr_c5h": "Health Check",
  "pr_c5a": "€1,080",
- "pr_c5s": "excl. btw · 12 u",
+ "pr_c5s": "vast, 12 uur",
  "pr_c5p": "Waar automatisering uren bespaart, wat risicovol is, welke onderdelen geen support meer hebben, en een plan per stap. Alleen-lezen, twee dagen.",
  "pr_c5i0": "12 uur × EUR 90, vast.",
  "pr_c5i1": "Eerst een gratis kennismakingsgesprek, om te kijken of het past.",
@@ -251,7 +250,7 @@ Object.assign(window.SCUTTLE_NL.t, {
  "pr_c6l": "06 · Per maand",
  "pr_c6h": "Maintenance retainer",
  "pr_c6a": "vanaf €720",
- "pr_c6s": "/maand excl. btw · 8 u",
+ "pr_c6s": "per maand, blokken van 8 uur",
  "pr_c6p": "Een maandelijks blok uren voor patches, monitoring, back-ups, kleine wijzigingen en een rapport, door de persoon die het systeem kent.",
  "pr_c6i0": "Blokken van 8, 16 of 24 uur per maand tegen EUR 90.",
  "pr_c6i1": "Ongebruikte uren worden gemeld, nooit verstopt.",
@@ -260,7 +259,7 @@ Object.assign(window.SCUTTLE_NL.t, {
  "pr_c7l": "07 · Vaste prijs",
  "pr_c7h": "Security quick scan",
  "pr_c7a": "€720",
- "pr_c7s": "excl. btw · 8 u",
+ "pr_c7s": "vast, 8 uur",
  "pr_c7p": "Eén dag op je webapplicatie en server: open poorten, TLS, headers, afhankelijkheden met bekende kwetsbaarheden, de voor de hand liggende gaten in toegangsbeheer. Eerst schriftelijke toestemming.",
  "pr_c7i0": "8 uur × EUR 90, vast.",
  "pr_c7i1": "Bevindingen op volgorde van ernst, elk met de oplossing.",
@@ -269,15 +268,14 @@ Object.assign(window.SCUTTLE_NL.t, {
  "pr_c8l": "08 · Vaste prijs",
  "pr_c8h": "Architecture review",
  "pr_c8a": "€1,440",
- "pr_c8s": "excl. btw · 16 u",
+ "pr_c8s": "vast, 16 uur",
  "pr_c8p": "Een besluit over stack, cloud, integratie of zelf bouwen versus kopen: opties vergeleken, een schriftelijk advies, besluitenlogboek.",
  "pr_c8i0": "16 uur × EUR 90, vast.",
  "pr_c8i1": "Eén reviewsessie met je team inbegrepen.",
  "pr_c8i2": "Grotere vragen worden geoffreerd na het kennismakingsgesprek.",
  "pr_c8b": "Lees over de review →",
  "pr_bd1": "Aanbevolen",
- "pr_bd2": "Waar de meeste mensen beginnen",
- "pr_bd3": "Aanbevolen",
+ "pr_bd2": "Aanbevolen",
  "pr_in_l": "Inbegrepen in elke prijs",
  "pr_in_h": "Wat je altijd krijgt",
  "pr_f1b": "De engineer, geen accountmanager",
