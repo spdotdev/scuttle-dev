@@ -41,3 +41,32 @@ Legend: done = changed, tested, live. checked = audited, nothing to change. open
 - No hreflang: Dutch is a switch on the same address, not a separate URL, so there is nothing to point at. Separate Dutch URLs would be a bigger decision.
 
 Final live check 2026-10-30: Lighthouse mobile 100 in all four categories on /, /pricing, /contact, /services/ai-integration, /news, /company, /projects/manual/docs, /case-studies/api-meets-ai (scuttle.dev) and /, /projects, /blog, /cv (splotnikov.dev). site.css 50 KB to 15 KB and site.js 34 KB to 13 KB over the wire.
+
+# Round 2 (2026-10-30)
+
+## Council, small version
+Question: Dutch URLs versus the JS switch, what the home leads with, page order and what to cut. Advisors run: contrarian, first principles, outsider, executor (four small agents, sonnet, low effort). Left out: the expansionist, the anonymous peer-review round (chairman synthesis done in the session instead). Verdict followed:
+- Dutch: 3 of 4 for real `/nl/` pages with hreflang on the pages that can rank, news bodies and project docs stay English without a twin; the executor wanted to wait for search data. Done as the majority said, with the executor's cheap part too (a stored choice sends a returning Dutch visitor to the twin).
+- Home: 4 of 4 lead with one concrete offer and one price (Health Check, two days, EUR 1,080 excl. VAT) and one action (book a call), automation headline kept above it, demo and logos lower.
+- Menu and order: 4 of 4 cut the menu to about five, merge Work into Services, move News and Projects to the footer, cut the sectors block.
+
+## Pages
+| Page | State | What changed in round 2 |
+|---|---|---|
+| / | done v0.7.17 | offer line and one button under the headline, order: hero, foundation, cases, tiles, trust, demo, belt, closing call; sectors block removed; tile and case texts translate |
+| /nl and the Dutch twins | done v0.7.17 | `/nl`, `/nl/pricing`, `/nl/health-check`, `/nl/services`, `/nl/services/*` (12), `/nl/case-studies`, `/nl/case-studies/*` (4), `/nl/company`, `/nl/contact`, `/nl/privacy`: server-rendered Dutch, Dutch title and description, hreflang en/nl/x-default, sitemap alternates |
+| /services (was /work) | done v0.7.17 | the services index; `/work` and `/nl/work` redirect 301; menu and mega menu link to it |
+| /pricing, /contact, /company, /case-studies, /news, /projects | done v0.7.17 | search titles that say what the page is; company description 92 to 150 characters |
+| /health-check and the 11 service pages | done v0.7.17 | search titles per service (for example "Modernization: PHP, framework and hosting up to date"); Dutch titles |
+| /projects/* | done v0.7.17 | descriptions from the lead sentence, hand-written for Inventory and WhatsApp MCP |
+| All pages | done v0.7.17 to v0.7.19 | 31 own social cards in `public/og/` (1200x630, per service, case, project, news post), own 404 page with noindex, menu Services, Pricing, Case studies, Company, Contact |
+
+## Audit of what round 1 skipped (Lighthouse mobile, live)
+100 in all four categories: /health-check, /privacy, /news/what-two-days-of-health-check-buy, /projects/inventory, /nl, /, /nl/services/hardening (scuttle.dev); /toolkit, /blog/strangler-fig-what-the-bridge-taught-me (splotnikov.dev). One failure found and fixed: splotnikov.dev contact buttons (white on teal, ratio 1.9 in dark mode).
+Checks without Lighthouse: every internal link on every page type answers 200 or 301 (test), every social image file exists (test), both sitemaps parse as XML (test; the first splotnikov.dev version with alternates did not, found on the live site and fixed in v0.3.24), robots.txt unchanged and valid, http to https 308, www to apex 301, old addresses (`/legacy-health-check`, `/products/*`, `/blog`, `/work`) redirect 301, 404 pages are the site's own and noindex.
+
+## Noted, not changed
+- `/pricing/` and `/index.php` also answer 200 (canonical points at the clean address); a redirect would be a host (nginx) rule.
+- Outreach messages in the CRM that link to scuttle.dev should link Dutch recipients to `/nl/...` (sd-crm templates, not this repo).
+- The hero of splotnikov.dev still leads with "I turn legacy technical debt into infrastructure that scales"; only the line under the name was reordered to automation first. The hero sentence is Stas's wording, so it is his call.
+

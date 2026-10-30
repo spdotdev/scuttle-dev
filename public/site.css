@@ -575,7 +575,7 @@ footer .bottom{grid-column:1/-1;border-top:1px solid var(--dark-line);padding-to
 .post-card h2{font-size:22px;text-wrap:balance}
 
 /* the offer under the hero headline: one sentence, one price */
-.offer{margin:18px auto 0;text-align:center;font-size:17px;line-height:1.45;color:var(--ink2);max-width:36em}.offer b{color:var(--ink);font-weight:500}
+.offer{margin:18px auto 0;text-align:center;text-wrap:balance;font-size:17px;line-height:1.45;color:var(--ink2);max-width:36em}.offer b{color:var(--ink);font-weight:500}
 
 /* the link under the three service columns */
 .mega a.all{grid-column:1/-1;display:block;margin:14px 26px 0;padding:14px 0 0;border-top:1px solid var(--line);font-size:13.5px;color:var(--ink)}
