@@ -30,4 +30,8 @@ return [
     // Google Analytics measurement id (G-XXXX). Empty means no analytics and no
     // cookie banner. With an id, the script loads only after the visitor agrees.
     'ga_id' => env('SCUTTLE_GA_ID', ''),
+
+    // Site key of this site in sd-analytics (the cookieless own analytics, analytics.scuttle.dev). Empty means no
+    // counting and the privacy statement says so. Created with `php artisan analytics:site create`.
+    'analytics_key' => env('SCUTTLE_ANALYTICS_KEY', ''),
 ];

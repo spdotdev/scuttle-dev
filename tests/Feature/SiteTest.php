@@ -621,6 +621,41 @@ class SiteTest extends TestCase
         $this->assertStringNotContainsString('googletagmanager.com/gtag/js?id=', $home, 'the analytics script is never in the HTML, only loaded after Agree');
     }
 
+    public function test_the_own_analytics_snippet_only_exists_with_a_key_and_the_statement_follows(): void
+    {
+        $home = (string) $this->get('http://scuttle.dev/')->getContent();
+        $this->assertStringNotContainsString('/_sda/', $home);
+        $off = (string) $this->get('http://scuttle.dev/privacy')->getContent();
+        $this->assertStringContainsString('Should I ever add visitor statistics', $off);
+        $this->assertStringNotContainsString('pv_stats', substr($off, 0, (int) strpos($off, '<script>Object')), 'no counting text while the tool is off');
+
+        config(['scuttle-dev.analytics_key' => 'abcDEF123456']);
+        $response = $this->get('http://scuttle.dev/');
+        $home = (string) $response->getContent();
+        $this->assertStringContainsString('<script defer data-site="abcDEF123456" src="/_sda/s.js"></script>', $home);
+        $this->assertStringContainsString('<img src="/_sda/px/abcDEF123456.gif"', $home);
+        $this->assertStringContainsString("sda('Book a call click')", $home);
+        $this->assertEmpty($response->headers->getCookies(), 'reading a page still sets no cookie');
+        $this->assertStringNotContainsString('localStorage.setItem', $home);
+
+        $on = (string) $this->get('http://scuttle.dev/privacy')->getContent();
+        foreach (['I count visits with a small tool that runs on my own server', 'does not store your IP address', 'deleted after two days', 'Do Not Track', 'Single visits are kept for 30 days', 'Ik tel bezoeken met een klein programma', 'no tracking or analytics cookies', 'geen tracking- of analysecookies'] as $needle) {
+            $this->assertStringContainsString($needle, $on);
+        }
+        $this->assertStringNotContainsString('Should I ever add visitor statistics', $on);
+        $this->assertStringNotContainsString('Mocht ik ooit bezoekersstatistieken', $on);
+        $article = substr($on, (int) strpos($on, '<article'), (int) strpos($on, '</article>') - (int) strpos($on, '<article'));
+        $this->assertStringNotContainsString('Google Analytics', $article);
+    }
+
+    public function test_the_contact_success_event_is_only_added_with_a_key(): void
+    {
+        $this->withSession(['contact_sent' => 'mailed'])->get('http://scuttle.dev/contact')->assertDontSee("sda('Contact form sent')", false);
+
+        config(['scuttle-dev.analytics_key' => 'abcDEF123456']);
+        $this->withSession(['contact_sent' => 'mailed'])->get('http://scuttle.dev/contact')->assertSee("sda('Contact form sent')", false);
+    }
+
     public function test_the_new_pages_do_not_name_the_client(): void
     {
         $page = (string) $this->get('http://scuttle.dev/case-studies/phalcon-to-laravel')->getContent();

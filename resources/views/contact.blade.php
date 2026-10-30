@@ -26,6 +26,9 @@
       @elseif(session('contact_sent'))
         <div class="sent" role="status"><b data-i="ctp_sent">Sent. I reply within one working day.</b></div>
       @endif
+      @if(session('contact_sent') && config('scuttle-dev.analytics_key'))
+        <script>document.addEventListener('DOMContentLoaded',function(){window.sda&&sda('Contact form sent')})</script>
+      @endif
       @if($errors->any())
         <div class="err" role="alert">{{ $errors->first() }}</div>
       @endif
@@ -39,7 +42,7 @@
         <div class="cf-turnstile" data-sitekey="{{ config('scuttle-dev.turnstile_site_key') }}"></div>
         <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
       @endif
-      <div class="cf-foot"><button class="btn" type="submit" data-i="ctp_send">Send</button><a class="btn o" href="{{ config('scuttle-dev.booking_url') }}"><span data-i="ctp_book">Or book a call</span></a><small data-i="ctp_note">No tracking, no newsletter. Your message goes to info@scuttle.dev and nowhere else.</small></div>
+      <div class="cf-foot"><button class="btn" type="submit" data-i="ctp_send">Send</button><a class="btn o" href="{{ config('scuttle-dev.booking_url') }}"><span data-i="ctp_book">Or book a call</span></a><small data-i="ctp_note">No tracking cookies, no newsletter. Your message goes to info@scuttle.dev and nowhere else.</small></div>
     </form>
     <div class="side-cards">
     <div class="cc rv">
@@ -108,7 +111,7 @@ Object.assign(window.SCUTTLE_NL.t, {
  "ctp_m": "Wat draai je, en waar gaan de uren heen?",
  "ctp_send": "Versturen",
  "ctp_book": "Of plan een gesprek",
- "ctp_note": "Geen tracking, geen nieuwsbrief. Je bericht gaat naar info@scuttle.dev en nergens anders heen.",
+ "ctp_note": "Geen trackingcookies, geen nieuwsbrief. Je bericht gaat naar info@scuttle.dev en nergens anders heen.",
  "ctp_c": "Bedrijf",
  "ctp_addr": "Dirigentplein 144<br>5642 RK Eindhoven<br>Nederland",
  "ctp_save": "Bewaar mijn contactgegevens",

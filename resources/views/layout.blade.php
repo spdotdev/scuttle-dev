@@ -139,6 +139,12 @@
   </div>
   <script>window.SCUTTLE_GA = @json(config('scuttle-dev.ga_id'));</script>
   @endif
+  @if(config('scuttle-dev.analytics_key'))
+  {{-- sd-analytics: no cookie, no browser storage, same host (/_sda/ is answered by the sd-analytics package). --}}
+  <script defer data-site="{{ config('scuttle-dev.analytics_key') }}" src="/_sda/s.js"></script>
+  <script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(a&&a.href===new URL(@json(config('scuttle-dev.booking_url'), JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT),location.href).href&&window.sda)sda('Book a call click')},true)</script>
+  <noscript><img src="/_sda/px/{{ config('scuttle-dev.analytics_key') }}.gif" alt="" width="1" height="1" style="position:absolute;left:-9999px"></noscript>
+  @endif
   <script src="{{ secure_asset('vendor/scuttle/site.js') }}" defer></script>
 </body>
 
