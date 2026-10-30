@@ -4,6 +4,11 @@
 @section('title', $post['title'])
 @section('description', $post['summary'])
 @section('canonical', 'https://scuttle.dev/news/'.$post['slug'])
+@section('ogtype', 'article')
+
+@section('head')
+  <script type="application/ld+json">{!! json_encode(['@'.'context' => 'https://schema.org', '@type' => 'Article', 'headline' => \Illuminate\Support\Str::limit($post['title'], 108, ''), 'description' => $post['summary'], 'datePublished' => $post['date'], 'mainEntityOfPage' => 'https://scuttle.dev/news/'.$post['slug'], 'image' => secure_asset('vendor/scuttle/og-image.png'), 'author' => ['@type' => 'Person', 'name' => 'Stanislav Plotnikov'], 'publisher' => ['@type' => 'Organization', 'name' => 'Scuttle Development', 'url' => 'https://scuttle.dev']], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+@endsection
 
 @section('content')
 <article class="wrap page">

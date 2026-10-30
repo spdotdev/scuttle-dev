@@ -32,6 +32,10 @@ foreach ($related as $r) {
 @section('description', $p['short'].' '.$p['price'].'.')
 @section('canonical', $C::canonical($p))
 
+@section('head')
+  <script type="application/ld+json">{!! json_encode(['@'.'context' => 'https://schema.org', '@type' => 'Service', 'name' => $p['name'], 'description' => $p['short'], 'url' => $C::canonical($p), 'serviceType' => $p['name'], 'provider' => ['@type' => 'ProfessionalService', 'name' => 'Scuttle Development', 'url' => 'https://scuttle.dev']], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+@endsection
+
 @section('content')
 <article class="prod">
   <header class="wrap ph">

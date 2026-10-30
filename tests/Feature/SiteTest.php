@@ -24,6 +24,36 @@ class SiteTest extends TestCase
             ->assertSee('href="https://plan.scuttle.dev/book/stas"', false);
     }
 
+    public function test_search_snippets_fit_and_structured_data_is_valid(): void
+    {
+        $paths = ['/', '/pricing', '/health-check', '/contact', '/work', '/case-studies', '/news', '/company', '/projects', '/privacy'];
+        foreach (Catalog::all() as $p) {
+            $paths[] = parse_url(Catalog::url($p), PHP_URL_PATH);
+        }
+        foreach (Cases::all() as $c) {
+            $paths[] = '/case-studies/'.$c['slug'];
+        }
+        foreach (Posts::all() as $post) {
+            $paths[] = '/news/'.$post['slug'];
+        }
+        foreach ($paths as $path) {
+            $html = (string) $this->get('http://scuttle.dev'.$path)->assertOk()->getContent();
+            preg_match('/<title>(.*?)<\/title>/s', $html, $t);
+            preg_match('/name="description" content="(.*?)"/s', $html, $d);
+            $this->assertLessThanOrEqual(70, mb_strlen(html_entity_decode($t[1])), $path.' title length');
+            $this->assertLessThanOrEqual(160, mb_strlen(html_entity_decode($d[1])), $path.' description length');
+            preg_match_all('/<script type="application\/ld\+json">(.*?)<\/script>/s', $html, $blocks);
+            $this->assertNotEmpty($blocks[1], $path.' has structured data');
+            foreach ($blocks[1] as $json) {
+                $data = json_decode($json, true);
+                $this->assertIsArray($data, $path.' ld+json parses');
+                $this->assertSame('https://schema.org', $data['@context'] ?? null, $path.' ld+json context');
+            }
+        }
+        $this->assertStringContainsString('og:type" content="article"', (string) $this->get('http://scuttle.dev/news/'.array_values(Posts::all())[0]['slug'])->getContent());
+        $this->assertStringContainsString('og:type" content="website"', (string) $this->get('http://scuttle.dev/pricing')->getContent());
+    }
+
     public function test_homepage_renders_on_the_configured_host(): void
     {
         $this->get('http://scuttle.dev/')

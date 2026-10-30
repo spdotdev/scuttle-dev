@@ -38,6 +38,11 @@ Read `docs/marketing-rules.md` before writing or changing any page text, product
 - `public/` — all site assets (images, qr/, legal/*.pdf, vCard, manifest, robots, sitemap) published to the host's `public/vendor/scuttle`.
 - `.env.example` — documents env vars this package reads (currently just `SCUTTLE_DOMAIN`); all have safe defaults, so it's optional, not required for install. Copy relevant lines into the host app's own `.env`.
 
+## Head, fonts and contrast (v0.7.12, 2026-10-30)
+- `layout.blade.php` builds the title and description for every page: title with the brand suffix when it fits in 62 characters, else the bare title cut at a word boundary under 70; description cut at a sentence end (not after "excl.") or a word boundary under 160. Every inner page also gets a BreadcrumbList; service pages a Service block, news articles an Article block (`'@'.'context'` in the views, because Blade reads a literal `@context` as a directive). `og:type` defaults to website, news articles say article. Test: `test_search_snippets_fit_and_structured_data_is_valid`.
+- Geist and Geist Mono are self-hosted in `public/fonts/` (variable woff2, latin and latin-ext, SIL OFL licence next to them); `site.css` starts with the `@font-face` rules and the layout preloads the two latin files. No request goes to Google Fonts any more.
+- Orange badges and the contact buttons use a deeper orange with white text in light mode and dark text on the lighter orange in dark mode (contrast over 4.5:1). The decrypt headline pins its box height while it settles so nothing below it jumps. Status of every page: `docs/IMPROVEMENT-STATUS.md`.
+
 ## Cutover (done)
 DigitalOcean provisioning, live deploy, and the DNS A-record cutover are done: scuttle.dev is served by the host app from this package (checked 2026-09-27, `/` returns 200 with `vendor/scuttle/` assets). `docs/cutover-runbook.md` is the record of how it was done.
 

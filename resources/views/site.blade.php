@@ -3,7 +3,7 @@
 @php($groups = $C::grouped())
 
 @section('title', 'Automation, AI and security for your business software, Eindhoven')
-@section('description', 'Automate the work your team repeats: AI agents, integrations and secure software that keeps running. Health Check, automation, security, modernization. One senior developer in Eindhoven.')
+@section('description', 'Automate the work your team repeats: AI agents, integrations and secure software that keeps running. One senior developer in Eindhoven.')
 @section('canonical', 'https://scuttle.dev/')
 @section('ogtype', 'website')
 
@@ -67,7 +67,7 @@
       <button class="it" data-k="case-migration" type="button"><i class="led"></i><span data-i="sd_c3">Migration in use</span><small>live</small></button>
     </aside>
     <div class="main" id="main">
-      <div class="top"><h4 id="sh-h">Automation run · server-setup</h4><div class="st"><i id="sti"></i><span id="stt">running</span></div></div>
+      <div class="top"><p class="sh" id="sh-h">Automation run · server-setup</p><div class="st"><i id="sti"></i><span id="stt">running</span></div></div>
       <div class="prog"><i id="pb"></i></div>
       <div class="view" id="view"><div class="log" id="log"></div><div class="find" id="find"></div></div>
     </div>

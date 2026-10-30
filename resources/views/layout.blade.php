@@ -4,8 +4,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>@yield('title') | Scuttle Development</title>
-  <meta name="description" content="@yield('description')" />
+  @php
+    // Search results cut titles near 60 characters and descriptions near 160: keep both inside, at a word boundary.
+    $rawTitle = trim(preg_replace('/\s+/', ' ', $__env->yieldContent('title')));
+    $seoTitle = mb_strlen($rawTitle.' | Scuttle Development') <= 62 ? $rawTitle.' | Scuttle Development' : $rawTitle;
+    if (mb_strlen($seoTitle) > 70) { $seoTitle = rtrim(preg_replace('/\s+\S*$/u', '', mb_substr($seoTitle, 0, 68)), " ,.:;-").'…'; }
+    $rawDesc = trim(preg_replace('/\s+/', ' ', html_entity_decode($__env->yieldContent('description'))));
+    $seoDesc = $rawDesc;
+    if (mb_strlen($rawDesc) > 160) {
+        $cut = mb_substr($rawDesc, 0, 160);
+        $seoDesc = preg_match('/^(.{80,}(?<!excl)(?<!e\.g)[.!?])\s/us', $cut, $m) ? $m[1] : rtrim(preg_replace('/\s+\S*$/u', '', mb_substr($rawDesc, 0, 157)), " ,.:;-").'…';
+    }
+    $canon = trim($__env->yieldContent('canonical'));
+  @endphp
+  <title>{{ $seoTitle }}</title>
+  <meta name="description" content="{{ $seoDesc }}" />
   <meta name="author" content="Scuttle Development" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="@yield('canonical')" />
@@ -17,17 +30,37 @@
   <link rel="apple-touch-icon" sizes="180x180" href="{{ secure_asset('vendor/scuttle/apple-touch-icon.png') }}" />
   <link rel="manifest" href="{{ secure_asset('vendor/scuttle/site.webmanifest') }}" />
 
-  <meta property="og:type" content="@yield('ogtype', 'article')" />
-  <meta property="og:url" content="@yield('canonical')" />
-  <meta property="og:title" content="@yield('title') | Scuttle Development" />
-  <meta property="og:description" content="@yield('description')" />
+  <meta property="og:type" content="@yield('ogtype', 'website')" />
+  <meta property="og:url" content="{{ $canon }}" />
+  <meta property="og:title" content="{{ $seoTitle }}" />
+  <meta property="og:description" content="{{ $seoDesc }}" />
   <meta property="og:image" content="{{ secure_asset('vendor/scuttle/og-image.png') }}" />
+  <meta property="og:image:alt" content="Scuttle Development: automation, AI and security for business software" />
   <meta property="og:site_name" content="Scuttle Development" />
+  <meta property="og:locale" content="en_GB" />
+  <meta property="og:locale:alternate" content="nl_NL" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{{ $seoTitle }}" />
+  <meta name="twitter:description" content="{{ $seoDesc }}" />
+  <meta name="twitter:image" content="{{ secure_asset('vendor/scuttle/og-image.png') }}" />
+  @php
+    // BreadcrumbList for every inner page: Home, the section it lives in, the page.
+    $path = trim(parse_url($canon, PHP_URL_PATH) ?: '', '/');
+    if ($path !== '') {
+        $segs = explode('/', $path); $crumbs = [['Home', 'https://scuttle.dev/']]; $acc = '';
+        $names = ['case-studies' => 'Case studies', 'news' => 'News', 'projects' => 'Projects', 'services' => 'Services', 'docs' => 'Docs'];
+        foreach ($segs as $i => $seg) {
+            $acc .= '/'.$seg; $last = $i === count($segs) - 1;
+            if ($seg === 'services') continue;
+            $crumbs[] = [$last ? $rawTitle : ($names[$seg] ?? \Illuminate\Support\Str::headline($seg)), 'https://scuttle.dev'.$acc];
+        }
+        $ld = ['@context' => 'https://schema.org', '@type' => 'BreadcrumbList', 'itemListElement' => array_map(fn ($c, $k) => ['@type' => 'ListItem', 'position' => $k + 1, 'name' => $c[0], 'item' => $c[1]], $crumbs, array_keys($crumbs))];
+    }
+  @endphp
+  @isset($ld)<script type="application/ld+json">{!! json_encode($ld, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>@endisset
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="preload" href="{{ secure_asset('vendor/scuttle/fonts/geist-latin.woff2') }}" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="{{ secure_asset('vendor/scuttle/fonts/geist-mono-latin.woff2') }}" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="{{ secure_asset('vendor/scuttle/site.css') }}" />
   <script>try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
   @yield('head')

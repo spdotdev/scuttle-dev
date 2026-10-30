@@ -23,7 +23,7 @@
         <div class="plan hi">
           <span class="badge" data-i="pr_bd1">Recommended</span>
           <span class="lbl" data-i="pr_c1l">01 · Per step</span>
-          <h3 data-i="pr_c1h">Projects in steps</h3><div class="amt"><span data-i="pr_c1a">hours × €90</span><small data-i="pr_c1s">per step, quoted up front</small></div>
+          <h2 data-i="pr_c1h">Projects in steps</h2><div class="amt"><span data-i="pr_c1a">hours × €90</span><small data-i="pr_c1s">per step, quoted up front</small></div>
           <p data-i="pr_c1p">Automations, integrations, builds and security work. Every step gets its own written scope and price before it starts, and you see it running before the next one is quoted.</p>
           <hr>
           <ul>
@@ -35,7 +35,7 @@
         </div>
         <div class="plan">
           <span class="lbl" data-i="pr_c2l">02 · Per hour</span>
-          <h3 data-i="pr_c2h">Hourly work</h3><div class="amt"><span data-i="pr_c2a">€90</span><small data-i="pr_c2s">per hour</small></div>
+          <h2 data-i="pr_c2h">Hourly work</h2><div class="amt"><span data-i="pr_c2a">€90</span><small data-i="pr_c2s">per hour</small></div>
           <p data-i="pr_c2p">Small, well-defined tasks and anything that does not fit a scope yet.</p>
           <hr>
           <ul>
@@ -47,7 +47,7 @@
         </div>
         <div class="plan">
           <span class="lbl" data-i="pr_c3l">03 · Per day</span>
-          <h3 data-i="pr_c3h">Subcontracting</h3><div class="amt"><span data-i="pr_c3a">€720</span><small data-i="pr_c3s">per day of 8 hours</small></div>
+          <h2 data-i="pr_c3h">Subcontracting</h2><div class="amt"><span data-i="pr_c3a">€720</span><small data-i="pr_c3s">per day of 8 hours</small></div>
           <p data-i="pr_c3p">Senior hands on your client's project, under your terms or mine. Eight hours at the same rate, booked per day.</p>
           <hr>
           <ul>
@@ -59,7 +59,7 @@
         </div>
         <div class="plan">
           <span class="lbl" data-i="pr_c4l">04 · Per hour</span>
-          <h3 data-i="pr_c4h">Incident help</h3><div class="amt"><span data-i="pr_c4a">€90</span><small data-i="pr_c4s">per hour, no surcharge</small></div>
+          <h2 data-i="pr_c4h">Incident help</h2><div class="amt"><span data-i="pr_c4a">€90</span><small data-i="pr_c4s">per hour, no surcharge</small></div>
           <p data-i="pr_c4p">Something is down, the developer is gone, and it has to work today. Read-only on production until you say otherwise.</p>
           <hr>
           <ul>
@@ -80,7 +80,7 @@
         <div class="plan hi">
           <span class="badge" data-i="pr_bd2">Recommended</span>
           <span class="lbl" data-i="pr_c5l">05 · Fixed price</span>
-          <h3 data-i="pr_c5h">Health Check</h3><div class="amt"><span data-i="pr_c5a">€1,080</span><small data-i="pr_c5s">fixed, 12 hours</small></div>
+          <h2 data-i="pr_c5h">Health Check</h2><div class="amt"><span data-i="pr_c5a">€1,080</span><small data-i="pr_c5s">fixed, 12 hours</small></div>
           <p data-i="pr_c5p">Where automation saves hours, what is risky, which parts are out of support, and a step-by-step plan. Read-only, two days.</p>
           <hr>
           <ul>
@@ -92,7 +92,7 @@
         </div>
         <div class="plan">
           <span class="lbl" data-i="pr_c6l">06 · Per month</span>
-          <h3 data-i="pr_c6h">Maintenance retainer</h3><div class="amt"><span data-i="pr_c6a">from €720</span><small data-i="pr_c6s">per month, blocks of 8 hours</small></div>
+          <h2 data-i="pr_c6h">Maintenance retainer</h2><div class="amt"><span data-i="pr_c6a">from €720</span><small data-i="pr_c6s">per month, blocks of 8 hours</small></div>
           <p data-i="pr_c6p">A monthly block of hours for patches, monitoring, backups, small changes and a report, by the person who knows the system.</p>
           <hr>
           <ul>
@@ -104,7 +104,7 @@
         </div>
         <div class="plan">
           <span class="lbl" data-i="pr_c7l">07 · Fixed price</span>
-          <h3 data-i="pr_c7h">Security quick scan</h3><div class="amt"><span data-i="pr_c7a">€720</span><small data-i="pr_c7s">fixed, 8 hours</small></div>
+          <h2 data-i="pr_c7h">Security quick scan</h2><div class="amt"><span data-i="pr_c7a">€720</span><small data-i="pr_c7s">fixed, 8 hours</small></div>
           <p data-i="pr_c7p">One day on your web application and server: open ports, TLS, headers, dependencies with known vulnerabilities, the obvious access-control holes. Written authorization first.</p>
           <hr>
           <ul>
@@ -116,7 +116,7 @@
         </div>
         <div class="plan">
           <span class="lbl" data-i="pr_c8l">08 · Fixed price</span>
-          <h3 data-i="pr_c8h">Architecture review</h3><div class="amt"><span data-i="pr_c8a">€1,440</span><small data-i="pr_c8s">fixed, 16 hours</small></div>
+          <h2 data-i="pr_c8h">Architecture review</h2><div class="amt"><span data-i="pr_c8a">€1,440</span><small data-i="pr_c8s">fixed, 16 hours</small></div>
           <p data-i="pr_c8p">A decision on stack, cloud, integration or build versus buy: options compared, a written recommendation, decision records.</p>
           <hr>
           <ul>
