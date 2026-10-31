@@ -190,7 +190,7 @@
         ['45 seconds instead of an hour', 'Release notes that used to be written on Friday afternoon, done before the deploy finishes.', 'ai-integration', 'l', 'SKILL'],
         ['Your procedure, written down', 'A skill is the checklist the agent must follow: what to read, how to write, what never to include.', 'ai-integration', 'l', 'REPEAT'],
         ['A person still publishes', 'The agent drafts; the release button stays human.', 'ai-integration', 'l', 'HUMAN'],
-        ['Sold as', 'AI Integration: custom skills for the chores your team repeats', 'ai-integration', 'l', '→']
+        ['Sold as', 'AI Agents and Skills: custom skills for the chores your team repeats', 'ai-integration', 'l', '→']
       ]), { title: 'Automation run · release-notes skill (Claude Code)', done: 'done · 45 s' }),
       'mcp-gateway': Object.assign(run([
         ['10:42:12', 'assistant → "which orders of customer 4471 are late?"', ''],
@@ -203,7 +203,7 @@
         ['One MCP server in front of the API', 'The assistant gets named tools, not raw database access.', 'ai-integration', 'l', 'LIVE'],
         ['Read-only by default', 'Write tools exist only where a human approves the action.', 'ai-integration', 'l', 'OK'],
         ['Every call audited', 'Who asked what, which tool ran, what came back.', 'integrations', 'l', 'OK'],
-        ['Sold as', 'AI Integration, on top of Integrations when the API is not there yet', 'ai-integration', 'l', '→']
+        ['Sold as', 'AI Agents and Skills, on top of System Integration when the API is not there yet', 'ai-integration', 'l', '→']
       ]), { title: 'Live tool call · mcp-gateway (Model Context Protocol)', done: 'answered · 1.1 s' }),
       'lead-followup': Object.assign(run([
         ['08:30:00', 'crm → 9 leads without a reply after 5 days', ''],
@@ -217,7 +217,7 @@
         ['7 drafts ready at 08:31', 'Each one shown with the thread it answers; approve or edit, then send. About 35 minutes of writing saved a day.', 'ai-integration', 'l', 'AUTO'],
         ['2 for a person', 'They mention a meeting date; a human decides.', 'ai-integration', 'm', 'HUMAN'],
         ['Sending stays human', 'The agent drafts; a person taps send, by design.', 'ai-integration', 'l', 'OK'],
-        ['Sold as', 'AI Integration, connected to your CRM through Integrations', 'ai-integration', 'l', '→']
+        ['Sold as', 'AI Agents and Skills, connected to your CRM through System Integration', 'ai-integration', 'l', '→']
       ]), { title: 'Automation run · lead-followup', done: 'done · 7 drafts' }),
       'ticket-triage': Object.assign(run([
         ['07:00:00', 'helpdesk → 23 new tickets overnight', ''],
@@ -231,7 +231,7 @@
         ['14 answered before 07:02', 'From the product manual, with the source paragraph quoted; a person sees them first. About 48 minutes a day.', 'ai-integration', 'l', 'AUTO'],
         ['6 bugs prepared', 'Steps, logs and environment attached to each ticket.', 'ai-integration', 'l', 'AUTO'],
         ['1 P1 paged', 'Payment page down; found within 90 seconds of the ticket.', 'maintenance-retainer', 'h', 'P1'],
-        ['Sold as', 'AI Integration, with the Maintenance Retainer watching the P1s', 'ai-integration', 'l', '→']
+        ['Sold as', 'AI Agents and Skills, with the Maintenance Retainer watching the P1s', 'ai-integration', 'l', '→']
       ]), { title: 'Automation run · ticket-triage', done: 'done · 23 triaged' }),
 
       'health-check': { kind: 'report', title: 'Report · Health Check', done: '12 pages · 2 shown', pages: [
@@ -259,7 +259,7 @@
         cols: [['Situation', '<p>A software product with a mature REST API. Customers started asking whether they could use an AI assistant on their own data. The team did not want a chatbot bolted on, and did not want the model anywhere near the database.</p>'],
                ['What I built', '<ul><li>An MCP server (Model Context Protocol, the open standard assistants use to call tools) in front of the existing API</li><li>Named, read-only tools with the user\'s own permissions; no raw queries</li><li>Audit log of every call: who, which tool, what came back</li><li>Write actions only through tools that need a human approval step</li></ul>'],
                ['Result', '<p>Customers connect Claude or another assistant and ask questions in plain language; the product answers from its own API, within the rights that user already had. The API did not change. Client anonymized; the pattern is reusable for any product with an API.</p>']],
-        cta: [['AI Integration', '/products/ai-integration'], ['Integrations', '/products/integrations']] },
+        cta: [['AI Agents and Skills', '/products/ai-integration'], ['System Integration', '/products/integrations']] },
       'case-migration': { kind: 'story', title: 'Case · Migration while in daily use', done: 'anonymized', nums: [['60%', 'lower latency'], ['7.4 → 8.4', 'PHP, back in support'], ['3.4 → 5.9', 'framework, on the way'], ['in use', 'the whole migration']],
         cols: [['Situation', '<p>A hotel operations platform on an old framework and an unsupported PHP. Specialists for the framework were hard to find, and a rewrite was too risky for a system hotels use every day.</p>'],
                ['What I built', '<ul><li>A thin layer that lets old and new code run side by side (Strangler Fig)</li><li>Modules moved one at a time, each release small, each with a rollback</li><li>PHP 7.4 to 8.4 and the framework upgraded on the way, so the runtime stayed supported during the migration</li></ul>'],

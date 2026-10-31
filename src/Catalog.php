@@ -17,13 +17,13 @@ final class Catalog
 
     /** Search titles: the service and what it is, so the result says more than the name (council round 2, 2026-10-30). */
     public const SEO_TITLES = [
-        'ai-integration' => 'AI Integration: agents, MCP servers and RAG',
-        'integrations' => 'Integrations for bookings, payments, ERP and mail',
+        'ai-integration' => 'AI Agents and Skills: agents, MCP servers and RAG',
+        'integrations' => 'System Integration for bookings, payments, ERP and mail',
         'full-stack-build' => 'Full-stack Build: a web application end to end',
         'modernization' => 'Modernization: PHP, framework and hosting up to date',
-        'android-app' => 'Android App: Kotlin and Jetpack Compose',
-        'security-assessment' => 'Security Assessment: vulnerability scan or pentest',
-        'architecture-review' => 'Architecture Review: options and a recommendation',
+        'android-app' => 'Mobile App: Android in Kotlin and Jetpack Compose',
+        'security-assessment' => 'Security Test: vulnerability scan or pentest',
+        'architecture-review' => 'Architecture Plan: options and a recommendation',
         'hardening' => 'Hardening and Secure Pipeline for your servers',
         'maintenance-retainer' => 'Maintenance Retainer: patches and monitoring monthly',
         'compliance' => 'Compliance Alignment: NIS2, GDPR and DORA',
@@ -33,13 +33,13 @@ final class Catalog
 
     /** @var array<string, string> */
     public const SEO_TITLES_NL = [
-        'ai-integration' => 'AI Integration: agents, MCP-servers en RAG',
-        'integrations' => 'Integrations: systemen die betrouwbaar praten',
+        'ai-integration' => 'AI Agents and Skills: agents, MCP-servers en RAG',
+        'integrations' => 'System Integration: systemen die betrouwbaar praten',
         'full-stack-build' => 'Full-stack Build: een webapplicatie van begin tot eind',
         'modernization' => 'Modernization: PHP, framework en hosting bijgewerkt',
-        'android-app' => 'Android App: Kotlin en Jetpack Compose',
-        'security-assessment' => 'Security Assessment: kwetsbaarhedenscan of pentest',
-        'architecture-review' => 'Architecture Review: opties en een advies',
+        'android-app' => 'Mobile App: Android in Kotlin en Jetpack Compose',
+        'security-assessment' => 'Security Test: kwetsbaarhedenscan of pentest',
+        'architecture-review' => 'Architecture Plan: opties en een advies',
         'hardening' => 'Hardening and Secure Pipeline voor je servers',
         'maintenance-retainer' => 'Maintenance Retainer: patches en monitoring per maand',
         'compliance' => 'Compliance Alignment: NIS2, AVG en DORA',
@@ -69,6 +69,46 @@ final class Catalog
     ];
 
     /**
+     * The development loop on the home page (proposal 14, layout B, Stas 2026-10-31): the
+     * steps an engagement goes through, in order; 'ongoing' is the hub in the middle, not
+     * a step. Each: [label, label NL, line, line NL, verb, verb NL]. The menu keeps GROUPS.
+     *
+     * @var array<string, array{0:string,1:string,2:string,3:string,4:string,5:string}>
+     */
+    public const STEPS = [
+        'research' => ['Research', 'Onderzoeken', 'One look at the whole system before anything is decided.', 'Eén blik op het hele systeem voordat iets wordt besloten.', 'Measure, ask, understand', 'Meten, vragen, begrijpen'],
+        'plan' => ['Plan', 'Plannen', 'Decide what gets built, in which order, and what it costs.', 'Bepalen wat er gebouwd wordt, in welke volgorde en wat het kost.', 'Options, decisions, roadmap', 'Opties, besluiten, routekaart'],
+        'build' => ['Build', 'Bouwen', 'Build what is missing, modernize what runs, connect it, automate it.', 'Bouwen wat ontbreekt, moderniseren wat draait, koppelen, automatiseren.', 'Web, mobile, legacy, integration, AI', 'Web, mobiel, legacy, koppelingen, AI'],
+        'review' => ['Review', 'Toetsen', 'Test what was built before anyone depends on it.', 'Testen wat gebouwd is voordat iemand erop vertrouwt.', 'Pentest, code, tests', 'Pentest, code, tests'],
+        'deploy' => ['Deploy', 'Uitrollen', 'Ship it locked down, backed up and written down. Then look again.', 'Live brengen: dichtgezet, geback-upt en opgeschreven. Dan opnieuw kijken.', 'Pipeline, hardening, handover', 'Pipeline, hardening, overdracht'],
+        'ongoing' => ['Ongoing', 'Doorlopend', 'Not a step: it runs the whole time the system runs.', 'Geen stap: het loopt zolang het systeem draait.', 'Patches, monitoring, evidence', 'Patches, monitoring, bewijs'],
+    ];
+
+    /** The two groups inside Build: key => [label, label NL]. @var array<string, array{0:string,1:string}> */
+    public const SUBS = [
+        'general' => ['General', 'Algemeen'],
+        'ai' => ['AI and automation', 'AI en automatisering'],
+    ];
+
+    /**
+     * Loop entries without a service page yet (they open the contact page): key => [step, sub or null, name, short, short NL].
+     * Names stay English, like every service name on the site.
+     *
+     * @var array<string, array{0:string,1:?string,2:string,3:string,4:string}>
+     */
+    public const EXTRA = [
+        'discovery-session' => ['research', null, 'Discovery Session', 'Half a day with your team: what repeats, what hurts, what to automate first.', 'Een halve dag met je team: wat herhaalt zich, waar wringt het, wat automatiseren we eerst.'],
+        'risk-scan' => ['research', null, 'Dependency and Risk Scan', 'Automated check of versions, end-of-life dates and known vulnerabilities. A one-page result within a day.', 'Geautomatiseerde check van versies, end-of-lifedatums en bekende kwetsbaarheden. Eén pagina resultaat binnen een dag.'],
+        'proof-of-concept' => ['plan', null, 'Proof of Concept', 'The risky part built small first, so the plan rests on something that runs.', 'Het riskante deel eerst klein gebouwd, zodat het plan rust op iets dat draait.'],
+        'specification' => ['plan', null, 'Specification and Estimate', 'A written spec with acceptance criteria, and a fixed quote on it. Spec first, then code.', 'Een geschreven specificatie met acceptatiecriteria, en een vaste offerte daarop. Eerst de spec, dan de code.'],
+        'workflow-automation' => ['build', 'ai', 'Workflow Automation', 'Scheduled jobs, pipelines and scripts that replace the manual steps between systems.', 'Geplande taken, pipelines en scripts die de handmatige stappen tussen systemen vervangen.'],
+        'code-review' => ['review', null, 'Code and Test Review', 'Code, tests and CI read by a second pair of eyes before go-live, with a written list.', 'Code, tests en CI gelezen door een tweede paar ogen voor de livegang, met een geschreven lijst.'],
+        'performance-test' => ['review', null, 'Performance Test', 'Load test and slow-query hunt with real numbers before and after; the fixes included.', 'Belastingtest en jacht op trage query\'s met echte cijfers voor en na; de fixes inbegrepen.'],
+        'hosting-cutover' => ['deploy', null, 'Hosting and Cutover', 'Servers, containers and backups set up; the switch-over planned with a rollback, done on a quiet day.', 'Servers, containers en back-ups ingericht; de overgang gepland met een rollback, op een rustige dag.'],
+        'monitoring' => ['ongoing', null, 'Monitoring and Alerts', 'Uptime, errors and security advisories watched, so you hear it before your users do.', 'Uptime, fouten en beveiligingsmeldingen in de gaten gehouden, zodat jij het eerder hoort dan je gebruikers.'],
+    ];
+
+    /**
      * @return array<string, Product>
      */
     public static function all(): array
@@ -77,7 +117,9 @@ final class Catalog
             'ai-integration' => [
                 'slug' => 'ai-integration',
                 'group' => 'build',
-                'name' => 'AI Integration',
+                'step' => 'build',
+                'sub' => 'ai',
+                'name' => 'AI Agents and Skills',
                 'short' => 'Agents, custom skills, MCP servers, RAG over your data. One use case to production.',
                 'lead' => 'One workflow where AI saves measurable time, taken to production: a Claude agent with custom skills, an MCP server that gives it named tools on your systems, retrieval (RAG) over your own documents, and browser automation where there is no API. The value is in connecting the model to your knowledge and your tools, safely. I run my own business on this pattern.',
                 'price' => 'Quoted per use case at '.self::HOURLY,
@@ -126,7 +168,9 @@ final class Catalog
             'integrations' => [
                 'slug' => 'integrations',
                 'group' => 'build',
-                'name' => 'Integrations',
+                'step' => 'build',
+                'sub' => 'ai',
+                'name' => 'System Integration',
                 'short' => 'Systems that talk to each other reliably: bookings, payments, ERP, mail.',
                 'lead' => 'Connecting the systems you already run: booking systems, payment providers, ERP, mail platforms, scanners and partner APIs. Built to survive retries, outages and the other side changing its mind.',
                 'price' => 'Quoted per integration at '.self::HOURLY,
@@ -175,6 +219,8 @@ final class Catalog
             'full-stack-build' => [
                 'slug' => 'full-stack-build',
                 'group' => 'build',
+                'step' => 'build',
+                'sub' => 'general',
                 'name' => 'Full-stack Build',
                 'short' => 'Design, architecture, backend, front end, API, hosting: a new application built end to end.',
                 'lead' => 'A new web application built end to end by one person: the design of the screens, the architecture, the backend, the front end, the API, the hosting and the release process. For an idea, a spreadsheet process or a product that has outgrown its first version.',
@@ -224,6 +270,8 @@ final class Catalog
             'modernization' => [
                 'slug' => 'modernization',
                 'group' => 'build',
+                'step' => 'build',
+                'sub' => 'general',
                 'name' => 'Modernization',
                 'short' => 'PHP, framework, database, web server and hosting brought up to date, while the system keeps running.',
                 'lead' => 'Everything under your application brought up to date and made future-proof: the PHP version, the framework, the database, the web server, the way it is hosted and the way it is released. Done in steps, with the system in use the whole time, so nothing stops and every step can be undone.',
@@ -273,8 +321,10 @@ final class Catalog
             'android-app' => [
                 'slug' => 'android-app',
                 'group' => 'build',
-                'name' => 'Android App',
-                'short' => 'Kotlin and Jetpack Compose, on your API or a new Laravel backend.',
+                'step' => 'build',
+                'sub' => 'general',
+                'name' => 'Mobile App',
+                'short' => 'Android now, iOS on request: Kotlin and Jetpack Compose on your API or a new Laravel backend.',
                 'lead' => 'A native Android app in Kotlin with Jetpack Compose, on top of the API you have or a new Laravel backend built alongside it. For field staff, scanners, internal tools and products that need to work with a bad connection.',
                 'price' => 'Quoted per milestone at '.self::HOURLY,
                 'price_note' => 'Internal distribution or Play Store, your choice; store accounts stay in your name.',
@@ -297,7 +347,7 @@ final class Catalog
                 'cta' => ['Who would use the app, and where?', 'Tell me the job it must do on the floor or in the field. I reply within one working day with the first screen I would build, free.'],
                 'nl' => [
                     'lead' => 'Een native Android-app in Kotlin met Jetpack Compose, bovenop de API die je hebt of een nieuwe Laravel-backend die ernaast gebouwd wordt. Voor buitendienst, scanners, interne tools en producten die met een slechte verbinding moeten werken.',
-                    'short' => 'Kotlin en Jetpack Compose, op je API of een nieuwe Laravel-backend.',
+                    'short' => 'Android nu, iOS op aanvraag: Kotlin en Jetpack Compose op je API of een nieuwe Laravel-backend.',
                     'price' => 'Op offerte per mijlpaal, EUR 90 per uur excl. btw',
                     'price_note' => 'Interne distributie of Play Store, jouw keuze; de storeaccounts blijven op jouw naam.',
                     'features' => [
@@ -323,8 +373,9 @@ final class Catalog
                 'slug' => 'legacy-health-check',
                 'route' => 'scuttle.health-check',
                 'group' => 'assess',
+                'step' => 'research',
                 'name' => 'Health Check',
-                'short' => 'Two-day assessment: automation opportunities, risks, a step-by-step plan.',
+                'short' => 'Two days: health, security and architecture in one report, with a step-by-step plan.',
                 'lead' => 'A two-day assessment of your application and the way it is run. You get a written report on where automation saves hours, what is risky, which parts are out of support (the legacy check), and a step-by-step plan that does not stop the business.',
                 'price' => 'Fixed price, EUR 1,080 excl. VAT (12 hours)',
                 'price_note' => 'Two days of review, 12 hours × EUR 90. A free intro call comes first.',
@@ -348,7 +399,7 @@ final class Catalog
                 'cta' => ['Not sure where to start? Start here.', 'Twelve hours, read-only, a plan you can hold me to. Tell me what you run and I check that the Health Check fits before anything is booked.'],
                 'nl' => [
                     'lead' => 'Een beoordeling in twee dagen van je applicatie en de manier waarop die draait. Je krijgt een schriftelijk rapport over waar automatisering uren bespaart, wat risicovol is, welke onderdelen buiten support zijn (de legacy-check) en een plan in stappen dat het bedrijf niet stilzet.',
-                    'short' => 'Beoordeling in twee dagen: kansen voor automatisering, risico\'s, een plan in stappen.',
+                    'short' => 'Twee dagen: gezondheid, beveiliging en architectuur in één rapport, met een plan in stappen.',
                     'price' => 'Vaste prijs, EUR 1.080 excl. btw (12 uur)',
                     'price_note' => 'Twee dagen review, 12 uur × EUR 90. Een gratis introgesprek gaat vooraf.',
                     'features' => [
@@ -374,7 +425,8 @@ final class Catalog
             'security-assessment' => [
                 'slug' => 'security-assessment',
                 'group' => 'assess',
-                'name' => 'Security Assessment',
+                'step' => 'review',
+                'name' => 'Security Test',
                 'short' => 'Vulnerability assessment or application pentest, with a retest.',
                 'lead' => 'A vulnerability assessment or application penetration test of a web application, API or server environment you own. Findings ranked by severity, each with fix advice, and a retest when the fixes are in.',
                 'price' => 'Quick scan EUR 720 excl. VAT (8 hours); full assessment quoted per phase at '.self::HOURLY,
@@ -423,7 +475,8 @@ final class Catalog
             'architecture-review' => [
                 'slug' => 'architecture-review',
                 'group' => 'assess',
-                'name' => 'Architecture Review',
+                'step' => 'plan',
+                'name' => 'Architecture Plan',
                 'short' => 'Options compared, a written recommendation, decision records.',
                 'lead' => 'For a decision on stack, cloud, integration or build versus buy. I compare the options on cost, risk and fit with your team, and write down a recommendation you can hold me to.',
                 'price' => 'Fixed price, EUR 1,440 excl. VAT (16 hours)',
@@ -472,6 +525,7 @@ final class Catalog
             'hardening' => [
                 'slug' => 'hardening',
                 'group' => 'run',
+                'step' => 'deploy',
                 'name' => 'Hardening and Secure Pipeline',
                 'short' => 'Attack surface closed, security gates in CI, backups that restore.',
                 'lead' => 'The server and the delivery pipeline made safe: ports closed, TLS current, secrets out of the code, dependency and secret scans on every change, and backups that have actually been restored. A written quality bar your team can keep.',
@@ -491,7 +545,7 @@ final class Catalog
                     'Fixes in agreed order, each verified.',
                     'Written quality bar and the runbook handed over.',
                 ],
-                'not' => 'This is not a penetration test of the application itself; that is the Security Assessment. No uptime guarantees from one person.',
+                'not' => 'This is not a penetration test of the application itself; that is the Security Test. No uptime guarantees from one person.',
                 'illus' => 'lock',
                 'cta' => ['When was the last restore test?', 'If the answer is "never" or "not sure", that is the first thing I would do. Tell me where it runs and I reply within one working day, free.'],
                 'nl' => [
@@ -521,6 +575,7 @@ final class Catalog
             'maintenance-retainer' => [
                 'slug' => 'maintenance-retainer',
                 'group' => 'run',
+                'step' => 'ongoing',
                 'name' => 'Maintenance Retainer',
                 'short' => 'A monthly hours block: patches, monitoring, small changes, a report.',
                 'lead' => 'For a system you want kept running by the person who knows it. A monthly block of hours for security patches, monitoring, backups, small changes and the questions in between, with a short report every month.',
@@ -570,6 +625,7 @@ final class Catalog
             'compliance' => [
                 'slug' => 'compliance',
                 'group' => 'run',
+                'step' => 'ongoing',
                 'name' => 'Compliance Alignment',
                 'short' => 'NIS2, GDPR and DORA: gap analysis, remediation, evidence.',
                 'lead' => 'For a company that has to show its technical controls to a regulator, an auditor or a bigger customer. A gap analysis against NIS2, GDPR or DORA, a remediation plan, and the controls implemented with evidence you can hand over.',
@@ -619,6 +675,7 @@ final class Catalog
             'handover-pack' => [
                 'slug' => 'handover-pack',
                 'group' => 'run',
+                'step' => 'deploy',
                 'name' => 'Handover Pack',
                 'short' => 'Runbook, architecture, decisions, accounts, risks. Yours to keep.',
                 'lead' => 'Everything the next developer needs to run the system without me: how it works, how to deploy and roll back, how to restore a backup, which accounts exist and who owns them, the decisions made and the known risks. Included in every project, and bookable on its own for a system you inherited.',
@@ -690,6 +747,34 @@ final class Catalog
         }
         foreach (self::all() as $p) {
             $out[$p['group']][] = $p;
+        }
+
+        return $out;
+    }
+
+    /**
+     * The home page loop: step key => list of entries, services first (with their real page), then
+     * the EXTRA entries (contact page). Every entry: slug, name, short, short NL, url, sub (Build only), extra.
+     *
+     * @return array<string, list<array{slug:string, name:string, short:string, short_nl:string, url:string, sub:?string, extra:bool}>>
+     */
+    public static function loop(): array
+    {
+        $out = [];
+        foreach (array_keys(self::STEPS) as $key) {
+            $out[$key] = [];
+        }
+        foreach (self::all() as $p) {
+            $out[$p['step']][] = ['slug' => $p['slug'], 'name' => $p['name'], 'short' => $p['short'], 'short_nl' => $p['nl']['short'], 'url' => self::url($p), 'sub' => $p['sub'] ?? null, 'extra' => false];
+        }
+        foreach (self::EXTRA as $slug => $e) {
+            $out[$e[0]][] = ['slug' => $slug, 'name' => $e[2], 'short' => $e[3], 'short_nl' => $e[4], 'url' => route('scuttle.contact.page'), 'sub' => $e[1], 'extra' => true];
+        }
+        foreach ($out as $key => $items) {
+            if ($key === 'build') {
+                usort($items, fn ($a, $b) => strcmp($a['sub'], $b['sub']) ?: 0);
+                $out[$key] = array_values(array_merge(array_filter($items, fn ($i) => $i['sub'] === 'general'), array_filter($items, fn ($i) => $i['sub'] === 'ai')));
+            }
         }
 
         return $out;

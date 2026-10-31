@@ -8,3 +8,4 @@ Every time estimate given to Stas for work on this site, with the real wall-cloc
 | Hero on the phone: command line one part per line, chip row no longer stretches before the log types, log 12 px (v0.7.9, same as splotnikov-dev v0.3.14 and v0.3.15) | none given, built on "fix it the same way there too" | 2026-10-30 12:37 | 2026-10-30 12:47 | 10 min |
 | Home title on the phone: forced break hidden under 600 px, browser balances three lines (v0.7.10, proposal 8 option 1) | 10 min | 2026-10-30 15:27 | 2026-10-30 15:36 | 9 min |
 | Home: the three list cards removed, services listed once (v0.7.11, proposal 9 option 2) | 15 min | 2026-10-30 15:50 | 2026-10-30 15:57 | 7 min |
+| Services regrouped as a loop, release 1: five renames, a step per service, loop data and constants, social cards rebuilt (v0.7.30, proposal 14 layout B) | 2 h | 2026-10-31 01:40 | | |

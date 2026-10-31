@@ -47,7 +47,7 @@ class Links
                 ['path' => '/news/php-security-release-october-2026', 'en' => 'Why PHP versions matter: the security release of 21 October', 'nl' => 'Waarom PHP-versies ertoe doen: de beveiligingsrelease van 21 oktober'],
             ],
             'hardening' => [
-                ['path' => '/services/security-assessment', 'en' => 'Need the application itself tested? That is the Security Assessment', 'nl' => 'Moet de applicatie zelf getest worden? Dat is de Security Assessment'],
+                ['path' => '/services/security-assessment', 'en' => 'Need the application itself tested? That is the Security Test', 'nl' => 'Moet de applicatie zelf getest worden? Dat is de Security Test'],
                 ['path' => '/nis2', 'en' => 'NIS2 and the Cyber Resilience Act: who is in scope and what they must do', 'nl' => 'NIS2 en de Cyber Resilience Act: wie eronder valt en wat ze moeten doen'],
                 ['path' => '/health-check', 'en' => 'Want a first overview of risks across the whole system? The Health Check', 'nl' => 'Een eerste overzicht van de risico\'s in het hele systeem? De Health Check'],
             ],
@@ -58,7 +58,7 @@ class Links
             ],
             'ai-integration' => [
                 ['path' => '/news/an-mcp-server-in-front-of-your-api', 'en' => 'Why an MCP server in front of the API is the safe way to let AI use your data', 'nl' => 'Waarom een MCP-server voor de API de veilige manier is om AI je data te laten gebruiken'],
-                ['path' => '/services/architecture-review', 'en' => 'Before the build: an Architecture Review of the system the agent will touch', 'nl' => 'Vóór de bouw: een Architecture Review van het systeem waar de agent bij komt'],
+                ['path' => '/services/architecture-review', 'en' => 'Before the build: an Architecture Plan of the system the agent will touch', 'nl' => 'Vóór de bouw: een Architecture Plan van het systeem waar de agent bij komt'],
             ],
         ];
     }

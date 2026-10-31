@@ -1,4 +1,4 @@
-{{-- Extra blocks on the AI Integration page: the workflow, which model for what, the words, the models in use, a thin timeline. --}}
+{{-- Extra blocks on the AI Agents and Skills page: the workflow, which model for what, the words, the models in use, a thin timeline. --}}
 <section class="s tight"><div class="wrap">
   <div class="plate rv flow">
     <div class="bh"><span class="lbl dot" data-i="ax_0">How an automation is built</span><h2 data-i="ax_5">The workflow, step by step</h2><p data-i="ax_7">Every automation I build has the same shape, whether it runs as a Claude agent, as n8n flows or as a queue job in your application. The value sits in the middle: your knowledge and your tools, connected safely.</p></div>
