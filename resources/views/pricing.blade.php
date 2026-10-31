@@ -25,7 +25,7 @@
 
   <div class="wrap">
     <div class="plate rv">
-      <div class="pb-h"><span class="lbl dot" data-i="pr_p1l">By the hour, quoted per step</span><p data-i="pr_p1p">For work whose size only shows once we look. The rate is the same everywhere; what changes is how it is packaged. All amounts excl. VAT.</p></div>
+      <div class="pb-h"><span class="lbl dot" data-i="pr_p1l">By the hour, quoted per step</span><p data-i="pr_p1p">For work whose size only shows once I look. The rate is the same everywhere; what changes is how it is packaged. All amounts excl. VAT.</p></div>
       <div class="plans">
         <div class="plan hi">
           <span class="badge" data-i="pr_bd1">Recommended</span>
@@ -212,7 +212,7 @@ Object.assign(window.SCUTTLE_NL.t, {
  "pr_g3s": "per maand, onderhoudsretainer",
  "pr_lead": "Ik krijg altijd eerst de vraag wat dingen kosten, dus hier staat het. Eén uurtarief voor werk per uur of in stappen, en vaste prijzen voor dingen met een vaste vorm. Alle bedragen zijn excl. btw.",
  "pr_p1l": "Per uur, per stap geoffreerd",
- "pr_p1p": "Voor werk waarvan de omvang pas blijkt als we ervoor zitten. Het tarief is overal gelijk; wat verandert is hoe het is verpakt. Alle bedragen excl. btw.",
+ "pr_p1p": "Voor werk waarvan de omvang pas blijkt als ik ernaar kijk. Het tarief is overal gelijk; wat verandert is hoe het is verpakt. Alle bedragen excl. btw.",
  "pr_p2l": "Vaste prijs, vaste vorm",
  "pr_p2p": "Je kent de prijs voordat je ja zegt. Elk pakket is een vast aantal uren tegen hetzelfde tarief; de som staat erbij zodat niets verborgen is. Alle bedragen excl. btw.",
  "pr_c1l": "01 · Per stap",

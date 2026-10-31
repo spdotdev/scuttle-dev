@@ -97,7 +97,7 @@ final class Catalog
      * @var array<string, array{0:string,1:?string,2:string,3:string,4:string}>
      */
     public const EXTRA = [
-        'discovery-session' => ['research', null, 'Discovery Session', 'Half a day with your team: what repeats, what hurts, what to automate first.', 'Een halve dag met je team: wat herhaalt zich, waar wringt het, wat automatiseren we eerst.'],
+        'discovery-session' => ['research', null, 'Discovery Session', 'Half a day with your team: what repeats, what hurts, what to automate first.', 'Een halve dag met je team: wat herhaalt zich, waar wringt het, wat je als eerste automatiseert.'],
         'risk-scan' => ['research', null, 'Dependency and Risk Scan', 'Automated check of versions, end-of-life dates and known vulnerabilities. A one-page result within a day.', 'Geautomatiseerde check van versies, end-of-lifedatums en bekende kwetsbaarheden. Eén pagina resultaat binnen een dag.'],
         'proof-of-concept' => ['plan', null, 'Proof of Concept', 'The risky part built small first, so the plan rests on something that runs.', 'Het riskante deel eerst klein gebouwd, zodat het plan rust op iets dat draait.'],
         'specification' => ['plan', null, 'Specification and Estimate', 'A written spec with acceptance criteria, and a fixed quote on it. Spec first, then code.', 'Een geschreven specificatie met acceptatiecriteria, en een vaste offerte daarop. Eerst de spec, dan de code.'],

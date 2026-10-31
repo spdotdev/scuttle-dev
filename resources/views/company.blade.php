@@ -77,7 +77,7 @@
   <section class="s tight"><div class="wrap two">
     <div class="plate rv" id="careers">
       <span class="lbl dot" data-i="cp_ww_l">Working with me</span>
-      <p class="not" data-i="cp_ww_p">There are no vacancies; this is a one-person company by design. Three ways we can still work together:</p>
+      <p class="not" data-i="cp_ww_p">There are no vacancies; this is a one-person company by design. Three ways to still work together:</p>
       <ul class="terms">
         <li data-i="cp_ww1"><b>Agencies:</b> senior hands on your client's project at a day rate, under your terms or mine, NDA first. See <a href="{{ route('scuttle.pricing') }}">pricing</a>.</li>
         <li data-i="cp_ww2"><b>Peers:</b> a second pair of eyes on an architecture or security question, or an overflow partner when you are full.</li>
@@ -99,7 +99,7 @@
   <section class="cta-end"><div class="wrap">
     <div class="cta-box rv">
       @include('scuttle::partials.logo', ['id' => 'cta', 'w' => 46, 'h' => 37])
-      <h2 data-i="cp_e_h">Want to know if we fit?</h2>
+      <h2 data-i="cp_e_h">Want to know if I am the right fit?</h2>
       <p data-i="cp_e_p">A thirty-minute call is free and ends with a straight answer: yes, no, or what I need to look at first.</p>
       <div class="row"><a class="btn" href="{{ config('scuttle-dev.booking_url') }}"><span data-i="cp_e_b1">Book a call</span></a><a class="btn o" href="{{ route('scuttle.contact.page') }}"><span data-i="cp_e_b2">Use the contact form</span></a></div>
     </div>
@@ -149,12 +149,12 @@ Object.assign(window.SCUTTLE_NL.t, {
  "cp_ex3": "Een wederzijdse NDA is beschikbaar voordat details worden gedeeld. De prijzen staan op deze site en een schriftelijke offerte is 14 dagen geldig.",
  "cp_ex4": "Het werk wordt overgedragen met een runbook in je repository, zodat het niet afhangt van mijn aanwezigheid.",
  "cp_ww_l": "Samenwerken",
- "cp_ww_p": "Er zijn geen vacatures; dit is bewust een eenmansbedrijf. Op drie manieren kunnen we toch samenwerken:",
+ "cp_ww_p": "Er zijn geen vacatures; dit is bewust een eenmansbedrijf. Op drie manieren kun je toch met me samenwerken:",
  "cp_ww1": "<b>Bureaus:</b> ervaren handen op het project van jouw klant tegen een dagtarief, onder jouw voorwaarden of de mijne, eerst NDA. Zie <a href=\"/pricing\">prijzen</a>.",
  "cp_ww2": "<b>Vakgenoten:</b> een tweede paar ogen op een architectuur- of securityvraag, of een overloop-partner als je vol zit.",
  "cp_ww3": "<b>Open source:</b> de skills en tools op de <a href=\"/projects\">projectenpagina</a> nemen issues en pull requests aan.",
  "cp_n_l": "Waar nu heen",
- "cp_e_h": "Wil je weten of we bij elkaar passen?",
+ "cp_e_h": "Wil je weten of ik bij je pas?",
  "cp_e_p": "Een gesprek van dertig minuten is gratis en eindigt met een eerlijk antwoord: ja, nee, of wat ik eerst moet bekijken.",
  "cp_e_b1": "Plan een gesprek",
  "cp_e_b2": "Gebruik het contactformulier",

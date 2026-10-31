@@ -52,9 +52,9 @@ class Faq
                 ],
                 [
                     'q' => 'What do I get at the end?',
-                    'a' => 'A written report in plain language, with findings ranked by value and risk and the hours per item. It covers automation opportunities, a legacy check against official end-of-life dates, a security quick scan, an architecture review and a step-by-step plan. We then go through it together in a walkthrough call.',
+                    'a' => 'A written report in plain language, with findings ranked by value and risk and the hours per item. It covers automation opportunities, a legacy check against official end-of-life dates, a security quick scan, an architecture review and a step-by-step plan. I then go through it with you in a walkthrough call.',
                     'qn' => 'Wat krijg ik aan het eind?',
-                    'an' => 'Een schriftelijk rapport in gewone taal, met bevindingen gerangschikt op waarde en risico en de uren per punt. Het omvat kansen voor automatisering, een legacy-check naast de officiële end-of-lifedatums, een snelle beveiligingsscan, een architectuurreview en een plan in stappen. Daarna lopen we het samen door in een doorloopgesprek.',
+                    'an' => 'Een schriftelijk rapport in gewone taal, met bevindingen gerangschikt op waarde en risico en de uren per punt. Het omvat kansen voor automatisering, een legacy-check naast de officiële end-of-lifedatums, een snelle beveiligingsscan, een architectuurreview en een plan in stappen. Daarna loop ik het met je door in een doorloopgesprek.',
                 ],
                 [
                     'q' => 'Is the Health Check a penetration test or a rewrite?',
@@ -70,9 +70,9 @@ class Faq
                 ],
                 [
                     'q' => 'Can I sign an NDA first, and who does the work?',
-                    'a' => 'Yes, a mutual NDA is available as a PDF on this page and I sign it before we go into details if you want. I am one person and I do the work myself, so there is no handover to a junior.',
+                    'a' => 'Yes, a mutual NDA is available as a PDF on this page and I sign it before any details are shared if you want. I am one person and I do the work myself, so there is no handover to a junior.',
                     'qn' => 'Kan ik eerst een NDA tekenen, en wie doet het werk?',
-                    'an' => 'Ja, een wederzijdse NDA staat als pdf op deze pagina en ik teken die desgewenst voordat we op details ingaan. Ik ben één persoon en doe het werk zelf, dus er is geen overdracht aan een junior.',
+                    'an' => 'Ja, een wederzijdse NDA staat als pdf op deze pagina en ik teken die desgewenst voordat er details worden gedeeld. Ik ben één persoon en doe het werk zelf, dus er is geen overdracht aan een junior.',
                 ],
             ],
             'modernization' => [
@@ -132,7 +132,7 @@ class Faq
                     'q' => 'Are response times guaranteed?',
                     'a' => 'No. Response times are agreed in writing as targets, not guarantees: I am one person and I say so. The emergency path says how to reach me and what happens when I am not available.',
                     'qn' => 'Zijn reactietijden gegarandeerd?',
-                    'an' => 'Nee. Reactietijden leggen we schriftelijk vast als streefwaarden, niet als garantie: ik ben één persoon en dat zeg ik. Het noodpad beschrijft hoe je me bereikt en wat er gebeurt als ik er niet ben.',
+                    'an' => 'Nee. Reactietijden worden schriftelijk afgesproken als streefwaarden, niet als garantie: ik ben één persoon en dat zeg ik. Het noodpad beschrijft hoe je me bereikt en wat er gebeurt als ik er niet ben.',
                 ],
                 [
                     'q' => 'Can I change the size of the block or stop?',

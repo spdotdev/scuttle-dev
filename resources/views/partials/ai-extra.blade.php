@@ -51,7 +51,7 @@
 
 <section class="s tight"><div class="wrap">
   <div class="plate rv belts thin">
-    <div class="bh"><span class="lbl dot" data-i="ax_3">Models and tools in use</span><p data-i="ax_10">Picked per job: the best model for the step, the cheapest that passes the evaluation set, local when the data may not leave.</p></div>
+    <div class="bh"><span class="lbl dot" data-i="ax_3">Models and tools in use</span><p data-i="ax_10">Picked per job: the right model for the step, the cheapest that passes the evaluation set, local when the data may not leave.</p></div>
     <div class="belt" aria-label="Models"><div class="track">
       @php($models = ['Claude Fable 5.1', 'Claude Opus 5.5', 'Claude Sonnet 5.5', 'Claude Haiku 5.5', 'GPT', 'Gemini', 'Llama', 'Mistral', 'Qwen', 'Whisper', 'Local models via Ollama', 'YOLO (vision)'])
       @for($r = 0; $r < 2; $r++)@foreach($models as $m)<span class="tk ai"><i></i>{{ $m }}</span>@endforeach @endfor
@@ -94,7 +94,7 @@ Object.assign(window.SCUTTLE_NL.t, {
   ax_7: "Elke automatisering die ik bouw heeft dezelfde vorm, of hij nu draait als Claude-agent, als n8n-flows of als queue-job in je applicatie. De waarde zit in het midden: jouw kennis en jouw tools, veilig verbonden.",
   ax_8: "Per stap gekozen, per taak. Het goedkoopste model dat de evaluatieset haalt wint; de dure zijn voor beoordeling, niet voor het sorteren van mail.",
   ax_9: "De waarde zit niet in het model. Ze zit in het veilig verbinden van het model met je eigen kennis en je eigen tools. Dit zijn de onderdelen waarmee ik bouw.",
-  ax_10: "Per taak gekozen: het beste model voor de stap, het goedkoopste dat de evaluatieset haalt, lokaal als de data niet weg mag.",
+  ax_10: "Per taak gekozen: het juiste model voor de stap, het goedkoopste dat de evaluatieset haalt, lokaal als de data niet weg mag.",
   ax_11: "Claude-modellen sinds 2024. Elke stap veranderde waaraan je een agent kunt toevertrouwen; de bouw moet het model kunnen wisselen zonder rewrite.",
   ax_12: "Trigger",
   ax_13: "Classificeren",
