@@ -765,15 +765,17 @@ final class Catalog
             $out[$key] = [];
         }
         foreach (self::all() as $p) {
+            /** @var array<string, mixed> $p */
             $out[$p['step']][] = ['slug' => $p['slug'], 'name' => $p['name'], 'short' => $p['short'], 'short_nl' => $p['nl']['short'], 'url' => self::url($p), 'sub' => $p['sub'] ?? null, 'extra' => false];
         }
         foreach (self::EXTRA as $slug => $e) {
             $out[$e[0]][] = ['slug' => $slug, 'name' => $e[2], 'short' => $e[3], 'short_nl' => $e[4], 'url' => route('scuttle.contact.page'), 'sub' => $e[1], 'extra' => true];
         }
         foreach ($out as $key => $items) {
+            /** @var list<array{slug:string, name:string, short:string, short_nl:string, url:string, sub:?string, extra:bool}> $items */
             if ($key === 'build') {
                 usort($items, fn ($a, $b) => strcmp($a['sub'], $b['sub']) ?: 0);
-                $out[$key] = array_values(array_merge(array_filter($items, fn ($i) => $i['sub'] === 'general'), array_filter($items, fn ($i) => $i['sub'] === 'ai')));
+                $out[$key] = array_merge(array_values(array_filter($items, fn ($i) => $i['sub'] === 'general')), array_values(array_filter($items, fn ($i) => $i['sub'] === 'ai')));
             }
         }
 
