@@ -129,6 +129,29 @@ class SiteController
         return $this->staticFile('robots.txt', 'text/plain');
     }
 
+    /** Atom feed of the news articles: titles and summaries as plain text, dates from the article, malformed ones skipped. */
+    public function feed(): Response
+    {
+        $clean = fn (string $t): string => trim((string) preg_replace('/[^\x{9}\x{A}\x{D}\x{20}-\x{D7FF}\x{E000}-\x{FFFD}]/u', '', html_entity_decode(strip_tags($t), ENT_QUOTES | ENT_HTML5, 'UTF-8')));
+        $entries = [];
+        foreach (Posts::all() as $post) {
+            if (! preg_match('/^[a-z0-9-]+$/', $post['slug']) || ! preg_match('/^\d{4}-\d{2}-\d{2}$/', $post['date'])) {
+                continue;
+            }
+            $entries[] = [
+                'title' => $clean($post['title']) ?: $post['slug'],
+                'url' => 'https://scuttle.dev/news/'.$post['slug'],
+                'updated' => date('c', (int) strtotime($post['date'].' 12:00:00 UTC')),
+                'summary' => $clean($post['summary']),
+                'ts' => (int) strtotime($post['date'].' 12:00:00 UTC'),
+            ];
+        }
+        usort($entries, fn ($a, $b) => $b['ts'] <=> $a['ts']);
+        $updated = date('c', $entries[0]['ts'] ?? 0);
+
+        return response()->view('scuttle::feed', ['entries' => $entries, 'updated' => $updated], 200, ['Content-Type' => 'application/atom+xml; charset=utf-8']);
+    }
+
     public function sitemap(): Response
     {
         // The static file plus every article that only exists in sd-cms.

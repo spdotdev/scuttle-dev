@@ -81,6 +81,7 @@ Route::domain(config('scuttle-dev.domain'))
             Route::get('/scuttle.vcf', [SiteController::class, 'vcard'])->name('scuttle.vcard');
 
             // Crawler files served at the site root.
+            Route::get('/feed.xml', [SiteController::class, 'feed'])->name('scuttle.feed');
             Route::get('/robots.txt', [SiteController::class, 'robots'])->name('scuttle.robots');
             Route::get('/sitemap.xml', [SiteController::class, 'sitemap'])->name('scuttle.sitemap');
 
