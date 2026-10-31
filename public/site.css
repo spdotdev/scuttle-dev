@@ -661,3 +661,4 @@ footer .bottom{grid-column:1/-1;border-top:1px solid var(--dark-line);padding-to
 #cform{scroll-margin-top:88px}
 .cform .cf-foot .btn{min-height:44px;justify-content:center}
 @media (max-width:600px){.cform .cf-foot{display:grid;grid-template-columns:1fr;gap:10px}.cform .cf-foot .btn{width:100%;min-height:44px}}
+.docs-main a.btn{color:var(--bg);text-decoration:none}
