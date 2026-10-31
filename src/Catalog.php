@@ -427,7 +427,7 @@ final class Catalog
                 'group' => 'assess',
                 'step' => 'review',
                 'name' => 'Security Test',
-                'short' => 'Vulnerability assessment or application pentest, with a retest.',
+                'short' => 'Vulnerability scan or pentest, with a retest.',
                 'lead' => 'A vulnerability assessment or application penetration test of a web application, API or server environment you own. Findings ranked by severity, each with fix advice, and a retest when the fixes are in.',
                 'price' => 'Quick scan EUR 720 excl. VAT (8 hours); full assessment quoted per phase at '.self::HOURLY,
                 'price_note' => 'Scope, test window and written authorization are agreed before anything is tested.',
@@ -450,7 +450,7 @@ final class Catalog
                 'cta' => ['What would hurt most if it leaked?', 'Tell me what the system holds and who can reach it. I reply within one working day with the scope I would test first, free, and nothing is tested without written authorization.'],
                 'nl' => [
                     'lead' => 'Een kwetsbaarhedenonderzoek of penetratietest van een webapplicatie, API of serveromgeving die van jou is. Bevindingen gerangschikt op ernst, elk met adviezen om te herstellen, en een hertest als de fixes erin zitten.',
-                    'short' => 'Kwetsbaarhedenscan of pentest van een applicatie, met een hertest.',
+                    'short' => 'Kwetsbaarhedenscan of pentest, met een hertest.',
                     'price' => 'Quick scan EUR 720 excl. btw (8 uur); volledig assessment op offerte per fase, EUR 90 per uur excl. btw',
                     'price_note' => 'Scope, testvenster en schriftelijke toestemming zijn afgesproken voordat er iets getest wordt.',
                     'features' => [

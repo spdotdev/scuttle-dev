@@ -69,11 +69,11 @@ final class Dutch
             '/services' => ['Diensten: twaalf diensten, automatisering voorop', 'De twaalf diensten en wat je daarna in handen hebt: een rapport, een draaiende server, een pipeline, een document in je repository. Open prijzen.'],
             '/contact' => ['Contact: vertel me wat je draait', 'Neem contact op met Scuttle Development in Eindhoven: het formulier, info@scuttle.dev, telefoon, vCard en adres. Ik reageer binnen één werkdag.'],
             '/company' => ['Het bedrijf: één senior developer in Eindhoven', 'Scuttle Development: één senior developer en solution architect in Eindhoven, opgericht in 2024. Hoe ik werk, waar ik in geloof en hoe je met me werkt.'],
-            '/health-check/sample' => ['Zo ziet een Health Check-rapport eruit', 'De opzet van het schriftelijke Health Check-rapport, als illustratie met een verzonnen systeem: samenvatting, versietabel, gerangschikte bevindingen, een plan in stappen en wat niet is gedekt.'],
-            '/php-check' => ['Welke PHP-versie draai je? Een check van tien minuten', 'Welke PHP-versie draait je systeem en tot wanneer krijgt die beveiligingsfixes? Een check van tien minuten met de data van php.net, en wat een Health Check met het antwoord doet.'],
-            '/nis2' => ['NIS2 en de Cyber Resilience Act: wat geldt voor jou', 'De Nederlandse NIS2-wet geldt sinds 15 augustus 2026 en de meldplicht van de CRA sinds 11 september 2026. Wie eronder valt, wat ze moeten doen en hoe ik help: een technische gap-analyse.'],
-            '/privacy' => ['Privacyverklaring', 'Welke gegevens Scuttle Development gebruikt en waarom, welke verwerkers meekijken, dat deze site geen tracking- of analysecookies zet en hoe je je gegevens laat verwijderen.'],
-            '/case-studies' => ['Casestudy\'s: werk zoals het ging', 'Casestudy\'s van Scuttle Development: een migratie terwijl het platform in gebruik bleef, een API voor AI-assistenten, een klein model voor een wake word en een bedrijf op agents.'],
+            '/health-check/sample' => ['Zo ziet een Health Check-rapport eruit', 'Zo is het Health Check-rapport opgebouwd, als illustratie met een verzonnen systeem: samenvatting, versietabel, bevindingen, plan en wat niet is gedekt.'],
+            '/php-check' => ['Welke PHP-versie draai je? Een check van tien minuten', 'Welke PHP-versie draai je en tot wanneer krijgt die beveiligingsfixes? Een check van tien minuten met data van php.net en wat een Health Check daarna doet.'],
+            '/nis2' => ['NIS2 en de Cyber Resilience Act: wat geldt voor jou', 'NIS2 geldt in Nederland sinds 15 augustus 2026, de meldplicht van de CRA sinds 11 september. Wie eronder valt en wat te doen: een technische gap-analyse.'],
+            '/privacy' => ['Privacyverklaring', 'Welke gegevens ik gebruik en waarom, welke verwerkers meekijken, dat deze site geen tracking- of analysecookies zet en hoe je je gegevens laat verwijderen.'],
+            '/case-studies' => ['Casestudy\'s: werk zoals het ging', 'Casestudy\'s: een migratie terwijl het platform in gebruik bleef, een API voor AI-assistenten, een klein wake word-model en een bedrijf op agents.'],
         ];
         if (isset($fixed[$p])) {
             return $fixed[$p];
@@ -86,7 +86,7 @@ final class Dutch
         if (preg_match('#^/case-studies/([a-z0-9-]+)$#', $p, $m) && isset(Cases::all()[$m[1]])) {
             $c = Cases::all()[$m[1]];
 
-            return [$c['nl']['title'], 'Casestudy: '.$c['nl']['lead']];
+            return [$c['nl']['title'], 'Casestudy: '.($c['nl']['meta'] ?? $c['nl']['lead'])];
         }
 
         return ['', ''];

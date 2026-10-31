@@ -2,7 +2,7 @@
 @php($C = \Spdotdev\ScuttleDev\Catalog::class)
 
 @section('title', $c['title'])
-@section('description', 'Case study: '.$c['lead'])
+@section('description', 'Case study: '.($c['meta'] ?? $c['lead']))
 @section('canonical', 'https://scuttle.dev/case-studies/'.$c['slug'])
 
 @section('content')

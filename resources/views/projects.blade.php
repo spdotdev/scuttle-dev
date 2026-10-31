@@ -3,7 +3,7 @@
 
 @section('title', 'Projects: open source and own products')
 @section('crumb', 'Projects')
-@section('description', 'Open source projects and own products from Scuttle Development, each with documentation: a field manual skill for codebases, an inventory product with an MCP server, a WhatsApp MCP server, a Telegram relay for Claude Code, and this site.')
+@section('description', 'Open source projects and own products, each with documentation: a field manual skill, an inventory product with an MCP server, a WhatsApp MCP server and more.')
 @section('canonical', 'https://scuttle.dev/projects')
 
 @section('content')

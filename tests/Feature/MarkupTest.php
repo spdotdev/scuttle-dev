@@ -107,4 +107,15 @@ class MarkupTest extends TestCase
             $this->assertMatchesRegularExpression('#href="[^"]*(/contact|plan\.scuttle\.dev/book)#', substr($html, -2500), $path.' ends without a next step');
         }
     }
+
+    public function test_no_search_snippet_is_cut_in_the_middle_of_a_sentence_in_either_language(): void
+    {
+        foreach ($this->paths() as $path) {
+            $html = (string) $this->get('http://scuttle.dev'.$path)->assertOk()->getContent();
+            preg_match('/name="description" content="(.*?)"/s', $html, $d);
+            $desc = html_entity_decode($d[1]);
+            $this->assertStringNotContainsString('…', $desc, $path.' description is cut: '.$desc);
+            $this->assertGreaterThanOrEqual(90, mb_strlen($desc), $path.' description is too thin to say what the page gives');
+        }
+    }
 }

@@ -1,7 +1,7 @@
 @extends('scuttle::layout')
 
 @section('title', 'Privacy statement')
-@section('description', 'What data Scuttle Development uses, why, which processors see it, that this site sets no tracking or analytics cookies, and how you opt out or have your data removed.')
+@section('description', 'What data I use and why, which processors see it, that this site sets no tracking or analytics cookies, and how you opt out or have your data removed.')
 @section('canonical', 'https://scuttle.dev/privacy')
 
 @section('content')

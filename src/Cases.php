@@ -7,8 +7,8 @@ namespace Spdotdev\ScuttleDev;
  * repository names, nothing that ties a story to a client. Own products are
  * named as such. No zeros, no superlatives: see docs/marketing-rules.md.
  *
- * @phpstan-type CaseNl array{kicker:string, title:string, quote:string, lead:string, facts:list<string>, situation:string, approach:list<string>, result:list<string>, stack:string}
- * @phpstan-type CaseStudy array{slug:string, title:string, kicker:string, quote:string, lead:string, facts:list<array{0:string,1:string}>, situation:string, approach:list<string>, result:list<string>, stack:string, products:list<string>, nl:CaseNl}
+ * @phpstan-type CaseNl array{meta?:string, kicker:string, title:string, quote:string, lead:string, facts:list<string>, situation:string, approach:list<string>, result:list<string>, stack:string}
+ * @phpstan-type CaseStudy array{meta?:string, slug:string, title:string, kicker:string, quote:string, lead:string, facts:list<array{0:string,1:string}>, situation:string, approach:list<string>, result:list<string>, stack:string, products:list<string>, nl:CaseNl}
  */
 final class Cases
 {
@@ -63,6 +63,7 @@ final class Cases
                 'title' => 'An API that AI assistants can use: Laravel, Android and an MCP server',
                 'kicker' => 'Own product · household inventory',
                 'quote' => 'The same API serves the Android app, the admin panel and any AI assistant, through one MCP server with named tools.',
+                'meta' => 'A multi-tenant inventory product in three parts: a Laravel API, a Kotlin Android app and an MCP server for questions about the stock.',
                 'lead' => 'A multi-tenant inventory product built as three parts: a Laravel API, a Kotlin Android app, and an MCP server so an assistant can answer questions about the stock without touching the database.',
                 'facts' => [['3 repos', 'API, Android app, MCP server'], ['1 API', 'behind app, admin and assistant'], ['MCP', 'the open standard for tools']],
                 'situation' => 'A household needs to know what is in stock, where it is and when it runs out. The phone is the natural device, and the question is often spoken or typed in plain language. I built it for my own family, and it is the pattern I sell: one API, several faces.',
@@ -83,6 +84,7 @@ final class Cases
                     'kicker' => 'Eigen product · huishoudvoorraad',
                     'title' => 'Een API die AI-assistenten kunnen gebruiken: Laravel, Android en een MCP-server',
                     'quote' => 'Dezelfde API bedient de Android-app, het beheerpaneel en elke AI-assistent, via één MCP-server met benoemde tools.',
+                    'meta' => 'Een multi-tenant voorraadproduct in drie delen: een Laravel-API, een Kotlin Android-app en een MCP-server voor vragen over de voorraad.',
                     'lead' => 'Een multi-tenant voorraadproduct in drie delen: een Laravel-API, een Kotlin Android-app en een MCP-server, zodat een assistent vragen over de voorraad kan beantwoorden zonder de database aan te raken.',
                     'facts' => ['API, Android-app, MCP-server', 'achter app, beheer en assistent', 'de open standaard voor tools'],
                     'situation' => 'Een huishouden wil weten wat er op voorraad is, waar het ligt en wanneer het op is. De telefoon is het natuurlijke apparaat, en de vraag wordt vaak gesproken of in gewone taal getypt. Ik bouwde het voor mijn eigen gezin, en het is het patroon dat ik verkoop: één API, meerdere gezichten.',
@@ -105,6 +107,7 @@ final class Cases
                 'title' => 'A small model trained for one job: a wake word',
                 'kicker' => 'Own product · voice assistant',
                 'quote' => 'A large model is the wrong tool for listening all day. A small one, trained for a single word, runs on the phone and costs nothing per hour.',
+                'meta' => 'A small model trained for one wake word that runs locally on a phone all day, evaluated against the mistakes that matter.',
                 'lead' => 'For my own voice assistant I needed a wake word that runs locally, all day, on a phone. Not a job for a large model: a small model trained on recordings of that one phrase, evaluated against the mistakes that matter.',
                 'facts' => [['On device', 'no audio leaves the phone'], ['Small model', 'trained for one phrase'], ['Evaluation set', 'decides every retrain']],
                 'situation' => 'An assistant that listens for its name has to run always on, offline, cheap, and must not wake up at the wrong word. Sending audio to a cloud model all day is neither private nor affordable.',
@@ -125,6 +128,7 @@ final class Cases
                     'kicker' => 'Eigen product · spraakassistent',
                     'title' => 'Een klein model getraind voor één taak: een wake word',
                     'quote' => 'Een groot model is het verkeerde gereedschap om de hele dag te luisteren. Een klein model, getraind op één woord, draait op de telefoon en kost niets per uur.',
+                    'meta' => 'Een klein model getraind op één wake word dat de hele dag lokaal op een telefoon draait, getoetst op de fouten die ertoe doen.',
                     'lead' => 'Voor mijn eigen spraakassistent had ik een wake word nodig dat lokaal draait, de hele dag, op een telefoon. Geen taak voor een groot model: een klein model getraind op opnames van die ene zin, getoetst op de fouten die ertoe doen.',
                     'facts' => ['geen audio verlaat de telefoon', 'getraind voor één zin', 'bepaalt elke hertraining'],
                     'situation' => 'Een assistent die luistert naar zijn naam moet altijd aan staan, offline en goedkoop, en mag niet wakker worden op het verkeerde woord. De hele dag audio naar een cloudmodel sturen is niet privé en niet betaalbaar.',
@@ -147,6 +151,7 @@ final class Cases
                 'title' => 'A one-person company run by agents',
                 'kicker' => 'Own business · Scuttle Development',
                 'quote' => 'Claude is the brain, a browser is the hands, a database is the memory. The same pattern, for every chore that repeats.',
+                'meta' => 'One person running outreach, posts, planning and bookkeeping as agents, with a human tap wherever something leaves the building.',
                 'lead' => 'Scuttle Development is one person. Finding companies, writing and sending outreach, drafting posts, tracking replies, planning and bookkeeping run as agents on one pattern, with a human tap wherever something leaves the building.',
                 'facts' => [['One pattern', 'brain, hands, memory'], ['Human tap', 'before anything is sent'], ['Daily caps', 'and a kill switch']],
                 'situation' => 'Selling takes hours a freelancer does not have. The repetitive parts, finding the right companies, first contact, follow-ups, reporting, are exactly what an agent does well, as long as nothing goes out without a person looking at it.',
@@ -167,6 +172,7 @@ final class Cases
                     'kicker' => 'Eigen bedrijf · Scuttle Development',
                     'title' => 'Een eenmansbedrijf gerund door agents',
                     'quote' => 'Claude is het brein, een browser zijn de handen, een database is het geheugen. Hetzelfde patroon, voor elke klus die zich herhaalt.',
+                    'meta' => 'Eén persoon die outreach, posts, planning en boekhouding laat draaien als agents, met een menselijke tik overal waar iets het huis verlaat.',
                     'lead' => 'Scuttle Development is één persoon. Bedrijven vinden, outreach schrijven en versturen, posts opstellen, reacties bijhouden, plannen en boekhouden draaien als agents op één patroon, met een menselijke tik overal waar iets het huis verlaat.',
                     'facts' => ['brein, handen, geheugen', 'voordat iets wordt verstuurd', 'en een noodstop'],
                     'situation' => 'Verkopen kost uren die een freelancer niet heeft. De repetitieve delen, de juiste bedrijven vinden, eerste contact, follow-ups, rapportage, zijn precies wat een agent goed doet, zolang er niets de deur uitgaat zonder dat een mens ernaar kijkt.',

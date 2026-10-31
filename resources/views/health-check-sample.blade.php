@@ -2,7 +2,7 @@
 
 @section('title', 'What a Health Check report looks like')
 @section('crumb', 'Sample report')
-@section('description', 'The structure of the written Health Check report, as an illustration with an invented system: summary, version table, ranked findings, a plan in steps, what is not covered.')
+@section('description', 'How the Health Check report is built, as an illustration with an invented system: summary, version table, findings, a plan in steps and what is not covered.')
 @section('canonical', 'https://scuttle.dev/health-check/sample')
 
 @php

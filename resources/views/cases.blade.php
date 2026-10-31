@@ -3,7 +3,7 @@
 
 @section('title', 'Case studies: work told the way it went')
 @section('crumb', 'Case studies')
-@section('description', 'Case studies from Scuttle Development: a migration while the platform stayed in daily use, an API that AI assistants can use through an MCP server, a small model trained for a wake word, and a one-person company run by agents.')
+@section('description', 'Case studies: a migration while the platform stayed in use, an API for AI assistants through an MCP server, a small wake word model, a company run by agents.')
 @section('canonical', 'https://scuttle.dev/case-studies')
 
 @section('content')

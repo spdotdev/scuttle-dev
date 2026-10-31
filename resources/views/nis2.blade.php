@@ -2,7 +2,7 @@
 
 @section('title', 'NIS2 and the Cyber Resilience Act: what applies to a Dutch company')
 @section('crumb', 'NIS2 and CRA')
-@section('description', 'The Dutch NIS2 law has applied since 15 August 2026 and the CRA reporting duty since 11 September 2026. Who is in scope, what they must do, and how I help: a technical gap analysis.')
+@section('description', 'NIS2 applies in the Netherlands since 15 August 2026, the CRA reporting duty since 11 September. Who is in scope and what to do: a technical gap analysis.')
 @section('canonical', 'https://scuttle.dev/nis2')
 
 @php

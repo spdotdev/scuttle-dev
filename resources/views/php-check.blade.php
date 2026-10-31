@@ -2,7 +2,7 @@
 
 @section('title', 'Which PHP version are you running? A ten-minute check')
 @section('crumb', 'PHP version check')
-@section('description', 'Which PHP version does your system run, and until when does it get security fixes? A ten-minute check with the dates from php.net, and what a Health Check does with the answer.')
+@section('description', 'Which PHP version do you run, and until when does it get security fixes? A ten-minute check with dates from php.net, and what a Health Check does next.')
 @section('canonical', 'https://scuttle.dev/php-check')
 
 @php
