@@ -562,7 +562,7 @@ class SiteTest extends TestCase
 
         // Too fast: the signed timestamp is newer than 3 seconds.
         $this->from('http://scuttle.dev/')->post('http://scuttle.dev/contact', $ok + ['t' => $token])
-            ->assertRedirect('http://scuttle.dev/')->assertSessionHasErrors('message');
+            ->assertRedirect('http://scuttle.dev/#cform')->assertSessionHasErrors('message');
         Mail::assertNothingSent();
 
         $old = (string) (time() - 10);
@@ -579,7 +579,7 @@ class SiteTest extends TestCase
 
         // A real message: mailed to info@scuttle.dev with the sender as reply-to.
         $this->from('http://scuttle.dev/')->post('http://scuttle.dev/contact', $ok + ['t' => $oldToken])
-            ->assertRedirect('http://scuttle.dev/')->assertSessionHas('contact_sent', 'mailed')->assertSessionHasNoErrors();
+            ->assertRedirect('http://scuttle.dev/#cform')->assertSessionHas('contact_sent', 'mailed')->assertSessionHasNoErrors();
         $this->assertSame(1, ContactLead::query()->count(), 'only the real message is stored, not the rejected ones');
         Mail::assertSent(ContactMessage::class, function (ContactMessage $mail) {
             $mail->build();

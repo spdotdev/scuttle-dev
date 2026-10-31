@@ -12,7 +12,7 @@
     <div>
       <span class="lbl dot" data-i="ctp_l">Contact</span>
       <h1 data-dec data-i="ctp_h">Tell me what you are running</h1>
-      <p class="lead" data-i="ctp_lead">What it does, where the hours go, what must not stop. I reply within one working day with a first opinion, free. A hard question gets what I need to look at before I answer it, not a dodge.</p>
+      <p class="lead" data-i="ctp_lead">What it does, where the hours go, what must not stop. I reply within one working day with a first opinion, free.</p>
     </div>
   </header>
 
@@ -37,7 +37,7 @@
         <label><span data-i="ctp_e">Email</span><input type="email" name="email" required maxlength="160" value="{{ old('email') }}" autocomplete="email"></label>
       </div>
       <label><span data-i="ctp_a">About</span><select name="about" id="cf-about"><option value="" data-i="ctp_ns">Not sure yet</option>@foreach($C::all() as $cp)<option value="{{ $cp['name'] }}" @selected(old('about', request('about')) === $cp['name'])>{{ $cp['name'] }}</option>@endforeach @foreach($C::EXTRA as $ce)<option value="{{ $ce[2] }}" @selected(old('about', request('about')) === $ce[2])>{{ $ce[2] }}</option>@endforeach<option value="Something else" @selected(old('about', request('about')) === 'Something else') data-i="ctp_se">Something else</option></select></label>
-      <label><span data-i="ctp_m">What are you running, and where do the hours go?</span><textarea name="message" required minlength="10" maxlength="4000" rows="7">{{ old('message') }}</textarea></label>
+      <label><span data-i="ctp_m">What are you running, and where do the hours go?</span><textarea name="message" required minlength="10" maxlength="4000" rows="4">{{ old('message') }}</textarea></label>
       @if(config('scuttle-dev.turnstile_site_key'))
         <div class="cf-turnstile" data-sitekey="{{ config('scuttle-dev.turnstile_site_key') }}"></div>
         <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
@@ -104,7 +104,7 @@ Object.assign(window.SCUTTLE_NL.t, {
  "ctp_se": "Iets anders",
  "ctp_l": "Contact",
  "ctp_h": "Vertel me wat je draait",
- "ctp_lead": "Wat het doet, waar de uren heen gaan, wat niet mag stilvallen. Ik reageer binnen één werkdag met een eerste mening, gratis. Een lastige vraag krijgt wat ik eerst moet bekijken voordat ik antwoord, geen ontwijking.",
+ "ctp_lead": "Wat het doet, waar de uren heen gaan, wat niet mag stilvallen. Ik reageer binnen één werkdag met een eerste mening, gratis.",
  "ctp_n": "Naam",
  "ctp_e": "E-mail",
  "ctp_a": "Waarover",

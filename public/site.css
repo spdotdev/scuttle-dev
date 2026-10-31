@@ -656,3 +656,8 @@ footer .bottom{grid-column:1/-1;border-top:1px solid var(--dark-line);padding-to
 @media (max-width:980px){.loop{grid-template-columns:1fr;gap:22px}.loop .loop-svg{max-width:440px;margin:0 auto}.loop .lp{min-height:0;padding:18px}}
 @media (prefers-reduced-motion:reduce){.loop .dot{display:none}}
 
+/* Contact form (2026-10-31): readable labels, tall full-width buttons on a phone, the form is the scroll target after a send or an error. */
+.cform label{font-size:12px}
+#cform{scroll-margin-top:88px}
+.cform .cf-foot .btn{min-height:44px;justify-content:center}
+@media (max-width:600px){.cform .cf-foot{display:grid;grid-template-columns:1fr;gap:10px}.cform .cf-foot .btn{width:100%;min-height:44px}}
