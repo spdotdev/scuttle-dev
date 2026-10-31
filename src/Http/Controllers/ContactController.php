@@ -21,28 +21,24 @@ class ContactController
 {
     public function send(Request $request): RedirectResponse
     {
+        // Both languages are built at once: the page shows the English text and carries the Dutch twin, so the EN/NL
+        // switch flips the errors without a new request. The referer only decides the language stored with the lead.
         $nl = $this->isDutch($request);
-        $validator = Validator::make($request->all(), [
-            'name' => ['required', 'string', 'max:120', $this->noControlChars(false, $nl)],
-            'email' => ['required', 'email', 'max:160', $this->noControlChars(false, $nl)],
-            'about' => ['nullable', 'string', 'max:120', $this->noControlChars(false, $nl)],
-            'message' => ['required', 'string', 'min:10', 'max:4000', $this->noControlChars(true, $nl)],
-            'website' => ['nullable', 'max:0'], // honeypot: humans never see it
-            't' => ['required', 'string'],
-            'cf-turnstile-response' => ['nullable', 'string'],
-        ], $nl ? self::MESSAGES_NL : ['website.max' => 'Something went wrong, please email me directly.'], $nl ? self::ATTRIBUTES_NL : []);
+        $validator = $this->validator($request, false);
         if ($validator->fails()) {
             // Back to the form itself (#cform), so the message sits in view and not above the fold.
-            return $this->backToForm()->withInput()->withErrors($validator);
+            return $this->backToForm()->withInput()->withErrors($validator)
+                ->with('contact_errors_en', array_values($validator->errors()->all()))
+                ->with('contact_errors_nl', array_values($this->validator($request, true)->errors()->all()));
         }
         $data = $validator->validated();
 
         $to = (string) config('scuttle-dev.contact_to', 'info@scuttle.dev');
 
         if (! $this->humanEnough($request, $data)) {
-            return $this->backToForm()->withInput()->withErrors(['message' => $nl
-                ? 'De botcontrole is mislukt. Probeer het opnieuw of mail direct naar '.$to.'.'
-                : 'The bot check failed. Please try again or email '.$to.' directly.']);
+            return $this->backWithError('message',
+                'The bot check failed. Please try again or email '.$to.' directly.',
+                'De botcontrole is mislukt. Probeer het opnieuw of mail direct naar '.$to.'.');
         }
 
         // Store first. A valid message is never lost because mail is down; success is shown only when it is stored.
@@ -61,9 +57,9 @@ class ContactController
         } catch (\Throwable $e) {
             Log::error('scuttle.dev contact form: the message could not be stored', self::safeContext($e));
 
-            return $this->backToForm()->withInput()->withErrors(['message' => $nl
-                ? 'Je bericht kon nu niet worden bewaard en ik wil niet dat je denkt dat het is aangekomen. Mail direct naar '.$to.' of plan een gesprek.'
-                : 'Your message could not be saved right now, and I do not want you to think it arrived. Please email '.$to.' directly or book a call.']);
+            return $this->backWithError('message',
+                'Your message could not be saved right now, and I do not want you to think it arrived. Please email '.$to.' directly or book a call.',
+                'Je bericht kon nu niet worden bewaard en ik wil niet dat je denkt dat het is aangekomen. Mail direct naar '.$to.' of plan een gesprek.');
         }
 
         $mailer = null;
@@ -91,6 +87,27 @@ class ContactController
         }
 
         return $this->backToForm()->with('contact_sent', 'mailed');
+    }
+
+    /** The validator in one language; both are built on every failed post so the two lists have the same errors in the same order. */
+    private function validator(Request $request, bool $nl): \Illuminate\Validation\Validator
+    {
+        return Validator::make($request->all(), [
+            'name' => ['required', 'string', 'max:120', $this->noControlChars(false, $nl)],
+            'email' => ['required', 'email', 'max:160', $this->noControlChars(false, $nl)],
+            'about' => ['nullable', 'string', 'max:120', $this->noControlChars(false, $nl)],
+            'message' => ['required', 'string', 'min:10', 'max:4000', $this->noControlChars(true, $nl)],
+            'website' => ['nullable', 'max:0'], // honeypot: humans never see it
+            't' => ['required', 'string'],
+            'cf-turnstile-response' => ['nullable', 'string'],
+        ], $nl ? self::MESSAGES_NL : ['website.max' => 'Something went wrong, please email me directly.'], $nl ? self::ATTRIBUTES_NL : []);
+    }
+
+    /** A hand-written error: the English text is shown, the Dutch twin travels with it for the switch. */
+    private function backWithError(string $field, string $en, string $nl): RedirectResponse
+    {
+        return $this->backToForm()->withInput()->withErrors([$field => $en])
+            ->with('contact_errors_en', [$en])->with('contact_errors_nl', [$nl]);
     }
 
     private const ATTRIBUTES_NL = ['name' => 'naam', 'email' => 'e-mailadres', 'about' => 'onderwerp', 'message' => 'bericht', 't' => 'formulier'];

@@ -29,8 +29,10 @@
       @if(session('contact_sent') && config('scuttle-dev.analytics_key'))
         <script>document.addEventListener('DOMContentLoaded',function(){window.sda&&sda('Contact form sent')})</script>
       @endif
-      @if($errors->any())
-        <div class="err" role="alert">{{ $errors->first() }}</div>
+      @php($errEn = array_values((array) (session('contact_errors_en') ?? ($errors->any() ? $errors->all() : []))))
+      @php($errNl = array_values((array) (session('contact_errors_nl') ?? $errEn)))
+      @if(count($errEn))
+        <div class="err" role="alert">@foreach($errEn as $i => $m)<p data-i="ctp_err_{{ $i }}">{{ $m }}</p>@endforeach</div>
       @endif
       <div class="two-f">
         <label><span data-i="ctp_n">Name</span><input type="text" name="name" required maxlength="120" value="{{ old('name') }}" autocomplete="name"></label>
@@ -97,7 +99,7 @@
 
 @push('nl')
 <script>
-Object.assign(window.SCUTTLE_NL.t, {
+Object.assign(window.SCUTTLE_NL.t, @json(collect($errEn)->mapWithKeys(fn ($m, $i) => ['ctp_err_'.$i => e($errNl[$i] ?? $m)])->all() ?: new stdClass, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE), {
  "ctp_sent": "Verstuurd. Ik reageer binnen één werkdag.",
  "ctp_stored": "Ontvangen en bewaard. Ik kon het nu niet per e-mail doorsturen, maar ik heb het en ik antwoord op het adres dat je opgaf. Is het dringend, mail dan info@scuttle.dev.",
  "ctp_ns": "Nog niet zeker",

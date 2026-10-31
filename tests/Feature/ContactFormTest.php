@@ -4,6 +4,7 @@ namespace Spdotdev\ScuttleDev\Tests\Feature;
 
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Schema;
 use Spdotdev\ScuttleDev\Models\ContactLead;
 use Spdotdev\ScuttleDev\Tests\TestCase;
 
@@ -40,30 +41,67 @@ class ContactFormTest extends TestCase
     {
         $r = $this->from('http://scuttle.dev/nl/contact')->post('http://scuttle.dev/contact', $this->form(['email' => 'nope', 'message' => 'kort']));
         $r->assertRedirect('http://scuttle.dev/nl/contact#cform');
-        $errors = session('errors')->all();
-        $this->assertContains('Vul een geldig e-mailadres in.', $errors);
-        $this->assertContains('Het veld bericht is te kort (minstens 10 tekens).', $errors);
-        $this->assertStringNotContainsString('must be', implode(' ', $errors));
+        $nl = session('contact_errors_nl');
+        $this->assertContains('Vul een geldig e-mailadres in.', $nl);
+        $this->assertContains('Het veld bericht is te kort (minstens 10 tekens).', $nl);
+        $this->assertStringNotContainsString('must be', implode(' ', $nl));
         $this->assertSame(0, ContactLead::query()->count());
     }
 
     public function test_a_missing_field_is_named_in_dutch_and_english(): void
     {
         $this->from('http://scuttle.dev/nl/contact')->post('http://scuttle.dev/contact', $this->form(['name' => '']));
-        $this->assertSame(['Vul het veld naam in.'], session('errors')->get('name'));
+        $this->assertSame(['Vul het veld naam in.'], session('contact_errors_nl'));
+        $this->assertStringContainsString('name field is required', session('contact_errors_en')[0]);
         $this->from('http://scuttle.dev/contact')->post('http://scuttle.dev/contact', $this->form(['name' => '']));
+        $this->assertSame(['Vul het veld naam in.'], session('contact_errors_nl'), 'the Dutch twin is there on an English page too');
         $this->assertStringContainsString('name field is required', session('errors')->first('name'));
     }
 
-    public function test_the_bot_check_and_the_honeypot_answer_in_the_language_of_the_page(): void
+    public function test_the_bot_check_and_the_honeypot_come_back_in_both_languages(): void
     {
-        $this->from('http://scuttle.dev/nl/contact')->post('http://scuttle.dev/contact', $this->form(['t' => time().'.forged']));
-        $this->assertStringContainsString('De botcontrole is mislukt', session('errors')->first('message'));
-        $this->from('http://scuttle.dev/contact')->post('http://scuttle.dev/contact', $this->form(['t' => time().'.forged']));
-        $this->assertStringContainsString('The bot check failed', session('errors')->first('message'));
-        $this->from('http://scuttle.dev/nl/contact')->post('http://scuttle.dev/contact', $this->form(['website' => 'http://spam']));
-        $this->assertSame(['Er ging iets mis, mail me direct.'], session('errors')->get('website'));
+        foreach (['http://scuttle.dev/nl/contact', 'http://scuttle.dev/contact'] as $from) {
+            $this->from($from)->post('http://scuttle.dev/contact', $this->form(['t' => time().'.forged']));
+            $this->assertStringContainsString('The bot check failed', session('contact_errors_en')[0]);
+            $this->assertStringContainsString('De botcontrole is mislukt', session('contact_errors_nl')[0]);
+            $this->from($from)->post('http://scuttle.dev/contact', $this->form(['website' => 'http://spam']));
+            $this->assertSame(['Something went wrong, please email me directly.'], session('contact_errors_en'));
+            $this->assertSame(['Er ging iets mis, mail me direct.'], session('contact_errors_nl'));
+        }
         $this->assertSame(0, ContactLead::query()->count(), 'a rejected post stores nothing');
+    }
+
+    public function test_a_control_character_gets_its_sentence_in_both_languages_with_equal_counts(): void
+    {
+        $this->from('http://scuttle.dev/contact')->post('http://scuttle.dev/contact', $this->form(['name' => "An\x1bna", 'email' => 'nope']));
+        $en = session('contact_errors_en');
+        $nl = session('contact_errors_nl');
+        $this->assertSame(count($en), count($nl));
+        $this->assertCount(2, $en, 'control characters in the name and a bad address');
+        $this->assertContains('The name contains characters that are not allowed.', $en);
+        $this->assertContains('naam bevat tekens die niet zijn toegestaan.', $nl);
+    }
+
+    public function test_the_page_shows_the_errors_in_the_language_of_its_address_with_the_twin_in_the_map(): void
+    {
+        $this->from('http://scuttle.dev/nl/contact')->post('http://scuttle.dev/contact', $this->form(['email' => 'nope']));
+        $flash = ['errors' => session('errors'), 'contact_errors_en' => session('contact_errors_en'), 'contact_errors_nl' => session('contact_errors_nl')];
+        $nl = (string) $this->withSession($flash)->get('http://scuttle.dev/nl/contact')->getContent();
+        $this->assertMatchesRegularExpression('#<div class="err" role="alert"><p data-i="ctp_err_0">Vul een geldig e-mailadres in\.</p></div>#', $nl);
+        $this->assertStringContainsString('"ctp_err_0":"Vul een geldig e-mailadres in."', $nl);
+
+        $en = (string) $this->withSession($flash)->get('http://scuttle.dev/contact')->getContent();
+        $this->assertMatchesRegularExpression('#<div class="err" role="alert"><p data-i="ctp_err_0">[^<]*valid email address[^<]*</p></div>#', $en);
+        $this->assertStringContainsString('"ctp_err_0":"Vul een geldig e-mailadres in."', $en);
+    }
+
+    public function test_the_save_failure_comes_back_in_both_languages(): void
+    {
+        Log::spy();
+        Schema::drop('scuttle_contact_leads');
+        $this->from('http://scuttle.dev/nl/contact')->post('http://scuttle.dev/contact', $this->form());
+        $this->assertStringContainsString('could not be saved', session('contact_errors_en')[0]);
+        $this->assertStringContainsString('kon nu niet worden bewaard', session('contact_errors_nl')[0]);
     }
 
     public function test_a_post_made_in_under_three_seconds_is_rejected_and_stores_nothing(): void
