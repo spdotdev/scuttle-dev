@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Crawls the live site: every sitemap address answers 200 and names itself as canonical, every hreflang pair is
-reciprocal and listed in the sitemap, every internal link on every sitemap page resolves (200 or 301). Free: stdlib only.
+reciprocal and listed in the sitemap, every internal link on every sitemap page resolves (200 or 301), and every outbound link answers 200 (HEAD first, GET when HEAD is refused,
+redirects followed, 15 s timeout; hosts that block bots, now LinkedIn, are listed as unverifiable and not counted). Free: stdlib only.
 Usage: python3 scripts/check-live.py https://example.dev   (exit 1 with the list of problems)"""
 import re, sys, urllib.request, urllib.error
 import xml.etree.ElementTree as ET
@@ -74,7 +75,43 @@ for url, frm in sorted(seen.items()):
     if st not in (200, 301):
         problems.append(f'{url} (linked from {frm}) answers {st}')
 
-print(f'{len(locs)} sitemap addresses, {len(seen)} internal links checked, {len(problems)} problems')
+# Outbound links: every external href on every sitemap page, one request per distinct URL.
+BOT_WALLED = ('linkedin.com',)
+outbound = {}
+for loc, html in htmls.items():
+    page = re.sub(r'<script\b.*?</script>', '', html, flags=re.S)
+    for href in re.findall(r'<a\b[^>]*\shref="(https?://[^"]+)"', page):
+        href = href.replace('&amp;', '&').split('#')[0]
+        if re.match(r'https?://(www\.)?' + re.escape(re.sub(r'^https?://(www\.)?', '', base)) + r'(/|$)', href):
+            continue
+        outbound.setdefault(href, loc)
+
+
+def reach(url):
+    for method in ('HEAD', 'GET'):
+        req = urllib.request.Request(url, method=method, headers={'User-Agent': 'Mozilla/5.0 (live-link-check)'})
+        try:
+            return urllib.request.urlopen(req, timeout=15).status
+        except urllib.error.HTTPError as e:
+            code = e.code
+        except Exception:
+            code = 0
+    return code
+
+
+unverifiable = []
+for url, frm in sorted(outbound.items()):
+    code = reach(url)
+    if code == 200:
+        continue
+    if any(h in url for h in BOT_WALLED) and code in (0, 403, 429, 999):
+        unverifiable.append(f'{url} answers {code} to a script (bot wall), not counted')
+        continue
+    problems.append(f'outbound {url} (linked from {frm}) answers {code}')
+
+print(f'{len(locs)} sitemap addresses, {len(seen)} internal links and {len(outbound)} outbound links checked, {len(problems)} problems')
+for u in unverifiable:
+    print(' note:', u)
 for p in problems:
     print(' -', p)
 sys.exit(1 if problems else 0)
