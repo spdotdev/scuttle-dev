@@ -521,10 +521,10 @@ class SiteTest extends TestCase
         $this->assertSame(0, substr_count($home, 'class="tile rv"'), 'the tiles are gone');
         preg_match('/<div class="loop"(.*?)<p class="loop-hint"/s', $home, $lm);
         $loopHtml = $lm[1] ?? '';
-        foreach (\Spdotdev\ScuttleDev\Catalog::all() as $p) {
-            $this->assertSame(1, substr_count($loopHtml, 'href="'.\Spdotdev\ScuttleDev\Catalog::url($p).'"'), $p['name'].' once in the loop');
+        foreach (Catalog::all() as $p) {
+            $this->assertSame(1, substr_count($loopHtml, 'href="'.Catalog::url($p).'"'), $p['name'].' once in the loop');
         }
-        foreach (\Spdotdev\ScuttleDev\Catalog::EXTRA as $key => $e) {
+        foreach (Catalog::EXTRA as $key => $e) {
             $this->assertStringContainsString('/contact?about='.rawurlencode($e[2]).'"', $loopHtml, $e[2].' opens the contact form');
             $this->assertStringContainsString('data-i="t_'.$key.'"', $loopHtml);
         }
