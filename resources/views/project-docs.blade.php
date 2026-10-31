@@ -45,6 +45,7 @@
     <div class="callout" role="note">
       <p data-i="pjd_callout">Services behind this project: @foreach($pr['products'] as $i => $slug)<a href="{{ $C::url($C::get($slug)) }}">{{ $C::get($slug)['name'] }}</a>@if($i < count($pr['products']) - 1), @endif @endforeach. Found a mistake? <a href="{{ $pr['repo'] }}/issues" rel="noopener" target="_blank">Open an issue</a>.</p>
     </div>
+    <p class="updated" style="margin-top:24px"><a class="btn" href="{{ route('scuttle.contact.page') }}?about={{ rawurlencode($C::get($pr['products'][0])['name']) }}" data-i="pjp_cta_b1">Use the contact form</a></p>
   </article>
 
   <nav class="docs-toc" aria-label="On this page">
@@ -66,6 +67,7 @@ $nl = [
     'pjd_lead' => e($n['lead']).' '.e('De documentatie zelf is in het Engels.'),
     'pjd_callout' => 'Diensten achter dit project: '.implode(', ', $names).'. Een fout gevonden? <a href="'.e($pr['repo']).'/issues" rel="noopener" target="_blank">Open een issue</a>.',
     'pjd_toc' => 'Op deze pagina',
+    'pjp_cta_b1' => 'Gebruik het contactformulier',
 ];
 ?>
 <script>

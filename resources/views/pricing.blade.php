@@ -19,6 +19,7 @@
         <li><b data-i="pr_g2b">EUR 1,080</b><span data-i="pr_g2s">Health Check, two days, fixed</span></li>
         <li><b data-i="pr_g3b">from EUR 720</b><span data-i="pr_g3s">a month, maintenance retainer</span></li>
       </ul>
+      <p style="margin-top:18px"><a class="btn" href="{{ config('scuttle-dev.booking_url') }}"><span data-i="pr_c1b">Book a call →</span></a></p>
     </div>
   </header>
 

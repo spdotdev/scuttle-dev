@@ -95,4 +95,16 @@ class MarkupTest extends TestCase
             }
         }
     }
+
+    public function test_every_page_ends_with_a_next_step_to_the_contact_form_or_the_booking_page(): void
+    {
+        foreach ($this->paths() as $path) {
+            if ($path === '/contact' || $path === '/nl/contact') {
+                continue; // the form itself
+            }
+            $html = (string) $this->get('http://scuttle.dev'.$path)->assertOk()->getContent();
+            $html = preg_replace('#<script\b.*?</script>#s', '', explode('<footer', $html)[0]) ?? $html;
+            $this->assertMatchesRegularExpression('#href="[^"]*(/contact|plan\.scuttle\.dev/book)#', substr($html, -2500), $path.' ends without a next step');
+        }
+    }
 }
