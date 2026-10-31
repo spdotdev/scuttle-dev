@@ -70,15 +70,8 @@
 </div></section>
 
 <section class="s tight" id="work"><div class="wrap">
-  <div class="gridh rv"><h2 data-i="wk_h">What I build</h2><p data-i="wk_p">Twelve services with a fixed shape, automation first. Each one leaves a document in your repository, not only a result on a server. <a href="{{ route('scuttle.work') }}">See what you hold afterwards →</a></p></div>
-  <div class="tiles">
-    @foreach($C::all() as $p)
-    <a class="tile rv" href="{{ $C::url($p) }}">
-      <div class="img"><span class="k">{{ $C::GROUPS[$p['group']] }}</span>@include('scuttle::partials.illus', ['kind' => $p['illus']])</div>
-      <h3>{{ $p['name'] }}</h3><p data-i="t_{{ $p['slug'] }}">{{ $p['short'] }}</p>
-    </a>
-    @endforeach
-  </div>
+  <div class="gridh rv"><h2 data-i="wk_h">How I work</h2><p data-i="wk_p">Every engagement runs through the same five steps, and a running system goes round again. Each service leaves a document in your repository, not only a result on a server. <a href="{{ route('scuttle.work') }}">See what you hold afterwards →</a></p></div>
+  @include('scuttle::partials.loop')
 </div></section>
 
 <section class="s tight" id="trust"><div class="wrap">
@@ -149,7 +142,7 @@
 
 @push('nl')
 <script>
-Object.assign(window.SCUTTLE_NL.t, @json(collect($C::all())->mapWithKeys(fn ($p) => ['t_'.$p['slug'] => $p['nl']['short']])->all() + \Spdotdev\ScuttleDev\Cases::nlStrings()));
+Object.assign(window.SCUTTLE_NL.t, @json($C::nlLoopStrings() + \Spdotdev\ScuttleDev\Cases::nlStrings()));
 Object.assign(window.SCUTTLE_NL.t, {
   h1: "Automatiseer het werk <br>dat je team herhaalt", sub: "Automatisering · Beveiliging · Eindhoven", of_b: "Begin met een Health Check.", of_t: "Twee dagen, alleen lezen, een schriftelijk plan. Vaste prijs: EUR 1.080 excl. btw.", cta1: "Plan een gesprek over een Health Check", cta2: "Wat het dekt en wat je krijgt", cmd_b: "<span>beveiligingsrelease 21 okt 2026</span><span>8.4.26 → 8.4.27</span><span>twee kritieke RCE-lekken verholpen</span><span>is die van jou gepatcht?</span>",
   sd_h: "Automatiseringen", now: "nu", sd_r: "Rapporten", sd_r1: "Health Check", sd_r2: "Roadmap", sd_r3: "Security assessment", sd_c: "Cases, geanonimiseerd", sd_c1: "Kostenbesparing", sd_c2: "API ontmoet AI", sd_c3: "Migratie in gebruik",
@@ -158,7 +151,7 @@ Object.assign(window.SCUTTLE_NL.t, {
   gl_build: "Automatiseer het repeterende werk, bouw wat ontbreekt.", gl_assess: "Weet waar je staat voordat er iets wordt aangeraakt.", gl_run: "Houd het veilig, geback-upt en gedocumenteerd.",
   g_build: "Automatiseren",
   st_l: "Gewerkt met", st_h: "Merken waarvoor ik heb gebouwd, tools waarmee ik bouw", st_p: "In loondienst bij bureaus en productbedrijven vóór 2024, en sindsdien als freelancer. De tools zijn die van dagelijks gebruik, geen wensenlijst.", st_s: "+ het framework of de hosting die je al hebt",
-  wk_h: "Wat ik bouw", wk_p: "Twaalf diensten met een vaste vorm, automatisering voorop. Elk onderdeel laat een document achter in je repository, niet alleen een resultaat op een server. <a href=\"/services\">Zie wat je daarna in handen hebt →</a>",
+  wk_h: "Hoe ik werk", wk_p: "Elke opdracht loopt door dezelfde vijf stappen, en een draaiend systeem gaat opnieuw de ronde. Elk onderdeel laat een document achter in je repository, niet alleen een resultaat op een server. <a href=\"/services\">Zie wat je daarna in handen hebt →</a>",
   cs_l: "Casestudy's, alle vier →", cs_b1: "Lees de casestudy",
   in_l: "Sectoren", in_h: "Gebouwd voor bedrijven die draaien op software die niet uit kan", in_p: "Backoffices, shops, planningstools, portalen, boekingssystemen. Waar het ook op draait, het verdient elke dag geld, en de uren eromheen zijn te automatiseren.", i1: "Horeca", i1s: "Boeking- en operatieplatforms, meerdere vestigingen.", i2: "Verhuur en vastgoed", i2s: "Aanbod, contracten, betalingen, huurdersportalen.", i3: "E-commerce", i3s: "Shops, ERP-koppelingen, betaalproviders.", i4: "Logistiek en maakindustrie", i4s: "Planningstools, scanners, EDI-integraties.", i5: "Zorg en overheid", i5s: "Portalen onder strenge dataregels.", i6s: "Multi-tenant producten die hun eerste versie zijn ontgroeid.", i7: "Bureaus", i7s: "Senior werk als onderaannemer op het project van jouw klant.", i8: "Eigenaar-gerunde bedrijven", i8s: "Eén systeem, één developer die vertrok, en een bedrijf dat ervan afhangt.",
   tr_l: "Beveiliging en governance", tr_h: "Controles die je kunt nakijken, geen gekochte badges", tr_p: "Hier wordt geen certificaat geclaimd dat ik niet heb. Elke tegel linkt naar het document of de pagina erachter.", tr_a: "Over Compliance Alignment →", tr_1: "Privacyverklaring, geen tracking <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m5 12 5 5L20 7\"/></svg>", tr_2h: "Hosting in de EU", tr_2: "Servers in Amsterdam <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m5 12 5 5L20 7\"/></svg>", tr_3: "Getekend voordat er iets gedeeld wordt <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m5 12 5 5L20 7\"/></svg>", tr_4: "Gap-analyse met bewijs <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m5 12 5 5L20 7\"/></svg>",

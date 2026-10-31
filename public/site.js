@@ -48,6 +48,7 @@
     if (en) en.setAttribute('aria-pressed', l === 'en');
     if (nl) nl.setAttribute('aria-pressed', l === 'nl');
     try { localStorage.setItem('lang', l); } catch (e) {}
+    if (window.SCUTTLE_LOOP) window.SCUTTLE_LOOP.lang(l);
     if (animate) document.querySelectorAll('[data-dec]').forEach(function (h) { decrypt(h, 700); });
   }
   // Pages that exist in both languages switch with two links (/ and /nl/); the rest switch in place.
@@ -386,3 +387,63 @@
 
   try { if (!paired && localStorage.getItem('lang') === 'nl') lang('nl'); } catch (e) {}
 })();
+
+/* The home page loop: five steps around the Ongoing hub (inline SVG built here, panels in the HTML). Walks by itself every 4.5 s until a step is clicked; the orange dot travels the ring unless reduced motion is on. */
+(function () {
+  var root = document.getElementById('loop'); if (!root) return;
+  var svg = root.querySelector('.loop-svg'), panels = root.querySelectorAll('.lp'), hint = root.querySelector('.loop-hint');
+  var steps; try { steps = JSON.parse(root.dataset.steps); } catch (e) { return; }
+  var ring = steps.filter(function (s) { return !s.hub; }), hub = steps.filter(function (s) { return s.hub; })[0];
+  var all = hub ? ring.concat([hub]) : ring;
+  var ns = 'http://www.w3.org/2000/svg';
+  function el(tag, attrs, kids) { var e = document.createElementNS(ns, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); (kids || []).forEach(function (c) { e.appendChild(typeof c === 'string' ? document.createTextNode(c) : c); }); return e; }
+  function pol(cx, cy, r, deg) { var a = (deg - 90) * Math.PI / 180; return [cx + r * Math.cos(a), cy + r * Math.sin(a)]; }
+  function arc(cx, cy, r, a0, a1) { var p0 = pol(cx, cy, r, a0), p1 = pol(cx, cy, r, a1); return 'M' + p0[0] + ' ' + p0[1] + ' A' + r + ' ' + r + ' 0 0 1 ' + p1[0] + ' ' + p1[1]; }
+  var nl = function () { return document.documentElement.lang === 'nl'; };
+  var cx = 260, cy = 260, r = 190, nr = 48, hr = 66, n = ring.length, step = 360 / n, nodes = [], segs = [], spokes = [], labels = [];
+  svg.setAttribute('viewBox', '0 0 520 520');
+  var defs = el('defs'); defs.innerHTML = '<marker id="lp-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="arrow"/></marker><marker id="lp-ahon" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="arrow on"/></marker>';
+  svg.appendChild(defs);
+  svg.appendChild(el('circle', { cx: cx, cy: cy, r: r, 'class': 'ring' }));
+  svg.appendChild(el('path', { id: 'lp-path', d: 'M' + cx + ' ' + (cy - r) + ' a' + r + ' ' + r + ' 0 1 1 -0.01 0', fill: 'none', stroke: 'none' }));
+  ring.forEach(function (s, i) {
+    var a0 = i * step + 16, a1 = (i + 1) * step - 18;
+    var seg = el('path', { d: arc(cx, cy, r, a0, a1), 'class': 'seg', 'marker-end': 'url(#lp-ahon)' }); svg.appendChild(seg); segs.push(seg);
+    svg.insertBefore(el('path', { d: arc(cx, cy, r, a0, a1), 'class': 'ring', 'marker-end': 'url(#lp-ah)' }), seg);
+    if (hub) { var p0 = pol(cx, cy, hr + 10, i * step), p1 = pol(cx, cy, r - nr - 10, i * step); var sp = el('path', { d: 'M' + p0[0] + ' ' + p0[1] + ' L' + p1[0] + ' ' + p1[1], 'class': 'spoke' }); svg.appendChild(sp); spokes.push(sp); }
+  });
+  function node(s, p, rad, cls) {
+    var g = el('g', { 'class': 'node' + cls, role: 'button', tabindex: '0', 'aria-label': (s.num || s.tag.en) + ' ' + s.en });
+    g.appendChild(el('circle', { cx: p[0], cy: p[1], r: rad, 'class': 'c' }));
+    var num = el('text', { x: p[0], y: p[1] - (cls ? 10 : 9), 'class': 'num' }, [s.num || s.tag.en]);
+    var nm = el('text', { x: p[0], y: p[1] + (cls ? 14 : 13), 'class': 'nm' }, [s.en]);
+    g.appendChild(num); g.appendChild(nm); svg.appendChild(g); nodes.push(g); labels.push({ s: s, num: num, nm: nm });
+  }
+  ring.forEach(function (s, i) { node(s, pol(cx, cy, r, i * step), nr, ''); });
+  if (hub) node(hub, [cx, cy], hr, ' hub');
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduce) { var dot = el('circle', { r: 5, 'class': 'dot' }); var am = el('animateMotion', { dur: '12s', repeatCount: 'indefinite' }); am.appendChild(el('mpath', { href: '#lp-path' })); dot.appendChild(am); svg.appendChild(dot); }
+  var cur = 0, pinned = false, timer;
+  function show(i) {
+    cur = i; var isHub = !!hub && i === all.length - 1;
+    nodes.forEach(function (g, j) { g.classList.toggle('on', j === i); g.setAttribute('aria-pressed', j === i); });
+    segs.forEach(function (s, j) { s.classList.toggle('on', isHub || j === i); });
+    spokes.forEach(function (s) { s.classList.toggle('on', isHub); });
+    panels.forEach(function (p) { p.classList.toggle('on', p.dataset.step === all[i].key); });
+  }
+  function relabel(l) {
+    var d = l === 'nl';
+    labels.forEach(function (x) { x.nm.textContent = d ? x.s.nl : x.s.en; if (!x.s.num) x.num.textContent = d ? x.s.tag.nl : x.s.tag.en; });
+    if (pinned && hint) hint.textContent = (d ? root.dataset.pinnedNl : root.dataset.pinned) + ' ' + (d ? all[cur].nl : all[cur].en) + '.';
+  }
+  function pick(i) { pinned = true; clearInterval(timer); show(i); relabel(nl() ? 'nl' : 'en'); }
+  nodes.forEach(function (g, i) {
+    g.addEventListener('click', function () { pick(i); });
+    g.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(i); } });
+  });
+  root.classList.add('js');
+  show(0); relabel(nl() ? 'nl' : 'en');
+  if (!reduce) timer = setInterval(function () { if (!pinned) show((cur + 1) % all.length); }, 4500);
+  window.SCUTTLE_LOOP = { lang: relabel };
+})();
+

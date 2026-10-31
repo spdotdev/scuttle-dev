@@ -515,6 +515,22 @@ class SiteTest extends TestCase
         $this->assertStringNotContainsString('<b>0</b>', $home);
         $this->assertStringContainsString('id="trust"', $home, 'the trust block');
         $this->assertSame(4, substr_count($home, 'class="tt"'), 'four trust tiles');
+        // The services loop (v0.7.31): five steps and the Ongoing hub, every service linked once in its step, the nine extra entries open the contact form with their name.
+        $this->assertStringContainsString('id="loop"', $home, 'the loop');
+        $this->assertSame(6, substr_count($home, '<section class="lp'), 'five steps and the hub');
+        $this->assertSame(0, substr_count($home, 'class="tile rv"'), 'the tiles are gone');
+        preg_match('/<div class="loop"(.*?)<p class="loop-hint"/s', $home, $lm);
+        $loopHtml = $lm[1] ?? '';
+        foreach (\Spdotdev\ScuttleDev\Catalog::all() as $p) {
+            $this->assertSame(1, substr_count($loopHtml, 'href="'.\Spdotdev\ScuttleDev\Catalog::url($p).'"'), $p['name'].' once in the loop');
+        }
+        foreach (\Spdotdev\ScuttleDev\Catalog::EXTRA as $key => $e) {
+            $this->assertStringContainsString('/contact?about='.rawurlencode($e[2]).'"', $loopHtml, $e[2].' opens the contact form');
+            $this->assertStringContainsString('data-i="t_'.$key.'"', $loopHtml);
+        }
+        $this->assertSame(21, substr_count($loopHtml, '<li><a href='), 'twelve services and nine extra entries');
+        $this->assertStringContainsString('data-i="lp_sub_ai"', $loopHtml, 'Build is split in General and AI and automation');
+        $this->assertStringContainsString('Performance Test', (string) $this->get('http://scuttle.dev/contact?about=Performance+Test')->getContent(), 'the contact form knows the extra entries');
         foreach (['SOC 2', 'ISO 27001', 'certified', 'Certified'] as $claim) {
             $this->assertStringNotContainsString($claim, $home, 'no certificate we do not hold');
         }

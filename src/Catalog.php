@@ -781,6 +781,51 @@ final class Catalog
     }
 
     /**
+     * The steps for the ring drawn by site.js: key, hub flag, number, labels in both languages.
+     *
+     * @return list<array{key:string, hub:bool, num:string, en:string, nl:string, tag:array{en:string, nl:string}}>
+     */
+    public static function loopSteps(): array
+    {
+        $out = [];
+        $i = 0;
+        foreach (self::STEPS as $k => $s) {
+            $hub = $k === 'ongoing';
+            $out[] = ['key' => $k, 'hub' => $hub, 'num' => $hub ? '' : sprintf('%02d', ++$i), 'en' => $s[0], 'nl' => $s[1], 'tag' => ['en' => 'between the loops', 'nl' => 'tussen de rondes']];
+        }
+
+        return $out;
+    }
+
+    /**
+     * The Dutch strings of the home page loop, keyed by its data-i keys (t_<slug> one-liners, lp_* step texts).
+     *
+     * @return array<string, string>
+     */
+    public static function nlLoopStrings(): array
+    {
+        $out = [];
+        foreach (self::all() as $p) {
+            $out['t_'.$p['slug']] = $p['nl']['short'];
+        }
+        foreach (self::EXTRA as $k => $e) {
+            $out['t_'.$k] = $e[4];
+        }
+        $i = 0;
+        foreach (self::STEPS as $k => $s) {
+            $out['lp_'.$k.'_k'] = ($k === 'ongoing' ? 'Tussen de rondes' : sprintf('%02d', ++$i)).' · '.$s[1];
+            $out['lp_'.$k.'_l'] = $s[3];
+            $out['lp_'.$k.'_v'] = $s[5];
+        }
+        foreach (self::SUBS as $k => $s) {
+            $out['lp_sub_'.$k] = $s[1];
+        }
+        $out['lp_hint'] = 'Klik op een stap voor haar diensten, klik op een dienst voor haar pagina. Met rust gelaten loopt de ronde vanzelf.';
+
+        return $out;
+    }
+
+    /**
      * @param  Product  $p
      */
     public static function url(array $p): string
