@@ -73,7 +73,7 @@
             <li data-i="pr_c4i1">First hour: find the cause, say what the fix costs.</li>
             <li data-i="pr_c4i2">Every change written down, so the next person understands it.</li>
           </ul>
-          <a class="btn o" href="tel:+31618233175"><span data-i="pr_c4b">Call +31 6 18 23 31 75</span></a>
+          <a class="btn o" href="{{ route('scuttle.contact.page') }}?about=Something+else"><span data-i="pr_c4b">Contact me →</span></a>
         </div>
       </div>
     </div>
@@ -191,7 +191,7 @@
       <img alt="" src="{{ secure_asset('vendor/scuttle/logo.svg') }}" width="46" height="37">
       <h2 data-i="pr_e_h">Want a number for your situation?</h2>
       <p data-i="pr_e_p">Tell me what you are running. I reply within one working day with a first opinion, free.</p>
-      <div class="row"><a class="btn" href="{{ config('scuttle-dev.booking_url') }}"><span data-i="pr_e_b1">Book a call</span></a><a class="btn o" href="{{ route('scuttle.home') }}#contact"><span data-i="pr_e_b2">Use the contact form</span></a><a class="btn o" href="tel:+31618233175">+31 6 18 23 31 75</a></div>
+      <div class="row"><a class="btn" href="{{ config('scuttle-dev.booking_url') }}"><span data-i="pr_e_b1">Book a call</span></a><a class="btn o" href="{{ route('scuttle.home') }}#contact"><span data-i="pr_e_b2">Use the contact form</span></a></div>
     </div>
   </div></section>
 </article>
@@ -249,7 +249,7 @@ Object.assign(window.SCUTTLE_NL.t, {
  "pr_c4i0": "Zelfde tarief, geen spoedtoeslag.",
  "pr_c4i1": "Eerste uur: de oorzaak vinden en zeggen wat de oplossing kost.",
  "pr_c4i2": "Elke wijziging opgeschreven, zodat de volgende het begrijpt.",
- "pr_c4b": "Bel +31 6 18 23 31 75",
+ "pr_c4b": "Neem contact op →",
  "pr_c5l": "05 · Vaste prijs",
  "pr_c5h": "Health Check",
  "pr_c5a": "€1.080",

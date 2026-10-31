@@ -350,7 +350,7 @@ class SiteTest extends TestCase
     public function test_privacy_page_renders_and_is_linked(): void
     {
         $privacy = (string) $this->get('http://scuttle.dev/privacy')->assertOk()->getContent();
-        foreach (['Privacy statement', 'Privacyverklaring', 'stas@scuttle.dev', 'Opting out', 'Afmelden', 'Anthropic', 'no tracking or analytics cookies', 'geen tracking- of analysecookies', '31 October 2026'] as $needle) {
+        foreach (['Privacy statement', 'Privacyverklaring', 'contact form', 'contactformulier', 'Opting out', 'Afmelden', 'Anthropic', 'no tracking or analytics cookies', 'geen tracking- of analysecookies', '31 October 2026'] as $needle) {
             $this->assertStringContainsString($needle, $privacy);
         }
         $this->assertStringNotContainsString('Gemini', $privacy, 'the lead tooling runs on Anthropic since 2026-10-28');
@@ -914,4 +914,20 @@ class SiteTest extends TestCase
             }
         }
     }
+    /** Stas, 2026-10-31: mail and phone links live on the contact page only; every other contact button opens the contact form. */
+    public function test_only_the_contact_page_carries_mail_and_phone_links(): void
+    {
+        foreach (['/', '/pricing', '/health-check', '/services/modernization', '/privacy', '/company', '/nl', '/nl/pricing', '/nl/services/modernization', '/nl/privacy'] as $path) {
+            $html = (string) $this->get('http://scuttle.dev'.$path)->assertOk()->getContent();
+            $this->assertStringNotContainsString('mailto:', $html, $path);
+            $this->assertStringNotContainsString('href="tel:', $html, $path);
+        }
+        $contact = (string) $this->get('http://scuttle.dev/contact')->assertOk()->getContent();
+        $this->assertStringContainsString('href="mailto:info@scuttle.dev"', $contact);
+        $this->assertStringContainsString('href="tel:+31618233175"', $contact);
+        $product = (string) $this->get('http://scuttle.dev/services/modernization')->getContent();
+        $this->assertStringContainsString('/contact?about=Modernization"><span data-i="p_ask">Ask about Modernization</span>', $product);
+        $this->assertStringContainsString('<option value="Modernization" selected>', (string) $this->get('http://scuttle.dev/contact?about=Modernization')->getContent());
+    }
+
 }

@@ -21,7 +21,6 @@ $nl = $C::nl($p) + [
     'p_t4c' => 'als pdf.',
     'p_form' => 'Gebruik het contactformulier',
     'p_book' => 'Plan een gesprek',
-    'p_mail' => 'Mail info@scuttle.dev',
     'p_also' => 'Ook bij '.$C::GROUPS_NL[$p['group']],
     'p_more' => 'Lees meer →',
 ];
@@ -55,7 +54,7 @@ foreach ($related as $r) {
       <p class="lead" data-i="p_lead">{{ $p['lead'] }}</p>
       <p class="price"><b data-i="p_price">{{ $p['price'] }}.</b> <span data-i="p_pn">{{ $p['price_note'] }}</span></p>
       <div class="cta">
-        <a class="btn" href="mailto:info@scuttle.dev?subject={{ rawurlencode($p['name']) }}"><span data-i="p_ask">Ask about {{ $p['name'] }}</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn" href="{{ route('scuttle.contact.page') }}?about={{ rawurlencode($p['name']) }}"><span data-i="p_ask">Ask about {{ $p['name'] }}</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         <a class="btn o" href="{{ route('scuttle.pricing') }}" data-i="p_price_btn">How I price</a>
       </div>
       @if(in_array($p['slug'], ['legacy-health-check', 'modernization'], true))
@@ -169,7 +168,7 @@ foreach ($related as $r) {
       @include('scuttle::partials.logo', ['id' => 'cta', 'w' => 46, 'h' => 37])
       <h2 data-i="p_cta1">{{ $p['cta'][0] }}</h2>
       <p data-i="p_cta2">{{ $p['cta'][1] }}</p>
-      <div class="row"><a class="btn" href="{{ route('scuttle.contact.page') }}?about={{ rawurlencode($p['name']) }}" data-i="p_form">Use the contact form</a><a class="btn o" href="{{ config('scuttle-dev.booking_url') }}" data-i="p_book">Book a call</a><a class="btn o" href="mailto:info@scuttle.dev?subject={{ rawurlencode($p['name']) }}" data-i="p_mail">Email info@scuttle.dev</a></div>
+      <div class="row"><a class="btn" href="{{ route('scuttle.contact.page') }}?about={{ rawurlencode($p['name']) }}" data-i="p_form">Use the contact form</a><a class="btn o" href="{{ config('scuttle-dev.booking_url') }}" data-i="p_book">Book a call</a></div>
     </div>
   </div></section>
 </article>
