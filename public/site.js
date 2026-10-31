@@ -429,7 +429,7 @@
     g.appendChild(el('circle', { cx: p[0], cy: p[1], r: rad, 'class': 'c' }));
     var num = el('text', { x: p[0], y: p[1] - (cls ? 10 : 9), 'class': 'num' }, [s.num || s.tag.en]);
     var nm = el('text', { x: p[0], y: p[1] + (cls ? 14 : 13), 'class': 'nm' }, [s.en]);
-    g.appendChild(num); g.appendChild(nm); svg.appendChild(g); nodes.push(g); labels.push({ s: s, num: num, nm: nm });
+    g.appendChild(num); g.appendChild(document.createTextNode(' ')); g.appendChild(nm); svg.appendChild(g); nodes.push(g); labels.push({ s: s, num: num, nm: nm });
   }
   ring.forEach(function (s, i) { node(s, pol(cx, cy, r, i * step), nr, ''); });
   if (hub) node(hub, [cx, cy], hr, ' hub');
@@ -445,7 +445,7 @@
   }
   function relabel(l) {
     var d = l === 'nl';
-    labels.forEach(function (x) { x.nm.textContent = d ? x.s.nl : x.s.en; if (!x.s.num) x.num.textContent = d ? x.s.tag.nl : x.s.tag.en; });
+    labels.forEach(function (x) { x.nm.textContent = d ? x.s.nl : x.s.en; if (!x.s.num) x.num.textContent = d ? x.s.tag.nl : x.s.tag.en; x.num.parentNode.setAttribute('aria-label', x.num.textContent + ' ' + x.nm.textContent); });
     if (pinned && hint) hint.textContent = (d ? root.dataset.pinnedNl : root.dataset.pinned) + ' ' + (d ? all[cur].nl : all[cur].en) + '.';
   }
   function pick(i) { pinned = true; clearInterval(timer); show(i); relabel(nl() ? 'nl' : 'en'); }
