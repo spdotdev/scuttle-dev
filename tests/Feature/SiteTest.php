@@ -116,6 +116,38 @@ class SiteTest extends TestCase
         $this->assertStringContainsString('<button id="nl"', $news);
     }
 
+    public function test_no_tracked_text_file_holds_a_long_dash(): void
+    {
+        $root = dirname(__DIR__, 2);
+        $skipDirs = ['.git', 'vendor', 'node_modules'];
+        $skipExt = ['pdf', 'png', 'jpg', 'jpeg', 'webp', 'gif', 'ico', 'woff', 'woff2', 'ttf', 'svg', 'zip', 'lock'];
+        $found = [];
+        $walk = function (string $dir) use (&$walk, &$found, $root, $skipDirs, $skipExt): void {
+            foreach (scandir($dir) as $name) {
+                if ($name === '.' || $name === '..') {
+                    continue;
+                }
+                $path = $dir.'/'.$name;
+                $rel = substr($path, strlen($root) + 1);
+                if (is_dir($path)) {
+                    if (in_array($name, $skipDirs, true) || in_array($rel, ['public/fonts', 'public/og'], true)) {
+                        continue;
+                    }
+                    $walk($path);
+                } elseif (! in_array(strtolower(pathinfo($name, PATHINFO_EXTENSION)), $skipExt, true)) {
+                    foreach (explode("\n", (string) file_get_contents($path)) as $i => $line) {
+                        if (str_contains($line, "\u{2014}") || str_contains($line, "\u{2013}")) {
+                            $found[] = $rel.':'.($i + 1);
+                        }
+                    }
+                }
+            }
+        };
+        $walk($root);
+
+        $this->assertSame([], $found, "Long dashes found in:\n".implode("\n", $found));
+    }
+
     public function test_every_internal_link_and_social_image_resolves(): void
     {
         $pages = ['/', '/pricing', '/health-check', '/health-check/sample', '/php-check', '/nis2', '/services', '/contact', '/company', '/privacy', '/case-studies', '/news', '/projects', '/nl', '/nl/pricing', '/nl/services', '/nl/contact', '/nl/case-studies'];

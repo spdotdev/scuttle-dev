@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development. Steps use checkbox (`- [ ]`) syntax.
 
-**Goal:** Build `spdotdev/scuttle-dev`, a versioned Laravel package that serves the scuttle.dev single-page site (plus its legal PDFs, vCard, QR codes, and SEO files), and wire it into `the host app` via host-based routing — mirroring the proven `spdotdev/splotnikov-dev` pattern.
+**Goal:** Build `spdotdev/scuttle-dev`, a versioned Laravel package that serves the scuttle.dev single-page site (plus its legal PDFs, vCard, QR codes, and SEO files), and wire it into `the host app` via host-based routing, mirroring the proven `spdotdev/splotnikov-dev` pattern.
 
 **Architecture:** A Composer `library` package (PSR-4 `Spdotdev\ScuttleDev\`) whose auto-discovered provider registers a `Route::domain(config('scuttle-dev.domain'))` group rendering the ported `index.html`. All site assets are namespaced under `public/vendor/scuttle/` (multi-site host: a shared `public/` root would collide with other site packages). `robots.txt` + `sitemap.xml` are served at the domain root via controller (crawler convention). the host app installs it via GitHub VCS + git tag.
 
@@ -14,7 +14,7 @@
 
 - Package **`spdotdev/scuttle-dev`**, `type: library`, namespace **`Spdotdev\ScuttleDev\`**, PSR-4 root `src/`.
 - PHP **`^8.3`**; **`illuminate/support: ^13.0`** (match the host app's Laravel 13).
-- Distribution **GitHub VCS + git tags only — no Packagist**. First tag **`v0.1.0`**. Repo **public**, owner `spdotdev`.
+- Distribution **GitHub VCS + git tags only, no Packagist**. First tag **`v0.1.0`**. Repo **public**, owner `spdotdev`.
 - **Host has no PHP/Composer.** Use the the host app container (`make composer`, `make art`, `docker compose exec app ...` from `~/<host-app>`) or one-off: `docker run --rm -v ~/scuttle-dev:/app -w /app composer:2 <cmd>`.
 - The static repo **`~/scuttledev` is never modified or committed to**. Copy assets FROM it.
 - Package working dir: **`~/scuttle-dev`** (exists; contains only `docs/`, `.superpowers/`).
@@ -117,7 +117,7 @@ parameters:
 </phpunit>
 ```
 
-- [ ] **Step 6: Validate** — `docker run --rm -v ~/scuttle-dev:/app -w /app composer:2 validate --no-check-publish` → "valid" (missing-lock warning OK).
+- [ ] **Step 6: Validate**: `docker run --rm -v ~/scuttle-dev:/app -w /app composer:2 validate --no-check-publish` → "valid" (missing-lock warning OK).
 
 - [ ] **Step 7: git init + commit**
 ```bash
@@ -157,7 +157,7 @@ grep -noE '(href|src|content)="/(profile|logo|og-image|hero-bg|founder|favicon|a
 echo "raw scuttledev.vcf (expect none):"; grep -n 'href="scuttledev.vcf"' resources/views/site.blade.php || echo NONE
 echo "asset() count:" $(grep -c "asset('vendor/scuttle/" resources/views/site.blade.php)
 ```
-Expected: marker ≥1; "NONE" for both remaining-ref checks; asset() count ≥ 10. If marker is 0, STOP (BLOCKED — wrong source copied).
+Expected: marker ≥1; "NONE" for both remaining-ref checks; asset() count ≥ 10. If marker is 0, STOP (BLOCKED, wrong source copied).
 
 - [ ] **Step 4: Collect all generated assets into `public/`** (preserve `legal/` and `qr/` subtrees):
 ```bash
@@ -183,7 +183,7 @@ echo "legal pdfs:" $(ls public/legal/*.pdf | wc -l)
 echo "qr files:" $(find public/qr -type f | wc -l)
 ls public/*.png public/*.webmanifest public/*.txt public/*.xml public/*.vcf
 ```
-Expected: 4 legal pdfs, qr files > 0, all listed files present. Note: `site.webmanifest` ships with empty `icons: []` (no internal paths to rewrite — verified in design).
+Expected: 4 legal pdfs, qr files > 0, all listed files present. Note: `site.webmanifest` ships with empty `icons: []` (no internal paths to rewrite, verified in design).
 
 - [ ] **Step 6: Commit**
 ```bash
@@ -300,7 +300,7 @@ class ScuttleDevServiceProvider extends ServiceProvider
 }
 ```
 
-- [ ] **Step 5: Lint** — `docker run --rm -v ~/scuttle-dev:/app -w /app composer:2 sh -c "find src config routes -name '*.php' -print0 | xargs -0 -n1 php -l"` → all "No syntax errors detected".
+- [ ] **Step 5: Lint**: `docker run --rm -v ~/scuttle-dev:/app -w /app composer:2 sh -c "find src config routes -name '*.php' -print0 | xargs -0 -n1 php -l"` → all "No syntax errors detected".
 
 - [ ] **Step 6: Commit**
 ```bash
@@ -460,7 +460,7 @@ Bump the git tag here (`vX.Y.Z`), then in the host app run
 
 - [ ] **Step 5: `CLAUDE.md`**
 ```markdown
-# CLAUDE.md — scuttle-dev
+# CLAUDE.md: scuttle-dev
 
 ## What this is
 A Laravel **library package** (not an app) serving the scuttle.dev single-page
@@ -475,11 +475,11 @@ app via host-based routing.
 - Versioned: change behaviour → bump tag (`vX.Y.Z`) → `composer update` in the host app.
 
 ## Layout
-- `src/ScuttleDevServiceProvider.php` — auto-discovered; loads routes + views, publishes config/assets.
-- `routes/web.php` — `Route::domain(config('scuttle-dev.domain'))` group: `/`, plus `/robots.txt` + `/sitemap.xml` at root.
-- `resources/views/site.blade.php` — ported near-verbatim from the static site; asset refs rewritten to `vendor/scuttle/`.
-- `config/scuttle-dev.php` — `domain` via `SCUTTLE_DOMAIN`.
-- `public/` — all site assets (images, qr/, legal/*.pdf, vCard, manifest, robots, sitemap) published to the host's `public/vendor/scuttle`.
+- `src/ScuttleDevServiceProvider.php`: auto-discovered; loads routes + views, publishes config/assets.
+- `routes/web.php`: `Route::domain(config('scuttle-dev.domain'))` group: `/`, plus `/robots.txt` + `/sitemap.xml` at root.
+- `resources/views/site.blade.php`: ported near-verbatim from the static site; asset refs rewritten to `vendor/scuttle/`.
+- `config/scuttle-dev.php`: `domain` via `SCUTTLE_DOMAIN`.
+- `public/`: all site assets (images, qr/, legal/*.pdf, vCard, manifest, robots, sitemap) published to the host's `public/vendor/scuttle`.
 
 ## Deferred
 DigitalOcean provisioning, live deploy, and the DNS A-record cutover. See `docs/cutover-runbook.md`.
@@ -522,20 +522,20 @@ git commit -q -m "docs+ci+tests: CI, README, CLAUDE.md, runbook, testbench suite
 
 ---
 
-### Task 5: Publish to GitHub and tag v0.1.0 — OUTWARD-FACING (pause for user OK)
+### Task 5: Publish to GitHub and tag v0.1.0: OUTWARD-FACING (pause for user OK)
 
 - [ ] **Step 1:** `cd ~/scuttle-dev && gh repo create spdotdev/scuttle-dev --public --source=. --remote=origin` then rename branch to `main` if needed (`git branch -m master main`) and `git push -u origin main`.
-- [ ] **Step 2:** `git tag -a v0.1.0 -m "v0.1.0 — initial scuttle.dev site package" && git push origin v0.1.0`.
+- [ ] **Step 2:** `git tag -a v0.1.0 -m "v0.1.0, initial scuttle.dev site package" && git push origin v0.1.0`.
 - [ ] **Step 3:** Verify `git ls-remote --tags origin` shows `v0.1.0` and `gh repo view spdotdev/scuttle-dev --json visibility` is PUBLIC.
 
 ---
 
-### Task 6: Wire into the host app and verify — OUTWARD-FACING (pause for user OK)
+### Task 6: Wire into the host app and verify: OUTWARD-FACING (pause for user OK)
 
-**Files (in `~/<host-app>`, on a feature branch):** modify `composer.json`, `.env.example`/`.env`; add `tests/Feature/ScuttleSiteTest.php`. (Landing route already host-scoped; host already drops global static SEO files — no further routing changes needed.)
+**Files (in `~/<host-app>`, on a feature branch):** modify `composer.json`, `.env.example`/`.env`; add `tests/Feature/ScuttleSiteTest.php`. (Landing route already host-scoped; host already drops global static SEO files, no further routing changes needed.)
 
 - [ ] **Step 1:** `cd ~/<host-app> && git checkout -b feat/scuttle-dev-site-package`.
-- [ ] **Step 2: failing test** — create `tests/Feature/ScuttleSiteTest.php`:
+- [ ] **Step 2: failing test**: create `tests/Feature/ScuttleSiteTest.php`:
 ```php
 <?php
 
@@ -559,16 +559,16 @@ class ScuttleSiteTest extends TestCase
 ```
 Run `make art cmd="test --filter=ScuttleSiteTest"` → FAIL (404, package not required yet).
 
-- [ ] **Step 3: require** — add the VCS repo + require:
+- [ ] **Step 3: require**: add the VCS repo + require:
 ```bash
 cd ~/<host-app>
 make composer cmd="config repositories.scuttle-dev vcs https://github.com/spdotdev/scuttle-dev"
 make composer cmd="require spdotdev/scuttle-dev:^0.1"
 ```
 
-- [ ] **Step 4: publish assets** — `make art cmd="vendor:publish --tag=scuttle-dev-assets --force"`; confirm `public/vendor/scuttle/` populated (legal/, qr/, images).
+- [ ] **Step 4: publish assets**: `make art cmd="vendor:publish --tag=scuttle-dev-assets --force"`; confirm `public/vendor/scuttle/` populated (legal/, qr/, images).
 
-- [ ] **Step 5: env** — append to `.env.example` and ensure in `.env`:
+- [ ] **Step 5: env**: append to `.env.example` and ensure in `.env`:
 ```dotenv
 
 # Host that the scuttle-dev site package answers on.
@@ -576,7 +576,7 @@ SCUTTLE_DOMAIN=scuttle.dev
 ```
 Then `make art cmd="config:clear"`.
 
-- [ ] **Step 6: run tests** — `make art cmd="test --filter=ScuttleSiteTest"` → PASS. Then full suite `make art cmd="test"` → all pass (splotnikov + landing + scuttle).
+- [ ] **Step 6: run tests**: `make art cmd="test --filter=ScuttleSiteTest"` → PASS. Then full suite `make art cmd="test"` → all pass (splotnikov + landing + scuttle).
 
 - [ ] **Step 7: e2e via nginx**
 ```bash

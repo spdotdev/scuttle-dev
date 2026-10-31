@@ -34,7 +34,7 @@ manifest) to the host's `public/vendor/scuttle`.
 ## Configuration
 
 This package is a library, not a standalone app, so it ships no `.env` of
-its own — it reads config from whatever app installs it. See
+its own, it reads config from whatever app installs it. See
 [`.env.example`](.env.example) for the full list of variables it supports
 and their defaults; copy the ones you want to override into the **host
 application's** `.env`.
@@ -44,7 +44,7 @@ application's** `.env`.
 | `SCUTTLE_DOMAIN` | `scuttle.dev` | Host this package's routes answer on (`Route::domain(...)`). |
 
 Every variable has a safe default baked into `config/scuttle-dev.php`, so
-the package works out of the box even if none of these are set —
+the package works out of the box even if none of these are set:
 `.env.example` only documents the overrides available to you. If you want
 the config file itself editable in the host app, publish it:
 
