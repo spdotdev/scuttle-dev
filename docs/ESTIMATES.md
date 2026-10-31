@@ -9,4 +9,4 @@ Every time estimate given to Stas for work on this site, with the real wall-cloc
 | Home title on the phone: forced break hidden under 600 px, browser balances three lines (v0.7.10, proposal 8 option 1) | 10 min | 2026-10-30 15:27 | 2026-10-30 15:36 | 9 min |
 | Home: the three list cards removed, services listed once (v0.7.11, proposal 9 option 2) | 15 min | 2026-10-30 15:50 | 2026-10-30 15:57 | 7 min |
 | Services regrouped as a loop, release 1: five renames, a step per service, loop data and constants, social cards rebuilt (v0.7.30, proposal 14 layout B) | 2 h | 2026-10-31 01:40 | 2026-10-31 01:55 | 15 min |
-| The loop on the home page: ring with the Ongoing hub, panels, nine extra entries, Dutch, dark, reduced motion, keyboard, tests, axe (v0.7.31) | 4 h | 2026-10-31 01:55 | 2026-10-31 02:20 | 25 min |
+| The loop on the home page: ring with the Ongoing hub, panels, nine extra entries, Dutch, dark, reduced motion, keyboard, tests, axe (v0.7.31) | 4 h | 2026-10-31 01:55 | 2026-10-31 02:06 | 11 min |
