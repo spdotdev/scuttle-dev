@@ -121,7 +121,7 @@ final class Catalog
                 'sub' => 'ai',
                 'name' => 'AI Agents and Skills',
                 'short' => 'Agents, custom skills, MCP servers, RAG over your data. One use case to production.',
-                'lead' => 'One workflow where AI saves measurable time, taken to production: a Claude agent with custom skills, an MCP server that gives it named tools on your systems, retrieval (RAG) over your own documents, and browser automation where there is no API. The value is in connecting the model to your knowledge and your tools, safely. I run my own business on this pattern.',
+                'lead' => 'One workflow where AI saves measurable time, in production: an agent with skills, MCP tools, RAG and browser automation. The value is safely connecting the model to your knowledge. I run my business on this.',
                 'price' => 'Quoted per use case at '.self::HOURLY,
                 'price_note' => 'Model costs are yours and capped. An evaluation set decides whether it ships.',
                 'features' => [
@@ -142,7 +142,7 @@ final class Catalog
                 'illus' => 'agent',
                 'cta' => ['Which task would you hand to an agent first?', 'Tell me where the hours go today and what a good answer looks like. I reply within one working day with the use case I would start with, free.'],
                 'nl' => [
-                    'lead' => 'Eén workflow waar AI meetbaar tijd bespaart, naar productie gebracht: een Claude-agent met eigen skills, een MCP-server die hem benoemde tools geeft op je systemen, retrieval (RAG) over je eigen documenten, en browserautomatisering waar geen API is. De waarde zit in het veilig verbinden van het model met jouw kennis en jouw tools. Ik draai mijn eigen bedrijf op dit patroon.',
+                    'lead' => 'Eén workflow waar AI meetbaar tijd bespaart, in productie: een agent met skills, MCP-tools, RAG en browserautomatisering. De waarde zit in het veilig verbinden van het model met jouw kennis. Ik draai mijn bedrijf hierop.',
                     'short' => 'Agents, eigen skills, MCP-servers, RAG over je data. Eén use case naar productie.',
                     'price' => 'Op offerte per use case, EUR 90 per uur excl. btw',
                     'price_note' => 'Modelkosten zijn voor jou en begrensd. Een evaluatieset bepaalt of het live gaat.',

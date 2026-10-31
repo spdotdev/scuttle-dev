@@ -12,6 +12,7 @@
       <span class="lbl dot" data-i="cp_l">Company</span>
       <h1 data-dec data-i="cp_h">One person, the whole stack</h1>
       <p class="lead" data-i="cp_lead">Scuttle Development is Stanislav Plotnikov, senior developer and solution architect in Eindhoven, founded in 2024. I automate the repetitive work in and around business software, keep that software secure and in support, and build what is missing. You talk to the person who does the work.</p>
+      @include('scuttle::partials.first-step')
     </div>
   </header>
 

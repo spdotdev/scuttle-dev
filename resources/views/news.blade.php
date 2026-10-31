@@ -12,6 +12,7 @@
       <span class="lbl dot" data-i="bl_lbl">News</span>
       <h1 data-i="bl_h1" data-dec>News from Scuttle Development</h1>
       <p class="lead" data-i="bl_lead">Notes on what changed in the field and what it means for your software. Each one points to the service that answers it, with its price on the page. Written by the person who does the work.</p>
+      @include('scuttle::partials.first-step', ['ask' => true])
     </div>
   </header>
 

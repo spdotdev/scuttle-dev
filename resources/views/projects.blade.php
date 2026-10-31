@@ -12,7 +12,8 @@
     <div>
       <span class="lbl dot" data-i="pj_lbl">Projects</span>
       <h1 data-i="pj_h1" data-dec>Open source, and the products behind the services</h1>
-      <p class="lead" data-i="pj_lead">Everything here is open source or runs on open source I publish: skills that work on every AI coding platform, MCP servers, an inventory product, this site. Each page is an overview with documentation, so you can see how I build before you hire me. Client projects appear here only with the client's written consent; more personal projects are on <a href="https://splotnikov.dev/projects" rel="noopener" target="_blank">splotnikov.dev</a>.</p>
+      <p class="lead" data-i="pj_lead">Open source I publish or build on: skills for any AI coding platform, MCP servers, an inventory product, this site, each with documentation. Client projects need the client's written consent; personal ones are on <a href="https://splotnikov.dev/projects" rel="noopener" target="_blank">splotnikov.dev</a>.</p>
+      @include('scuttle::partials.first-step', ['ask' => true])
     </div>
   </header>
 
@@ -46,7 +47,7 @@
 $nl = [
     'pj_lbl' => 'Projecten',
     'pj_h1' => 'Open source, en de producten achter de diensten',
-    'pj_lead' => 'Alles hier is open source of draait op open source die ik publiceer: skills die op elk AI-codeerplatform werken, MCP-servers, een voorraadproduct, deze site. Elke pagina is een overzicht met documentatie, zodat je ziet hoe ik bouw voordat je me inhuurt. Klantprojecten staan hier alleen met schriftelijke toestemming van de klant; meer persoonlijke projecten staan op <a href="https://splotnikov.dev/projects" rel="noopener" target="_blank">splotnikov.dev</a>.',
+    'pj_lead' => 'Open source die ik publiceer of waarop ik bouw: skills voor elk AI-codeerplatform, MCP-servers, een voorraadproduct, deze site, elk met documentatie. Klantprojecten hebben de schriftelijke toestemming van de klant nodig; persoonlijke projecten staan op <a href="https://splotnikov.dev/projects" rel="noopener" target="_blank">splotnikov.dev</a>.',
     'pj_more_d' => 'Overzicht en documentatie →',
     'pj_more' => 'Overzicht →',
     'pj_cta_h' => 'Wil je een van deze patronen in je eigen systeem?',

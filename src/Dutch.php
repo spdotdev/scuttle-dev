@@ -12,6 +12,16 @@ final class Dutch
 {
     public const HOST = 'https://scuttle.dev';
 
+    /** Dutch strings of the one-line offer (partials/first-step) that sits under the lead of the index pages. */
+    public const FIRST_STEP = [
+        'of_b' => 'Begin met een Health Check.',
+        'of_t' => 'Twee dagen, alleen lezen, een schriftelijk plan. Vaste prijs: EUR 1.080 excl. btw.',
+        'cta1' => 'Plan een gesprek over een Health Check',
+        'fs_ask_b' => 'Vertel me wat je draait.',
+        'fs_ask_t' => 'Ik reageer binnen één werkdag met een eerste mening, gratis.',
+        'ct_b2' => 'Gebruik het contactformulier',
+    ];
+
     /** @var list<string> */
     private const FIXED = ['/', '/pricing', '/health-check', '/health-check/sample', '/php-check', '/nis2', '/services', '/contact', '/company', '/privacy', '/case-studies'];
 

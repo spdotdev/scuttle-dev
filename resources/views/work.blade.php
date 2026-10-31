@@ -13,6 +13,7 @@
       <span class="lbl dot" data-i="wk_l">Services</span>
       <h1 data-dec data-i="wk_h1">What I deliver</h1>
       <p class="lead" data-i="wk_lead">Services say what I do; this page says what you hold afterwards. Every engagement ends in something you can point at: a report, a running server, a release pipeline, a document in your repository. Twelve of them, each with a fixed shape.</p>
+      @include('scuttle::partials.first-step')
     </div>
   </header>
 

@@ -58,6 +58,7 @@ $nl = [
   <span class="lbl dot" data-i="sm_l">Sample report</span>
   <h1 data-i="sm_h">What a Health Check report looks like</h1>
   <p class="lead" data-i="sm_lead">After two days of read-only analysis you get a written report. Below is its structure, with an invented system as the example.</p>
+  @include('scuttle::partials.first-step')
   <div class="callout" role="note"><p data-i="sm_note"><b>Illustration.</b> The system, the findings and the numbers below are invented, so that no client is shown. The structure, the checks and the dates from php.net are real.</p></div>
 
   <h2 data-i="sm_1_h">1. The summary on one page</h2>

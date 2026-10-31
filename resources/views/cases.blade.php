@@ -13,6 +13,7 @@
       <span class="lbl dot" data-i="csi_lbl">Case studies</span>
       <h1 data-i="csi_h1" data-dec>Work, told the way it went</h1>
       <p class="lead" data-i="csi_lead">One client project, anonymized because that is what confidentiality means, and three of my own products, named because they are mine. Each one says what the situation was, what I built and what came out.</p>
+      @include('scuttle::partials.first-step')
     </div>
   </header>
 
