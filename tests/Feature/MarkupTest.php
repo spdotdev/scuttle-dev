@@ -118,4 +118,24 @@ class MarkupTest extends TestCase
             $this->assertGreaterThanOrEqual(90, mb_strlen($desc), $path.' description is too thin to say what the page gives');
         }
     }
+
+    public function test_dutch_twins_carry_dutch_og_tags_that_match_the_title_and_description(): void
+    {
+        foreach ($this->paths() as $path) {
+            if (! str_starts_with($path, '/nl')) {
+                continue;
+            }
+            $html = (string) $this->get('http://scuttle.dev'.$path)->assertOk()->getContent();
+            preg_match('/<title>(.*?)<\/title>/s', $html, $t);
+            preg_match('/name="description" content="(.*?)"/s', $html, $d);
+            preg_match('/property="og:title" content="(.*?)"/s', $html, $ot);
+            preg_match('/property="og:description" content="(.*?)"/s', $html, $od);
+            preg_match('/property="og:locale" content="(.*?)"/s', $html, $ol);
+            $this->assertSame('nl_NL', $ol[1] ?? null, $path.' og:locale');
+            $this->assertNotEmpty($ot[1] ?? '', $path.' og:title');
+            $this->assertSame($d[1], $od[1] ?? null, $path.' og:description equals the Dutch description');
+            $this->assertStringStartsWith(explode(' | ', $ot[1])[0], $t[1], $path.' og:title is the Dutch title');
+            $this->assertStringContainsString('lang="nl"', $html);
+        }
+    }
 }
