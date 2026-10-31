@@ -914,6 +914,7 @@ class SiteTest extends TestCase
             }
         }
     }
+
     /** Stas, 2026-10-31: mail and phone links live on the contact page only; every other contact button opens the contact form. */
     public function test_only_the_contact_page_carries_mail_and_phone_links(): void
     {
@@ -929,5 +930,4 @@ class SiteTest extends TestCase
         $this->assertStringContainsString('/contact?about=Modernization"><span data-i="p_ask">Ask about Modernization</span>', $product);
         $this->assertStringContainsString('<option value="Modernization" selected>', (string) $this->get('http://scuttle.dev/contact?about=Modernization')->getContent());
     }
-
 }
