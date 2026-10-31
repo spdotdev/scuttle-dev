@@ -138,4 +138,13 @@ class MarkupTest extends TestCase
             $this->assertStringContainsString('lang="nl"', $html);
         }
     }
+
+    public function test_the_phone_rule_keeps_every_button_at_least_44_px_tall_and_lets_long_labels_wrap(): void
+    {
+        $css = (string) file_get_contents(dirname(__DIR__, 2).'/public/site.css');
+        $this->assertSame(1, preg_match('/@media \(max-width:600px\)\{\.btn\{([^}]*)\}\}/', $css, $m), 'one phone rule for .btn');
+        $this->assertStringContainsString('min-height:44px', $m[1]);
+        $this->assertStringContainsString('white-space:normal', $m[1]);
+        $this->assertStringContainsString('height:auto', $m[1]);
+    }
 }

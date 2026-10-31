@@ -52,6 +52,11 @@ Decided by a small council (contrarian, first principles, outsider, executor; no
 - **JSON-LD rule (Stas's security fix 1816b1c, 2026-10-30).** Every `ld+json` block that holds text from data (titles, summaries, names, CMS articles) is written with `json_encode(..., JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT)` so a title can never close the script tag; a hand-written block holds fixed text only. The `@context` key is written `'@'.'context'` inside Blade. The tests parse every block on every page, English and Dutch (`test_search_snippets_fit_and_structured_data_is_valid`, `test_dutch_twins_are_real_pages_with_hreflang`).
 - `test_every_internal_link_and_social_image_resolves` requests every internal link on every page type and checks the social image file exists.
 
+## Round 10 (2026-10-31)
+- Contact form errors travel in both languages: after a failed post the controller flashes `contact_errors_en` and `contact_errors_nl` (same errors, same order, built by running the validator once per language), the view renders the English list with `data-i="ctp_err_<n>"` and puts the Dutch twin in the page's Dutch map, so `/nl/contact` is Dutch on the server and the EN/NL switch flips the errors. The referer only decides the language stored with the lead. Without the lists (an old session) the view falls back to `$errors->all()`.
+- Phones: every `.btn` is at least 44 px tall under 600 px and long labels wrap (`test_the_phone_rule_keeps_every_button_at_least_44_px_tall_and_lets_long_labels_wrap`).
+- No long dash in any text file: `test_no_tracked_text_file_holds_a_long_dash`.
+
 ## Cutover (done)
 DigitalOcean provisioning, live deploy, and the DNS A-record cutover are done: scuttle.dev is served by the host app from this package (checked 2026-09-27, `/` returns 200 with `vendor/scuttle/` assets). `docs/cutover-runbook.md` is the record of how it was done.
 
