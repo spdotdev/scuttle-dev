@@ -73,7 +73,7 @@
   <link rel="preload" href="{{ secure_asset('vendor/scuttle/fonts/geist-latin.woff2') }}" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="{{ secure_asset('vendor/scuttle/fonts/geist-mono-latin.woff2') }}" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="{{ secure_asset('vendor/scuttle/site.css') }}" />
-  <script>try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+  <script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
   @yield('head')
 </head>
 
@@ -97,6 +97,7 @@
           <a class="all" href="{{ route('scuttle.work') }}" data-i="n_all">All services, and what you hold afterwards →</a>
         </div>
       </div>
+      <noscript><a class="ns-services" href="{{ route('scuttle.work') }}" data-i="n_products">Services</a></noscript>
       <a href="{{ route('scuttle.pricing') }}" data-i="n_pricing">Pricing</a>
       <a href="{{ route('scuttle.cases') }}" data-i="n_case">Case studies</a>
       <a href="{{ route('scuttle.company') }}" data-i="n_company">Company</a>
@@ -115,6 +116,7 @@
   </div></nav>
 
   <main id="top">
+    <p class="print-id" aria-hidden="true"><b>Scuttle Development</b> · Dirigentplein 144, 5642 RK Eindhoven · {{ preg_replace('#^https?://#', '', rtrim($isNl ? \Spdotdev\ScuttleDev\Dutch::nlUrl($enPath) : \Spdotdev\ScuttleDev\Dutch::enUrl($enPath), '/')) }}</p>
     @yield('content')
   </main>
 

@@ -348,15 +348,27 @@
   // Modals: QR code, photo, map (the map iframe is created only when opened).
   function modal(id, openBtn) {
     var m = $(id); if (!m) return;
-    var close = function () { m.classList.remove('active'); m.setAttribute('aria-hidden', 'true'); };
+    var close = function () { var was = m.classList.contains('active'); m.classList.remove('active'); m.setAttribute('aria-hidden', 'true'); if (was && openBtn) openBtn.focus(); };
     var open = function () {
       m.classList.add('active'); m.setAttribute('aria-hidden', 'false');
+      var x = m.querySelector('.x'); if (x) x.focus();
       var f = m.querySelector('.frame[data-src]');
       if (f && !f.firstChild) { var i = document.createElement('iframe'); i.src = f.dataset.src; i.loading = 'lazy'; i.referrerPolicy = 'no-referrer-when-downgrade'; i.setAttribute('allowfullscreen', ''); i.title = 'Map'; f.appendChild(i); }
     };
     if (openBtn) openBtn.onclick = open;
     [].slice.call(m.querySelectorAll('[data-close], .ov, .x')).forEach(function (b) { b.addEventListener('click', close); });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && m.classList.contains('active')) close(); });
+    document.addEventListener('keydown', function (e) {
+      if (!m.classList.contains('active')) return;
+      if (e.key === 'Escape') close();
+      if (e.key === 'Tab') { // keep the keyboard inside the open window
+        var f = [].slice.call(m.querySelectorAll('button, a[href], iframe, [tabindex]:not([tabindex="-1"])')).filter(function (n) { return n.offsetParent !== null; });
+        if (!f.length) return;
+        var first = f[0], last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+        else if (!m.contains(document.activeElement)) { e.preventDefault(); first.focus(); }
+      }
+    });
   }
   modal('qr-modal', $('open-qr'));
   modal('pic-modal', $('open-pic'));

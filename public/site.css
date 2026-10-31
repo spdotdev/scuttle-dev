@@ -495,8 +495,19 @@ footer .bottom{grid-column:1/-1;border-top:1px solid var(--dark-line);padding-to
 .cookie p{font-size:13.5px;color:var(--ink2);flex:1;min-width:0}.cookie p a{text-decoration:underline;text-underline-offset:3px}
 .cookie .row{display:flex;gap:8px;flex:none}
 @media (max-width:700px){.cookie{flex-direction:column;align-items:stretch}.cookie .row{justify-content:flex-end}}
-.rv{opacity:0;transform:translateY(16px);transition:opacity .6s,transform .6s}.rv.in{opacity:1;transform:none}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+.js .rv{opacity:0;transform:translateY(16px);transition:opacity .6s,transform .6s}.js .rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}.js .rv{opacity:1;transform:none}}
+/* Scripts off: no half-empty demo window, no controls that do nothing, and a menu a phone can reach. */
+html:not(.js) .demo-wrap,html:not(.js) .seg.th,html:not(.js) .seg button#nl,html:not(.js) .seg button#en{display:none}
+html:not(.js) .ns-services{display:none}
+@media (max-width:980px){
+  html:not(.js) #burger,html:not(.js) .has-mega{display:none}
+  html:not(.js) nav.top{position:static;height:auto;padding:10px 0}
+  html:not(.js) nav.top .wrap{flex-wrap:wrap}
+  html:not(.js) .links{display:flex;position:static;flex-direction:row;flex-wrap:wrap;gap:2px 18px;width:100%;order:5;padding:4px 0 0;border:0;background:none;max-height:none}
+  html:not(.js) .links>a{padding:8px 0;font-size:15px}
+  html:not(.js) .ns-services{display:inline;padding:8px 0;font-size:15px}
+}
 
 /* contact page: the form and the two cards side by side, same width as the page */
 .contact-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:24px;align-items:start;padding:0 0 72px}
@@ -565,6 +576,9 @@ footer .bottom{grid-column:1/-1;border-top:1px solid var(--dark-line);padding-to
 :root[data-theme="dark"] .badge,:root[data-theme="dark"] .cform .cf-foot .btn{background:var(--acc);border-color:var(--acc);color:#111}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .badge,:root:not([data-theme="light"]) .cform .cf-foot .btn{background:var(--acc);border-color:var(--acc);color:#111}}
 
+/* every keyboard stop shows a ring, SVG nodes of the home loop included */
+:focus-visible{outline:2px solid var(--acc2);outline-offset:2px}
+.loop .node:focus-visible{outline:2px solid var(--acc2);outline-offset:4px}
 /* skip link: first tab stop, visible only when focused */
 .skip{position:absolute;left:12px;top:-60px;z-index:100;background:var(--ink);color:var(--bg);padding:10px 14px;border-radius:4px;font:500 13px "Geist Mono",monospace;text-decoration:none}
 .skip:focus{top:12px}
@@ -663,3 +677,32 @@ footer .bottom{grid-column:1/-1;border-top:1px solid var(--dark-line);padding-to
 .cform .cf-foot .btn{min-height:44px;justify-content:center}
 @media (max-width:600px){.cform .cf-foot{display:grid;grid-template-columns:1fr;gap:10px}.cform .cf-foot .btn{width:100%;min-height:44px}}
 .docs-main a.btn{color:var(--bg);text-decoration:none}
+
+/* Print (A4): light tokens whatever the theme, no menu, buttons, demo or form, everything revealed, one line with the address and the page address on top. */
+.print-id{display:none}
+@media print{
+  @page{size:A4;margin:14mm}
+  :root:root:root{--bg:#fff;--plate:#fff;--panel:#fff;--ink:#000;--ink2:#1a1a1a;--muted:#444;--line:#bbb;--line2:#999;--dark:#fff;--dark2:#fff;--dark-line:#bbb;--dark-muted:#444;--acc:#7a2f0c;--acc2:#7a2f0c;color-scheme:light}
+  html{scroll-behavior:auto}
+  body{background:#fff;color:#000;font-size:11pt;overflow:visible}
+  *,*::before,*::after{box-shadow:none!important;text-shadow:none!important;animation:none!important;transition:none!important}
+  .print-id{display:block;font:400 9pt "Geist Mono",monospace;color:#000;border-bottom:1px solid #999;padding-bottom:6px;margin-bottom:10px}
+  nav.top,.skip,.demo-wrap,.cookie,.modal,.car-nav,.belt,.btn,.cta,.cta-box .row,.cform,#cform,.shot,.shot-hint,.shot-note,.loop svg,.pager,.arch-side,.seg{display:none!important}
+  .rv,.in1,.in2,.in3,.in4{opacity:1!important;transform:none!important}
+  .wrap{width:100%;margin:0}
+  .plate,.mock,.dark-panel,.cta-box,.tile,.c,.case,.callout,.shot,footer{background:#fff!important;color:#000!important;border:1px solid #bbb}
+  h1{font-size:24pt;line-height:1.1;color:#000}h2{font-size:16pt}h3{font-size:13pt}
+  h1,h2,h3{break-after:avoid;color:#000}
+  p,li,td{color:#111;orphans:3;widows:3}
+  .tile,.c,.case,.plan,.callout,figure,tr,pre,.faq details{break-inside:avoid}
+  .plate{padding:14px;break-inside:auto}
+  .plans{grid-template-columns:1fr 1fr;gap:10px}.plan p{min-height:0}
+  .ph{padding:8px 0 12px}
+  .tiles,.case-grid,.two,.contact-grid{display:block}
+  .tiles>*,.case-grid>*,.two>*{margin-bottom:10px}
+  main a[href^="http"]:not([href*="scuttle.dev"])::after{content:" (" attr(href) ")";font-size:9pt;color:#333;word-break:break-all}
+  footer{margin-top:14px;padding:8px 0;font-size:9pt}
+  footer .col:not(:first-child){display:none}
+  img,svg{max-width:100%}
+  .brand span,.lbl{color:#000}
+}
