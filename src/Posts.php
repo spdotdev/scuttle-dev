@@ -64,6 +64,10 @@ final class Posts
         $body = array_values(array_filter(array_map('trim', preg_split('/\R/', (string) $a->body) ?: []), fn (string $l): bool => $l !== ''));
         $date = $a->published_at instanceof \DateTimeInterface ? $a->published_at->format('Y-m-d') : substr((string) ($a->published_at ?? date('Y-m-d')), 0, 10);
 
+        // An article from the CMS may name no service or one that no longer exists: then it sells none, and its page still renders.
+        $sells = (string) ($a->sells ?? '');
+        $sells = collect(Catalog::all())->contains('slug', $sells) ? $sells : '';
+
         return [
             'slug' => (string) $a->slug,
             'title' => (string) $a->title,
@@ -71,8 +75,8 @@ final class Posts
             'summary' => (string) $a->summary,
             'tags' => array_values(array_map('strval', (array) ($a->tags ?? []))),
             'body' => $body,
-            'products' => ($a->sells ?? '') !== '' ? [(string) $a->sells] : [],
-            'sells' => (string) ($a->sells ?? ''),
+            'products' => $sells !== '' ? [$sells] : [],
+            'sells' => $sells,
             'nl' => ['title' => (string) ($a->title_nl ?: $a->title), 'summary' => (string) ($a->summary_nl ?: $a->summary)],
         ];
     }
