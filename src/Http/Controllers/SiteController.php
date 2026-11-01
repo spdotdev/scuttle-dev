@@ -126,7 +126,7 @@ class SiteController
 
     public function robots(): Response
     {
-        return $this->staticFile('robots.txt', 'text/plain');
+        return $this->staticFile('robots.txt', 'text/plain; charset=utf-8')->header('Cache-Control', 'public, max-age=3600');
     }
 
     /** Atom feed of the news articles: titles and summaries as plain text, dates from the article, malformed ones skipped. */
@@ -149,7 +149,7 @@ class SiteController
         usort($entries, fn ($a, $b) => $b['ts'] <=> $a['ts']);
         $updated = date('c', $entries[0]['ts'] ?? 0);
 
-        return response()->view('scuttle::feed', ['entries' => $entries, 'updated' => $updated], 200, ['Content-Type' => 'application/atom+xml; charset=utf-8']);
+        return response()->view('scuttle::feed', ['entries' => $entries, 'updated' => $updated], 200, ['Content-Type' => 'application/atom+xml; charset=utf-8', 'Cache-Control' => 'public, max-age=3600']);
     }
 
     public function sitemap(): Response
@@ -169,6 +169,12 @@ class SiteController
         }
         $xml = str_replace('</urlset>', $extra.'</urlset>', $xml);
 
+        // The news index changes when an article is added: its lastmod is the date of the newest article.
+        $dates = array_values(array_filter(array_column(Posts::all(), 'date'), fn ($d) => preg_match('/^\d{4}-\d{2}-\d{2}$/', (string) $d) === 1));
+        if ($dates !== []) {
+            $xml = (string) preg_replace('#(<loc>https://scuttle\.dev/news</loc>\s*<lastmod>)[^<]*#', '${1}'.max($dates), $xml, 1);
+        }
+
         // Pages that exist in both languages: every address lists both twins, and the Dutch one is a url of its own.
         $xml = str_replace('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"', '<urlset xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"', $xml);
         $xml = (string) preg_replace_callback('#<url>\s*<loc>(https://scuttle\.dev(/[^<]*))</loc>(.*?)</url>#s', function (array $m): string {
@@ -183,7 +189,7 @@ class SiteController
             return "<url>\n    <loc>$en</loc>".$m[3].$alt."\n  </url>\n  <url>\n    <loc>$nl</loc>".$m[3].$alt."\n  </url>";
         }, $xml);
 
-        return response($xml, 200, ['Content-Type' => 'application/xml']);
+        return response($xml, 200, ['Content-Type' => 'application/xml; charset=utf-8', 'Cache-Control' => 'public, max-age=3600']);
     }
 
     public function legal(string $name): Response
