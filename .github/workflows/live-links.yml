@@ -19,6 +19,15 @@ jobs:
       - uses: actions/checkout@v4
       - run: python3 scripts/check-live.py https://scuttle.dev
 
+  facts:
+    # Fresh facts stay fresh: the hero command line names the latest PHP security release. This reads php.net and fails
+    # with the exact string to change in src/Facts.php when the site is behind, or when the live home page is.
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 scripts/check-php-facts.py https://scuttle.dev
+
   ui:
     # The page checks that used to be run by hand: accessibility (axe), sideways scroll, no-script, keyboard, markup and
     # button size. Each script exits 1 with its findings, so any finding fails the run. Tools are installed here only and
