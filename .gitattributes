@@ -1,0 +1,12 @@
+# Files that are not needed to run the package are left out of the dist archive (composer install --prefer-dist),
+# which also makes the production install smaller.
+/tests export-ignore
+/docs export-ignore
+/design export-ignore
+/scripts export-ignore
+/.github export-ignore
+/phpunit.xml export-ignore
+/phpstan.neon export-ignore
+/pint.json export-ignore
+/CLAUDE.md export-ignore
+/.gitattributes export-ignore

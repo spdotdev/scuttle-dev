@@ -1,8 +1,29 @@
 {
     "name": "spdotdev/scuttle-dev",
-    "description": "scuttle.dev site, packaged as a Laravel library for a host app.",
+    "description": "The scuttle.dev site as a Laravel package: pages, Dutch twins, contact form, news feed and crawler files, served on one host of a host application.",
+    "keywords": [
+        "laravel",
+        "package",
+        "website",
+        "seo",
+        "contact-form",
+        "dutch",
+        "atom-feed"
+    ],
     "type": "library",
+    "homepage": "https://scuttle.dev",
     "license": "proprietary",
+    "authors": [
+        {
+            "name": "Stanislav Plotnikov",
+            "homepage": "https://scuttle.dev"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/spdotdev/scuttle-dev/issues",
+        "source": "https://github.com/spdotdev/scuttle-dev",
+        "security": "https://github.com/spdotdev/scuttle-dev/blob/main/SECURITY.md"
+    },
     "require": {
         "php": "^8.3",
         "illuminate/support": "^13.0"
