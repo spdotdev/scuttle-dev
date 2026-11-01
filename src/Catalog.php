@@ -836,15 +836,10 @@ final class Catalog
     }
 
     /**
-     * The public https address, for canonical tags and the sitemap.
-     *
-     * @param  Product  $p
-     */
-    /**
      * Machine-readable price of a service, from the same numbers the visible price line states (a test compares them).
      * Fixed prices are a plain Offer; "from" prices and hourly work carry a UnitPriceSpecification.
      *
-     * @param  array<string, mixed>  $p
+     * @param  Product  $p
      * @return array<string, mixed>
      */
     public static function offer(array $p): array
@@ -862,6 +857,11 @@ final class Catalog
         return $base + ['priceSpecification' => ['@type' => 'UnitPriceSpecification', 'price' => '90', 'priceCurrency' => 'EUR', 'unitCode' => 'HUR', 'unitText' => 'hour']];
     }
 
+    /**
+     * The public https address, for canonical tags and the sitemap.
+     *
+     * @param  Product  $p
+     */
     public static function canonical(array $p): string
     {
         return 'https://scuttle.dev'.(string) parse_url(self::url($p), PHP_URL_PATH);

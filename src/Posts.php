@@ -195,8 +195,8 @@ final class Posts
         $html = e($line);
         $html = (string) preg_replace_callback('#(?<![\w/])(/services/([a-z0-9-]+)|/case-studies/([a-z0-9-]+)|/health-check|/pricing|/contact)(?![\w/-])#', function (array $m): string {
             $ok = match (true) {
-                isset($m[3]) && $m[3] !== '' => isset(Cases::all()[$m[3]]),
-                isset($m[2]) && $m[2] !== '' => isset(Catalog::all()[$m[2]]) && $m[2] !== 'legacy-health-check',
+                isset($m[3]) => isset(Cases::all()[$m[3]]),
+                ($m[2] ?? '') !== '' => isset(Catalog::all()[$m[2]]) && $m[2] !== 'legacy-health-check',
                 default => true,
             };
 
