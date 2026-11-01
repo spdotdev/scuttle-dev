@@ -36,7 +36,7 @@ final class Cases
                     '60 percent lower latency.',
                     'A supported runtime, and a codebase on a framework that developers actually know.',
                 ],
-                'stack' => 'PHP, Laravel, Phalcon, MySQL, Docker, Ansible, GitHub Actions. The client is anonymized and the work is covered by confidentiality.',
+                'stack' => 'PHP, Laravel, Phalcon, MySQL, Docker, Ansible, GitHub Actions. The client is anonymized and the work is covered by confidentiality. The figures on this page, the 60 percent included, are the client\'s own and cannot be checked from outside.',
                 'products' => ['modernization', 'hardening', 'maintenance-retainer'],
                 'nl' => [
                     'kicker' => 'Multi-tenant operatieplatform · klant geanonimiseerd',
@@ -55,7 +55,7 @@ final class Cases
                         '60 procent lagere latency.',
                         'Een ondersteunde runtime en een codebase op een framework dat ontwikkelaars echt kennen.',
                     ],
-                    'stack' => 'PHP, Laravel, Phalcon, MySQL, Docker, Ansible, GitHub Actions. De klant is geanonimiseerd en het werk valt onder geheimhouding.',
+                    'stack' => 'PHP, Laravel, Phalcon, MySQL, Docker, Ansible, GitHub Actions. De klant is geanonimiseerd en het werk valt onder geheimhouding. De cijfers op deze pagina, ook die 60 procent, zijn die van de klant zelf en niet van buiten te controleren.',
                 ],
             ],
             'api-meets-ai' => [
