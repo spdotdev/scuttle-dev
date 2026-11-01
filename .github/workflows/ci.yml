@@ -10,24 +10,38 @@ permissions:
 
 jobs:
   quality:
+    # Two rows: the oldest PHP the package allows, and the production image (PHP 8.4 with short_open_tag on, which is
+    # how php:8.4-fpm runs on the server; a literal "<?xml" in a view broke /feed.xml there while a laptop PHP passed).
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - php: '8.3'
+            ini: 'short_open_tag=Off'
+          - php: '8.4'
+            ini: 'short_open_tag=On'
+    name: quality (PHP ${{ matrix.php }}, ${{ matrix.ini }})
     steps:
       - uses: actions/checkout@v7
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.3'
+          php-version: ${{ matrix.php }}
           extensions: mbstring, dom, xml
+          ini-values: ${{ matrix.ini }}
           coverage: none
 
       - name: Install dependencies
         run: composer install --no-interaction --prefer-dist
 
       - name: Pint (style check)
+        if: matrix.php == '8.3'
         run: ./vendor/bin/pint --test
 
       - name: Larastan (static analysis)
+        if: matrix.php == '8.3'
         run: ./vendor/bin/phpstan analyse --no-progress --memory-limit=512M
 
       - name: Tests
