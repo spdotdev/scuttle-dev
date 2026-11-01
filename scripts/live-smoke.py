@@ -2,7 +2,7 @@
 """Live smoke watch: usage live-smoke.py <base url> [list file].
 
 For every line of scripts/smoke-urls.txt (status, path, marker, tab separated) do a GET with a 15 second timeout, up to
-three tries 20 seconds apart, and require the expected status, the marker text in the body and an answer under 3 seconds.
+three tries 20 seconds apart (a path that starts with https:// is an external address, such as the booking page, and is fetched as written), and require the expected status, the marker text in the body and an answer under 3 seconds.
 Prints one line per address; exits 1 and lists every failing address when any fails. No browser, standard library only."""
 import sys
 import time
@@ -45,7 +45,7 @@ def check(base, status, path, marker):
         if attempt:
             time.sleep(PAUSE)
         try:
-            code, body, secs = fetch(base + path)
+            code, body, secs = fetch(path if path.startswith('https://') else base + path)
         except Exception as e:  # network error, timeout
             problem = type(e).__name__ + ' ' + str(e)[:80]
             continue
@@ -77,7 +77,7 @@ def main():
     if failed:
         print('Failing addresses:')
         for path, problem in failed:
-            print(f'  {base}{path}: {problem}')
+            print(f'  {path if path.startswith("https://") else base + path}: {problem}')
         sys.exit(1)
 
 

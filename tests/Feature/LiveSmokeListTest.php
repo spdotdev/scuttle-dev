@@ -35,7 +35,16 @@ class LiveSmokeListTest extends TestCase
         $this->assertGreaterThanOrEqual(12, count($rows));
         $has404 = false;
         $hasDutch = false;
+        $external = [];
         foreach ($rows as [$status, $path, $marker]) {
+            if (str_starts_with($path, 'https://')) {
+                // an address outside this site: fetched live as written, so only its shape is checked here
+                $this->assertSame(200, $status, "$path");
+                $this->assertNotSame('', $marker);
+                $external[] = $path;
+
+                continue;
+            }
             $key = rtrim($path, '/') ?: '/';
             if ($status === 404) {
                 $has404 = true;
@@ -49,6 +58,7 @@ class LiveSmokeListTest extends TestCase
             $body = $response->getContent() ?: ($response->baseResponse instanceof BinaryFileResponse ? (string) file_get_contents($response->baseResponse->getFile()->getPathname()) : '');
             $this->assertStringContainsString($marker, $body, "marker of $path is not on the page");
         }
+        $this->assertContains(config('scuttle-dev.booking_url'), $external, 'the booking page every call button leads to is watched');
         $this->assertTrue($has404, 'one address must answer 404');
         $this->assertTrue($hasDutch, 'the Dutch twins are watched');
     }

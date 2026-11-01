@@ -1,5 +1,6 @@
 # The addresses the live smoke watch checks every six hours (.github/workflows/live-smoke.yml, scripts/live-smoke.py).
 # One address per line, three fields separated by a tab: expected status, path, a short phrase the response must contain.
+# A path that starts with https:// is an external address that is fetched as written (the booking page the buttons lead to).
 # A content change that breaks a marker is a one-line edit here. tests/Feature/LiveSmokeListTest.php checks that every
 # path is in the sitemap or in the fixed list of crawler files, and that every marker is in the rendered page.
 200	/	Automate the work your team repeats
@@ -20,3 +21,4 @@
 200	/robots.txt	Sitemap: https://scuttle.dev/sitemap.xml
 200	/scuttle.vcf	BEGIN:VCARD
 404	/this-page-does-not-exist-smoke	That page does not exist
+200	https://plan.scuttle.dev/book/stas	Book a call with Stas Plotnikov
