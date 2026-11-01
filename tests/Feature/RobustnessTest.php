@@ -2,7 +2,10 @@
 
 namespace Spdotdev\ScuttleDev\Tests\Feature;
 
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schema;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Spdotdev\ScuttleDev\Tests\TestCase;
@@ -105,6 +108,63 @@ class RobustnessTest extends TestCase
     }
 
     /** @return list<string> */
+    private function everyPath(): array
+    {
+        preg_match_all('#<loc>https://scuttle\.dev(/[^<]*)</loc>#', (string) $this->get('http://scuttle.dev/sitemap.xml')->getContent(), $m);
+
+        return array_values(array_unique(array_merge($m[1], ['/contact', '/nl/contact', '/feed.xml', '/robots.txt', '/news'])));
+    }
+
+    public function test_every_page_renders_when_the_database_connection_is_broken(): void
+    {
+        config(['database.connections.broken' => ['driver' => 'sqlite', 'database' => '/nonexistent-dir/none.sqlite', 'prefix' => ''], 'database.default' => 'broken']);
+        DB::purge('broken');
+        FakeCmsArticle::$rows = [];
+        $this->assertTrue(class_exists('Spdotdev\\SdCms\\Models\\CmsArticle'));
+        $paths = $this->everyPath();
+        $this->assertGreaterThan(50, count($paths));
+        foreach ($paths as $path) {
+            $r = $this->get('http://scuttle.dev'.$path);
+            $this->assertSame(200, $r->getStatusCode(), $path);
+        }
+        $this->assertStringContainsString('<h1', (string) $this->get('http://scuttle.dev/news/an-mcp-server-in-front-of-your-api')->getContent());
+    }
+
+    public function test_a_failing_cms_query_logs_one_warning_and_falls_back_to_the_built_in_news(): void
+    {
+        Schema::create('cms_articles', function ($t): void {
+            $t->id();
+        });
+        FakeCmsArticle::$throw = true;
+        $logged = [];
+        Log::shouldReceive('warning')->andReturnUsing(function (string $m, array $c = []) use (&$logged) {
+            $logged[] = $m.json_encode($c);
+        });
+        try {
+            $r = $this->get('http://scuttle.dev/news/an-mcp-server-in-front-of-your-api');
+            $this->assertSame(200, $r->getStatusCode());
+            $this->assertSame(200, $this->get('http://scuttle.dev/sitemap.xml')->getStatusCode());
+            $this->assertCount(2, $logged, 'one warning per request, two requests');
+            $this->assertStringNotContainsString('SELECT', implode(' ', $logged));
+        } finally {
+            FakeCmsArticle::$throw = false;
+        }
+    }
+
+    public function test_the_contact_page_renders_without_a_database_and_the_post_fails_in_both_languages(): void
+    {
+        config(['database.connections.broken' => ['driver' => 'sqlite', 'database' => '/nonexistent-dir/none.sqlite', 'prefix' => ''], 'database.default' => 'broken']);
+        DB::purge('broken');
+        $this->get('http://scuttle.dev/contact')->assertOk()->assertSee('name="name"', false);
+        $t = (string) (time() - 10);
+        $form = ['name' => 'Anna', 'email' => 'a@example.com', 'about' => '', 'message' => 'A message long enough.', 't' => $t.'.'.hash_hmac('sha256', $t, (string) config('app.key'))];
+        $r = $this->from('http://scuttle.dev/nl/contact')->post('http://scuttle.dev/contact', $form);
+        $r->assertRedirect('http://scuttle.dev/nl/contact#cform')->assertSessionHasErrors('message');
+        $this->assertStringContainsString('Je bericht kon nu niet worden bewaard', session('contact_errors_nl')[0]);
+        $this->assertStringContainsString('could not be saved', session('contact_errors_en')[0]);
+    }
+
+    /** @return list<string> */
     private function jsonLd(string $html): array
     {
         preg_match_all('#<script type="application/ld\+json">(.*?)</script>#s', $html, $m);
@@ -118,9 +178,15 @@ class FakeCmsArticle
     /** @var list<object> */
     public static array $rows = [];
 
+    public static bool $throw = false;
+
     /** @return Collection<int, object> */
     public static function published(string $site)
     {
+        if (self::$throw) {
+            throw new QueryException('testing', 'select * from cms_articles where secret = ?', ['anna@example.com'], new \PDOException('down'));
+        }
+
         return new class
         {
             public function get()

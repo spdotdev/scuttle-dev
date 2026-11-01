@@ -2,6 +2,7 @@
 
 namespace Spdotdev\ScuttleDev;
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schema;
 
 /**
@@ -48,7 +49,14 @@ final class Posts
             }
 
             return $posts;
-        } catch (\Throwable) {
+        } catch (\Throwable $e) {
+            // The CMS or the database is down: the built-in news still renders. One warning per request, no message
+            // text (a database error can hold the SQL and bound values).
+            if (! request()->attributes->get('scuttle.cms_warned')) {
+                request()->attributes->set('scuttle.cms_warned', true);
+                Log::warning('scuttle.dev: sd-cms articles are unavailable, the built-in news is shown', ['exception' => get_class($e)]);
+            }
+
             return [];
         }
     }
