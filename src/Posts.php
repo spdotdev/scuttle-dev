@@ -230,7 +230,7 @@ final class Posts
      */
     public static function readingMinutes(array $post): int
     {
-        $text = strip_tags((string) ($post['summary'] ?? '').' '.implode(' ', array_map('strval', $post['body'] ?? [])));
+        $text = strip_tags($post['summary'].' '.implode(' ', $post['body']));
         $words = preg_match_all('/[\p{L}\p{N}][\p{L}\p{N}\'’.,\/-]*/u', $text);
 
         return max(1, (int) ceil(((int) $words) / self::WORDS_PER_MINUTE));
