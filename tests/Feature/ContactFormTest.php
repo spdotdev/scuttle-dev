@@ -177,4 +177,27 @@ class ContactFormTest extends TestCase
             $this->assertStringContainsString($promise, $m[1]);
         }
     }
+
+    public function test_form_fields_carry_the_hints_that_help_phones_and_password_managers(): void
+    {
+        foreach (['/contact', '/nl/contact'] as $path) {
+            $dom = new \DOMDocument;
+            @$dom->loadHTML((string) $this->get('http://scuttle.dev'.$path)->getContent());
+            $x = new \DOMXPath($dom);
+            $form = $x->query('//form[@id="cform"]')->item(0) ?? $x->query('//form[.//textarea[@name="message"]]')->item(0);
+            $this->assertNotNull($form, $path);
+            $fields = $x->query('.//input[@type!="hidden"]|.//select|.//textarea', $form);
+            $this->assertGreaterThanOrEqual(5, $fields->length, $path);
+            foreach ($fields as $f) {
+                /** @var \DOMElement $f */
+                $this->assertTrue($f->hasAttribute('autocomplete'), $path.' '.$f->getAttribute('name').' has autocomplete');
+            }
+            $email = $x->query('.//input[@name="email"]', $form)->item(0);
+            $this->assertSame('email', $email->getAttribute('inputmode'));
+            $this->assertSame('false', $email->getAttribute('spellcheck'));
+            $this->assertSame('email', $email->getAttribute('autocomplete'));
+            $this->assertSame('name', $x->query('.//input[@name="name"]', $form)->item(0)->getAttribute('autocomplete'));
+            $this->assertSame('enter', $x->query('.//textarea[@name="message"]', $form)->item(0)->getAttribute('enterkeyhint'));
+        }
+    }
 }
