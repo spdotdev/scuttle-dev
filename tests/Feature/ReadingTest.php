@@ -41,11 +41,11 @@ class ReadingTest extends TestCase
     {
         $css = (string) file_get_contents(__DIR__.'/../../public/site.css');
         // Geist averages 0.457 em per character (measured with Playwright on the rendered pages): 34 em is about 74 characters.
-        $this->assertSame(1, preg_match('/\.page p,\.page li\{[^}]*font-size:(\d+(?:\.\d+)?)px;line-height:(1\.[5-7])[^}]*max-width:(\d+)em/', $css, $m), 'the body text rule of .page');
-        $this->assertGreaterThanOrEqual(17, (float) $m[1]);
+        $this->assertSame(1, preg_match('/\.page p,\.page li\{[^}]*font-size:(\d+(?:\.\d+)?)rem;line-height:(1\.[5-7])[^}]*max-width:(\d+)em/', $css, $m), 'the body text rule of .page');
+        $this->assertGreaterThanOrEqual(17, (float) $m[1] * 16);
         $this->assertLessThanOrEqual(36, (int) $m[3], 'at most about 80 characters a line');
-        $this->assertSame(1, preg_match('/\.docs-main p,\.docs-main li\{[^}]*font-size:(\d+(?:\.\d+)?)px[^}]*max-width:(\d+)em/', $css, $d), 'the body text rule of the docs');
-        $this->assertGreaterThanOrEqual(17, (float) $d[1]);
+        $this->assertSame(1, preg_match('/\.docs-main p,\.docs-main li\{[^}]*font-size:(\d+(?:\.\d+)?)rem[^}]*max-width:(\d+)em/', $css, $d), 'the body text rule of the docs');
+        $this->assertGreaterThanOrEqual(17, (float) $d[1] * 16);
         $this->assertLessThanOrEqual(36, (int) $d[2]);
     }
 }
