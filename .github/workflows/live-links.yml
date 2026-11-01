@@ -32,10 +32,15 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Install the browser tools
+      - name: Install Playwright and html5lib
+        timeout-minutes: 5
+        run: pip install playwright==1.64.0 html5lib==1.1
+      - name: Install Chromium
+        timeout-minutes: 10
+        run: playwright install --with-deps chromium
+      - name: Fetch axe-core
+        timeout-minutes: 3
         run: |
-          pip install playwright==1.64.0 html5lib==1.1
-          playwright install --with-deps chromium
           npm pack axe-core@4.10.2 --silent
           tar xzf axe-core-4.10.2.tgz
       - name: List every address of the sitemap
