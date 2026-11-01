@@ -67,7 +67,7 @@
       <span class="lbl" data-i="ctp_ab">About</span>
       <div class="about">
         <button id="open-pic" type="button" aria-label="Show the photo larger"><img src="{{ secure_asset('vendor/scuttle/portrait.jpg') }}" alt="Stanislav Plotnikov" width="96" height="96" loading="lazy"></button>
-        <div><p data-i="ctp_abp">Stanislav Plotnikov. Senior developer and solution architect, PHP since the 2000s, Laravel and Phalcon in production, Python for automation and AI, Kotlin for Android. One person, one point of contact, from the first call to the handover. More about me, my CV and my writing: <a href="https://splotnikov.dev" rel="noopener" target="_blank">splotnikov.dev</a>.</p>
+        <div><p data-i="ctp_abp">Stanislav Plotnikov. Senior developer and solution architect, PHP since 2008, Laravel and Phalcon in production, Python for automation and AI, Kotlin for Android. One person, one point of contact, from the first call to the handover. More about me, my CV and my writing: <a href="https://splotnikov.dev" rel="noopener" target="_blank">splotnikov.dev</a>.</p>
           <div class="soc"><a href="https://www.linkedin.com/in/stanislavplotnikov/" rel="noopener" target="_blank">LinkedIn</a><a href="https://github.com/spdotdev" rel="noopener" target="_blank">GitHub</a><a href="https://splotnikov.dev" rel="noopener" target="_blank">splotnikov.dev</a></div></div>
       </div>
     </div>
@@ -124,7 +124,7 @@ Object.assign(window.SCUTTLE_NL.t, @json(collect($errEn)->mapWithKeys(fn ($m, $i
  "ctp_qr": "Scan de code met de camera van je telefoon en die biedt aan mij als contact toe te voegen, of download de vCard.",
  "ctp_vc": "Bewaar vCard",
  "ctp_ab": "Over mij",
- "ctp_abp": "Stanislav Plotnikov. Senior developer en solution architect, PHP sinds de jaren 2000, Laravel en Phalcon in productie, Python voor automatisering en AI, Kotlin voor Android. Eén persoon, één aanspreekpunt, van het eerste gesprek tot de overdracht. Meer over mij, mijn cv en mijn teksten: <a href=\"https://splotnikov.dev\" rel=\"noopener\" target=\"_blank\">splotnikov.dev</a>.",
+ "ctp_abp": "Stanislav Plotnikov. Senior developer en solution architect, PHP sinds 2008, Laravel en Phalcon in productie, Python voor automatisering en AI, Kotlin voor Android. Eén persoon, één aanspreekpunt, van het eerste gesprek tot de overdracht. Meer over mij, mijn cv en mijn teksten: <a href=\"https://splotnikov.dev\" rel=\"noopener\" target=\"_blank\">splotnikov.dev</a>.",
  "ctp_qcap": "scan met je camera · voegt mij toe als contact · Scuttle Development",
  "ctp_mcap": "Dirigentplein 144, 5642 RK Eindhoven · <a href=\"https://www.google.com/maps/search/?api=1&amp;query=Dirigentplein+144,+5642+RK+Eindhoven\" rel=\"noopener\" target=\"_blank\">open in Google Maps</a> · de kaart wordt pas geladen als je hem opent"
 });

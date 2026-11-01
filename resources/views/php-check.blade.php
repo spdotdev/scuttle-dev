@@ -43,7 +43,7 @@ $nl = [
     'pc_p_a' => 'Wat het dekt en wat het kost',
     'pc_p_b' => 'Een voorbeeldrapport',
     'pc_w_h' => 'Wie dit schrijft',
-    'pc_w' => 'Stanislav Plotnikov, senior developer en solution architect in Eindhoven. Ik programmeer sinds de jaren 2000, eerst PHP. Scuttle Development bestaat sinds december 2024, KvK 96040947. Je praat met degene die het werk doet.',
+    'pc_w' => 'Stanislav Plotnikov, senior developer en solution architect in Eindhoven. Ik programmeer sinds 2008, eerst PHP. Scuttle Development bestaat sinds december 2024, KvK 96040947. Je praat met degene die het werk doet.',
     'pc_w_a' => 'Meer over mij en hoe ik werk',
     'pc_c_h' => 'Wil je dat ik ernaar kijk?',
     'pc_c_p' => 'Vertel me welke versie je draait en wat er pijn doet. Ik reageer binnen één werkdag met een eerste mening, gratis.',
@@ -100,7 +100,7 @@ $nl = [
     <img src="{{ secure_asset('vendor/scuttle/portrait.jpg') }}" alt="Stanislav Plotnikov" width="72" height="72" loading="lazy">
     <div>
       <h2 data-i="pc_w_h">Who writes this</h2>
-      <p data-i="pc_w">Stanislav Plotnikov, senior developer and solution architect in Eindhoven. I have been programming since the 2000s, PHP first. Scuttle Development exists since December 2024, KvK 96040947. You talk to the person who does the work.</p>
+      <p data-i="pc_w">Stanislav Plotnikov, senior developer and solution architect in Eindhoven. I have been programming since 2008, PHP first. Scuttle Development exists since December 2024, KvK 96040947. You talk to the person who does the work.</p>
       <p><a href="{{ route('scuttle.company') }}" data-i="pc_w_a">More about me and how I work</a></p>
     </div>
   </div>

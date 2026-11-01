@@ -48,7 +48,7 @@
         <div class="f"><i class="lt"></i><div><b data-i="cp_fa3b">Address</b><p data-i="cp_fa3p">Dirigentplein 144, 5642 RK Eindhoven. On site in the Eindhoven region, remote everywhere else.</p></div></div>
         <div class="f"><i class="lt"></i><div><b data-i="cp_fa4b">Languages</b><p data-i="cp_fa4p">Dutch, English, Russian. Documents in Dutch or English, your choice.</p></div></div>
         <div class="f"><i class="lt"></i><div><b data-i="cp_fa5b">Terms</b><p data-i="cp_fa5p"><a href="{{ route('scuttle.legal', ['name' => 'TERMS_AND_CONDITIONS']) }}">General terms</a>, <a href="{{ route('scuttle.legal', ['name' => 'NDA']) }}">mutual NDA</a>, <a href="{{ route('scuttle.privacy') }}">privacy statement</a>. 14 days payment, 7 days acceptance, rights pass on full payment.</p></div></div>
-        <div class="f"><i class="lt"></i><div><b data-i="cp_fa6b">Background</b><p data-i="cp_fa6p">Programming since the 2000s, PHP first, then Python, Kotlin and AI tooling. Agencies and product companies in employment, freelance since 2024. More on <a href="https://splotnikov.dev" rel="noopener" target="_blank">splotnikov.dev</a>.</p></div></div>
+        <div class="f"><i class="lt"></i><div><b data-i="cp_fa6b">Background</b><p data-i="cp_fa6p">Programming since 2008, PHP first, then Python, Kotlin and AI tooling. Agencies and product companies in employment, freelance since 2024. More on <a href="https://splotnikov.dev" rel="noopener" target="_blank">splotnikov.dev</a>.</p></div></div>
       </div>
     </div>
   </div></section>
@@ -137,7 +137,7 @@ Object.assign(window.SCUTTLE_NL.t, {
  "cp_fa5b": "Voorwaarden",
  "cp_fa5p": "<a href=\"/legal/ALGEMENE_VOORWAARDEN.pdf\">Algemene voorwaarden</a>, <a href=\"/legal/GEHEIMHOUDINGSOVEREENKOMST.pdf\">wederzijdse NDA</a>, <a href=\"/privacy\">privacyverklaring</a>. 14 dagen betaaltermijn, 7 dagen acceptatie, rechten gaan over na volledige betaling.",
  "cp_fa6b": "Achtergrond",
- "cp_fa6p": "Programmeren sinds de jaren 2000, eerst PHP, daarna Python, Kotlin en AI-tooling. In loondienst bij bureaus en productbedrijven, freelance sinds 2024. Meer op <a href=\"https://splotnikov.dev\" rel=\"noopener\" target=\"_blank\">splotnikov.dev</a>.",
+ "cp_fa6p": "Programmeren sinds 2008, eerst PHP, daarna Python, Kotlin en AI-tooling. In loondienst bij bureaus en productbedrijven, freelance sinds 2024. Meer op <a href=\"https://splotnikov.dev\" rel=\"noopener\" target=\"_blank\">splotnikov.dev</a>.",
  "cp_pr_l": "Wat je zelf kunt controleren",
  "cp_pr1": "<b>Openbare code.</b> Zestien repositories zijn openbaar op <a href=\"https://github.com/spdotdev\" rel=\"noopener\" target=\"_blank\">GitHub</a>, waaronder <a href=\"https://github.com/spdotdev/scuttle-dev\" rel=\"noopener\" target=\"_blank\">deze website</a>, met tests en commitgeschiedenis.",
  "cp_pr2": "<b>Gemeten op mijn eigen sites.</b> Op 30 oktober 2026 draaide ik Lighthouse (mobiel, lab) op alle 73 pagina's van scuttle.dev en splotnikov.dev: 100 voor toegankelijkheid, best practices en SEO op elke pagina, 96 tot 100 voor prestaties. Een geautomatiseerde toegankelijkheidstest (axe) vond niets in het lichte of donkere thema.",
