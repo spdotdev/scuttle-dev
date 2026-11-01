@@ -24,11 +24,12 @@
       "postalCode": "5642 RK",
       "addressCountry": "NL"
     },
-    "openingHours": "Mo-Fr 09:00-18:00",
+    "areaServed": [{ "@type": "City", "name": "Eindhoven" }, "Remote, everywhere else"],
+    "knowsLanguage": ["nl", "en", "ru"],
     "priceRange": "EUR 90 per hour",
     "vatID": "NL005184584B85",
     "taxID": "96040947",
-    "founder": { "@type": "Person", "name": "Stanislav Plotnikov" },
+    "founder": { "@type": "Person", "name": "Stanislav Plotnikov", "url": "https://splotnikov.dev", "jobTitle": "Senior developer and solution architect", "sameAs": ["https://www.linkedin.com/in/stanislavplotnikov/", "https://github.com/spdotdev"] },
     "sameAs": ["https://github.com/spdotdev", "https://www.linkedin.com/in/stanislavplotnikov/", "https://splotnikov.dev"],
     "serviceType": [@foreach($C::all() as $p)"{{ $p['name'] }}"@if(!$loop->last), @endif @endforeach]
   }

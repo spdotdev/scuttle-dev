@@ -71,6 +71,15 @@ class StructuredDataTest extends TestCase
             $this->assertSame(['https://github.com/spdotdev', 'https://www.linkedin.com/in/stanislavplotnikov/', 'https://splotnikov.dev'], $org['sameAs']);
             $this->assertArrayNotHasKey('email', $org);
             $this->assertArrayNotHasKey('telephone', $org);
+            $this->assertArrayNotHasKey('openingHours', $org, 'no opening hours are published, so none are claimed');
+            $this->assertSame('PostalAddress', $org['address']['@type']);
+            $this->assertSame(['Dirigentplein 144', 'Eindhoven', '5642 RK', 'NL'], [$org['address']['streetAddress'], $org['address']['addressLocality'], $org['address']['postalCode'], $org['address']['addressCountry']]);
+            $this->assertSame('Eindhoven', $org['areaServed'][0]['name']);
+            $this->assertSame('EUR 90 per hour', $org['priceRange']);
+            $this->assertSame(['nl', 'en', 'ru'], $org['knowsLanguage']);
+            $this->assertSame('Person', $org['founder']['@type']);
+            $this->assertContains('https://www.linkedin.com/in/stanislavplotnikov/', $org['founder']['sameAs']);
+            $this->assertStringContainsString('Eindhoven', (string) $this->get('http://scuttle.dev'.$path)->getContent());
         }
         foreach ($this->paths() as $path) {
             if (preg_match('#^(/nl)?/contact$#', $path)) {
