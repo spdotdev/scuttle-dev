@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
 """Renders one 1200x630 social image per page into public/og/<slug>.png.
 Usage: php design/og-data.php > /tmp/og.json && python3 design/make-og.py /tmp/og.json
+Also writes public/og/.source-hash, a hash of the data file and of this script (see tests/Feature/OgCardsTest.php).
 The layout picks public/og/<slug>.png by the page address (/services/modernization -> services-modernization.png)
 and falls back to public/og-image.png."""
-import base64, html, json, os, sys
+import base64, hashlib, html, json, os, sys
 from playwright.sync_api import sync_playwright
 
 root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-cards = json.load(open(sys.argv[1]))
+raw = open(sys.argv[1], 'rb').read()
+cards = json.loads(raw)
 out = os.path.join(root, 'public', 'og')
 os.makedirs(out, exist_ok=True)
 fonts = os.path.join(root, 'public', 'fonts')
@@ -44,4 +46,7 @@ with sync_playwright() as pw:
         pg.wait_for_timeout(150)
         pg.screenshot(path=os.path.join(out, slug + '.png'))
     b.close()
+# The hash of the data and of this file: tests/Feature/OgCardsTest.php recomputes it and fails when a title, price or
+# line changed without a rebuild, or when the layout in this file changed.
+open(os.path.join(out, '.source-hash'), 'w').write(hashlib.sha256(raw + open(os.path.abspath(__file__), 'rb').read()).hexdigest() + '\n')
 print(len(cards), 'images in', out)
