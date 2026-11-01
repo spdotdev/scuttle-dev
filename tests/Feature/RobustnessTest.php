@@ -63,6 +63,24 @@ class RobustnessTest extends TestCase
         $this->get('http://scuttle.dev/nl/does-not-exist')->assertStatus(404)->assertSee('404', false);
     }
 
+    public function test_the_404_page_offers_home_services_pricing_and_the_contact_form_in_both_languages_without_a_cookie(): void
+    {
+        foreach (['/nope/x' => 'en', '/news/nope' => 'en', '/nl/nope' => 'nl', '/nl/services/nope' => 'nl'] as $path => $lang) {
+            $r = $this->get('http://scuttle.dev'.$path);
+            $this->assertSame(404, $r->getStatusCode(), $path);
+            $this->assertCount(0, $r->headers->getCookies(), $path.' sets no cookie');
+            $html = (string) $r->getContent();
+            $this->assertStringContainsString('<html lang="'.$lang.'"', $html, $path);
+            $this->assertMatchesRegularExpression('/<meta name="robots" content="noindex/', $html, $path);
+            $p = $lang === 'nl' ? '/nl' : '';
+            foreach (['', '/services', '/pricing', '/contact'] as $target) {
+                $this->assertMatchesRegularExpression('#href="https://scuttle\.dev'.preg_quote($p.$target, '#').($p.$target === '' ? '/' : '').'"#', $html, $path.' links '.$target);
+            }
+            $this->assertStringContainsString('data-i="e4_b1">'.($lang === 'nl' ? 'Bekijk de diensten' : 'See the services').'<', $html, $path);
+            $this->assertStringNotContainsString('mailto:', $html);
+        }
+    }
+
     /** @return list<object> */
     private function oddArticles(): array
     {

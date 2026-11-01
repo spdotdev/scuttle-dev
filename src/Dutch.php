@@ -85,6 +85,7 @@ final class Dutch
             '/privacy' => ['Privacyverklaring', 'Welke gegevens ik gebruik en waarom, welke verwerkers meekijken, dat deze site geen tracking- of analysecookies zet en hoe je je gegevens laat verwijderen.'],
             '/case-studies' => ['Casestudy\'s: werk zoals het ging', 'Casestudy\'s: een migratie terwijl het platform in gebruik bleef, een API voor AI-assistenten, een klein wake word-model en een bedrijf op agents.'],
         ];
+        $fixed['/404'] = ['Pagina niet gevonden', 'Deze pagina bestaat niet op scuttle.dev. De diensten, de prijzen en het contactformulier zijn één klik verderop.'];
         if (isset($fixed[$p])) {
             return $fixed[$p];
         }

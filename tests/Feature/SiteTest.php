@@ -181,7 +181,7 @@ class SiteTest extends TestCase
     {
         foreach (['/nope', '/services/nope', '/news/nope', '/nl/news'] as $path) {
             $r = $this->get('http://scuttle.dev'.$path)->assertNotFound();
-            $r->assertSee('That page does not exist', false);
+            $r->assertSee(str_starts_with($path, '/nl') ? 'Die pagina bestaat niet' : 'That page does not exist', false);
             $r->assertSee('noindex', false);
         }
     }

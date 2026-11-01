@@ -34,7 +34,13 @@ class ScuttleDevServiceProvider extends ServiceProvider
                     return null;
                 }
 
-                return response()->view('scuttle::404', [], 404);
+                $response = response()->view('scuttle::404', [], 404);
+                // A missing address under /nl gets the Dutch page, like every other Dutch twin.
+                if ($request->is('nl', 'nl/*')) {
+                    $response->setContent(Dutch::transform((string) $response->getContent(), '/404'));
+                }
+
+                return $response;
             });
         }
 

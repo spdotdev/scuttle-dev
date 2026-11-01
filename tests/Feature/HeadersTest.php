@@ -2,6 +2,7 @@
 
 namespace Spdotdev\ScuttleDev\Tests\Feature;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Spdotdev\ScuttleDev\Posts;
 use Spdotdev\ScuttleDev\Tests\TestCase;
 
@@ -19,7 +20,7 @@ class HeadersTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('files')]
+    #[DataProvider('files')]
     public function test_each_file_has_its_media_type_with_charset_and_caches_for_an_hour_at_least(string $path, string $type): void
     {
         $r = $this->get('http://scuttle.dev'.$path)->assertOk();
