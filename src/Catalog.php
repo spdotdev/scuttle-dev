@@ -80,7 +80,7 @@ final class Catalog
         'plan' => ['Plan', 'Plannen', 'Decide what gets built, in which order, and what it costs.', 'Bepalen wat er gebouwd wordt, in welke volgorde en wat het kost.', 'Options, decisions, roadmap', 'Opties, besluiten, routekaart'],
         'build' => ['Build', 'Bouwen', 'Build what is missing, modernize what runs, connect it, automate it.', 'Bouwen wat ontbreekt, moderniseren wat draait, koppelen, automatiseren.', 'Web, mobile, legacy, integration, AI', 'Web, mobiel, legacy, koppelingen, AI'],
         'review' => ['Review', 'Toetsen', 'Test what was built before anyone depends on it.', 'Testen wat gebouwd is voordat iemand erop vertrouwt.', 'Pentest, code, tests', 'Pentest, code, tests'],
-        'deploy' => ['Deploy', 'Uitrollen', 'Ship it locked down, backed up and written down. Then look again.', 'Live brengen: dichtgezet, geback-upt en opgeschreven. Dan opnieuw kijken.', 'Pipeline, hardening, handover', 'Pipeline, hardening, overdracht'],
+        'deploy' => ['Deploy', 'Uitrollen', 'Ship it locked down, backed up and written down. Then look again.', 'Live brengen: dichtgezet, met back-ups en opgeschreven. Dan opnieuw kijken.', 'Pipeline, hardening, handover', 'Pipeline, hardening, overdracht'],
         'ongoing' => ['Ongoing', 'Doorlopend', 'Not a step: it runs the whole time the system runs.', 'Geen stap: het loopt zolang het systeem draait.', 'Patches, monitoring, evidence', 'Patches, monitoring, bewijs'],
     ];
 
@@ -98,7 +98,7 @@ final class Catalog
      */
     public const EXTRA = [
         'discovery-session' => ['research', null, 'Discovery Session', 'Half a day with your team: what repeats, what hurts, what to automate first.', 'Een halve dag met je team: wat herhaalt zich, waar wringt het, wat je als eerste automatiseert.'],
-        'risk-scan' => ['research', null, 'Dependency and Risk Scan', 'Automated check of versions, end-of-life dates and known vulnerabilities. A one-page result within a day.', 'Geautomatiseerde check van versies, end-of-lifedatums en bekende kwetsbaarheden. Eén pagina resultaat binnen een dag.'],
+        'risk-scan' => ['research', null, 'Dependency and Risk Scan', 'Automated check of versions, end-of-life dates and known vulnerabilities. A one-page result within a day.', 'Geautomatiseerde check van versies, einddatums van support en bekende kwetsbaarheden. Eén pagina resultaat binnen een dag.'],
         'proof-of-concept' => ['plan', null, 'Proof of Concept', 'The risky part built small first, so the plan rests on something that runs.', 'Het riskante deel eerst klein gebouwd, zodat het plan rust op iets dat draait.'],
         'specification' => ['plan', null, 'Specification and Estimate', 'A written spec with acceptance criteria, and a fixed quote on it. Spec first, then code.', 'Een geschreven specificatie met acceptatiecriteria, en een vaste offerte daarop. Eerst de spec, dan de code.'],
         'workflow-automation' => ['build', 'ai', 'Workflow Automation', 'Scheduled jobs, pipelines and scripts that replace the manual steps between systems.', 'Geplande taken, pipelines en scripts die de handmatige stappen tussen systemen vervangen.'],
@@ -142,7 +142,7 @@ final class Catalog
                 'illus' => 'agent',
                 'cta' => ['Which task would you hand to an agent first?', 'Tell me where the hours go today and what a good answer looks like. I reply within one working day with the use case I would start with, free.'],
                 'nl' => [
-                    'lead' => 'Eén workflow waar AI meetbaar tijd bespaart, in productie: een agent met skills, MCP-tools, RAG en browserautomatisering. De waarde zit in het veilig verbinden van het model met jouw kennis. Ik draai mijn bedrijf hierop.',
+                    'lead' => 'Eén workflow waar AI meetbaar tijd bespaart, in productie: een agent met skills, MCP-tools, RAG en browserautomatisering. De waarde zit in het veilig verbinden van het model met je kennis. Ik draai mijn bedrijf hierop.',
                     'short' => 'Agents, eigen skills, MCP-servers, RAG over je data. Eén use case naar productie.',
                     'price' => 'Op offerte per use case, EUR 90 per uur excl. btw',
                     'price_note' => 'Modelkosten zijn voor jou en begrensd. Een evaluatieset bepaalt of het live gaat.',
@@ -360,7 +360,7 @@ final class Catalog
                     ],
                     'steps' => [
                         'Introgesprek: wie het gebruikt, waar, op welke apparaten.',
-                        'Mijlpaal één: het hoofdscherm dat echt werk doet met jouw data.',
+                        'Mijlpaal één: het hoofdscherm dat echt werk doet met je eigen data.',
                         'Verdere mijlpalen, elk afgebakend en geprijsd.',
                         'Release, overdracht, storevermelding als je dat wilt.',
                     ],
@@ -405,7 +405,7 @@ final class Catalog
                     'features' => [
                         ['Schriftelijk rapport', 'In gewone taal, bevindingen gerangschikt op waarde en risico, uren per punt.'],
                         ['Kansen voor automatisering', 'Het repeterende werk in en rond het systeem, met de uren die het nu kost en wat een agent of koppeling zou besparen.'],
-                        ['Legacy-check', 'Besturingssysteem, PHP, database, framework en belangrijke dependencies naast hun officiële end-of-lifedatums gelegd.'],
+                        ['Legacy-check', 'Besturingssysteem, PHP, database, framework en belangrijke dependencies naast hun officiële einddatums van support gelegd.'],
                         ['Snelle beveiligingsscan', 'Configuratie, dependencies met bekende kwetsbaarheden, omgang met secrets, basis van serverhardening.'],
                         ['Architectuurreview', 'Waar wijzigen riskant is, verborgen koppelingen, hoe goed de code door tests gedekt is.'],
                         ['Plan in stappen', 'Volgorde van het werk en bandbreedtes voor de inspanning. Oud en nieuw draaien naast elkaar, niets valt stil.'],
@@ -505,7 +505,7 @@ final class Catalog
                     'price_note' => 'Twee dagen. Grotere vragen worden na het introgesprek geoffreerd, als de vraag duidelijk is.',
                     'features' => [
                         ['De vraag, opgeschreven', 'Wat er besloten wordt, voor wanneer, en wat een verkeerd antwoord kost.'],
-                        ['Opties vergeleken', 'Twee tot vier realistische routes, elk met kosten, risico, teampasvorm en uitweg.'],
+                        ['Opties vergeleken', 'Twee tot vier realistische routes, elk met kosten, risico, pasvorm voor je team en uitweg.'],
                         ['Advies', 'Eén antwoord, met de redenen en de voorwaarden waaronder het verandert.'],
                         ['Roadmap', 'De eerste stappen op volgorde, met bandbreedtes voor de inspanning.'],
                         ['Beslisnotities', 'Korte documenten in je repository, zodat de redenering personeelswisselingen overleeft.'],
@@ -549,7 +549,7 @@ final class Catalog
                 'illus' => 'lock',
                 'cta' => ['When was the last restore test?', 'If the answer is "never" or "not sure", that is the first thing I would do. Tell me where it runs and I reply within one working day, free.'],
                 'nl' => [
-                    'lead' => 'De server en de leveringspijplijn veilig gemaakt: poorten dicht, TLS actueel, secrets uit de code, scans op dependencies en secrets bij elke wijziging, en back-ups die echt zijn teruggezet. Een schriftelijke kwaliteitslat die je team kan vasthouden.',
+                    'lead' => 'De server en de leveringspijplijn veilig gemaakt: poorten dicht, TLS actueel, secrets uit de code, scans op dependencies en secrets bij elke wijziging, en back-ups die echt zijn teruggezet. Een schriftelijke norm die je team kan aanhouden.',
                     'short' => 'Aanvalsoppervlak gesloten, beveiligingscontroles in CI, back-ups die terug te zetten zijn.',
                     'price' => 'Op offerte per omgeving, EUR 90 per uur excl. btw',
                     'price_note' => 'Inbegrepen in elk moderniseringsproject. Los te boeken voor een systeem dat je hebt geërfd.',
@@ -559,15 +559,15 @@ final class Catalog
                         ['Beveiligingscontroles in CI', 'Dependency-audit, secretscan en statische analyse die de build laten falen.'],
                         ['Back-ups die terug te zetten zijn', 'Een restore uitgevoerd en getimed, opgeschreven met de hersteltijd.'],
                         ['Monitoring en alerts', 'Uptime, schijf, certificaten en mislukte jobs bereiken een mens voordat een klant het doet.'],
-                        ['Kwaliteitslat op papier', 'Cijfers en de commando\'s die ze controleren, zodat niemand de lat ongemerkt verlaagt.'],
+                        ['Norm op papier', 'Cijfers en de commando\'s die ze controleren, zodat niemand de lat ongemerkt verlaagt.'],
                     ],
                     'steps' => [
                         'Introgesprek en leestoegang tot de server en de pijplijn.',
                         'Lijst met bevindingen, gerangschikt, met de uren per punt.',
                         'Fixes in afgesproken volgorde, elk gecontroleerd.',
-                        'Schriftelijke kwaliteitslat en het runbook overgedragen.',
+                        'Schriftelijke norm en het runbook overgedragen.',
                     ],
-                    'not' => 'Dit is geen penetratietest van de applicatie zelf; dat is de Security assessment. Geen uptimegaranties van één persoon.',
+                    'not' => 'Dit is geen penetratietest van de applicatie zelf; dat is de Security Test. Geen uptimegaranties van één persoon.',
                     'cta' => ['Wanneer was de laatste restoretest?', 'Als het antwoord "nooit" of "weet ik niet" is, is dat het eerste wat ik zou doen. Vertel me waar het draait en ik antwoord binnen één werkdag, gratis.'],
                 ],
             ],
@@ -822,7 +822,7 @@ final class Catalog
         foreach (self::SUBS as $k => $s) {
             $out['lp_sub_'.$k] = $s[1];
         }
-        $out['lp_hint'] = 'Klik op een stap voor haar diensten, klik op een dienst voor haar pagina. Met rust gelaten loopt de ronde vanzelf.';
+        $out['lp_hint'] = 'Klik op een stap voor de bijbehorende diensten, klik op een dienst voor de pagina ervan. Laat je het met rust, dan loopt de ronde vanzelf.';
 
         return $out;
     }

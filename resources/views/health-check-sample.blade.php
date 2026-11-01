@@ -46,7 +46,7 @@ $nl = [
     'sm_7_4' => 'Dag 2, middag: schrijven, nalezen, het rapport opmaken.',
     'sm_7_5' => 'Daarna: het doorloopgesprek.',
     'sm_r' => 'De versietabel kun je zelf in tien minuten nakijken met de <a href="/php-check">PHP-versiecheck</a>. Wijzen de bevindingen op beveiligingsregels, dan is <a href="/services/hardening">Hardening</a> de dienst die ze oplost, en de <a href="/pricing">prijzenpagina</a> laat zien wat elke stap kost.',
-    'sm_c_h' => 'Wil je er zo een voor jouw systeem?',
+    'sm_c_h' => 'Wil je er zo een voor je systeem?',
     'sm_c_p' => 'Twee dagen, alleen lezen, vaste prijs EUR 1.080 excl. btw (12 uur × EUR 90). Vertel me wat je draait en ik controleer of de Health Check past voordat er iets geboekt wordt.',
     'sm_c_b1' => 'Plan een gesprek',
     'sm_c_b2' => 'Wat het dekt en wat het kost',

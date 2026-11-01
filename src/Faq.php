@@ -54,13 +54,13 @@ class Faq
                     'q' => 'What do I get at the end?',
                     'a' => 'A written report in plain language, with findings ranked by value and risk and the hours per item. It covers automation opportunities, a legacy check against official end-of-life dates, a security quick scan, an architecture review and a step-by-step plan. I then go through it with you in a walkthrough call.',
                     'qn' => 'Wat krijg ik aan het eind?',
-                    'an' => 'Een schriftelijk rapport in gewone taal, met bevindingen gerangschikt op waarde en risico en de uren per punt. Het omvat kansen voor automatisering, een legacy-check naast de officiële end-of-lifedatums, een snelle beveiligingsscan, een architectuurreview en een plan in stappen. Daarna loop ik het met je door in een doorloopgesprek.',
+                    'an' => 'Een schriftelijk rapport in gewone taal, met bevindingen gerangschikt op waarde en risico en de uren per punt. Het omvat kansen voor automatisering, een legacy-check naast de officiële einddatums van support, een snelle beveiligingsscan, een architectuurreview en een plan in stappen. Daarna loop ik het met je door in een doorloopgesprek.',
                 ],
                 [
                     'q' => 'Is the Health Check a penetration test or a rewrite?',
-                    'a' => 'No. It is not a rewrite and it is not a penetration test. It includes a security quick scan of configuration, dependencies and secrets handling. A test of the application itself is the separate Security Assessment.',
+                    'a' => 'No. It is not a rewrite and it is not a penetration test. It includes a security quick scan of configuration, dependencies and secrets handling. A test of the application itself is the separate Security Test.',
                     'qn' => 'Is de Health Check een penetratietest of een herbouw?',
-                    'an' => 'Nee. Het is geen herbouw en geen penetratietest. Het bevat wel een snelle beveiligingsscan van configuratie, dependencies en omgang met secrets. Een test van de applicatie zelf is de aparte Security Assessment.',
+                    'an' => 'Nee. Het is geen herbouw en geen penetratietest. Het bevat wel een snelle beveiligingsscan van configuratie, dependencies en omgang met secrets. Een test van de applicatie zelf is de aparte Security Test.',
                 ],
                 [
                     'q' => 'What happens if the report shows that more work is needed?',
@@ -104,9 +104,9 @@ class Faq
             'hardening' => [
                 [
                     'q' => 'Is Hardening a penetration test?',
-                    'a' => 'No. It makes the server and the delivery pipeline safe. A test of the application itself is the Security Assessment.',
+                    'a' => 'No. It makes the server and the delivery pipeline safe. A test of the application itself is the Security Test.',
                     'qn' => 'Is Hardening een penetratietest?',
-                    'an' => 'Nee. Het maakt de server en de leveringspijplijn veilig. Een test van de applicatie zelf is de Security Assessment.',
+                    'an' => 'Nee. Het maakt de server en de leveringspijplijn veilig. Een test van de applicatie zelf is de Security Test.',
                 ],
                 [
                     'q' => 'What does Hardening cost?',
@@ -118,7 +118,7 @@ class Faq
                     'q' => 'What do I have afterwards?',
                     'a' => 'A ranked findings list with the hours per item, the agreed fixes each verified, and a written quality bar with a runbook that your team can keep. Backups are restored for real and the recovery time is written down.',
                     'qn' => 'Wat heb ik daarna?',
-                    'an' => 'Een gerangschikte bevindingenlijst met de uren per punt, de afgesproken fixes elk geverifieerd, en een schriftelijke kwaliteitslat met een runbook die je team kan vasthouden. Back-ups worden echt teruggezet en de hersteltijd wordt opgeschreven.',
+                    'an' => 'Een gerangschikte bevindingenlijst met de uren per punt, de afgesproken fixes elk geverifieerd, en een schriftelijke norm en een runbook die je team kan aanhouden. Back-ups worden echt teruggezet en de hersteltijd wordt opgeschreven.',
                 ],
             ],
             'maintenance-retainer' => [

@@ -150,7 +150,7 @@ Object.assign(window.SCUTTLE_NL.t, {
  "cp_ex4": "Het werk wordt overgedragen met een runbook in je repository, zodat het niet afhangt van mijn aanwezigheid.",
  "cp_ww_l": "Samenwerken",
  "cp_ww_p": "Er zijn geen vacatures; dit is bewust een eenmansbedrijf. Op drie manieren kun je toch met me samenwerken:",
- "cp_ww1": "<b>Bureaus:</b> ervaren handen op het project van jouw klant tegen een dagtarief, onder jouw voorwaarden of de mijne, eerst NDA. Zie <a href=\"/pricing\">prijzen</a>.",
+ "cp_ww1": "<b>Bureaus:</b> ervaren handen op het project van je klant tegen een dagtarief, onder jouw voorwaarden of de mijne, eerst NDA. Zie <a href=\"/pricing\">prijzen</a>.",
  "cp_ww2": "<b>Vakgenoten:</b> een tweede paar ogen op een architectuur- of securityvraag, of een overloop-partner als je vol zit.",
  "cp_ww3": "<b>Open source:</b> de skills en tools op de <a href=\"/projects\">projectenpagina</a> nemen issues en pull requests aan.",
  "cp_n_l": "Waar nu heen",

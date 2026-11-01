@@ -125,7 +125,7 @@ final class Dutch
             '/php-check' => ['Welke PHP-versie draai je? Een check van tien minuten', 'Welke PHP-versie draai je en tot wanneer krijgt die beveiligingsfixes? Een check van tien minuten met data van php.net en wat een Health Check daarna doet.'],
             '/nis2' => ['NIS2 en de Cyber Resilience Act: wat geldt voor jou', 'NIS2 geldt in Nederland sinds 15 augustus 2026, de meldplicht van de CRA sinds 11 september. Wie eronder valt en wat te doen: een technische gap-analyse.'],
             '/privacy' => ['Privacyverklaring', 'Welke gegevens ik gebruik en waarom, welke verwerkers meekijken, dat deze site geen tracking- of analysecookies zet en hoe je je gegevens laat verwijderen.'],
-            '/case-studies' => ['Casestudy\'s: werk zoals het ging', 'Casestudy\'s: een migratie terwijl het platform in gebruik bleef, een API voor AI-assistenten, een klein wake word-model en een bedrijf op agents.'],
+            '/case-studies' => ['Casestudy\'s: werk zoals het ging', 'Casestudy\'s: een migratie terwijl het platform in gebruik bleef, een API voor AI-assistenten, een klein wake-wordmodel en een bedrijf op agents.'],
         ];
         $fixed['/404'] = ['Pagina niet gevonden', 'Deze pagina bestaat niet op scuttle.dev. De diensten, de prijzen en het contactformulier zijn één klik verderop.'];
         if (isset($fixed[$p])) {

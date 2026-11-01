@@ -172,8 +172,8 @@ final class Cases
                     'kicker' => 'Eigen bedrijf · Scuttle Development',
                     'title' => 'Een eenmansbedrijf gerund door agents',
                     'quote' => 'Claude is het brein, een browser zijn de handen, een database is het geheugen. Hetzelfde patroon, voor elke klus die zich herhaalt.',
-                    'meta' => 'Eén persoon die outreach, posts, planning en boekhouding laat draaien als agents, met een menselijke tik overal waar iets het huis verlaat.',
-                    'lead' => 'Scuttle Development is één persoon. Bedrijven vinden, outreach schrijven en versturen, posts opstellen, reacties bijhouden, plannen en boekhouden draaien als agents op één patroon, met een menselijke tik overal waar iets het huis verlaat.',
+                    'meta' => 'Eén persoon die outreach, posts, planning en boekhouding laat draaien als agents, met een mens die akkoord geeft overal waar iets het huis verlaat.',
+                    'lead' => 'Scuttle Development is één persoon. Bedrijven vinden, outreach schrijven en versturen, posts opstellen, reacties bijhouden, plannen en boekhouden draaien als agents op één patroon, met een mens die akkoord geeft overal waar iets het huis verlaat.',
                     'facts' => ['brein, handen, geheugen', 'voordat iets wordt verstuurd', 'en een noodstop'],
                     'situation' => 'Verkopen kost uren die een freelancer niet heeft. De repetitieve delen, de juiste bedrijven vinden, eerste contact, follow-ups, rapportage, zijn precies wat een agent goed doet, zolang er niets de deur uitgaat zonder dat een mens ernaar kijkt.',
                     'approach' => [
@@ -213,7 +213,7 @@ final class Cases
     public static function nlStrings(): array
     {
         $labels = ['phalcon-to-laravel' => 'Phalcon → Laravel', 'api-meets-ai' => 'API → MCP → AI', 'wake-word-model' => 'audio → klein model', 'business-on-agents' => 'agents → pipeline'];
-        $firsts = ['On device' => 'Op het apparaat', 'Small model' => 'Klein model', 'One pattern' => 'Eén patroon', 'Human tap' => 'Eén tik van mij', 'Evaluation set' => 'Evaluatieset', 'Daily caps' => 'Dagelijkse limieten'];
+        $firsts = ['On device' => 'Op het apparaat', 'Small model' => 'Klein model', 'One pattern' => 'Eén patroon', 'Human tap' => 'Mijn akkoord', 'Evaluation set' => 'Evaluatieset', 'Daily caps' => 'Dagelijkse limieten'];
         $out = [];
         foreach (self::all() as $slug => $c) {
             $out['cxk_'.$slug] = $c['nl']['kicker'];
