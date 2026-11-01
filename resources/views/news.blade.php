@@ -22,8 +22,9 @@
 
   @php($A = \Spdotdev\ScuttleDev\Archive::class)
   @php($all = \Spdotdev\ScuttleDev\Posts::all())
-  @php($period = preg_match('/^\d{4}(-\d{2}){0,2}$|^\d{4}-W\d{2}$/', (string) request('p')) ? (string) request('p') : '')
-  @php([$posts, $page, $pages] = $A::page($A::filter($all, $period), request('page')))
+  @php($qp = is_string(request('p')) ? request('p') : '')
+  @php($period = preg_match('/^\d{4}(-\d{2}){0,2}$|^\d{4}-W\d{2}$/', $qp) ? $qp : '')
+  @php([$posts, $page, $pages] = $A::page($A::filter($all, $period), is_string(request('page')) ? request('page') : null))
   <div class="wrap arch-grid">
     @include('scuttle::partials.archive', ['A' => $A, 'ns' => 'scuttle', 'base' => route('scuttle.news'), 'tree' => $A::tree($all), 'period' => $period, 'page' => $page, 'pages' => $pages, 'prefix' => 'bl', 'allLabel' => 'All articles'])
     <div class="posts">

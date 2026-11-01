@@ -198,4 +198,26 @@ class SecurityTest extends TestCase
         $this->from('http://scuttle.dev/contact')->post('http://scuttle.dev/contact', $this->form(['name' => "Ann\u{202E}a", 'cf-turnstile-response' => 't']));
         $this->assertStringNotContainsString('anna@example.com', implode(' ', $logged));
     }
+
+    /** @return array<string, array{0: string}> */
+    public static function hostileQueries(): array
+    {
+        return [['?p=<script>alert(1)</script>'], ['?p[]=1'], ['?page=abc'], ['?page[]=2'], ['?page=-5'], ['?page=99999999999999999999'], ['?m=zz&p=2026'], ['?m[]=1'], ['?p=2026-13'], ['?p=2026-W99'], ['?p=%00']];
+    }
+
+    #[DataProvider('hostileQueries')]
+    public function test_hostile_query_strings_on_the_news_archive_never_break_or_echo_markup(string $q): void
+    {
+        $r = $this->get('http://scuttle.dev/news'.$q);
+        $this->assertContains($r->getStatusCode(), [200, 404], $q);
+        $this->assertStringNotContainsString('<script>alert(1)', (string) $r->getContent(), $q);
+    }
+
+    public function test_the_vcard_has_crlf_line_ends_and_no_stray_line_breaks_inside_a_field(): void
+    {
+        $v = (string) file_get_contents(__DIR__.'/../../public/scuttledev.vcf');
+        $this->assertStringStartsWith("BEGIN:VCARD\r\n", $v);
+        $this->assertSame(0, preg_match('/(?<!\r)\n/', $v), 'every line ends in CRLF');
+        $this->assertStringContainsString("END:VCARD\r\n", $v);
+    }
 }
