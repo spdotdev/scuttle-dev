@@ -121,7 +121,7 @@
   </main>
 
   <div class="wrap"><footer>
-    <div class="col"><div class="brand"><img alt="" src="{{ secure_asset('vendor/scuttle/logo.svg') }}" width="30" height="24"><span>Scuttle</span></div><p data-i="ft_p">Automation with AI agents and integrations, secure software that keeps running, by one senior developer in Eindhoven.</p></div>
+    <div class="col"><div class="brand"><img alt="" src="{{ secure_asset('vendor/scuttle/logo.svg') }}" width="30" height="24" loading="lazy" decoding="async"><span>Scuttle</span></div><p data-i="ft_p">Automation with AI agents and integrations, secure software that keeps running, by one senior developer in Eindhoven.</p></div>
     <div class="col"><small data-i="n_products">Services</small>
       @foreach($groups as $key => $items)@foreach(array_slice($items, 0, 2) as $p)<a href="{{ \Spdotdev\ScuttleDev\Catalog::url($p) }}">{{ $p['name'] }}</a>@endforeach @endforeach
       <a href="{{ route('scuttle.pricing') }}" data-i="n_pricing">Pricing</a><a href="{{ route('scuttle.php-check') }}" data-i="n_phpcheck">PHP version check</a><a href="{{ route('scuttle.nis2') }}" data-i="n_nis2">NIS2 and CRA</a></div>

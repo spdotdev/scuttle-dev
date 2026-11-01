@@ -97,7 +97,7 @@ $nl = [
   <p><a href="{{ route('scuttle.health-check') }}" data-i="pc_p_a">What it covers and what it costs</a> · <a href="{{ route('scuttle.health-check.sample') }}" data-i="pc_p_b">A sample report</a></p>
 
   <div class="callout who" role="note">
-    <img src="{{ secure_asset('vendor/scuttle/portrait.jpg') }}" alt="Stanislav Plotnikov" width="72" height="72" loading="lazy">
+    <img src="{{ secure_asset('vendor/scuttle/portrait.jpg') }}" alt="Stanislav Plotnikov" width="72" height="72" loading="lazy" decoding="async">
     <div>
       <h2 data-i="pc_w_h">Who writes this</h2>
       <p data-i="pc_w">Stanislav Plotnikov, senior developer and solution architect in Eindhoven. I have been programming since 2008, PHP first. Scuttle Development exists since December 2024, KvK 96040947. You talk to the person who does the work.</p>

@@ -59,14 +59,14 @@
       <div class="line mono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg><span><a href="https://www.kvk.nl/zoeken/#/96040947000061394009/" rel="noopener" target="_blank" title="Chamber of Commerce register">KvK 96040947</a><br>BTW NL005184584B85</span></div>
       <span class="lbl" style="margin-top:8px" data-i="ctp_save">Save my contact details</span>
       <div class="qr">
-        <button id="open-qr" type="button" aria-label="Show the QR code larger"><img src="{{ secure_asset('vendor/scuttle/qr/scuttle-vcard.svg') }}" alt="QR code with my contact details (vCard)" width="104" height="104"></button>
+        <button id="open-qr" type="button" aria-label="Show the QR code larger"><img src="{{ secure_asset('vendor/scuttle/qr/scuttle-vcard.svg') }}" alt="QR code with my contact details (vCard)" width="104" height="104" decoding="async"></button>
         <div><p data-i="ctp_qr">Scan the code with your phone camera and it offers to add me as a contact, or download the vCard.</p><a class="btn o" href="{{ route('scuttle.vcard') }}" data-sda-event="vCard download"><span data-i="ctp_vc">Save vCard</span></a></div>
       </div>
     </div>
     <div class="cc rv">
       <span class="lbl" data-i="ctp_ab">About</span>
       <div class="about">
-        <button id="open-pic" type="button" aria-label="Show the photo larger"><img src="{{ secure_asset('vendor/scuttle/portrait.jpg') }}" alt="Stanislav Plotnikov" width="96" height="96" loading="lazy"></button>
+        <button id="open-pic" type="button" aria-label="Show the photo larger"><img src="{{ secure_asset('vendor/scuttle/portrait.jpg') }}" alt="Stanislav Plotnikov" width="96" height="96" loading="lazy" decoding="async"></button>
         <div><p data-i="ctp_abp">Stanislav Plotnikov. Senior developer and solution architect, PHP since 2008, Laravel and Phalcon in production, Python for automation and AI, Kotlin for Android. One person, one point of contact, from the first call to the handover. More about me, my CV and my writing: <a href="https://splotnikov.dev" rel="noopener" target="_blank">splotnikov.dev</a>.</p>
           <div class="soc"><a href="https://www.linkedin.com/in/stanislavplotnikov/" rel="noopener" target="_blank">LinkedIn</a><a href="https://github.com/spdotdev" rel="noopener" target="_blank">GitHub</a><a href="https://splotnikov.dev" rel="noopener" target="_blank">splotnikov.dev</a></div></div>
       </div>
@@ -78,7 +78,7 @@
     <div class="ov" data-close="qr-modal"></div>
     <div class="box">
       <button class="x" data-close="qr-modal" type="button" aria-label="Close">&times;</button>
-      <img src="{{ secure_asset('vendor/scuttle/qr/scuttle-vcard.svg') }}" alt="QR code with my contact details (vCard), large" width="360" height="360">
+      <img src="{{ secure_asset('vendor/scuttle/qr/scuttle-vcard.svg') }}" alt="QR code with my contact details (vCard), large" width="360" height="360" loading="lazy" decoding="async">
       <div class="cap" data-i="ctp_qcap">scan with your camera · adds me as a contact · Scuttle Development</div>
     </div>
   </div>
@@ -86,7 +86,7 @@
     <div class="ov" data-close="pic-modal"></div>
     <div class="box pic">
       <button class="x" data-close="pic-modal" type="button" aria-label="Close">&times;</button>
-      <img src="{{ secure_asset('vendor/scuttle/portrait.jpg') }}" alt="Stanislav Plotnikov" width="480" height="480">
+      <img src="{{ secure_asset('vendor/scuttle/portrait.jpg') }}" alt="Stanislav Plotnikov" width="480" height="480" loading="lazy" decoding="async">
       <div class="cap">Stanislav Plotnikov · Scuttle Development, Eindhoven</div>
     </div>
   </div>

@@ -189,7 +189,7 @@
 
   <section class="cta-end"><div class="wrap">
     <div class="cta-box rv">
-      <img alt="" src="{{ secure_asset('vendor/scuttle/logo.svg') }}" width="46" height="37">
+      <img alt="" src="{{ secure_asset('vendor/scuttle/logo.svg') }}" width="46" height="37" loading="lazy" decoding="async">
       <h2 data-i="pr_e_h">Want a number for your situation?</h2>
       <p data-i="pr_e_p">Tell me what you are running. I reply within one working day with a first opinion, free.</p>
       <div class="row"><a class="btn" href="{{ config('scuttle-dev.booking_url') }}" data-sda-event="Contact button click"><span data-i="pr_e_b1">Book a call</span></a><a class="btn o" href="{{ route('scuttle.home') }}#contact"><span data-i="pr_e_b2">Use the contact form</span></a></div>
