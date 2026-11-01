@@ -3,6 +3,7 @@
 namespace Spdotdev\ScuttleDev\Tests\Feature;
 
 use Spdotdev\ScuttleDev\Tests\TestCase;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /** The list the six-hourly live watch reads (scripts/smoke-urls.txt) must stay true: addresses that exist, markers that are on the page. */
 class LiveSmokeListTest extends TestCase
@@ -45,7 +46,7 @@ class LiveSmokeListTest extends TestCase
             $hasDutch = $hasDutch || str_starts_with($path, '/nl');
             $response = $this->get('http://scuttle.dev'.$path);
             $this->assertSame($status, $response->getStatusCode(), "$path status");
-            $body = $response->getContent() ?: ($response->baseResponse instanceof \Symfony\Component\HttpFoundation\BinaryFileResponse ? (string) file_get_contents($response->baseResponse->getFile()->getPathname()) : '');
+            $body = $response->getContent() ?: ($response->baseResponse instanceof BinaryFileResponse ? (string) file_get_contents($response->baseResponse->getFile()->getPathname()) : '');
             $this->assertStringContainsString($marker, $body, "marker of $path is not on the page");
         }
         $this->assertTrue($has404, 'one address must answer 404');
