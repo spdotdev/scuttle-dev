@@ -34,4 +34,21 @@ class FeedTest extends TestCase
             $this->get('http://scuttle.dev'.$path)->assertOk()->assertSee('<link rel="alternate" type="application/atom+xml"', false);
         }
     }
+
+    /**
+     * The production image runs PHP with short_open_tag on, so a literal "<?xml" in a Blade source is read as a PHP
+     * open tag and the compiled view dies with a syntax error (seen live on 2026-11-01, /feed.xml answered 500 while
+     * the suite was green on a PHP without that setting). Views build the prolog from pieces instead.
+     */
+    public function test_no_blade_view_holds_a_literal_xml_or_short_open_tag(): void
+    {
+        $bad = [];
+        foreach (glob(__DIR__.'/../../resources/views/{,*/}*.blade.php', GLOB_BRACE) as $file) {
+            $src = (string) file_get_contents($file);
+            if (preg_match('/<\?(?!php\b|=)/', $src) === 1) {
+                $bad[] = basename($file);
+            }
+        }
+        $this->assertSame([], $bad, 'Blade views with a "<?" that is not "<?php": '.implode(', ', $bad));
+    }
 }
