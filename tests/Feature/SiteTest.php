@@ -950,7 +950,7 @@ class SiteTest extends TestCase
         $this->assertStringContainsString('href="mailto:info@scuttle.dev"', $contact);
         $this->assertStringContainsString('href="tel:+31618233175"', $contact);
         $product = (string) $this->get('http://scuttle.dev/services/modernization')->getContent();
-        $this->assertStringContainsString('/contact?about=Modernization"><span data-i="p_ask">Ask about Modernization</span>', $product);
+        $this->assertStringContainsString('/contact?about=Modernization" data-sda-event="Contact button click"><span data-i="p_ask">Ask about Modernization</span>', $product);
         $this->assertStringContainsString('<option value="Modernization" selected>', (string) $this->get('http://scuttle.dev/contact?about=Modernization')->getContent());
     }
 }

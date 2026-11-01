@@ -70,7 +70,7 @@
       @include('scuttle::partials.logo', ['id' => 'cta', 'w' => 46, 'h' => 37])
       <h2 data-i="wk_e_h">Which of these is missing on your side?</h2>
       <p data-i="wk_e_p">A runbook nobody wrote, a restore nobody tested, a pipeline that does not exist yet. Name it and I reply within one working day with what it would take, free.</p>
-      <div class="row"><a class="btn" href="{{ route('scuttle.contact.page') }}"><span data-i="wk_e_b1">Use the contact form</span></a><a class="btn o" href="{{ config('scuttle-dev.booking_url') }}"><span data-i="wk_e_b2">Book a call</span></a><a class="btn o" href="{{ route('scuttle.pricing') }}"><span data-i="wk_e_b3">See the pricing</span></a></div>
+      <div class="row"><a class="btn" href="{{ route('scuttle.contact.page') }}" data-sda-event="Contact button click"><span data-i="wk_e_b1">Use the contact form</span></a><a class="btn o" href="{{ config('scuttle-dev.booking_url') }}" data-sda-event="Contact button click"><span data-i="wk_e_b2">Book a call</span></a><a class="btn o" href="{{ route('scuttle.pricing') }}"><span data-i="wk_e_b3">See the pricing</span></a></div>
     </div>
   </div></section>
 </article>

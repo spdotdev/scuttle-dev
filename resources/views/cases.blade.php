@@ -37,7 +37,7 @@
       @include('scuttle::partials.logo', ['id' => 'cta', 'w' => 46, 'h' => 37])
       <h2 data-i="csi_cta_h">Does one of these look like your situation?</h2>
       <p data-i="csi_cta_p">Tell me which one and what is different on your side. I reply within one working day with how I would approach it, free.</p>
-      <div class="row"><a class="btn" href="{{ route('scuttle.contact.page') }}" data-i="csi_cta_b1">Use the contact form</a><a class="btn o" href="{{ config('scuttle-dev.booking_url') }}" data-i="csi_cta_b2">Book a call</a></div>
+      <div class="row"><a class="btn" href="{{ route('scuttle.contact.page') }}" data-i="csi_cta_b1" data-sda-event="Contact button click">Use the contact form</a><a class="btn o" href="{{ config('scuttle-dev.booking_url') }}" data-i="csi_cta_b2" data-sda-event="Contact button click">Book a call</a></div>
     </div>
   </div></section>
 </article>

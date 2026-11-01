@@ -51,7 +51,7 @@
       @include('scuttle::partials.logo', ['id' => 'cta', 'w' => 46, 'h' => 37])
       <h2 data-i="pjp_cta_h">Want this pattern on your side?</h2>
       <p data-i="pjp_cta_p">Tell me what you run and I reply within one working day with how {{ $pr['name'] }}'s approach would fit, free.</p>
-      <div class="row"><a class="btn" href="{{ route('scuttle.contact.page') }}?about={{ rawurlencode($C::get($pr['products'][0])['name']) }}" data-i="pjp_cta_b1">Use the contact form</a><a class="btn o" href="{{ route('scuttle.projects') }}" data-i="pjp_cta_b2">All projects</a></div>
+      <div class="row"><a class="btn" href="{{ route('scuttle.contact.page') }}?about={{ rawurlencode($C::get($pr['products'][0])['name']) }}" data-i="pjp_cta_b1" data-sda-event="Contact button click">Use the contact form</a><a class="btn o" href="{{ route('scuttle.projects') }}" data-i="pjp_cta_b2">All projects</a></div>
     </div>
   </div></section>
 </article>

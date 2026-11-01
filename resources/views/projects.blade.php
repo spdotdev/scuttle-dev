@@ -36,7 +36,7 @@
       @include('scuttle::partials.logo', ['id' => 'cta', 'w' => 46, 'h' => 37])
       <h2 data-i="pj_cta_h">Want one of these patterns in your own system?</h2>
       <p data-i="pj_cta_p">An MCP server on your API, a skill for a chore your team repeats, a documented codebase. Tell me which and I reply within one working day, free.</p>
-      <div class="row"><a class="btn" href="{{ route('scuttle.contact.page') }}?about=AI%20Integration" data-i="pj_cta_b1">Use the contact form</a><a class="btn o" href="https://github.com/spdotdev" rel="noopener" target="_blank">GitHub</a></div>
+      <div class="row"><a class="btn" href="{{ route('scuttle.contact.page') }}?about=AI%20Integration" data-i="pj_cta_b1" data-sda-event="Contact button click">Use the contact form</a><a class="btn o" href="https://github.com/spdotdev" rel="noopener" target="_blank">GitHub</a></div>
     </div>
   </div></section>
 </article>

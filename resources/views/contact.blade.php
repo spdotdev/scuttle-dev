@@ -48,7 +48,7 @@
         <div class="cf-turnstile" data-sitekey="{{ config('scuttle-dev.turnstile_site_key') }}"></div>
         <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
       @endif
-      <div class="cf-foot"><button class="btn" type="submit" data-i="ctp_send">Send</button><a class="btn o" href="{{ config('scuttle-dev.booking_url') }}"><span data-i="ctp_book">Or book a call</span></a><small data-i="ctp_note">No tracking cookies, no newsletter. Your message goes to info@scuttle.dev and nowhere else.</small></div>
+      <div class="cf-foot"><button class="btn" type="submit" data-i="ctp_send">Send</button><a class="btn o" href="{{ config('scuttle-dev.booking_url') }}" data-sda-event="Contact button click"><span data-i="ctp_book">Or book a call</span></a><small data-i="ctp_note">No tracking cookies, no newsletter. Your message goes to info@scuttle.dev and nowhere else.</small></div>
     </form>
     <div class="side-cards">
     <div class="cc rv">
@@ -60,7 +60,7 @@
       <span class="lbl" style="margin-top:8px" data-i="ctp_save">Save my contact details</span>
       <div class="qr">
         <button id="open-qr" type="button" aria-label="Show the QR code larger"><img src="{{ secure_asset('vendor/scuttle/qr/scuttle-vcard.svg') }}" alt="QR code with my contact details (vCard)" width="104" height="104"></button>
-        <div><p data-i="ctp_qr">Scan the code with your phone camera and it offers to add me as a contact, or download the vCard.</p><a class="btn o" href="{{ route('scuttle.vcard') }}"><span data-i="ctp_vc">Save vCard</span></a></div>
+        <div><p data-i="ctp_qr">Scan the code with your phone camera and it offers to add me as a contact, or download the vCard.</p><a class="btn o" href="{{ route('scuttle.vcard') }}" data-sda-event="vCard download"><span data-i="ctp_vc">Save vCard</span></a></div>
       </div>
     </div>
     <div class="cc rv">

@@ -57,7 +57,7 @@ $nl = [
   <h1 data-i="pc_h">Which PHP version is your system running, and until when does it get security fixes?</h1>
   <p class="lead" data-i="pc_lead">A ten-minute check you can run yourself, with the dates from php.net. If the answer worries you, a Health Check turns it into a plan: two days, read-only, EUR 1,080 excl. VAT, fixed.</p>
   <div class="cta" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:22px">
-    <a class="btn" href="{{ config('scuttle-dev.booking_url') }}" data-i="pc_b1">Book a call about a Health Check</a>
+    <a class="btn" href="{{ config('scuttle-dev.booking_url') }}" data-i="pc_b1" data-sda-event="Contact button click">Book a call about a Health Check</a>
     <a class="btn o" href="{{ route('scuttle.health-check.sample') }}" data-i="pc_b2">See what the report looks like</a>
   </div>
 
@@ -107,7 +107,7 @@ $nl = [
 
   <h2 data-i="pc_c_h">Want me to look at it?</h2>
   <p data-i="pc_c_p">Tell me which version you run and what hurts. I reply within one working day with a first opinion, free.</p>
-  <p><a class="btn" href="{{ config('scuttle-dev.booking_url') }}" data-i="pc_c_b">Book a call</a></p>
+  <p><a class="btn" href="{{ config('scuttle-dev.booking_url') }}" data-i="pc_c_b" data-sda-event="Contact button click">Book a call</a></p>
 </article>
 @endsection
 

@@ -117,7 +117,7 @@ $nl = [
 
   <h2 data-i="sm_c_h">Want one for your system?</h2>
   <p data-i="sm_c_p">Two days, read-only, fixed price EUR 1,080 excl. VAT (12 hours × EUR 90). Tell me what you run and I check that the Health Check fits before anything is booked.</p>
-  <p style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn" href="{{ config('scuttle-dev.booking_url') }}" data-i="sm_c_b1">Book a call</a><a class="btn o" href="{{ route('scuttle.health-check') }}" data-i="sm_c_b2">What it covers and what it costs</a></p>
+  <p style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn" href="{{ config('scuttle-dev.booking_url') }}" data-i="sm_c_b1" data-sda-event="Contact button click">Book a call</a><a class="btn o" href="{{ route('scuttle.health-check') }}" data-i="sm_c_b2">What it covers and what it costs</a></p>
 </article>
 @endsection
 

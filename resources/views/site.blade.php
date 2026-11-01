@@ -42,7 +42,7 @@
   <h1 data-i="h1" data-dec>Automate the work <br>your team repeats</h1>
   <div class="sub in2" data-i="sub">Automation · Security · Eindhoven</div>
   <p class="offer in2"><b data-i="of_b">Start with a Health Check.</b> <span data-i="of_t">Two days, read-only, a written plan. Fixed price: EUR 1,080 excl. VAT.</span></p>
-  <div class="cta in3"><a class="btn" href="{{ config('scuttle-dev.booking_url') }}" data-i="cta1">Book a call about a Health Check <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn o" href="{{ route('scuttle.health-check') }}" data-i="cta2">What it covers and what you get</a></div>
+  <div class="cta in3"><a class="btn" href="{{ config('scuttle-dev.booking_url') }}" data-i="cta1" data-sda-event="Contact button click">Book a call about a Health Check <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn o" href="{{ route('scuttle.health-check') }}" data-i="cta2">What it covers and what you get</a></div>
   <div class="cmd in3"><span>&gt; php -v&nbsp;&nbsp;<span>PHP {{ \Spdotdev\ScuttleDev\Facts::PHP_LATEST['8.4'] }}</span>&nbsp;&nbsp;<b data-i="cmd_b"><span>security release {{ \Spdotdev\ScuttleDev\Facts::PHP_HERO_DATE }}</span><span>{{ \Spdotdev\ScuttleDev\Facts::PHP_HERO_PREVIOUS }} → {{ \Spdotdev\ScuttleDev\Facts::PHP_LATEST['8.4'] }}</span><span>two critical RCE bugs fixed</span><span>is yours patched?</span></b></span></div>
 </header>
 
@@ -134,7 +134,7 @@
     @include('scuttle::partials.logo', ['id' => 'cta', 'w' => 46, 'h' => 37])
     <h2 data-i="ct_h">Which task would you hand to an agent first?</h2>
     <p data-i="ct_p">Tell me what you are running and where the hours go. I reply within one working day with a first opinion, free.</p>
-    <div class="row"><a class="btn" href="{{ route('scuttle.contact.page') }}" data-i="ct_b2">Use the contact form</a><a class="btn o" href="{{ config('scuttle-dev.booking_url') }}" data-i="ct_b0">Book a call</a></div>
+    <div class="row"><a class="btn" href="{{ route('scuttle.contact.page') }}" data-i="ct_b2" data-sda-event="Contact button click">Use the contact form</a><a class="btn o" href="{{ config('scuttle-dev.booking_url') }}" data-i="ct_b0" data-sda-event="Contact button click">Book a call</a></div>
   </div>
 </div></section>
 @endsection

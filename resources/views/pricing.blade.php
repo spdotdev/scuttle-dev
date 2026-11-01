@@ -19,7 +19,7 @@
         <li><b data-i="pr_g2b">EUR 1,080</b><span data-i="pr_g2s">Health Check, two days, fixed</span></li>
         <li><b data-i="pr_g3b">from EUR 720</b><span data-i="pr_g3s">a month, maintenance retainer</span></li>
       </ul>
-      <p style="margin-top:18px"><a class="btn" href="{{ config('scuttle-dev.booking_url') }}"><span data-i="pr_c1b">Book a call →</span></a></p>
+      <p style="margin-top:18px"><a class="btn" href="{{ config('scuttle-dev.booking_url') }}" data-sda-event="Contact button click"><span data-i="pr_c1b">Book a call →</span></a></p>
     </div>
   </header>
 
@@ -38,7 +38,7 @@
             <li data-i="pr_c1i1">Quote valid 14 days. You can stop after any step.</li>
             <li data-i="pr_c1i2">If a step grows past the estimate, you hear it before the hours are spent.</li>
           </ul>
-          <a class="btn" href="{{ config('scuttle-dev.booking_url') }}"><span data-i="pr_c1b">Book a call →</span></a>
+          <a class="btn" href="{{ config('scuttle-dev.booking_url') }}" data-sda-event="Contact button click"><span data-i="pr_c1b">Book a call →</span></a>
         </div>
         <div class="plan">
           <span class="lbl" data-i="pr_c2l">02 · Per hour</span>
@@ -74,7 +74,7 @@
             <li data-i="pr_c4i1">First hour: find the cause, say what the fix costs.</li>
             <li data-i="pr_c4i2">Every change written down, so the next person understands it.</li>
           </ul>
-          <a class="btn o" href="{{ route('scuttle.contact.page') }}?about=Something+else"><span data-i="pr_c4b">Contact me →</span></a>
+          <a class="btn o" href="{{ route('scuttle.contact.page') }}?about=Something+else" data-sda-event="Contact button click"><span data-i="pr_c4b">Contact me →</span></a>
         </div>
       </div>
     </div>
@@ -192,7 +192,7 @@
       <img alt="" src="{{ secure_asset('vendor/scuttle/logo.svg') }}" width="46" height="37">
       <h2 data-i="pr_e_h">Want a number for your situation?</h2>
       <p data-i="pr_e_p">Tell me what you are running. I reply within one working day with a first opinion, free.</p>
-      <div class="row"><a class="btn" href="{{ config('scuttle-dev.booking_url') }}"><span data-i="pr_e_b1">Book a call</span></a><a class="btn o" href="{{ route('scuttle.home') }}#contact"><span data-i="pr_e_b2">Use the contact form</span></a></div>
+      <div class="row"><a class="btn" href="{{ config('scuttle-dev.booking_url') }}" data-sda-event="Contact button click"><span data-i="pr_e_b1">Book a call</span></a><a class="btn o" href="{{ route('scuttle.home') }}#contact"><span data-i="pr_e_b2">Use the contact form</span></a></div>
     </div>
   </div></section>
 </article>

@@ -101,7 +101,7 @@
       @include('scuttle::partials.logo', ['id' => 'cta', 'w' => 46, 'h' => 37])
       <h2 data-i="cp_e_h">Want to know if I am the right fit?</h2>
       <p data-i="cp_e_p">A thirty-minute call is free and ends with a straight answer: yes, no, or what I need to look at first.</p>
-      <div class="row"><a class="btn" href="{{ config('scuttle-dev.booking_url') }}"><span data-i="cp_e_b1">Book a call</span></a><a class="btn o" href="{{ route('scuttle.contact.page') }}"><span data-i="cp_e_b2">Use the contact form</span></a></div>
+      <div class="row"><a class="btn" href="{{ config('scuttle-dev.booking_url') }}" data-sda-event="Contact button click"><span data-i="cp_e_b1">Book a call</span></a><a class="btn o" href="{{ route('scuttle.contact.page') }}" data-sda-event="Contact button click"><span data-i="cp_e_b2">Use the contact form</span></a></div>
     </div>
   </div></section>
 </article>
