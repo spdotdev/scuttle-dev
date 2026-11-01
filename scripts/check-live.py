@@ -76,7 +76,7 @@ for url, frm in sorted(seen.items()):
         problems.append(f'{url} (linked from {frm}) answers {st}')
 
 # Outbound links: every external href on every sitemap page, one request per distinct URL.
-BOT_WALLED = ('linkedin.com',)
+BOT_WALLED = ('linkedin.com', 'zoek.officielebekendmakingen.nl')  # answer 999 or 403 to cloud addresses, 200 from a home line
 outbound = {}
 for loc, html in htmls.items():
     page = re.sub(r'<script\b.*?</script>', '', html, flags=re.S)
