@@ -87,7 +87,7 @@
     <div class="plate rv">
       <span class="lbl dot" data-i="cp_n_l">Where to go next</span>
       <ul class="terms">
-        <li data-i="cp_n1"><a href="{{ route('scuttle.home') }}#services">Services</a>: the twelve things I sell, in three groups.</li>
+        <li data-i="cp_n1"><a href="{{ route('scuttle.work') }}">Services</a>: the twelve things I sell, in three groups.</li>
         <li data-i="cp_n2"><a href="{{ route('scuttle.pricing') }}">Pricing</a>: one rate, two ways to buy it, every price on the page.</li>
         <li data-i="cp_n3"><a href="{{ route('scuttle.cases') }}">Case studies</a>: work, told the way it went.</li>
         <li data-i="cp_n4"><a href="{{ route('scuttle.projects') }}">Projects</a>: open source and own products, with documentation.</li>
@@ -158,7 +158,7 @@ Object.assign(window.SCUTTLE_NL.t, {
  "cp_e_p": "Een gesprek van dertig minuten is gratis en eindigt met een eerlijk antwoord: ja, nee, of wat ik eerst moet bekijken.",
  "cp_e_b1": "Plan een gesprek",
  "cp_e_b2": "Gebruik het contactformulier",
- "cp_n1": "<a href=\"/#services\">Diensten</a>: de twaalf dingen die ik verkoop, in drie groepen.",
+ "cp_n1": "<a href=\"/services\">Diensten</a>: de twaalf dingen die ik verkoop, in drie groepen.",
  "cp_n2": "<a href=\"/pricing\">Prijzen</a>: één tarief, twee manieren om het te kopen, elke prijs op de pagina.",
  "cp_n3": "<a href=\"/case-studies\">Casestudy's</a>: werk, verteld zoals het ging.",
  "cp_n4": "<a href=\"/projects\">Projecten</a>: open source en eigen producten, met documentatie.",

@@ -6,15 +6,15 @@
   <a class="all{{ $period === '' ? ' cur' : '' }}" href="{{ $base }}" data-i="{{ $prefix }}_all">All posts</a>
   @foreach($tree as $y => $months)
   <details class="y"{{ $loop->first || str_starts_with($period, (string) $y) ? ' open' : '' }}>
-    <summary class="{{ $period === (string) $y ? 'cur' : '' }}"><b>{{ $y }}</b><span>{{ array_sum(array_map('array_sum', $months)) }}</span></summary>
-    <a class="sall{{ $period === (string) $y ? ' cur' : '' }}" href="{{ $base }}?p={{ $y }}" data-i="{{ $prefix }}_all">All posts</a>
+    <summary class="{{ $period === (string) $y ? 'cur' : '' }}"><b id="arch-y-{{ $y }}">{{ $y }}</b><span>{{ array_sum(array_map('array_sum', $months)) }}</span></summary>
+    <a class="sall{{ $period === (string) $y ? ' cur' : '' }}" id="arch-all-{{ $y }}" aria-labelledby="arch-all-{{ $y }} arch-y-{{ $y }}" href="{{ $base }}?p={{ $y }}" data-i="{{ $prefix }}_all">All posts</a>
     @foreach($months as $m => $days)
     <details class="m"{{ str_starts_with($period, "$y-$m") ? ' open' : '' }}>
-      <summary class="{{ $period === "$y-$m" ? 'cur' : '' }}"><b data-i="{{ $prefix }}_m_{{ $y }}_{{ $m }}">{{ \Carbon\Carbon::create((int) $y, (int) $m, 1)->format('F') }}</b><span>{{ array_sum($days) }}</span></summary>
-      <a class="sall{{ $period === "$y-$m" ? ' cur' : '' }}" href="{{ $base }}?p={{ $y }}-{{ $m }}" data-i="{{ $prefix }}_all">All posts</a>
+      <summary class="{{ $period === "$y-$m" ? 'cur' : '' }}"><b id="arch-m-{{ $y }}-{{ $m }}" data-i="{{ $prefix }}_m_{{ $y }}_{{ $m }}">{{ \Carbon\Carbon::create((int) $y, (int) $m, 1)->format('F') }}</b><span>{{ array_sum($days) }}</span></summary>
+      <a class="sall{{ $period === "$y-$m" ? ' cur' : '' }}" id="arch-all-{{ $y }}-{{ $m }}" aria-labelledby="arch-all-{{ $y }}-{{ $m }} arch-m-{{ $y }}-{{ $m }} arch-y-{{ $y }}" href="{{ $base }}?p={{ $y }}-{{ $m }}" data-i="{{ $prefix }}_all">All posts</a>
       <div class="days">
         @foreach($days as $d => $n)
-        <a href="{{ $base }}?p={{ $y }}-{{ $m }}-{{ $d }}" class="{{ $period === "$y-$m-$d" ? 'cur' : '' }}" title="{{ $n }}">{{ (int) $d }}</a>
+        <a href="{{ $base }}?p={{ $y }}-{{ $m }}-{{ $d }}" class="{{ $period === "$y-$m-$d" ? 'cur' : '' }}" title="{{ $n }}" aria-label="{{ $y }}-{{ $m }}-{{ $d }}">{{ (int) $d }}</a>
         @endforeach
       </div>
     </details>

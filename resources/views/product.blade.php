@@ -16,9 +16,7 @@ $nl = $C::nl($p) + [
     'p_t1' => 'Bedragen excl. btw, offerte 14 dagen geldig.',
     'p_t2' => 'Betaling binnen 14 dagen, acceptatie binnen 7 dagen.',
     'p_t3' => 'De rechten gaan na volledige betaling naar jou over.',
-    'p_t4a' => 'Algemene voorwaarden',
-    'p_t4b' => 'en',
-    'p_t4c' => 'als pdf.',
+    'p_t4' => '<a href="/legal/ALGEMENE_VOORWAARDEN.pdf">Algemene voorwaarden</a> en <a href="/legal/GEHEIMHOUDINGSOVEREENKOMST.pdf">wederzijdse NDA</a> als pdf.',
     'p_form' => 'Gebruik het contactformulier',
     'p_book' => 'Plan een gesprek',
     'p_also' => 'Ook bij '.$C::GROUPS_NL[$p['group']],
@@ -107,7 +105,7 @@ foreach ($related as $r) {
         <li data-i="p_t1">Amounts excl. VAT, quote valid 14 days.</li>
         <li data-i="p_t2">Payment within 14 days, acceptance within 7 days.</li>
         <li data-i="p_t3">Rights pass to you on full payment.</li>
-        <li><a href="{{ route('scuttle.legal', ['name' => 'TERMS_AND_CONDITIONS']) }}" data-i="p_t4a">General terms</a> <span data-i="p_t4b">and</span> <a href="{{ route('scuttle.legal', ['name' => 'NDA']) }}">NDA</a> <span data-i="p_t4c">as PDF.</span></li>
+        <li data-i="p_t4"><a href="{{ route('scuttle.legal', ['name' => 'TERMS_AND_CONDITIONS']) }}">General terms</a> and <a href="{{ route('scuttle.legal', ['name' => 'NDA']) }}">NDA</a> as PDF.</li>
       </ul>
     </div>
   </div></section>

@@ -47,7 +47,7 @@
       @include('scuttle::partials.logo', ['id' => 'cta', 'w' => 46, 'h' => 37])
       <h2 data-i="bl_cta_h">A question this news does not answer?</h2>
       <p data-i="bl_cta_p">Ask it. If it needs a proper look before I answer, the first reply says what I will look at.</p>
-      <div class="row"><a class="btn" href="{{ route('scuttle.contact.page') }}" data-i="bl_cta_b1">Use the contact form</a><a class="btn o" href="{{ config('scuttle-dev.booking_url') }}" data-i="bl_cta_b2">Book a call</a></div>
+      <div class="row"><a class="btn" href="{{ route('scuttle.contact.page') }}?about=Something%20else" data-i="bl_cta_b1">Use the contact form</a><a class="btn o" href="{{ config('scuttle-dev.booking_url') }}" data-i="bl_cta_b2">Book a call</a></div>
     </div>
   </div></section>
 </article>

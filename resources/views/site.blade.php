@@ -56,11 +56,11 @@
     <div class="car-track" id="car-track">
       @foreach(\Spdotdev\ScuttleDev\Cases::all() as $cx)
       <div class="case">
-        <div class="pic"><div class="lk">@include('scuttle::partials.logo', ['id' => 'case-'.$loop->index, 'w' => 60, 'h' => 48])<span class="t" data-i="cxl_{{ $cx['slug'] }}">{{ $loop->index === 0 ? 'Phalcon → Laravel' : ($loop->index === 1 ? 'API → MCP → AI' : ($loop->index === 2 ? 'audio → small model' : 'agents → pipeline')) }}</span></div></div>
+        <div class="pic"><div class="lk">@include('scuttle::partials.logo', ['id' => 'case-'.$loop->index, 'w' => 60, 'h' => 48])<span class="t" id="cxl-{{ $cx['slug'] }}" data-i="cxl_{{ $cx['slug'] }}">{{ $loop->index === 0 ? 'Phalcon → Laravel' : ($loop->index === 1 ? 'API → MCP → AI' : ($loop->index === 2 ? 'audio → small model' : 'agents → pipeline')) }}</span></div></div>
         <div class="txt"><div class="who" data-i="cxk_{{ $cx['slug'] }}">{{ $cx['kicker'] }}</div>
           <q data-i="cxq_{{ $cx['slug'] }}">{{ $cx['quote'] }}</q>
           <div class="by"><span data-i="cxf0_{{ $cx['slug'] }}">{{ $cx['facts'][0][0] }} · {{ $cx['facts'][0][1] }}</span><small data-i="cxf1_{{ $cx['slug'] }}">{{ $cx['facts'][1][0] }} · {{ $cx['facts'][1][1] }}</small></div>
-          <div class="acts"><a class="btn" href="{{ \Spdotdev\ScuttleDev\Cases::url($cx['slug']) }}" data-i="cs_b1">Read the case study</a></div>
+          <div class="acts"><a class="btn" id="cxb-{{ $cx['slug'] }}" aria-labelledby="cxb-{{ $cx['slug'] }} cxl-{{ $cx['slug'] }}" href="{{ \Spdotdev\ScuttleDev\Cases::url($cx['slug']) }}" data-i="cs_b1">Read the case study</a></div>
         </div>
       </div>
       @endforeach

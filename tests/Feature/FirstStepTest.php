@@ -25,10 +25,11 @@ class FirstStepTest extends TestCase
                 $this->assertStringContainsString($prefix === '' ? 'Book a call about a Health Check' : 'Plan een gesprek over een Health Check', $html, $prefix.$path);
             }
         }
-        foreach (['/news', '/projects'] as $path) {
+        // Both buttons of a page carry the same words, so they lead to the same place (a screen reader lists them side by side).
+        foreach (['/news' => 'Something%20else', '/projects' => 'AI%20Integration'] as $path => $topic) {
             $html = (string) $this->get('http://scuttle.dev'.$path)->assertOk()->getContent();
             $this->assertStringContainsString('Tell me what you are running.', $html, $path);
-            $this->assertStringContainsString('?about=Something%20else', $html, $path);
+            $this->assertStringContainsString('?about='.$topic, $html, $path);
             $this->assertStringNotContainsString('mailto:', $html, $path);
             // the Dutch strings travel with the page for the EN/NL switch
             $this->assertStringContainsString('Vertel me wat je draait.', $html, $path);

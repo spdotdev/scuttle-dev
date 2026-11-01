@@ -13,7 +13,7 @@
       <span class="lbl dot" data-i="pj_lbl">Projects</span>
       <h1 data-i="pj_h1" data-dec>Open source, and the products behind the services</h1>
       <p class="lead" data-i="pj_lead">Open source I publish or build on: skills for any AI coding platform, MCP servers, an inventory product, this site, each with documentation. Client projects need the client's written consent; personal ones are on <a href="https://splotnikov.dev/projects" rel="noopener" target="_blank">splotnikov.dev</a>.</p>
-      @include('scuttle::partials.first-step', ['ask' => true])
+      @include('scuttle::partials.first-step', ['ask' => true, 'about' => 'AI Integration'])
     </div>
   </header>
 

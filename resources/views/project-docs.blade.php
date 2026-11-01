@@ -24,7 +24,7 @@
     <p class="lead" data-i="pjd_lead">{{ $pr['lead'] }}</p>
     @foreach($pr['docs'] as $sec)
       <section id="{{ $sec['id'] }}">
-        <h2>{{ $sec['title'] }} <a class="anchor" href="#{{ $sec['id'] }}" aria-label="Link to this section">#</a></h2>
+        <h2>{{ $sec['title'] }} <a class="anchor" href="#{{ $sec['id'] }}" aria-label="Link to the section {{ $sec['title'] }}">#</a></h2>
         @php($list = false)
         @foreach($sec['body'] as $line)
           @if(str_starts_with($line, '- '))
