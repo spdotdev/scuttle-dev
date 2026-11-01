@@ -1,0 +1,22 @@
+# The addresses the live smoke watch checks every six hours (.github/workflows/live-smoke.yml, scripts/live-smoke.py).
+# One address per line, three fields separated by a tab: expected status, path, a short phrase the response must contain.
+# A content change that breaks a marker is a one-line edit here. tests/Feature/LiveSmokeListTest.php checks that every
+# path is in the sitemap or in the fixed list of crawler files, and that every marker is in the rendered page.
+200	/	Automate the work your team repeats
+200	/nl	Automatiseer het werk dat je team herhaalt
+200	/contact	Tell me what you are running
+200	/nl/contact	Vertel me wat je draait
+200	/pricing	One rate, two ways to buy it
+200	/nl/pricing	Eén tarief, twee manieren om het te kopen
+200	/health-check	A two-day assessment of your application
+200	/nl/health-check	Een beoordeling in twee dagen van je applicatie
+200	/services/hardening	Hardening and Secure Pipeline
+200	/nl/services/hardening	De server en de leveringspijplijn veilig gemaakt
+200	/news/an-mcp-server-in-front-of-your-api	an MCP server in front of the API
+200	/company	One person, the whole stack
+200	/projects/manual	Manual
+200	/feed.xml	<feed
+200	/sitemap.xml	<urlset
+200	/robots.txt	Sitemap: https://scuttle.dev/sitemap.xml
+200	/scuttle.vcf	BEGIN:VCARD
+404	/this-page-does-not-exist-smoke	That page does not exist
