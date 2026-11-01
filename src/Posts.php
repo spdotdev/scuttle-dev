@@ -186,6 +186,30 @@ final class Posts
     }
 
     /**
+     * One line of an article as safe HTML: the text is escaped first, then an address the sentence already names
+     * (/services/<known service>, /health-check, /pricing, /contact, /case-studies/<known case>) and the words
+     * "inventory product" become links. Nothing else is turned into markup.
+     */
+    public static function linkify(string $line, bool $project = true): string
+    {
+        $html = e($line);
+        $html = (string) preg_replace_callback('#(?<![\w/])(/services/([a-z0-9-]+)|/case-studies/([a-z0-9-]+)|/health-check|/pricing|/contact)(?![\w/-])#', function (array $m): string {
+            $ok = match (true) {
+                isset($m[3]) && $m[3] !== '' => isset(Cases::all()[$m[3]]),
+                isset($m[2]) && $m[2] !== '' => isset(Catalog::all()[$m[2]]) && $m[2] !== 'legacy-health-check',
+                default => true,
+            };
+
+            return $ok ? '<a href="https://scuttle.dev'.$m[1].'">'.$m[1].'</a>' : $m[0];
+        }, $html);
+        if ($project) {
+            $html = (string) preg_replace('#\binventory product\b#', '<a href="https://scuttle.dev/projects/inventory">inventory product</a>', $html, 1);
+        }
+
+        return $html;
+    }
+
+    /**
      * @return Post
      */
     public static function get(string $slug): array

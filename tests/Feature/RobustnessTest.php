@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schema;
 use PHPUnit\Framework\Attributes\DataProvider;
+use Spdotdev\ScuttleDev\Posts;
 use Spdotdev\ScuttleDev\Tests\TestCase;
 
 /** Odd requests must end in the site's own error page or a normal page, never a server error. */
@@ -79,6 +80,19 @@ class RobustnessTest extends TestCase
             $this->assertStringContainsString('data-i="e4_b1">'.($lang === 'nl' ? 'Bekijk de diensten' : 'See the services').'<', $html, $path);
             $this->assertStringNotContainsString('mailto:', $html);
         }
+    }
+
+    public function test_article_text_becomes_links_only_for_known_addresses_and_stays_escaped(): void
+    {
+        $this->assertSame('See <a href="https://scuttle.dev/services/hardening">/services/hardening</a>.', Posts::linkify('See /services/hardening.'));
+        $this->assertSame('/services/nope and /health-checkup', Posts::linkify('/services/nope and /health-checkup'));
+        $this->assertSame('&lt;script&gt;alert(1)&lt;/script&gt; /pricing/x', Posts::linkify('<script>alert(1)</script> /pricing/x'));
+        $this->assertSame('x&quot;onmouseover=&quot;y', Posts::linkify('x"onmouseover="y'));
+        $this->assertStringContainsString('<a href="https://scuttle.dev/projects/inventory">inventory product</a>', Posts::linkify('my own inventory product, and my inventory product'));
+        $this->assertSame(1, substr_count(Posts::linkify('inventory product and inventory product'), '<a '));
+        $html = (string) $this->get('http://scuttle.dev/news/an-mcp-server-in-front-of-your-api')->assertOk()->getContent();
+        $this->assertStringContainsString('href="https://scuttle.dev/projects/inventory"', $html);
+        $this->assertStringContainsString('href="https://scuttle.dev/services/ai-integration"', $html);
     }
 
     /** @return list<object> */
