@@ -145,7 +145,7 @@ final class Posts
                     'Your API does not change. A new assistant, or a new model next year, is a configuration change in front of it, not a rebuild. I use this pattern in my own inventory product, and the case study on this site shows it running.',
                     '## Where to start',
                     'Start with one workflow, not with "AI for the whole company". Pick a question that people ask every week and that costs real hours, write down what a good answer looks like, and build the two or three tools that answer it. That is the scope of AI Integration: quoted per use case at EUR 90 per hour excl. VAT, model costs capped and visible, and an evaluation set that decides whether it goes live. Details are at /services/ai-integration.',
-                    'If the real question is bigger, such as which assistant, which hosting, whether to build or buy, that is a decision before it is a project. The Architecture Review is made for it: two days, 16 hours, EUR 1,440 excl. VAT, with a written recommendation and the conditions under which it would change. Details are at /services/architecture-review.',
+                    'If the real question is bigger, such as which assistant, which hosting, whether to build or buy, that is a decision before it is a project. The Architecture Plan is made for it: two days, 16 hours, EUR 1,440 excl. VAT, with a written recommendation and the conditions under which it would change. Details are at /services/architecture-review.',
                     'Tell me which question your team asks most often. I reply within one working day with the workflow I would start with.',
                 ],
                 'products' => ['ai-integration', 'architecture-review', 'integrations'],

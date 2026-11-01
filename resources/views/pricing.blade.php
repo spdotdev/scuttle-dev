@@ -123,7 +123,7 @@
         </div>
         <div class="plan">
           <span class="lbl" data-i="pr_c8l">08 · Fixed price</span>
-          <h2 data-i="pr_c8h">Architecture review</h2><div class="amt"><span data-i="pr_c8a">€1,440</span><small data-i="pr_c8s">fixed, 16 hours</small></div>
+          <h2 data-i="pr_c8h">Architecture Plan</h2><div class="amt"><span data-i="pr_c8a">€1,440</span><small data-i="pr_c8s">fixed, 16 hours</small></div>
           <p data-i="pr_c8p">A decision on stack, cloud, integration or build versus buy: options compared, a written recommendation, decision records.</p>
           <hr>
           <ul>
@@ -131,7 +131,7 @@
             <li data-i="pr_c8i1">One review session with your team included.</li>
             <li data-i="pr_c8i2">Bigger questions are quoted after the intro call.</li>
           </ul>
-          <a class="btn o" href="{{ route('scuttle.product', ['slug' => 'architecture-review']) }}"><span data-i="pr_c8b">Read the review →</span></a>
+          <a class="btn o" href="{{ route('scuttle.product', ['slug' => 'architecture-review']) }}"><span data-i="pr_c8b">Read the plan →</span></a>
         </div>
       </div>
     </div>
@@ -279,14 +279,14 @@ Object.assign(window.SCUTTLE_NL.t, {
  "pr_c7i2": "Een volledig assessment met hertest wordt geoffreerd op basis van de bevindingen.",
  "pr_c7b": "Lees over het assessment →",
  "pr_c8l": "08 · Vaste prijs",
- "pr_c8h": "Architecture review",
+ "pr_c8h": "Architecture Plan",
  "pr_c8a": "€1.440",
  "pr_c8s": "vast, 16 uur",
  "pr_c8p": "Een besluit over stack, cloud, integratie of zelf bouwen versus kopen: opties vergeleken, een schriftelijk advies, besluitenlogboek.",
  "pr_c8i0": "16 uur × EUR 90, vast.",
  "pr_c8i1": "Eén reviewsessie met je team inbegrepen.",
  "pr_c8i2": "Grotere vragen worden geoffreerd na het kennismakingsgesprek.",
- "pr_c8b": "Lees over de review →",
+ "pr_c8b": "Lees over het plan →",
  "pr_bd1": "Aanbevolen",
  "pr_bd2": "Aanbevolen",
  "pr_in_l": "Inbegrepen in elke prijs",

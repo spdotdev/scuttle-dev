@@ -116,7 +116,7 @@ final class Dutch
         $p = '/'.trim($enPath, '/');
         $fixed = [
             '/' => ['Automatisering, AI en beveiliging voor je bedrijfssoftware', 'Automatiseer het werk dat je team herhaalt: AI-agents, koppelingen en veilige software die blijft draaien. Eén senior developer in Eindhoven.'],
-            '/pricing' => ['Prijzen: EUR 90 per uur en vaste prijzen', 'Eén tarief, twee manieren om te kopen: EUR 90 per uur excl. btw, of een vaste prijs voor de Health Check, de security quick scan en de architectuurreview.'],
+            '/pricing' => ['Prijzen: EUR 90 per uur en vaste prijzen', 'Eén tarief, twee manieren om te kopen: EUR 90 per uur excl. btw, of een vaste prijs voor de Health Check, de security quick scan en het Architecture Plan.'],
             '/health-check' => [Catalog::SEO_TITLES_NL['legacy-health-check'], 'Beoordeling in twee dagen: kansen voor automatisering, risico\'s en een stappenplan. Vaste prijs EUR 1.080 excl. btw (12 uur).'],
             '/services' => ['Diensten: twaalf diensten, automatisering voorop', 'De twaalf diensten en wat je daarna in handen hebt: een rapport, een draaiende server, een pipeline, een document in je repository. Open prijzen.'],
             '/contact' => ['Contact: vertel me wat je draait', 'Neem contact op met Scuttle Development in Eindhoven: het formulier, info@scuttle.dev, telefoon, vCard en adres. Ik reageer binnen één werkdag.'],
