@@ -38,8 +38,16 @@
   var T = window.SCUTTLE_NL || { t: {}, ph: {} };
   var base = {};
   document.querySelectorAll('[data-i]').forEach(function (e) { base[e.dataset.i] = base[e.dataset.i] || e.innerHTML; });
+  // Attributes the switch also changes: aria-label and title through the map, links through data-href-nl.
+  var AT = window.SCUTTLE_ATTR_NL || {}, attrSwaps = [], hrefSwaps = [];
+  document.querySelectorAll('[aria-label],[title]').forEach(function (e) {
+    ['aria-label', 'title'].forEach(function (a) { var v = e.getAttribute(a); if (v !== null && AT[v]) attrSwaps.push([e, a, v]); });
+  });
+  document.querySelectorAll('[data-href-nl]').forEach(function (e) { hrefSwaps.push([e, e.getAttribute('href'), e.getAttribute('data-href-nl')]); });
   function lang(l, animate) {
     root.lang = l;
+    attrSwaps.forEach(function (x) { x[0].setAttribute(x[1], l === 'nl' ? AT[x[2]] : x[2]); });
+    hrefSwaps.forEach(function (x) { x[0].setAttribute('href', l === 'nl' ? x[2] : x[1]); });
     document.querySelectorAll('[data-i]').forEach(function (e) {
       var k = e.dataset.i;
       e.innerHTML = (l === 'nl' && T.t[k]) ? T.t[k] : base[k];

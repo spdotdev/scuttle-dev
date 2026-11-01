@@ -22,6 +22,48 @@ final class Dutch
         'ct_b2' => 'Gebruik het contactformulier',
     ];
 
+    /**
+     * Dutch text of the aria-label and title attributes, keyed by the English value. The Dutch twins apply it on
+     * the server (attributes()), the pages that switch in the browser get it as window.SCUTTLE_ATTR_NL and
+     * site.js applies it on every switch, and restores the English value on the way back.
+     */
+    public const ATTRIBUTES = [
+        'Main navigation' => 'Hoofdmenu',
+        'Scuttle Development home' => 'Scuttle Development, startpagina',
+        'Language' => 'Taal',
+        'Theme' => 'Thema',
+        'System' => 'Systeem',
+        'Light' => 'Licht',
+        'Dark' => 'Donker',
+        'Cookies' => 'Cookies',
+        'Which model for what' => 'Welk model waarvoor',
+        'Models' => 'Modellen',
+        'Tools' => 'Tools',
+        'Previous month' => 'Vorige maand',
+        'Next month' => 'Volgende maand',
+        'How I work: research, plan, build, review, deploy, and again; ongoing work in the middle' => 'Zo werk ik: onderzoeken, plannen, bouwen, nakijken, uitrollen en weer opnieuw; doorlopend werk in het midden',
+        'Pages' => 'Pagina\'s',
+        'The prices at a glance' => 'De prijzen in één oogopslag',
+        'Previous case' => 'Vorige case',
+        'Next case' => 'Volgende case',
+        'Interactive examples: automation runs, reports and anonymized cases' => 'Interactieve voorbeelden: automatiseringsruns, rapporten en geanonimiseerde cases',
+        'Companies' => 'Bedrijven',
+        'Example version table' => 'Voorbeeldtabel met versies',
+        'Scuttle Development news' => 'Nieuws van Scuttle Development',
+        'Supported PHP versions' => 'Ondersteunde PHP-versies',
+        'Show on the map' => 'Toon op de kaart',
+        'Chamber of Commerce register' => 'Register van de Kamer van Koophandel',
+        'Show the QR code larger' => 'Toon de QR-code groter',
+        'Show the photo larger' => 'Toon de foto groter',
+        'QR code with my contact details' => 'QR-code met mijn contactgegevens',
+        'Close' => 'Sluiten',
+        'Photo of Stanislav Plotnikov' => 'Foto van Stanislav Plotnikov',
+        'Map' => 'Kaart',
+        'Projects' => 'Projecten',
+        'On this page' => 'Op deze pagina',
+        'Menu' => 'Menu',
+    ];
+
     /** @var list<string> */
     private const FIXED = ['/', '/pricing', '/health-check', '/health-check/sample', '/php-check', '/nis2', '/services', '/contact', '/company', '/privacy', '/case-studies'];
 
@@ -207,10 +249,21 @@ final class Dutch
         return $out.substr($html, $pos);
     }
 
+    /** Switch the aria-label and title attributes that have a Dutch text in ATTRIBUTES to Dutch. */
+    public static function attributes(string $html): string
+    {
+        return (string) preg_replace_callback('#(\s(?:aria-label|title))="([^"]*)"#', function (array $m): string {
+            $nl = self::ATTRIBUTES[html_entity_decode($m[2], ENT_QUOTES)] ?? null;
+
+            return $nl === null ? $m[0] : $m[1].'="'.e($nl).'"';
+        }, $html);
+    }
+
     public static function transform(string $html, string $enPath): string
     {
         $map = self::strings($html);
         $html = self::translate($html, $map);
+        $html = self::attributes($html);
 
         // links to paired pages stay in Dutch, whether written as a full address or as a plain path
         $html = (string) preg_replace_callback('#<a\b[^>]*>#', function (array $a): string {
