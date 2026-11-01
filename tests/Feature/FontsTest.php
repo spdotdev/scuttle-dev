@@ -44,7 +44,7 @@ class FontsTest extends TestCase
         }
     }
 
-    public function test_every_glyph_of_the_pages_is_in_the_font_ranges_or_a_known_fallback(): void
+    public function test_every_glyph_of_the_pages_is_in_the_font_ranges(): void
     {
         $ranges = [];
         preg_match_all('/font-family:"Geist";[^}]*unicode-range:([^;}]+)/', $this->css(), $faces);
@@ -72,8 +72,15 @@ class FontsTest extends TestCase
             $paths[] = Dutch::paired($path) ? '/nl'.($path === '/' ? '' : $path) : null;
         }
 
-        // Arrows are not in the Geist files (checked with fontTools): the browser draws them with a system font. Known and harmless.
-        $fallback = ['←', '→', '↗'];
+        // The arrows U+2190, U+2192 and U+2197 are in the latin files since Geist v1.9.0 (design/make-fonts.sh), so no glyph is allowed outside the ranges.
+        foreach (['←', '↑', '→', '↓', '↗'] as $arrow) {
+            $in = false;
+            foreach ($ranges as [$a, $b]) {
+                $in = $in || (mb_ord($arrow) >= $a && mb_ord($arrow) <= $b);
+            }
+            $this->assertTrue($in, $arrow.' is in the unicode-range of the latin Geist file');
+        }
+        $fallback = [];
         $outside = [];
         foreach (array_filter($paths) as $path) {
             $html = (string) $this->get('http://scuttle.dev'.$path)->getContent();
@@ -93,5 +100,12 @@ class FontsTest extends TestCase
             }
         }
         $this->assertSame([], $outside, 'glyphs outside the latin and latin-ext ranges (they fall back to a system font): '.json_encode($outside, JSON_UNESCAPED_UNICODE));
+    }
+
+    public function test_the_licence_text_ships_next_to_the_fonts(): void
+    {
+        $licence = (string) file_get_contents(__DIR__.'/../../public/fonts/LICENSE.txt');
+        $this->assertStringContainsString('SIL OPEN FONT LICENSE Version 1.1', $licence);
+        $this->assertStringContainsString('Geist Project Authors', $licence);
     }
 }
