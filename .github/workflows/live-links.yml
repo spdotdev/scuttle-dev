@@ -1,6 +1,6 @@
 name: Live links
 
-# Weekly crawl of the live site: every sitemap address answers 200 and names itself as canonical, every hreflang pair
+# Weekly crawl of the live site (and, in the second job, the page checks of scripts/): every sitemap address answers 200 and names itself as canonical, every hreflang pair
 # is reciprocal, every internal link resolves. The same checks run on the built app in the test suite on every push;
 # this one catches what only the server can break (a deploy, a proxy rule, a missing asset).
 on:
@@ -18,3 +18,45 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: python3 scripts/check-live.py https://scuttle.dev
+
+  ui:
+    # The page checks that used to be run by hand: accessibility (axe), sideways scroll, no-script, keyboard, markup and
+    # button size. Each script exits 1 with its findings, so any finding fails the run. Tools are installed here only and
+    # pinned: nothing is added to the package.
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      SITE: https://scuttle.dev
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install the browser tools
+        run: |
+          pip install playwright==1.64.0 html5lib==1.1
+          playwright install --with-deps chromium
+          npm pack axe-core@4.10.2 --silent
+          tar xzf axe-core-4.10.2.tgz
+      - name: List every address of the sitemap
+        run: |
+          python3 - <<'PY'
+          import re, urllib.request
+          xml = urllib.request.urlopen(urllib.request.Request(__import__('os').environ['SITE'] + '/sitemap.xml', headers={'User-Agent': 'ui-check'}), timeout=30).read().decode()
+          paths = [re.sub(r'^https://[^/]+', '', u) or '/' for u in re.findall(r'<loc>([^<]+)</loc>', xml)]
+          assert len(paths) > 20, 'the sitemap looks empty'
+          open('paths.txt', 'w').write('\n'.join(paths) + '\n')
+          print(len(paths), 'addresses')
+          PY
+      - name: Markup (duplicate attributes, unbalanced tags, parse errors)
+        run: python3 scripts/html-check.py "$SITE" paths.txt
+      - name: Accessibility (axe, WCAG 2.2 AA, light and dark)
+        run: AXE_JS=package/axe.min.js python3 scripts/axe-check.py "$SITE" paths.txt
+      - name: Sideways scroll at 360 px
+        run: python3 scripts/overflow-check.py "$SITE" paths.txt
+      - name: Pages without JavaScript
+        run: python3 scripts/nojs-check.py "$SITE" paths.txt
+      - name: Keyboard stops and focus rings
+        run: python3 scripts/keyboard-check.py "$SITE" paths.txt
+      - name: Button size and first button position
+        run: python3 scripts/ui-check.py "$SITE" paths.txt
