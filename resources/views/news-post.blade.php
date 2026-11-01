@@ -7,6 +7,9 @@
 @section('ogtype', 'article')
 
 @section('head')
+  <meta property="article:published_time" content="{{ $post['date'] }}" />
+  <meta property="article:modified_time" content="{{ $post['date'] }}" />
+  <meta property="article:author" content="https://scuttle.dev/company" />
   <link rel="alternate" type="application/atom+xml" title="Scuttle Development news" href="https://scuttle.dev/feed.xml" />
   <script type="application/ld+json">{!! json_encode(['@'.'context' => 'https://schema.org', '@type' => 'Article', 'headline' => \Illuminate\Support\Str::limit($post['title'], 108, ''), 'description' => $post['summary'], 'datePublished' => $post['date'], 'dateModified' => $post['date'], 'mainEntityOfPage' => 'https://scuttle.dev/news/'.$post['slug'], 'image' => secure_asset('vendor/scuttle/og-image.png'), 'author' => ['@type' => 'Person', 'name' => 'Stanislav Plotnikov'], 'publisher' => ['@type' => 'Organization', 'name' => 'Scuttle Development', 'url' => 'https://scuttle.dev']], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}</script>
 @endsection
