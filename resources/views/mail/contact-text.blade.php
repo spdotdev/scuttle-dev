@@ -1,8 +1,9 @@
-Name: {{ $name }}
-Email: {{ $email }}
-About: {{ $about !== '' ? $about : '-' }}
+Name: {!! $name !!}
+Email: {!! $email !!}
+About: {!! $about !== '' ? $about : '-' !!}
+Page: {!! ($page ?? '') !== '' ? $page : '-' !!}
 
-{{ $text }}
+{!! $text !!}
 
 --
-Sent from the scuttle.dev contact form · visitor {{ $ip }}
+Sent from the scuttle.dev contact form · visitor {!! $ip !!}

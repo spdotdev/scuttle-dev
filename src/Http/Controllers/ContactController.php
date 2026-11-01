@@ -42,7 +42,7 @@ class ContactController
         }
 
         // Store first. A valid message is never lost because mail is down; success is shown only when it is stored.
-        $path = (string) parse_url((string) $request->headers->get('referer', ''), PHP_URL_PATH);
+        $path = (string) preg_replace('/[^\x21-\x7E]/', '', (string) parse_url((string) $request->headers->get('referer', ''), PHP_URL_PATH));
         try {
             $lead = ContactLead::create([
                 'name' => $data['name'],
@@ -77,7 +77,7 @@ class ContactController
 
         try {
             Mail::mailer($mailer)->to($to)
-                ->send(new ContactMessage($data['name'], $data['email'], (string) ($data['about'] ?? ''), $data['message'], (string) $lead->ip_hash));
+                ->send(new ContactMessage($data['name'], $data['email'], (string) ($data['about'] ?? ''), $data['message'], (string) $lead->ip_hash, $path));
             $lead->update(['mail_status' => 'sent', 'mailed_at' => now()]);
         } catch (\Throwable $e) {
             Log::critical('scuttle.dev contact form could not send mail; lead #'.$lead->id.' is stored', self::safeContext($e));
@@ -132,7 +132,18 @@ class ContactController
     /** Back to the page the form was on, at the form itself, so the answer is in view and the form is not hidden under the headline. */
     private function backToForm(): RedirectResponse
     {
-        return redirect()->to(explode('#', url()->previous())[0].'#cform');
+        // Only a referer on this very host is followed. A hostile one (another host, user info, protocol-relative,
+        // control characters) is ignored, so the form can never bounce a visitor to another site.
+        $ref = parse_url((string) request()->headers->get('referer', ''));
+        $path = is_array($ref) ? (string) ($ref['path'] ?? '/') : '';
+        $ok = is_array($ref) && in_array($ref['scheme'] ?? '', ['http', 'https'], true) && ! isset($ref['user'], $ref['pass'])
+            && strtolower((string) ($ref['host'] ?? '')) === strtolower(request()->getHost()) && preg_match('#^/[\x21-\x7E]*$#', $path) === 1
+            && ! str_starts_with($path, '//');
+        $target = $ok
+            ? request()->getSchemeAndHttpHost().$path.(isset($ref['query']) && preg_match('/^[\x21-\x7E]*$/', (string) $ref['query']) === 1 ? '?'.$ref['query'] : '')
+            : route('scuttle.contact.page');
+
+        return redirect()->to($target.'#cform');
     }
 
     /**
@@ -142,7 +153,10 @@ class ContactController
     private function noControlChars(bool $multiline, bool $nl = false): \Closure
     {
         return function (string $attribute, mixed $value, \Closure $fail) use ($multiline, $nl): void {
-            $v = (string) $value;
+            if (! is_string($value)) {
+                return; // an array or other odd value: the string rule reports it
+            }
+            $v = $value;
             $pattern = $multiline ? '/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F\x{80}-\x{9F}]/u' : '/[\x00-\x1F\x7F\x{80}-\x{9F}]/u';
             if (! mb_check_encoding($v, 'UTF-8') || preg_match($pattern, $v) === 1) {
                 $fail($nl ? ':attribute bevat tekens die niet zijn toegestaan.' : 'The :attribute contains characters that are not allowed.');
