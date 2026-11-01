@@ -17,8 +17,6 @@
     "url": "https://scuttle.dev",
     "logo": "{{ secure_asset('vendor/scuttle/android-chrome-512x512.png') }}",
     "image": "{{ secure_asset('vendor/scuttle/og-image.png') }}",
-    "telephone": "+31618233175",
-    "email": "info@scuttle.dev",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Dirigentplein 144",
@@ -31,7 +29,7 @@
     "vatID": "NL005184584B85",
     "taxID": "96040947",
     "founder": { "@type": "Person", "name": "Stanislav Plotnikov" },
-    "sameAs": ["https://github.com/spdotdev", "https://www.linkedin.com/in/stanislavplotnikov/"],
+    "sameAs": ["https://github.com/spdotdev", "https://www.linkedin.com/in/stanislavplotnikov/", "https://splotnikov.dev"],
     "serviceType": [@foreach($C::all() as $p)"{{ $p['name'] }}"@if(!$loop->last), @endif @endforeach]
   }
   </script>

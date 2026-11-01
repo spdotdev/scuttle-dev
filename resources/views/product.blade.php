@@ -38,7 +38,7 @@ foreach ($related as $r) {
 @section('canonical', $C::canonical($p))
 
 @section('head')
-  <script type="application/ld+json">{!! json_encode(['@'.'context' => 'https://schema.org', '@type' => 'Service', 'name' => $p['name'], 'description' => $p['short'], 'url' => $C::canonical($p), 'serviceType' => $p['name'], 'provider' => ['@type' => 'ProfessionalService', 'name' => 'Scuttle Development', 'url' => 'https://scuttle.dev']], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}</script>
+  <script type="application/ld+json">{!! json_encode(['@'.'context' => 'https://schema.org', '@type' => 'Service', 'name' => $p['name'], 'description' => $p['short'], 'url' => $C::canonical($p), 'serviceType' => $p['name'], 'areaServed' => [['@type' => 'City', 'name' => 'Eindhoven'], 'Remote, everywhere else'], 'offers' => $C::offer($p), 'provider' => ['@type' => 'ProfessionalService', 'name' => 'Scuttle Development', 'url' => 'https://scuttle.dev']], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}</script>
   @if(count($faq))
   @php($faqNl = request()->is('nl') || request()->is('nl/*'))
   <script type="application/ld+json">{!! json_encode(['@'.'context' => 'https://schema.org', '@type' => 'FAQPage', 'mainEntity' => array_map(fn ($f) => ['@type' => 'Question', 'name' => $faqNl ? $f['qn'] : $f['q'], 'acceptedAnswer' => ['@type' => 'Answer', 'text' => $faqNl ? $f['an'] : $f['a']]], $faq)], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}</script>

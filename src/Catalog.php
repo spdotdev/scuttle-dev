@@ -840,6 +840,28 @@ final class Catalog
      *
      * @param  Product  $p
      */
+    /**
+     * Machine-readable price of a service, from the same numbers the visible price line states (a test compares them).
+     * Fixed prices are a plain Offer; "from" prices and hourly work carry a UnitPriceSpecification.
+     *
+     * @param  array<string, mixed>  $p
+     * @return array<string, mixed>
+     */
+    public static function offer(array $p): array
+    {
+        $fixed = ['legacy-health-check' => 1080, 'architecture-review' => 1440, 'security-assessment' => 720];
+        $slug = (string) $p['slug'];
+        $base = ['@type' => 'Offer', 'priceCurrency' => 'EUR', 'url' => self::canonical($p), 'description' => (string) $p['price']];
+        if (isset($fixed[$slug])) {
+            return $base + ['price' => (string) $fixed[$slug]];
+        }
+        if ($slug === 'maintenance-retainer') {
+            return $base + ['priceSpecification' => ['@type' => 'UnitPriceSpecification', 'price' => '720', 'priceCurrency' => 'EUR', 'unitText' => 'month']];
+        }
+
+        return $base + ['priceSpecification' => ['@type' => 'UnitPriceSpecification', 'price' => '90', 'priceCurrency' => 'EUR', 'unitCode' => 'HUR', 'unitText' => 'hour']];
+    }
+
     public static function canonical(array $p): string
     {
         return 'https://scuttle.dev'.(string) parse_url(self::url($p), PHP_URL_PATH);

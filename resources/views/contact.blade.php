@@ -6,6 +6,10 @@
 @section('description', 'Contact Scuttle Development in Eindhoven: the form, info@scuttle.dev, +31 6 18 23 31 75, a vCard and QR code, the address and the Chamber of Commerce number.')
 @section('canonical', 'https://scuttle.dev/contact')
 
+@section('head')
+  <script type="application/ld+json">{!! json_encode(['@'.'context' => 'https://schema.org', '@type' => 'ProfessionalService', 'name' => 'Scuttle Development', 'url' => 'https://scuttle.dev', 'logo' => secure_asset('vendor/scuttle/android-chrome-512x512.png'), 'contactPoint' => [['@type' => 'ContactPoint', 'contactType' => 'customer service', 'email' => 'info@scuttle.dev', 'telephone' => '+31618233175', 'areaServed' => 'NL', 'availableLanguage' => ['Dutch', 'English']]], 'sameAs' => ['https://github.com/spdotdev', 'https://www.linkedin.com/in/stanislavplotnikov/', 'https://splotnikov.dev']], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}</script>
+@endsection
+
 @section('content')
 <article class="prod contact-page">
   <header class="wrap ph">
