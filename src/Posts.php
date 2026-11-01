@@ -219,4 +219,20 @@ final class Posts
 
         return $all[$slug];
     }
+
+    /** Words an adult reads in a minute, the rule behind the "min read" line. */
+    public const WORDS_PER_MINUTE = 220;
+
+    /**
+     * Reading time in whole minutes (at least 1): the lead plus every line of the body, at 220 words a minute, rounded up.
+     *
+     * @param  Post  $post
+     */
+    public static function readingMinutes(array $post): int
+    {
+        $text = strip_tags((string) ($post['summary'] ?? '').' '.implode(' ', array_map('strval', $post['body'] ?? [])));
+        $words = preg_match_all('/[\p{L}\p{N}][\p{L}\p{N}\'’.,\/-]*/u', $text);
+
+        return max(1, (int) ceil(((int) $words) / self::WORDS_PER_MINUTE));
+    }
 }
