@@ -207,6 +207,7 @@ a.c:hover{transform:translateY(-3px);border-color:var(--line2)}
 .tk i{width:8px;height:8px;border-radius:2px;background:var(--acc);display:inline-block}
 .tk.mono{font:500 0.84375rem "Geist Mono",monospace}
 .tk.ai i{background:#22D3C5}
+.tk img{display:block;height:22px;width:auto}
 .belts .bn{font:400 0.75rem "Geist Mono",monospace;color:var(--muted)}
 
 /* tiles */

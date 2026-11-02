@@ -118,8 +118,8 @@
   <div class="plate belts rv">
     <div class="bh"><span class="lbl dot" data-i="st_l">Worked with</span><h2 data-i="st_h">Brands I have built for, tools I build with</h2><p data-i="st_p">In employment at agencies and product companies before 2024, and as a freelancer since. The tools are the ones in daily use, not a wish list.</p></div>
     <div class="belt" aria-label="Companies"><div class="track">
-      @php($cos = ['Jumbo', 'Albert Heijn', 'Mijnwebwinkel', '@Leisure Group', 'Getnoticed', 'New Brand Activators', 'Bek 1 op 1', 'Van Os Beheer'])
-      @for($r = 0; $r < 2; $r++)@foreach($cos as $co)<span class="tk"><i></i>{{ $co }}</span>@endforeach @endfor
+      @php($cos = [['Jumbo', 'jumbo.svg', 150, 30], ['Albert Heijn', null, 0, 0], ['Mijnwebwinkel', 'mijnwebwinkel.svg', 200, 32], ['@Leisure Group (now OYO)', null, 0, 0], ['Getnoticed', 'getnoticed.svg', 70, 70], ['New Brand Activators (now We Are New)', null, 0, 0], ['Bek 1 op 1', null, 0, 0], ['Van Os Beheer', null, 0, 0]])
+      @for($r = 0; $r < 2; $r++)@foreach($cos as [$co, $logo, $w, $h])<span class="tk">@if($logo)<img src="{{ secure_asset('vendor/scuttle/img/clients/'.$logo) }}" alt="{{ $co }} logo" width="{{ $w }}" height="{{ $h }}" loading="lazy" decoding="async">@else<i></i>{{ $co }}@endif</span>@endforeach @endfor
     </div></div>
     <div class="belt rev" aria-label="Tools"><div class="track">
       @php($tools = ['PHP', 'Laravel', 'Phalcon', 'Filament', 'MySQL', 'Redis', 'Docker', 'Ansible', 'GitHub Actions', 'DigitalOcean', 'Python', 'Kotlin', 'Claude Code', 'MCP', 'Playwright', 'Linux'])
