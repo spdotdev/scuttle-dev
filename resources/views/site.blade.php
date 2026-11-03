@@ -46,6 +46,36 @@
   <div class="cmd in3"><span>&gt; php -v&nbsp;&nbsp;<span>PHP {{ \Spdotdev\ScuttleDev\Facts::PHP_LATEST['8.4'] }}</span>&nbsp;&nbsp;<b data-i="cmd_b"><span>security release {{ \Spdotdev\ScuttleDev\Facts::PHP_HERO_DATE }}</span><span>{{ \Spdotdev\ScuttleDev\Facts::PHP_HERO_PREVIOUS }} → {{ \Spdotdev\ScuttleDev\Facts::PHP_LATEST['8.4'] }}</span><span>two critical RCE bugs fixed</span><span>is yours patched?</span></b></span></div>
 </header>
 
+<div class="wrap demo-wrap">
+  <div class="shot-hint in4" aria-hidden="true"><svg viewBox="0 0 120 70" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M112 6c-30 2-62 10-80 36"/><path d="M40 30l-9 13 15 3"/></svg><span data-i="hint">A live window, not a picture. Click through, or let it play.</span></div>
+  <div class="shot in4" id="demo" aria-label="Interactive examples: automation runs, reports and anonymized cases">
+    <div class="side" id="side">
+      <div class="h"><span data-i="sd_h">Automations</span><span>6</span></div>
+      <button class="it on" data-k="server-setup" type="button"><i class="led"></i><span>server-setup</span><small data-i="now">now</small></button>
+      <button class="it" data-k="release-pipeline" type="button"><i class="led"></i><span>release-pipeline</span><small>14:02</small></button>
+      <button class="it" data-k="claude-skill" type="button"><i class="led"></i><span>release-notes-skill</span><small>14:21</small></button>
+      <button class="it" data-k="mcp-gateway" type="button"><i class="led"></i><span>mcp-gateway</span><small>live</small></button>
+      <button class="it" data-k="lead-followup" type="button"><i class="led"></i><span>lead-followup</span><small>08:30</small></button>
+      <button class="it" data-k="ticket-triage" type="button"><i class="led"></i><span>ticket-triage</span><small>07:00</small></button>
+      <div class="h" style="margin-top:22px"><span data-i="sd_r">Reports</span></div>
+      <button class="it" data-k="health-check" type="button"><i class="led"></i><span data-i="sd_r1">Health Check</span><small>pdf</small></button>
+      <button class="it" data-k="roadmap" type="button"><i class="led"></i><span data-i="sd_r2">Roadmap</span><small>pdf</small></button>
+      <button class="it" data-k="security" type="button"><i class="led"></i><span data-i="sd_r3">Security assessment</span><small>pdf</small></button>
+      <div class="h" style="margin-top:22px"><span data-i="sd_c">Cases, anonymized</span></div>
+      <button class="it" data-k="case-cost" type="button"><i class="led"></i><span data-i="sd_c1">Cost saving</span><small>€</small></button>
+      <button class="it" data-k="case-mcp" type="button"><i class="led"></i><span data-i="sd_c2">API meets AI</span><small>mcp</small></button>
+      <button class="it" data-k="case-migration" type="button"><i class="led"></i><span data-i="sd_c3">Migration in use</span><small>live</small></button>
+    </div>
+    <div class="main" id="main">
+      <div class="top"><p class="sh" id="sh-h">Automation run · server-setup</p><div class="st"><i id="sti"></i><span id="stt">running</span></div></div>
+      <div class="prog"><i id="pb"></i></div>
+      <div class="view" id="view"><div class="log" id="log"></div><div class="find" id="find"></div></div>
+    </div>
+  </div>
+  <p class="shot-note" data-i="shot_note">Runs and reports are examples with made-up names. The cases are real work, anonymized. Every result line links to the product behind it.</p>
+</div>
+
+
 <section class="s" id="services"><div class="wrap">
   <div class="center rv"><h2 data-i="sv_h">The foundation for a business that runs on automation</h2><p data-i="sv_p">Agents and integrations that do the repetitive work, security that keeps it safe, one developer who keeps it running. A fixed scope per step, nothing deployed without a rollback.</p></div>
 </div></section>
@@ -85,41 +115,12 @@
   </div>
 </div></section>
 
-<div class="wrap demo-wrap">
-  <div class="shot-hint in4" aria-hidden="true"><svg viewBox="0 0 120 70" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M112 6c-30 2-62 10-80 36"/><path d="M40 30l-9 13 15 3"/></svg><span data-i="hint">A live window, not a picture. Click through, or let it play.</span></div>
-  <div class="shot in4" id="demo" aria-label="Interactive examples: automation runs, reports and anonymized cases">
-    <div class="side" id="side">
-      <div class="h"><span data-i="sd_h">Automations</span><span>6</span></div>
-      <button class="it on" data-k="server-setup" type="button"><i class="led"></i><span>server-setup</span><small data-i="now">now</small></button>
-      <button class="it" data-k="release-pipeline" type="button"><i class="led"></i><span>release-pipeline</span><small>14:02</small></button>
-      <button class="it" data-k="claude-skill" type="button"><i class="led"></i><span>release-notes-skill</span><small>14:21</small></button>
-      <button class="it" data-k="mcp-gateway" type="button"><i class="led"></i><span>mcp-gateway</span><small>live</small></button>
-      <button class="it" data-k="lead-followup" type="button"><i class="led"></i><span>lead-followup</span><small>08:30</small></button>
-      <button class="it" data-k="ticket-triage" type="button"><i class="led"></i><span>ticket-triage</span><small>07:00</small></button>
-      <div class="h" style="margin-top:22px"><span data-i="sd_r">Reports</span></div>
-      <button class="it" data-k="health-check" type="button"><i class="led"></i><span data-i="sd_r1">Health Check</span><small>pdf</small></button>
-      <button class="it" data-k="roadmap" type="button"><i class="led"></i><span data-i="sd_r2">Roadmap</span><small>pdf</small></button>
-      <button class="it" data-k="security" type="button"><i class="led"></i><span data-i="sd_r3">Security assessment</span><small>pdf</small></button>
-      <div class="h" style="margin-top:22px"><span data-i="sd_c">Cases, anonymized</span></div>
-      <button class="it" data-k="case-cost" type="button"><i class="led"></i><span data-i="sd_c1">Cost saving</span><small>€</small></button>
-      <button class="it" data-k="case-mcp" type="button"><i class="led"></i><span data-i="sd_c2">API meets AI</span><small>mcp</small></button>
-      <button class="it" data-k="case-migration" type="button"><i class="led"></i><span data-i="sd_c3">Migration in use</span><small>live</small></button>
-    </div>
-    <div class="main" id="main">
-      <div class="top"><p class="sh" id="sh-h">Automation run · server-setup</p><div class="st"><i id="sti"></i><span id="stt">running</span></div></div>
-      <div class="prog"><i id="pb"></i></div>
-      <div class="view" id="view"><div class="log" id="log"></div><div class="find" id="find"></div></div>
-    </div>
-  </div>
-  <p class="shot-note" data-i="shot_note">Runs and reports are examples with made-up names. The cases are real work, anonymized. Every result line links to the product behind it.</p>
-</div>
-
 <section class="s tight" id="stack"><div class="wrap">
   <div class="plate belts rv">
     <div class="bh"><span class="lbl dot" data-i="st_l">Worked with</span><h2 data-i="st_h">Brands I have built for, tools I build with</h2><p data-i="st_p">In employment at agencies and product companies before 2024, and as a freelancer since. The tools are the ones in daily use, not a wish list.</p></div>
     <div class="belt" aria-label="Companies"><div class="track">
-      @php($cos = [['Jumbo', 'jumbo.svg', 150, 30], ['Albert Heijn', null, 0, 0], ['Mijnwebwinkel', 'mijnwebwinkel.svg', 200, 32], ['@Leisure Group (now OYO)', null, 0, 0], ['Getnoticed', 'getnoticed.svg', 70, 70], ['New Brand Activators (now We Are New)', null, 0, 0], ['Bek 1 op 1', null, 0, 0], ['Van Os Beheer', null, 0, 0]])
-      @for($r = 0; $r < 2; $r++)@foreach($cos as [$co, $logo, $w, $h])<span class="tk">@if($logo)<img src="{{ secure_asset('vendor/scuttle/img/clients/'.$logo) }}" alt="{{ $co }} logo" width="{{ $w }}" height="{{ $h }}" loading="lazy" decoding="async">@else<i></i>{{ $co }}@endif</span>@endforeach @endfor
+      @php($cos = ['Jumbo', 'Albert Heijn', 'Mijnwebwinkel', 'Leisure Group (now OYO)', 'Getnoticed', 'New Brand Activators / We Are New', 'Bek 1 op 1', 'Van Os Beheer'])
+      @for($r = 0; $r < 2; $r++)@foreach($cos as $co)<span class="tk"><i></i>{{ $co }}</span>@endforeach @endfor
     </div></div>
     <div class="belt rev" aria-label="Tools"><div class="track">
       @php($tools = ['PHP', 'Laravel', 'Phalcon', 'Filament', 'MySQL', 'Redis', 'Docker', 'Ansible', 'GitHub Actions', 'DigitalOcean', 'Python', 'Kotlin', 'Claude Code', 'MCP', 'Playwright', 'Linux'])
