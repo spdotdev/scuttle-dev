@@ -161,11 +161,7 @@
         ['09:14:09', 'digitalocean → droplet created · ams3 · 2 vCPU · 4 GB', 'ok'],
         ['09:14:41', 'ssh ready · root login disabled · deploy user with key only', 'ok'],
         ['09:15:10', 'hardening → firewall 22/80/443 · fail2ban · unattended security updates', 'ok'],
-        ['09:15:48', 'docker + compose installed · log rotation set', 'ok'],
-        ['09:16:20', 'caddy up → certificate requested and issued for app.example.nl', 'ok'],
         ['09:17:05', 'app deployed from the registry · migrations run · health check 200', 'ok'],
-        ['09:17:30', 'backups → nightly dump to object storage · first restore test scheduled', ''],
-        ['09:17:44', 'monitoring → uptime, disk, certificate alerts to one phone', 'ok'],
         ['09:17:51', 'done · 3 min 49 s · same playbook for staging and production', 'ac']
       ], [
         ['3 min 49 s from nothing to a hardened server', 'Droplet, firewall, Docker, TLS, app, backups, alerts. By hand this is most of a day, and never twice the same.', 'hardening', 'l', 'ANSIBLE'],
