@@ -57,11 +57,11 @@
       <button class="it" data-k="mcp-gateway" type="button"><i class="led"></i><span>mcp-gateway</span><small>live</small></button>
       <button class="it" data-k="lead-followup" type="button"><i class="led"></i><span>lead-followup</span><small>08:30</small></button>
       <button class="it" data-k="ticket-triage" type="button"><i class="led"></i><span>ticket-triage</span><small>07:00</small></button>
-      <div class="h" style="margin-top:22px"><span data-i="sd_r">Reports</span></div>
+      <div class="h" style="margin-top:12px"><span data-i="sd_r">Reports</span></div>
       <button class="it" data-k="health-check" type="button"><i class="led"></i><span data-i="sd_r1">Health Check</span><small>pdf</small></button>
       <button class="it" data-k="roadmap" type="button"><i class="led"></i><span data-i="sd_r2">Roadmap</span><small>pdf</small></button>
       <button class="it" data-k="security" type="button"><i class="led"></i><span data-i="sd_r3">Security assessment</span><small>pdf</small></button>
-      <div class="h" style="margin-top:22px"><span data-i="sd_c">Cases, anonymized</span></div>
+      <div class="h" style="margin-top:12px"><span data-i="sd_c">Cases, anonymized</span></div>
       <button class="it" data-k="case-cost" type="button"><i class="led"></i><span data-i="sd_c1">Cost saving</span><small>€</small></button>
       <button class="it" data-k="case-mcp" type="button"><i class="led"></i><span data-i="sd_c2">API meets AI</span><small>mcp</small></button>
       <button class="it" data-k="case-migration" type="button"><i class="led"></i><span data-i="sd_c3">Migration in use</span><small>live</small></button>
