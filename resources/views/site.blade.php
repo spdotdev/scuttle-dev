@@ -119,7 +119,7 @@
   <div class="plate belts rv">
     <div class="bh"><span class="lbl dot" data-i="st_l">Worked with</span><h2 data-i="st_h">Brands I have built for, tools I build with</h2><p data-i="st_p">In employment at agencies and product companies before 2024, and as a freelancer since. The tools are the ones in daily use, not a wish list.</p></div>
     <div class="belt" aria-label="Companies"><div class="track">
-      @php($cos = ['Jumbo', 'Albert Heijn', 'Mijnwebwinkel', 'Leisure Group (now OYO)', 'Getnoticed', 'New Brand Activators / We Are New', 'Bek 1 op 1', 'Van Os Beheer'])
+      @php($cos = ['Jumbo', 'Albert Heijn', 'Mijnwebwinkel', '@Leisure Group (now OYO)', 'Getnoticed', 'New Brand Activators / We Are New', 'Bek 1 op 1', 'Van Os Beheer'])
       @for($r = 0; $r < 2; $r++)@foreach($cos as $co)<span class="tk"><i></i>{{ $co }}</span>@endforeach @endfor
     </div></div>
     <div class="belt rev" aria-label="Tools"><div class="track">
