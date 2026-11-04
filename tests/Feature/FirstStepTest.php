@@ -16,13 +16,13 @@ class FirstStepTest extends TestCase
 
     public function test_six_index_pages_put_the_first_button_straight_under_the_lead(): void
     {
-        $health = ['/services', '/company', '/case-studies', '/health-check/sample'];
+        $health = ['/services', '/company', '/case-studies', '/health-plan/sample'];
         foreach ($health as $path) {
             foreach (['', '/nl'] as $prefix) {
                 $html = (string) $this->get('http://scuttle.dev'.$prefix.$path)->assertOk()->getContent();
                 $this->assertMatchesRegularExpression('#</p>\s*<p class="offer">.*?</p>\s*<div class="cta"><a class="btn" href="[^"]*"#s', $html, $prefix.$path);
-                $this->assertStringContainsString($prefix === '' ? 'Start with a Health Check.' : 'Begin met een Health Check.', $html, $prefix.$path);
-                $this->assertStringContainsString($prefix === '' ? 'Book a call about a Health Check' : 'Plan een gesprek over een Health Check', $html, $prefix.$path);
+                $this->assertStringContainsString($prefix === '' ? 'Start with a Health Plan.' : 'Begin met een Health Plan.', $html, $prefix.$path);
+                $this->assertStringContainsString($prefix === '' ? 'Book a call about a Health Plan' : 'Plan een gesprek over een Health Plan', $html, $prefix.$path);
             }
         }
         // Both buttons of a page carry the same words, so they lead to the same place (a screen reader lists them side by side).

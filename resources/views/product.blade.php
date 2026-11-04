@@ -55,8 +55,8 @@ foreach ($related as $r) {
         <a class="btn" href="{{ route('scuttle.contact.page') }}?about={{ rawurlencode($p['name']) }}" data-sda-event="Contact button click"><span data-i="p_ask">Ask about {{ $p['name'] }}</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         <a class="btn o" href="{{ route('scuttle.pricing') }}" data-i="p_price_btn">How I price</a>
       </div>
-      @if(in_array($p['slug'], ['legacy-health-check', 'modernization'], true))
-      <p class="price">@if($p['slug'] === 'legacy-health-check')<a href="{{ route('scuttle.health-check.sample') }}" data-i="p_samp">See what the report looks like</a> · @endif<a href="{{ route('scuttle.php-check') }}" data-i="p_phpc">Check your PHP version yourself</a></p>
+      @if(in_array($p['slug'], ['health-plan', 'modernization'], true))
+      <p class="price">@if($p['slug'] === 'health-plan')<a href="{{ route('scuttle.health-plan.sample') }}" data-i="p_samp">See what the report looks like</a> · @endif<a href="{{ route('scuttle.php-check') }}" data-i="p_phpc">Check your PHP version yourself</a></p>
       @endif
     </div>
   </header>

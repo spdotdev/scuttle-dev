@@ -28,7 +28,7 @@ class SecurityTest extends TestCase
     /** @return array<string, mixed> */
     private function form(array $over = []): array
     {
-        return $over + ['name' => 'Anna', 'email' => 'anna@example.com', 'about' => 'Health Check', 'message' => 'We run an old PHP portal and need a plan.', 't' => $this->token(), 'website' => ''];
+        return $over + ['name' => 'Anna', 'email' => 'anna@example.com', 'about' => 'Health Plan', 'message' => 'We run an old PHP portal and need a plan.', 't' => $this->token(), 'website' => ''];
     }
 
     /** @return array<string, array{0: string}> */
@@ -153,7 +153,7 @@ class SecurityTest extends TestCase
     public function test_the_mail_cannot_carry_a_header_or_markup_from_the_visitor(): void
     {
         $name = "Anna\r\nBcc: spy@example.com <script>alert(1)</script>";
-        $about = "Health Check\r\nX-Evil: 1";
+        $about = "Health Plan\r\nX-Evil: 1";
         $mail = new ContactMessage($name, 'anna@example.com', $about, "Line one\r\n<script>alert(2)</script> & more", 'hash', '/nl/contact');
         $mail->build();
         $this->assertDoesNotMatchRegularExpression('/[\r\n]/', (string) $mail->subject, 'the subject is one line');

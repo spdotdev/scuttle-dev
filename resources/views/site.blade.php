@@ -41,8 +41,8 @@
   <div class="mark in1">@include('scuttle::partials.logo', ['id' => 'hero', 'w' => 92, 'h' => 74, 'cls' => 'anim'])</div>
   <h1 data-i="h1" data-dec>Automate the work <br>your team repeats</h1>
   <div class="sub in2" data-i="sub">Automation · Security · Eindhoven</div>
-  <p class="offer in2"><b data-i="of_b">Start with a Health Check.</b> <span data-i="of_t">Two days, read-only, a written plan. Fixed price: EUR 1,080 excl. VAT.</span></p>
-  <div class="cta in3"><a class="btn" href="{{ config('scuttle-dev.booking_url') }}" data-i="cta1" data-sda-event="Contact button click">Book a call about a Health Check <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn o" href="{{ route('scuttle.health-check') }}" data-i="cta2">What it covers and what you get</a></div>
+  <p class="offer in2"><b data-i="of_b">Start with a Health Plan.</b> <span data-i="of_t">Two days, read-only, a written plan. Fixed price: EUR 1,440 excl. VAT.</span></p>
+  <div class="cta in3"><a class="btn" href="{{ config('scuttle-dev.booking_url') }}" data-i="cta1" data-sda-event="Contact button click">Book a call about a Health Plan <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn o" href="{{ route('scuttle.health-plan') }}" data-i="cta2">What it covers and what you get</a></div>
   <div class="cmd in3"><span>&gt; php -v&nbsp;&nbsp;<span>PHP {{ \Spdotdev\ScuttleDev\Facts::PHP_LATEST['8.4'] }}</span>&nbsp;&nbsp;<b data-i="cmd_b"><span>security release {{ \Spdotdev\ScuttleDev\Facts::PHP_HERO_DATE }}</span><span>{{ \Spdotdev\ScuttleDev\Facts::PHP_HERO_PREVIOUS }} → {{ \Spdotdev\ScuttleDev\Facts::PHP_LATEST['8.4'] }}</span><span>two critical RCE bugs fixed</span><span>is yours patched?</span></b></span></div>
 </header>
 
@@ -58,9 +58,9 @@
       <button class="it" data-k="lead-followup" type="button"><i class="led"></i><span>lead-followup</span><small>08:30</small></button>
       <button class="it" data-k="ticket-triage" type="button"><i class="led"></i><span>ticket-triage</span><small>07:00</small></button>
       <div class="h" style="margin-top:12px"><span data-i="sd_r">Reports</span></div>
-      <button class="it" data-k="health-check" type="button"><i class="led"></i><span data-i="sd_r1">Health Check</span><small>pdf</small></button>
+      <button class="it" data-k="health-check" type="button"><i class="led"></i><span data-i="sd_r1">Health Plan</span><small>pdf</small></button>
       <button class="it" data-k="roadmap" type="button"><i class="led"></i><span data-i="sd_r2">Roadmap</span><small>pdf</small></button>
-      <button class="it" data-k="security" type="button"><i class="led"></i><span data-i="sd_r3">Security assessment</span><small>pdf</small></button>
+      <button class="it" data-k="security" type="button"><i class="led"></i><span data-i="sd_r3">Security Scan</span><small>pdf</small></button>
       <div class="h" style="margin-top:12px"><span data-i="sd_c">Cases, anonymized</span></div>
       <button class="it" data-k="case-cost" type="button"><i class="led"></i><span data-i="sd_c1">Cost saving</span><small>€</small></button>
       <button class="it" data-k="case-mcp" type="button"><i class="led"></i><span data-i="sd_c2">API meets AI</span><small>mcp</small></button>
@@ -144,8 +144,8 @@
 <script>
 Object.assign(window.SCUTTLE_NL.t, @json($C::nlLoopStrings() + \Spdotdev\ScuttleDev\Cases::nlStrings()));
 Object.assign(window.SCUTTLE_NL.t, {
-  h1: "Automatiseer het werk <br>dat je team herhaalt", sub: "Automatisering · Beveiliging · Eindhoven", of_b: "Begin met een Health Check.", of_t: "Twee dagen, alleen lezen, een schriftelijk plan. Vaste prijs: EUR 1.080 excl. btw.", cta1: "Plan een gesprek over een Health Check", cta2: "Wat het dekt en wat je krijgt", cmd_b: "<span>beveiligingsrelease {{ \Spdotdev\ScuttleDev\Facts::PHP_HERO_DATE_NL }}</span><span>{{ \Spdotdev\ScuttleDev\Facts::PHP_HERO_PREVIOUS }} → {{ \Spdotdev\ScuttleDev\Facts::PHP_LATEST['8.4'] }}</span><span>twee kritieke RCE-lekken verholpen</span><span>is die van jou gepatcht?</span>",
-  sd_h: "Automatiseringen", now: "nu", sd_r: "Rapporten", sd_r1: "Health Check", sd_r2: "Roadmap", sd_r3: "Security assessment", sd_c: "Cases, geanonimiseerd", sd_c1: "Kostenbesparing", sd_c2: "API ontmoet AI", sd_c3: "Migratie in gebruik",
+  h1: "Automatiseer het werk <br>dat je team herhaalt", sub: "Automatisering · Beveiliging · Eindhoven", of_b: "Begin met een Health Plan.", of_t: "Twee dagen, alleen lezen, een schriftelijk plan. Vaste prijs: EUR 1.440 excl. btw.", cta1: "Plan een gesprek over een Health Plan", cta2: "Wat het dekt en wat je krijgt", cmd_b: "<span>beveiligingsrelease {{ \Spdotdev\ScuttleDev\Facts::PHP_HERO_DATE_NL }}</span><span>{{ \Spdotdev\ScuttleDev\Facts::PHP_HERO_PREVIOUS }} → {{ \Spdotdev\ScuttleDev\Facts::PHP_LATEST['8.4'] }}</span><span>twee kritieke RCE-lekken verholpen</span><span>is die van jou gepatcht?</span>",
+  sd_h: "Automatiseringen", now: "nu", sd_r: "Rapporten", sd_r1: "Health Plan", sd_r2: "Roadmap", sd_r3: "Security Scan", sd_c: "Cases, geanonimiseerd", sd_c1: "Kostenbesparing", sd_c2: "API ontmoet AI", sd_c3: "Migratie in gebruik",
   shot_note: "Runs en rapporten zijn voorbeelden met verzonnen namen. De cases zijn echt werk, geanonimiseerd. Elke resultaatregel linkt naar het product erachter.", hint: "Een live venster, geen plaatje. Klik erdoorheen, of laat het lopen.",
   sv_h: "De basis voor een bedrijf dat op automatisering draait", sv_p: "Agents en koppelingen die het repeterende werk doen, beveiliging die het veilig houdt, één developer die het draaiend houdt. Vaste scope per stap, niets live zonder rollback.",
   g_build: "Automatiseren",

@@ -5,7 +5,7 @@ namespace Spdotdev\ScuttleDev;
 /**
  * The Dutch version of the site at /nl/...: the same views, rendered in English by the controllers, then
  * switched to Dutch on the server with the strings every page already carries for the JS switch.
- * Only pages that exist in full in both languages are paired (home, services, pricing, Health Check,
+ * Only pages that exist in full in both languages are paired (home, services, pricing, Health Plan,
  * contact, company, privacy, case studies); news bodies and project docs stay English and have no /nl/ twin.
  */
 final class Dutch
@@ -14,9 +14,9 @@ final class Dutch
 
     /** Dutch strings of the one-line offer (partials/first-step) that sits under the lead of the index pages. */
     public const FIRST_STEP = [
-        'of_b' => 'Begin met een Health Check.',
-        'of_t' => 'Twee dagen, alleen lezen, een schriftelijk plan. Vaste prijs: EUR 1.080 excl. btw.',
-        'cta1' => 'Plan een gesprek over een Health Check',
+        'of_b' => 'Begin met een Health Plan.',
+        'of_t' => 'Twee dagen, alleen lezen, een schriftelijk plan. Vaste prijs: EUR 1.440 excl. btw.',
+        'cta1' => 'Plan een gesprek over een Health Plan',
         'fs_ask_b' => 'Vertel me wat je draait.',
         'fs_ask_t' => 'Ik reageer binnen één werkdag met een eerste mening, gratis.',
         'ct_b2' => 'Gebruik het contactformulier',
@@ -65,7 +65,7 @@ final class Dutch
     ];
 
     /** @var list<string> */
-    private const FIXED = ['/', '/pricing', '/health-check', '/health-check/sample', '/php-check', '/nis2', '/services', '/contact', '/company', '/privacy', '/case-studies'];
+    private const FIXED = ['/', '/pricing', '/health-plan', '/health-plan/sample', '/php-check', '/nis2', '/services', '/contact', '/company', '/privacy', '/case-studies'];
 
     public static function paired(string $path): bool
     {
@@ -116,13 +116,13 @@ final class Dutch
         $p = '/'.trim($enPath, '/');
         $fixed = [
             '/' => ['Automatisering, AI en beveiliging voor je bedrijfssoftware', 'Automatiseer het werk dat je team herhaalt: AI-agents, koppelingen en veilige software die blijft draaien. Eén senior developer in Eindhoven.'],
-            '/pricing' => ['Prijzen: EUR 90 per uur en vaste prijzen', 'Eén tarief, twee manieren om te kopen: EUR 90 per uur excl. btw, of een vaste prijs voor de Health Check, de security quick scan en het Architecture Plan.'],
-            '/health-check' => [Catalog::SEO_TITLES_NL['legacy-health-check'], 'Beoordeling in twee dagen: kansen voor automatisering, risico\'s en een stappenplan. Vaste prijs EUR 1.080 excl. btw (12 uur).'],
-            '/services' => ['Diensten: twaalf diensten, automatisering voorop', 'De twaalf diensten en wat je daarna in handen hebt: een rapport, een draaiende server, een pipeline, een document in je repository. Open prijzen.'],
+            '/pricing' => ['Prijzen: EUR 90 per uur en vaste prijzen', 'Eén tarief, twee manieren om te kopen: EUR 90 per uur excl. btw, of vaste prijzen voor vier plannen en maandelijkse Maintenance Plans.'],
+            '/health-plan' => [Catalog::SEO_TITLES_NL['health-plan'], 'Beoordeling in twee dagen: kansen voor automatisering, risico\'s en een stappenplan. Vaste prijs EUR 1.440 excl. btw (16 uur).'],
+            '/services' => ['Diensten: dertien diensten, automatisering voorop', 'De dertien diensten en wat je daarna in handen hebt: een rapport, een draaiende server, een pipeline, een document in je repository. Open prijzen.'],
             '/contact' => ['Contact: vertel me wat je draait', 'Neem contact op met Scuttle Development in Eindhoven: het formulier, info@scuttle.dev, telefoon, vCard en adres. Ik reageer binnen één werkdag.'],
             '/company' => ['Het bedrijf: één senior developer in Eindhoven', 'Scuttle Development: één senior developer en solution architect in Eindhoven, opgericht in 2024. Hoe ik werk, waar ik in geloof en hoe je met me werkt.'],
-            '/health-check/sample' => ['Zo ziet een Health Check-rapport eruit', 'Zo is het Health Check-rapport opgebouwd, als illustratie met een verzonnen systeem: samenvatting, versietabel, bevindingen, plan en wat niet is gedekt.'],
-            '/php-check' => ['Welke PHP-versie draai je? Een check van tien minuten', 'Welke PHP-versie draai je en tot wanneer krijgt die beveiligingsfixes? Een check van tien minuten met data van php.net en wat een Health Check daarna doet.'],
+            '/health-plan/sample' => ['Zo ziet een Health Plan-rapport eruit', 'Zo is het Health Plan-rapport opgebouwd, als illustratie met een verzonnen systeem: samenvatting, versietabel, bevindingen, plan en wat niet is gedekt.'],
+            '/php-check' => ['Welke PHP-versie draai je? Een check van tien minuten', 'Welke PHP-versie draai je en tot wanneer krijgt die beveiligingsfixes? Een check van tien minuten met data van php.net en wat een Health Plan daarna doet.'],
             '/nis2' => ['NIS2 en de Cyber Resilience Act: wat geldt voor jou', 'NIS2 geldt in Nederland sinds 15 augustus 2026, de meldplicht van de CRA sinds 11 september. Wie eronder valt en wat te doen: een technische gap-analyse.'],
             '/privacy' => ['Privacyverklaring', 'Welke gegevens ik gebruik en waarom, welke verwerkers meekijken, dat deze site geen tracking- of analysecookies zet en hoe je je gegevens laat verwijderen.'],
             '/case-studies' => ['Casestudy\'s: werk zoals het ging', 'Casestudy\'s: een migratie terwijl het platform in gebruik bleef, een API voor AI-assistenten, een klein wake-wordmodel en een bedrijf op agents.'],

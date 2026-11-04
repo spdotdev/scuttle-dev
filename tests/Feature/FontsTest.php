@@ -56,7 +56,7 @@ class FontsTest extends TestCase
         }
         $this->assertNotEmpty($ranges);
 
-        $paths = ['/', '/pricing', '/health-check', '/health-check/sample', '/php-check', '/nis2', '/contact', '/services', '/case-studies', '/news', '/company', '/projects', '/privacy', '/projects/manual', '/projects/manual/docs'];
+        $paths = ['/', '/pricing', '/health-plan', '/health-plan/sample', '/php-check', '/nis2', '/contact', '/services', '/case-studies', '/news', '/company', '/projects', '/privacy', '/projects/manual', '/projects/manual/docs'];
         foreach (Catalog::all() as $p) {
             if (! isset($p['route'])) {
                 $paths[] = parse_url(Catalog::url($p), PHP_URL_PATH);

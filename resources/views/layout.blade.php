@@ -86,13 +86,30 @@
       <div class="has-mega" id="has-mega">
         <button type="button" id="mega-btn" aria-expanded="false" aria-controls="mega"><span data-i="n_products">Services</span><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
         <div class="mega" id="mega">
+          <div class="col">
+            <small data-i="n_fixed">Fixed price plans</small>
+            @foreach(['health-plan', 'security-assessment', 'architecture-review', 'automation-scan'] as $slug)
+            <a href="{{ \Spdotdev\ScuttleDev\Catalog::url(\Spdotdev\ScuttleDev\Catalog::get($slug)) }}">{{ \Spdotdev\ScuttleDev\Catalog::get($slug)['name'] }}</a>
+            @endforeach
+          </div>
+          <div class="col">
+            <small data-i="n_monthly">Monthly plans</small>
+            <a href="{{ \Spdotdev\ScuttleDev\Catalog::url(\Spdotdev\ScuttleDev\Catalog::get('maintenance-plan')) }}">Maintenance Plan</a>
+            @foreach(\Spdotdev\ScuttleDev\Catalog::MONTHLY as $plan)
+            <a href="{{ route('scuttle.pricing') }}#monthly">{{ $plan }}</a>
+            @endforeach
+          </div>
+          @php($inPlans = ['health-plan', 'security-assessment', 'architecture-review', 'automation-scan', 'maintenance-plan'])
           @foreach($groups as $key => $items)
+          @php($rest = array_values(array_filter($items, fn ($p) => ! in_array($p['slug'], $inPlans, true))))
+          @if($rest)
           <div class="col">
             <small data-i="g_{{ $key }}">{{ \Spdotdev\ScuttleDev\Catalog::GROUPS[$key] }}</small>
-            @foreach($items as $p)
+            @foreach($rest as $p)
             <a href="{{ \Spdotdev\ScuttleDev\Catalog::url($p) }}">{{ $p['name'] }}</a>
             @endforeach
           </div>
+          @endif
           @endforeach
           <a class="all" href="{{ route('scuttle.work') }}" data-i="n_all">All services, and what you hold afterwards →</a>
         </div>
@@ -131,7 +148,7 @@
   </footer></div>
 
   <script>
-    window.SCUTTLE_NL = { t: { skip: "Naar de inhoud", n_phpcheck: "PHP-versiecheck", n_nis2: "NIS2 en CRA", n_all: "Alle diensten, en wat je daarna in handen hebt →", n_products: "Diensten", n_projects: "Projecten", n_news: "Nieuws", n_company: "Bedrijf", g_assess: "Beoordelen", g_build: "Automatiseren", g_run: "Beheren", n_pricing: "Prijzen", n_case: "Casestudy's", n_contact: "Contact", n_book: "Plan een gesprek", ft_p: "Automatisering met AI-agents en koppelingen, veilige software die blijft draaien, door één senior developer in Eindhoven.", ft_company: "Bedrijf", ft_legal: "Juridisch", ft_privacy: "Privacy", ft_terms: "Terms and conditions", ck_p: "Deze website gebruikt één soort cookie: Google Analytics, om te zien welke pagina's gelezen worden. Er wordt niets gezet voordat je kiest. Weiger en de site werkt precies hetzelfde; ga akkoord en het analytics-script laadt, onder de voorwaarden in de <a href=\"/privacy\">privacyverklaring</a>.", ck_deny: "Weigeren", ck_agree: "Akkoord" }, ph: {} };
+    window.SCUTTLE_NL = { t: { skip: "Naar de inhoud", n_fixed: "Vaste prijs-plannen", n_monthly: "Maandplannen", n_phpcheck: "PHP-versiecheck", n_nis2: "NIS2 en CRA", n_all: "Alle diensten, en wat je daarna in handen hebt →", n_products: "Diensten", n_projects: "Projecten", n_news: "Nieuws", n_company: "Bedrijf", g_assess: "Beoordelen", g_build: "Automatiseren", g_run: "Beheren", n_pricing: "Prijzen", n_case: "Casestudy's", n_contact: "Contact", n_book: "Plan een gesprek", ft_p: "Automatisering met AI-agents en koppelingen, veilige software die blijft draaien, door één senior developer in Eindhoven.", ft_company: "Bedrijf", ft_legal: "Juridisch", ft_privacy: "Privacy", ft_terms: "Terms and conditions", ck_p: "Deze website gebruikt één soort cookie: Google Analytics, om te zien welke pagina's gelezen worden. Er wordt niets gezet voordat je kiest. Weiger en de site werkt precies hetzelfde; ga akkoord en het analytics-script laadt, onder de voorwaarden in de <a href=\"/privacy\">privacyverklaring</a>.", ck_deny: "Weigeren", ck_agree: "Akkoord" }, ph: {} };
   </script>
   <script>window.SCUTTLE_ATTR_NL = @json(\Spdotdev\ScuttleDev\Dutch::ATTRIBUTES, JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);</script>
   @stack('nl')

@@ -59,7 +59,7 @@
       <ul class="terms">
         <li data-i="cp_pr1"><b>Public code.</b> Sixteen repositories are public on <a href="https://github.com/spdotdev" rel="noopener" target="_blank">GitHub</a>, including <a href="https://github.com/spdotdev/scuttle-dev" rel="noopener" target="_blank">this website</a>, with its tests and its commit history.</li>
         <li data-i="cp_pr2"><b>Measured on my own sites.</b> On 30 October 2026 I ran Lighthouse (mobile, lab) on all 73 pages of scuttle.dev and splotnikov.dev: 100 for accessibility, best practices and SEO on every page, 96 to 100 for performance. An automated accessibility test (axe) found nothing in light or dark theme.</li>
-        <li data-i="cp_pr3"><b>Tools you can run.</b> The <a href="{{ route('scuttle.php-check') }}">PHP version check</a> and the <a href="{{ route('scuttle.health-check.sample') }}">sample Health Check report</a> show how I work before you write.</li>
+        <li data-i="cp_pr3"><b>Tools you can run.</b> The <a href="{{ route('scuttle.php-check') }}">PHP version check</a> and the <a href="{{ route('scuttle.health-plan.sample') }}">sample Health Plan report</a> show how I work before you write.</li>
         <li data-i="cp_pr4"><b>Client work stays private.</b> Client names are covered by NDA, so the <a href="{{ route('scuttle.cases') }}">case studies</a> are told without names.</li>
       </ul>
     </div>
@@ -87,7 +87,7 @@
     <div class="plate rv">
       <span class="lbl dot" data-i="cp_n_l">Where to go next</span>
       <ul class="terms">
-        <li data-i="cp_n1"><a href="{{ route('scuttle.work') }}">Services</a>: the twelve things I sell, in three groups.</li>
+        <li data-i="cp_n1"><a href="{{ route('scuttle.work') }}">Services</a>: the thirteen things I sell, in three groups.</li>
         <li data-i="cp_n2"><a href="{{ route('scuttle.pricing') }}">Pricing</a>: one rate, two ways to buy it, every price on the page.</li>
         <li data-i="cp_n3"><a href="{{ route('scuttle.cases') }}">Case studies</a>: work, told the way it went.</li>
         <li data-i="cp_n4"><a href="{{ route('scuttle.projects') }}">Projects</a>: open source and own products, with documentation.</li>
@@ -141,7 +141,7 @@ Object.assign(window.SCUTTLE_NL.t, {
  "cp_pr_l": "Wat je zelf kunt controleren",
  "cp_pr1": "<b>Openbare code.</b> Zestien repositories zijn openbaar op <a href=\"https://github.com/spdotdev\" rel=\"noopener\" target=\"_blank\">GitHub</a>, waaronder <a href=\"https://github.com/spdotdev/scuttle-dev\" rel=\"noopener\" target=\"_blank\">deze website</a>, met tests en commitgeschiedenis.",
  "cp_pr2": "<b>Gemeten op mijn eigen sites.</b> Op 30 oktober 2026 draaide ik Lighthouse (mobiel, lab) op alle 73 pagina's van scuttle.dev en splotnikov.dev: 100 voor toegankelijkheid, best practices en SEO op elke pagina, 96 tot 100 voor prestaties. Een geautomatiseerde toegankelijkheidstest (axe) vond niets in het lichte of donkere thema.",
- "cp_pr3": "<b>Tools die je zelf kunt draaien.</b> De <a href=\"/php-check\">PHP-versiecheck</a> en het <a href=\"/health-check/sample\">voorbeeldrapport van de Health Check</a> laten zien hoe ik werk voordat je schrijft.",
+ "cp_pr3": "<b>Tools die je zelf kunt draaien.</b> De <a href=\"/php-check\">PHP-versiecheck</a> en het <a href=\"/health-plan/sample\">voorbeeldrapport van de Health Plan</a> laten zien hoe ik werk voordat je schrijft.",
  "cp_pr4": "<b>Klantwerk blijft privé.</b> Klantnamen vallen onder geheimhouding, daarom zijn de <a href=\"/case-studies\">casestudy's</a> zonder namen verteld.",
  "cp_ex_l": "Wat er gebeurt als je schrijft",
  "cp_ex1": "Je schrijft of plant een gesprek. Ik ben één persoon, dus ik antwoord zelf.",
@@ -158,7 +158,7 @@ Object.assign(window.SCUTTLE_NL.t, {
  "cp_e_p": "Een gesprek van dertig minuten is gratis en eindigt met een eerlijk antwoord: ja, nee, of wat ik eerst moet bekijken.",
  "cp_e_b1": "Plan een gesprek",
  "cp_e_b2": "Gebruik het contactformulier",
- "cp_n1": "<a href=\"/services\">Diensten</a>: de twaalf dingen die ik verkoop, in drie groepen.",
+ "cp_n1": "<a href=\"/services\">Diensten</a>: de dertien dingen die ik verkoop, in drie groepen.",
  "cp_n2": "<a href=\"/pricing\">Prijzen</a>: één tarief, twee manieren om het te kopen, elke prijs op de pagina.",
  "cp_n3": "<a href=\"/case-studies\">Casestudy's</a>: werk, verteld zoals het ging.",
  "cp_n4": "<a href=\"/projects\">Projecten</a>: open source en eigen producten, met documentatie.",

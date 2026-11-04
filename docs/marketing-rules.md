@@ -30,3 +30,6 @@ Menu: Services (hover menu, three groups), Pricing, Work, Case studies, Projects
 Home: hero, interactive demo panel, three product groups, belts, 12 tiles, case study carousel, sectors, closing call to action that links to /contact. Products from `src/Catalog.php`, cases from `src/Cases.php`, pricing with two blocks of four, contact as its own page with the form, the vCard, the QR code, the address and the Chamber of Commerce link.
 - **Service names (2026-10-31, proposal 14).** AI Agents and Skills, System Integration, Mobile App, Security Test, Architecture Plan; the Health Check keeps its name (it is the one main assessment: health, security and architecture in one report). Two names that sound alike (Integrations next to AI Integration) never again.
 - **Mail and phone links only on the contact page (Stas, 2026-10-31).** Every other contact button opens the contact form, label kept, topic pre-filled through `?about=` where the form knows it. The privacy statement points at the form too. Same rule on splotnikov.dev.
+
+## Pricing rework (2026-11-04, Stas)
+Health Check is now Health Plan, Maintenance Retainer is now Maintenance Plan, Security Test is now Security Scan; Automation Scan is new. The four fixed-price plans are all 16 hours, EUR 1,440. The Plus, Pro and Max names of the bigger Maintenance Plan sizes are working names.

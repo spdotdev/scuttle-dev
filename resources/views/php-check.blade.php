@@ -2,7 +2,7 @@
 
 @section('title', 'Which PHP version are you running? A ten-minute check')
 @section('crumb', 'PHP version check')
-@section('description', 'Which PHP version do you run, and until when does it get security fixes? A ten-minute check with dates from php.net, and what a Health Check does next.')
+@section('description', 'Which PHP version do you run, and until when does it get security fixes? A ten-minute check with dates from php.net, and what a Health Plan does next.')
 @section('canonical', 'https://scuttle.dev/php-check')
 
 @php
@@ -21,8 +21,8 @@ $nl = [
     'pc_d32' => '31 dec 2029',
     'pc_l' => 'PHP-versiecheck',
     'pc_h' => 'Welke PHP-versie draait je systeem, en tot wanneer krijgt die beveiligingsupdates?',
-    'pc_lead' => 'Een check van tien minuten die je zelf kunt doen, met de data van php.net. Maakt het antwoord je ongerust, dan zet een Health Check het om in een plan: twee dagen, alleen lezen, EUR 1.080 excl. btw, vaste prijs.',
-    'pc_b1' => 'Plan een gesprek over een Health Check',
+    'pc_lead' => 'Een check van tien minuten die je zelf kunt doen, met de data van php.net. Maakt het antwoord je ongerust, dan zet een Health Plan het om in een plan: twee dagen, alleen lezen, EUR 1.440 excl. btw, vaste prijs.',
+    'pc_b1' => 'Plan een gesprek over een Health Plan',
     'pc_b2' => 'Zo ziet het rapport eruit',
     'pc_t_h' => 'De versies die vandaag ondersteund worden',
     'pc_t_p' => 'Bron: <a href="https://www.php.net/supported-versions.php" rel="noopener">php.net/supported-versions.php</a>, gelezen op 30 oktober 2026. Een versie die hier niet in staat, krijgt geen beveiligingsupdates meer.',
@@ -39,7 +39,7 @@ $nl = [
     'pc_m2' => '8.2: beveiligingsupdates tot 31 december 2026. Dat is de komende maanden, dus plan nu.',
     'pc_m3' => '8.3, 8.4 of 8.5: ondersteund. Kijk dan naar de afhankelijkheden, want de zwakke plek is meestal een pakket en niet PHP zelf.',
     'pc_p_h' => 'Van antwoord naar plan',
-    'pc_p' => 'Een Health Check legt runtime, database en framework naast hun officiële einddata, zoekt afhankelijkheden met bekende kwetsbaarheden, kijkt hoe geheimen worden beheerd en waar wijzigen riskant is, en eindigt in een schriftelijk plan in stappen met uren per punt. Twee dagen, alleen lezen, vaste prijs EUR 1.080 excl. btw (12 uur × EUR 90). Een gratis introgesprek gaat vooraf.',
+    'pc_p' => 'Een Health Plan legt runtime, database en framework naast hun officiële einddata, zoekt afhankelijkheden met bekende kwetsbaarheden, kijkt hoe geheimen worden beheerd en waar wijzigen riskant is, en eindigt in een schriftelijk plan in stappen met uren per punt. Twee dagen, alleen lezen, vaste prijs EUR 1.440 excl. btw (16 uur × EUR 90). Een gratis introgesprek gaat vooraf.',
     'pc_p_a' => 'Wat het dekt en wat het kost',
     'pc_p_b' => 'Een voorbeeldrapport',
     'pc_w_h' => 'Wie dit schrijft',
@@ -55,10 +55,10 @@ $nl = [
 <article class="wrap page">
   <span class="lbl dot" data-i="pc_l">PHP version check</span>
   <h1 data-i="pc_h">Which PHP version is your system running, and until when does it get security fixes?</h1>
-  <p class="lead" data-i="pc_lead">A ten-minute check you can run yourself, with the dates from php.net. If the answer worries you, a Health Check turns it into a plan: two days, read-only, EUR 1,080 excl. VAT, fixed.</p>
+  <p class="lead" data-i="pc_lead">A ten-minute check you can run yourself, with the dates from php.net. If the answer worries you, a Health Plan turns it into a plan: two days, read-only, EUR 1,440 excl. VAT, fixed.</p>
   <div class="cta" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:22px">
-    <a class="btn" href="{{ config('scuttle-dev.booking_url') }}" data-i="pc_b1" data-sda-event="Contact button click">Book a call about a Health Check</a>
-    <a class="btn o" href="{{ route('scuttle.health-check.sample') }}" data-i="pc_b2">See what the report looks like</a>
+    <a class="btn" href="{{ config('scuttle-dev.booking_url') }}" data-i="pc_b1" data-sda-event="Contact button click">Book a call about a Health Plan</a>
+    <a class="btn o" href="{{ route('scuttle.health-plan.sample') }}" data-i="pc_b2">See what the report looks like</a>
   </div>
 
   <h2 data-i="pc_t_h">The versions that are supported today</h2>
@@ -93,8 +93,8 @@ $nl = [
   </ul>
 
   <h2 data-i="pc_p_h">From the answer to a plan</h2>
-  <p data-i="pc_p">A Health Check lays the runtime, the database and the framework next to their official end-of-life dates, finds dependencies with known vulnerabilities, looks at how secrets are handled and where changing the code is risky, and ends in a written plan in steps with hours per item. Two days, read-only, fixed price EUR 1,080 excl. VAT (12 hours × EUR 90). A free intro call comes first.</p>
-  <p><a href="{{ route('scuttle.health-check') }}" data-i="pc_p_a">What it covers and what it costs</a> · <a href="{{ route('scuttle.health-check.sample') }}" data-i="pc_p_b">A sample report</a></p>
+  <p data-i="pc_p">A Health Plan lays the runtime, the database and the framework next to their official end-of-life dates, finds dependencies with known vulnerabilities, looks at how secrets are handled and where changing the code is risky, and ends in a written plan in steps with hours per item. Two days, read-only, fixed price EUR 1,440 excl. VAT (16 hours × EUR 90). A free intro call comes first.</p>
+  <p><a href="{{ route('scuttle.health-plan') }}" data-i="pc_p_a">What it covers and what it costs</a> · <a href="{{ route('scuttle.health-plan.sample') }}" data-i="pc_p_b">A sample report</a></p>
 
   <div class="callout who" role="note">
     <img src="{{ secure_asset('vendor/scuttle/portrait.jpg') }}" alt="Stanislav Plotnikov" width="72" height="72" loading="lazy" decoding="async">

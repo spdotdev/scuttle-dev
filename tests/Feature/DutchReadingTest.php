@@ -22,7 +22,10 @@ class DutchReadingTest extends TestCase
         'geback-upt' => 'met back-ups',
         'teampasvorm' => 'pasvorm voor je team',
         'wake word-model' => 'wake-wordmodel',
-        'Security Assessment' => 'Security Test (the product name)',
+        'Security Assessment' => 'Security Scan (the product name)',
+        'Security Test' => 'Security Scan (renamed 2026-11-04)',
+        'Health Check' => 'Health Plan (renamed 2026-11-04)',
+        'Maintenance Retainer' => 'Maintenance Plan (renamed 2026-11-04)',
         'na het te hebben' => 'nadat ik',
         'aan het eind van de dag' => 'uiteindelijk',
         'voor nu' => 'voorlopig',
@@ -32,7 +35,7 @@ class DutchReadingTest extends TestCase
 
     public function test_no_dutch_string_holds_a_calque_or_a_stale_product_name(): void
     {
-        $paths = ['/', '/pricing', '/health-check', '/health-check/sample', '/php-check', '/nis2', '/services', '/contact', '/company', '/privacy', '/case-studies', '/news', '/projects', '/projects/manual', '/projects/manual/docs'];
+        $paths = ['/', '/pricing', '/health-plan', '/health-plan/sample', '/php-check', '/nis2', '/services', '/contact', '/company', '/privacy', '/case-studies', '/news', '/projects', '/projects/manual', '/projects/manual/docs'];
         foreach (Catalog::all() as $p) {
             if (! isset($p['route'])) {
                 $paths[] = '/services/'.$p['slug'];

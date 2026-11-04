@@ -26,13 +26,13 @@ class SiteTest extends TestCase
         $this->assertSame(3, substr_count($home, 'href="https://plan.scuttle.dev/book/stas"'), 'the offer in the hero, the top bar and the contact section');
         $this->assertStringNotContainsString('subject=Call%20about', $home);
 
-        $this->get('http://scuttle.dev/health-check')->assertOk()
+        $this->get('http://scuttle.dev/health-plan')->assertOk()
             ->assertSee('href="https://plan.scuttle.dev/book/stas"', false);
     }
 
     public function test_search_snippets_fit_and_structured_data_is_valid(): void
     {
-        $paths = ['/', '/pricing', '/health-check', '/health-check/sample', '/php-check', '/nis2', '/contact', '/services', '/case-studies', '/news', '/company', '/projects', '/privacy'];
+        $paths = ['/', '/pricing', '/health-plan', '/health-plan/sample', '/php-check', '/nis2', '/contact', '/services', '/case-studies', '/news', '/company', '/projects', '/privacy'];
         foreach (Catalog::all() as $p) {
             $paths[] = parse_url(Catalog::url($p), PHP_URL_PATH);
         }
@@ -70,7 +70,7 @@ class SiteTest extends TestCase
 
     public function test_dutch_twins_are_real_pages_with_hreflang(): void
     {
-        $paths = ['/', '/pricing', '/health-check', '/health-check/sample', '/php-check', '/nis2', '/services', '/contact', '/company', '/privacy', '/case-studies'];
+        $paths = ['/', '/pricing', '/health-plan', '/health-plan/sample', '/php-check', '/nis2', '/services', '/contact', '/company', '/privacy', '/case-studies'];
         foreach (Catalog::all() as $p) {
             $paths[] = parse_url(Catalog::url($p), PHP_URL_PATH);
         }
@@ -141,7 +141,7 @@ class SiteTest extends TestCase
 
     public function test_every_internal_link_and_social_image_resolves(): void
     {
-        $pages = ['/', '/pricing', '/health-check', '/health-check/sample', '/php-check', '/nis2', '/services', '/contact', '/company', '/privacy', '/case-studies', '/news', '/projects', '/nl', '/nl/pricing', '/nl/services', '/nl/contact', '/nl/case-studies'];
+        $pages = ['/', '/pricing', '/health-plan', '/health-plan/sample', '/php-check', '/nis2', '/services', '/contact', '/company', '/privacy', '/case-studies', '/news', '/projects', '/nl', '/nl/pricing', '/nl/services', '/nl/contact', '/nl/case-studies'];
         foreach (Catalog::all() as $p) {
             $pages[] = parse_url(Catalog::url($p), PHP_URL_PATH);
         }
@@ -231,7 +231,7 @@ class SiteTest extends TestCase
 
     public function test_content_pages_set_no_cookie_and_the_contact_form_keeps_its_session(): void
     {
-        foreach (['/', '/nl', '/pricing', '/health-check', '/health-check/sample', '/php-check', '/nis2', '/services/modernization', '/privacy', '/news', '/case-studies/api-meets-ai', '/robots.txt', '/sitemap.xml'] as $path) {
+        foreach (['/', '/nl', '/pricing', '/health-plan', '/health-plan/sample', '/php-check', '/nis2', '/services/modernization', '/privacy', '/news', '/case-studies/api-meets-ai', '/robots.txt', '/sitemap.xml'] as $path) {
             $response = $this->get('http://scuttle.dev'.$path)->assertOk();
             $this->assertEmpty($response->headers->getCookies(), $path.' sets a cookie');
         }
@@ -245,11 +245,11 @@ class SiteTest extends TestCase
         $html = (string) $this->get('http://scuttle.dev/pricing')->assertOk()->getContent();
         $this->assertStringContainsString('class="glance"', $html);
         $this->assertStringContainsString('EUR 90', $html);
-        $this->assertStringContainsString('Fixed price, EUR 1,080 excl. VAT (12 hours)', Catalog::get('legacy-health-check')['price']);
-        $this->assertStringContainsString('<b data-i="pr_g2b">EUR 1,080</b>', $html);
+        $this->assertStringContainsString('Fixed price, EUR 1,440 excl. VAT (16 hours)', Catalog::get('health-plan')['price']);
+        $this->assertStringContainsString('<b data-i="pr_g2b">EUR 1,440</b>', $html);
         $this->assertStringContainsString('<b data-i="pr_g3b">from EUR 720</b>', $html);
-        $this->assertStringContainsString('Vanaf EUR 720 per maand', Catalog::get('maintenance-retainer')['nl']['price']);
-        $this->assertStringContainsString('<b data-i="pr_g2b">EUR 1.080</b>', (string) $this->get('http://scuttle.dev/nl/pricing')->getContent());
+        $this->assertStringContainsString('Vanaf EUR 720 per maand', Catalog::get('maintenance-plan')['nl']['price']);
+        $this->assertStringContainsString('<b data-i="pr_g2b">EUR 1.440</b>', (string) $this->get('http://scuttle.dev/nl/pricing')->getContent());
     }
 
     public function test_the_form_does_not_say_sent_when_the_mailer_only_logs(): void
@@ -296,10 +296,10 @@ class SiteTest extends TestCase
         }
         $this->assertStringContainsString('>8 dec 2022</td>', (string) $this->get('http://scuttle.dev/nl/php-check')->getContent());
         $this->assertStringContainsString('href="https://www.php.net/supported-versions.php"', $php);
-        $this->assertStringContainsString('EUR 1,080', $php);
+        $this->assertStringContainsString('EUR 1,440', $php);
         $this->assertStringContainsString('composer audit', $php);
 
-        $sample = (string) $this->get('http://scuttle.dev/health-check/sample')->assertOk()->getContent();
+        $sample = (string) $this->get('http://scuttle.dev/health-plan/sample')->assertOk()->getContent();
         $this->assertStringContainsString('Illustration.', $sample);
         $this->assertStringContainsString('invented', $sample);
         $this->assertStringNotContainsString('hosintra', strtolower($sample));
@@ -422,7 +422,7 @@ class SiteTest extends TestCase
 
     public function test_every_page_links_the_shared_stylesheet_script_and_logo(): void
     {
-        foreach (['/', '/privacy', '/pricing', '/contact', '/services', '/case-studies', '/news', '/company', '/projects', '/projects/manual/docs', '/health-check', '/health-check/sample', '/php-check', '/nis2', '/services/modernization', '/case-studies/phalcon-to-laravel'] as $path) {
+        foreach (['/', '/privacy', '/pricing', '/contact', '/services', '/case-studies', '/news', '/company', '/projects', '/projects/manual/docs', '/health-plan', '/health-plan/sample', '/php-check', '/nis2', '/services/modernization', '/case-studies/phalcon-to-laravel'] as $path) {
             $this->get('http://scuttle.dev'.$path)
                 ->assertOk()
                 ->assertSee('vendor/scuttle/site.css', false)
@@ -434,24 +434,107 @@ class SiteTest extends TestCase
 
     public function test_the_health_check_page_renders_and_the_old_address_redirects(): void
     {
-        $this->get('http://scuttle.dev/health-check')
+        $this->get('http://scuttle.dev/health-plan')
             ->assertOk()
-            ->assertSee('Health Check')
-            ->assertDontSee('Legacy Health Check')
+            ->assertSee('Health Plan')
+            ->assertDontSee('Legacy Health Plan')
             ->assertSee('Legacy check')
-            ->assertSee('EUR 1,080', false)
-            ->assertSee('https://scuttle.dev/health-check', false);
+            ->assertSee('EUR 1,440', false)
+            ->assertSee('https://scuttle.dev/health-plan', false);
 
-        $this->get('http://scuttle.dev/legacy-health-check')->assertRedirect('/health-check')->assertStatus(301);
-        $this->get('http://scuttle.dev/')->assertSee('/health-check', false);
-        $this->get('http://scuttle.dev/sitemap.xml')->assertSee('https://scuttle.dev/health-check', false);
+        $this->get('http://scuttle.dev/legacy-health-check')->assertRedirect('/health-plan')->assertStatus(301);
+        $this->get('http://scuttle.dev/')->assertSee('/health-plan', false);
+        $this->get('http://scuttle.dev/sitemap.xml')->assertSee('https://scuttle.dev/health-plan', false);
+    }
+
+    public function test_the_renamed_addresses_redirect_permanently_to_the_new_ones(): void
+    {
+        foreach ([
+            '/health-check' => '/health-plan',
+            '/health-check/sample' => '/health-plan/sample',
+            '/legacy-health-check' => '/health-plan',
+            '/services/maintenance-retainer' => '/services/maintenance-plan',
+            '/nl/health-check' => '/nl/health-plan',
+            '/nl/health-check/sample' => '/nl/health-plan/sample',
+            '/nl/services/maintenance-retainer' => '/nl/services/maintenance-plan',
+        ] as $old => $new) {
+            $this->get('http://scuttle.dev'.$old)->assertStatus(301)->assertRedirect($new);
+            $this->get('http://scuttle.dev'.$new)->assertOk();
+        }
+        $this->get('http://scuttle.dev/nl/health-plan')->assertOk()->assertSee('lang="nl"', false);
+        $this->assertStringNotContainsString('/health-check', (string) $this->get('http://scuttle.dev/sitemap.xml')->getContent().(string) $this->get('http://scuttle.dev/pricing')->getContent());
+        $this->assertStringNotContainsString('maintenance-retainer', (string) $this->get('http://scuttle.dev/sitemap.xml')->getContent());
+    }
+
+    public function test_the_automation_scan_page_exists_in_both_languages_with_the_fixed_price(): void
+    {
+        $p = Catalog::get('automation-scan');
+        $this->assertSame('Automation Scan', $p['name']);
+        $this->assertStringContainsString('EUR 1,440 excl. VAT (16 hours)', $p['price']);
+        $this->assertSame('1440', Catalog::offer($p)['price']);
+        $en = (string) $this->get('http://scuttle.dev/services/automation-scan')->assertOk()->getContent();
+        $this->assertStringContainsString('Automation Scan', $en);
+        $this->assertStringContainsString('EUR 1,440 excl. VAT (16 hours)', $en);
+        $this->assertStringContainsString('https://scuttle.dev/services/automation-scan', $en);
+        $nl = (string) $this->get('http://scuttle.dev/nl/services/automation-scan')->assertOk()->getContent();
+        $this->assertStringContainsString('Vaste prijs, EUR 1.440 excl. btw (16 uur)', $nl);
+        $this->get('http://scuttle.dev/sitemap.xml')->assertSee('https://scuttle.dev/services/automation-scan', false);
+        $this->assertNotEmpty(Faq::for('automation-scan'));
+    }
+
+    public function test_the_pricing_page_has_three_blocks_and_one_recommended_badge_in_each_of_the_last_two(): void
+    {
+        $html = (string) $this->get('http://scuttle.dev/pricing')->assertOk()->getContent();
+        [$hour, $rest] = explode('data-i="pr_p2l"', $html, 2);
+        [$fixed, $monthly] = explode('data-i="pr_p3l"', $rest, 2);
+        $monthly = explode('class="dark-panel', $monthly, 2)[0];
+        $this->assertSame(4, (substr_count($hour, '<div class="plan"') + substr_count($hour, '<div class="plan hi"')), 'block 1: four plans');
+        $this->assertSame(4, (substr_count($fixed, '<div class="plan"') + substr_count($fixed, '<div class="plan hi"')), 'block 2: four plans');
+        $this->assertSame(4, (substr_count($monthly, '<div class="plan"') + substr_count($monthly, '<div class="plan hi"')), 'block 3: four plans');
+        $this->assertSame(1, substr_count($fixed, 'class="badge"'));
+        $this->assertSame(1, substr_count($monthly, 'class="badge"'));
+        $this->assertSame(1, substr_count($fixed, '<div class="plan hi">'));
+        $this->assertSame(1, substr_count($monthly, '<div class="plan hi">'));
+        foreach (['Health Plan', 'Security Scan', 'Architecture Plan', 'Automation Scan'] as $name) {
+            $this->assertStringContainsString('>'.$name.'</h2>', $fixed, $name);
+        }
+        $this->assertSame(4, substr_count($fixed, '€1,440'));
+        foreach ([['Maintenance Plan', '€720', 8], ['Maintenance Plan Plus', '€1,080', 12], ['Maintenance Plan Pro', '€1,440', 16], ['Maintenance Plan Max', '€2,160', 24]] as [$name, $amount, $hours]) {
+            $this->assertStringContainsString('>'.$name.'</h2>', $monthly, $name);
+            $this->assertStringContainsString('>'.$amount.'</span>', $monthly, $name);
+            $this->assertStringContainsString($hours.' hours × EUR 90', $monthly, $name);
+        }
+        $this->assertStringContainsString('/contact?about=Maintenance+Plan+Plus', $monthly);
+        $this->assertStringContainsString('/contact?about=Maintenance+Plan+Max', $monthly);
+        $this->assertStringNotContainsString('Security quick scan', $html);
+        $this->assertStringNotContainsString('Health Check', $html);
+
+        $nl = (string) $this->get('http://scuttle.dev/nl/pricing')->assertOk()->getContent();
+        $this->assertStringContainsString('Maandelijks, vaste vorm', $nl);
+        $this->assertStringContainsString('€2.160', $nl);
+        $this->assertStringContainsString('Aanbevolen', $nl);
+    }
+
+    public function test_the_services_menu_has_a_fixed_price_and_a_monthly_section(): void
+    {
+        $home = (string) $this->get('http://scuttle.dev/')->assertOk()->getContent();
+        $menu = explode('</div>', explode('id="mega"', $home, 2)[1] ?? '', 4);
+        $menu = implode('</div>', $menu);
+        $this->assertStringContainsString('data-i="n_fixed">Fixed price plans', $home);
+        $this->assertStringContainsString('data-i="n_monthly">Monthly plans', $home);
+        $this->assertStringContainsString('href="http://scuttle.dev/health-plan"', $home);
+        $this->assertStringContainsString('Maintenance Plan Max', $menu);
+        $this->assertStringContainsString('All services', $home);
+        $nl = (string) $this->get('http://scuttle.dev/nl')->assertOk()->getContent();
+        $this->assertStringContainsString('Vaste prijs-plannen', $nl);
+        $this->assertStringContainsString('Maandplannen', $nl);
     }
 
     public function test_the_site_points_at_no_client_and_leads_with_automation(): void
     {
-        foreach (['/', '/pricing', '/contact', '/health-check', '/health-check/sample', '/php-check', '/nis2', '/services/ai-integration', '/services/modernization', '/case-studies/phalcon-to-laravel', '/case-studies/business-on-agents', '/services', '/company', '/news', '/projects'] as $path) {
+        foreach (['/', '/pricing', '/contact', '/health-plan', '/health-plan/sample', '/php-check', '/nis2', '/services/ai-integration', '/services/modernization', '/case-studies/phalcon-to-laravel', '/case-studies/business-on-agents', '/services', '/company', '/news', '/projects'] as $path) {
             $html = (string) $this->get('http://scuttle.dev'.$path)->assertOk()->getContent();
-            foreach (['hotel', 'hosintra', 'rental-platform', 'webshop-legacy', 'erp-bridge', 'Legacy Health Check', 'Modernization in Steps', '<b>0</b>'] as $word) {
+            foreach (['hotel', 'hosintra', 'rental-platform', 'webshop-legacy', 'erp-bridge', 'Legacy Health Plan', 'Modernization in Steps', '<b>0</b>'] as $word) {
                 $this->assertStringNotContainsStringIgnoringCase($word, $html, $path.' must not contain '.$word);
             }
         }
@@ -486,12 +569,12 @@ class SiteTest extends TestCase
         $html = (string) $this->get('http://scuttle.dev/pricing')->assertOk()->getContent();
 
         $this->assertStringContainsString('€90', $html);
-        $this->assertStringContainsString('€1,080', $html);
-        $this->assertStringContainsString('12 hours × EUR 90', $html);
-        $this->assertStringContainsString('from €720', $html);
+        $this->assertStringContainsString('€1,440', $html);
+        $this->assertStringContainsString('16 hours × EUR 90', $html);
+        $this->assertStringContainsString('€720', $html);
         $this->assertStringContainsString('excl. VAT', $html);
-        $this->assertSame(8, substr_count($html, 'class="plan"') + substr_count($html, 'class="plan hi"'), 'two blocks of four');
-        $this->assertSame(2, substr_count($html, 'class="badge"'), 'one recommended card per block carries a badge');
+        $this->assertSame(12, substr_count($html, 'class="plan"') + substr_count($html, 'class="plan hi"'), 'three blocks of four');
+        $this->assertSame(3, substr_count($html, 'class="badge"'), 'one recommended card per block carries a badge');
         $this->assertStringContainsString('14 days', $html);
         foreach (Catalog::all() as $p) {
             $this->assertStringContainsString($p['name'], $html);
@@ -514,7 +597,8 @@ class SiteTest extends TestCase
             $this->assertGreaterThanOrEqual(2, substr_count($home, 'href="'.$url.'"'), $url.' appears in the menu and the tiles');
             $this->assertStringContainsString('<loc>'.Catalog::canonical($p).'</loc>', $sitemap, $url);
         }
-        $this->assertCount(12, Catalog::all());
+        $this->assertCount(13, Catalog::all());
+        $this->get('http://scuttle.dev/services/health-plan')->assertNotFound();
         $this->get('http://scuttle.dev/services/legacy-health-check')->assertNotFound();
         $this->get('http://scuttle.dev/services/nope')->assertNotFound();
         $this->get('http://scuttle.dev/products/modernization')->assertRedirect('/services/modernization')->assertStatus(301);
@@ -526,8 +610,8 @@ class SiteTest extends TestCase
 
         $this->assertStringNotContainsString('Ask for references', $home);
         $this->assertStringNotContainsString('run on PHP', $home);
-        $this->assertStringContainsString('Start with a Health Check', $home);
-        $this->assertStringContainsString('EUR 1,080', $home);
+        $this->assertStringContainsString('Start with a Health Plan', $home);
+        $this->assertStringContainsString('EUR 1,440', $home);
         $this->assertStringNotContainsString('id="sectors"', $home, 'the sectors block is gone (council, 2026-10-30)');
         $this->assertStringContainsString('id="mega"', $home);
         $this->assertStringContainsString('data-dec', $home);
@@ -551,7 +635,7 @@ class SiteTest extends TestCase
             $this->assertStringContainsString('/contact?about='.rawurlencode($e[2]).'"', $loopHtml, $e[2].' opens the contact form');
             $this->assertStringContainsString('data-i="t_'.$key.'"', $loopHtml);
         }
-        $this->assertSame(21, substr_count($loopHtml, '<li><a href='), 'twelve services and nine extra entries');
+        $this->assertSame(22, substr_count($loopHtml, '<li><a href='), 'thirteen services and nine extra entries');
         $this->assertStringContainsString('data-i="lp_sub_ai"', $loopHtml, 'Build is split in General and AI and automation');
         $this->assertStringContainsString('Performance Test', (string) $this->get('http://scuttle.dev/contact?about=Performance+Test')->getContent(), 'the contact form knows the extra entries');
         foreach (['SOC 2', 'ISO 27001', 'certified', 'Certified'] as $claim) {
@@ -580,7 +664,7 @@ class SiteTest extends TestCase
     public function test_the_contact_form_sends_mail_and_blocks_bots(): void
     {
         Mail::fake();
-        $ok = ['name' => 'Test Person', 'email' => 'test@example.com', 'about' => 'Health Check', 'message' => 'We run a Laravel shop and the exports take hours.'];
+        $ok = ['name' => 'Test Person', 'email' => 'test@example.com', 'about' => 'Health Plan', 'message' => 'We run a Laravel shop and the exports take hours.'];
         $token = ContactController::token();
 
         // Too fast: the signed timestamp is newer than 3 seconds.
@@ -608,7 +692,7 @@ class SiteTest extends TestCase
             $mail->build();
             $rendered = $mail->render(); // the real bug of 2026-10-24: a view variable named message collides with Laravel's Message object
 
-            return $mail->hasTo('info@scuttle.dev') && $mail->hasReplyTo('test@example.com') && $mail->about === 'Health Check' && str_contains($rendered, 'exports take hours');
+            return $mail->hasTo('info@scuttle.dev') && $mail->hasReplyTo('test@example.com') && $mail->about === 'Health Plan' && str_contains($rendered, 'exports take hours');
         });
     }
 
@@ -711,7 +795,7 @@ class SiteTest extends TestCase
      */
     public function test_every_page_is_translatable(): void
     {
-        $paths = ['/', '/pricing', '/health-check', '/health-check/sample', '/php-check', '/nis2', '/contact', '/services', '/case-studies', '/case-studies/phalcon-to-laravel', '/news', '/company', '/projects', '/projects/manual', '/privacy'];
+        $paths = ['/', '/pricing', '/health-plan', '/health-plan/sample', '/php-check', '/nis2', '/contact', '/services', '/case-studies', '/case-studies/phalcon-to-laravel', '/news', '/company', '/projects', '/projects/manual', '/privacy'];
         foreach (Catalog::all() as $p) {
             $paths[] = parse_url(Catalog::url($p), PHP_URL_PATH);
         }
@@ -738,15 +822,15 @@ class SiteTest extends TestCase
 
     public function test_an_sd_cms_article_maps_to_a_post_and_lands_in_the_sitemap(): void
     {
-        $article = (object) ['slug' => 'from-cms', 'title' => 'From the CMS', 'summary' => 'Sum', 'body' => "First.\n\n## Head\n\n- one\n- two\n\nLast.", 'tags' => ['PHP', 'News'], 'published_at' => new \DateTimeImmutable('2026-11-02 10:00:00'), 'title_nl' => 'Uit het CMS', 'summary_nl' => null, 'sells' => 'maintenance-retainer'];
+        $article = (object) ['slug' => 'from-cms', 'title' => 'From the CMS', 'summary' => 'Sum', 'body' => "First.\n\n## Head\n\n- one\n- two\n\nLast.", 'tags' => ['PHP', 'News'], 'published_at' => new \DateTimeImmutable('2026-11-02 10:00:00'), 'title_nl' => 'Uit het CMS', 'summary_nl' => null, 'sells' => 'maintenance-plan'];
         $post = Posts::fromArticle($article);
 
         $this->assertSame('from-cms', $post['slug']);
         $this->assertSame('2026-11-02', $post['date']);
         $this->assertSame(['First.', '## Head', '- one', '- two', 'Last.'], $post['body']);
         $this->assertSame(['title' => 'Uit het CMS', 'summary' => 'Sum'], $post['nl']);
-        $this->assertSame(['maintenance-retainer'], $post['products']);
-        $this->assertSame('maintenance-retainer', $post['sells']);
+        $this->assertSame(['maintenance-plan'], $post['products']);
+        $this->assertSame('maintenance-plan', $post['sells']);
         $this->assertArrayHasKey('php-security-release-october-2026', Posts::all(), 'built-in articles stay without sd-cms');
         $this->get('http://scuttle.dev/sitemap.xml')->assertOk()->assertSee('<urlset', false);
     }
@@ -761,7 +845,7 @@ class SiteTest extends TestCase
 
     public function test_faq_blocks_match_their_faqpage_data_in_both_languages(): void
     {
-        foreach (['/services/modernization', '/health-check', '/services/hardening', '/services/maintenance-retainer'] as $path) {
+        foreach (['/services/modernization', '/health-plan', '/services/hardening', '/services/maintenance-plan'] as $path) {
             foreach (['', '/nl'] as $prefix) {
                 $nl = $prefix === '/nl';
                 $html = (string) $this->get('http://scuttle.dev'.$prefix.$path)->assertOk()->getContent();
@@ -774,7 +858,7 @@ class SiteTest extends TestCase
                     }
                 }
                 $this->assertNotNull($faq, $prefix.$path.' has FAQPage data');
-                $slug = $path === '/health-check' ? 'legacy-health-check' : basename($path);
+                $slug = $path === '/health-plan' ? 'health-plan' : basename($path);
                 $items = Faq::for($slug);
                 $this->assertCount(count($items), $faq['mainEntity']);
                 foreach ($items as $i => $f) {
@@ -791,17 +875,17 @@ class SiteTest extends TestCase
 
     public function test_faq_prices_match_the_catalog(): void
     {
-        $hc = Faq::for('legacy-health-check')[0]['a'];
-        $this->assertStringContainsString('EUR 1,080', $hc);
-        $this->assertStringContainsString('EUR 1,080', Catalog::get('legacy-health-check')['price']);
-        $this->assertStringContainsString('EUR 1.080', Faq::for('legacy-health-check')[0]['an']);
-        $this->assertStringContainsString('EUR 720', Faq::for('maintenance-retainer')[0]['a']);
+        $hc = Faq::for('health-plan')[0]['a'];
+        $this->assertStringContainsString('EUR 1,440', $hc);
+        $this->assertStringContainsString('EUR 1,440', Catalog::get('health-plan')['price']);
+        $this->assertStringContainsString('EUR 1.440', Faq::for('health-plan')[0]['an']);
+        $this->assertStringContainsString('EUR 720', Faq::for('maintenance-plan')[0]['a']);
     }
 
     /** @return array<string, string> */
     private function validForm(array $over = []): array
     {
-        return $over + ['name' => 'Anna', 'email' => 'anna@example.com', 'about' => 'Health Check', 'message' => 'We run an old PHP portal and need a plan.', 't' => $this->agedToken(), 'website' => ''];
+        return $over + ['name' => 'Anna', 'email' => 'anna@example.com', 'about' => 'Health Plan', 'message' => 'We run an old PHP portal and need a plan.', 't' => $this->agedToken(), 'website' => ''];
     }
 
     public function test_a_stored_lead_survives_a_mail_failure(): void
@@ -890,7 +974,7 @@ class SiteTest extends TestCase
 
     public function test_dutch_twins_have_a_dutch_title_and_description(): void
     {
-        foreach (['/health-check/sample', '/php-check', '/nis2', '/company', '/health-check'] as $path) {
+        foreach (['/health-plan/sample', '/php-check', '/nis2', '/company', '/health-plan'] as $path) {
             $en = (string) $this->get('http://scuttle.dev'.$path)->getContent();
             $nl = (string) $this->get('http://scuttle.dev/nl'.$path)->getContent();
             preg_match('#<title>([^<]*)</title>#', $en, $te);
@@ -920,7 +1004,7 @@ class SiteTest extends TestCase
     public function test_money_pages_link_to_their_related_reading_in_both_languages(): void
     {
         foreach (Links::all() as $slug => $links) {
-            $path = $slug === 'legacy-health-check' ? '/health-check' : '/services/'.$slug;
+            $path = $slug === 'health-plan' ? '/health-plan' : '/services/'.$slug;
             $en = (string) $this->get('http://scuttle.dev'.$path)->assertOk()->getContent();
             $nl = (string) $this->get('http://scuttle.dev/nl'.$path)->assertOk()->getContent();
             foreach ($links as $l) {
@@ -929,8 +1013,8 @@ class SiteTest extends TestCase
                 $this->get('http://scuttle.dev'.$l['path'])->assertOk();
             }
         }
-        $this->assertStringContainsString('href="http://scuttle.dev/news/what-two-days-of-health-check-buy"', (string) $this->get('http://scuttle.dev/health-check')->getContent());
-        foreach (['/nis2' => ['/health-check', '/services/hardening', '/health-check/sample'], '/health-check/sample' => ['/php-check', '/services/hardening', '/pricing']] as $page => $targets) {
+        $this->assertStringContainsString('href="http://scuttle.dev/news/what-two-days-of-health-check-buy"', (string) $this->get('http://scuttle.dev/health-plan')->getContent());
+        foreach (['/nis2' => ['/health-plan', '/services/hardening', '/health-plan/sample'], '/health-plan/sample' => ['/php-check', '/services/hardening', '/pricing']] as $page => $targets) {
             $html = (string) $this->get('http://scuttle.dev'.$page)->getContent();
             foreach ($targets as $t) {
                 $this->assertStringContainsString('href="http://scuttle.dev'.$t.'"', $html, $page.' links to '.$t);
@@ -941,7 +1025,7 @@ class SiteTest extends TestCase
     /** Stas, 2026-10-31: mail and phone links live on the contact page only; every other contact button opens the contact form. */
     public function test_only_the_contact_page_carries_mail_and_phone_links(): void
     {
-        foreach (['/', '/pricing', '/health-check', '/services/modernization', '/privacy', '/company', '/nl', '/nl/pricing', '/nl/services/modernization', '/nl/privacy'] as $path) {
+        foreach (['/', '/pricing', '/health-plan', '/services/modernization', '/privacy', '/company', '/nl', '/nl/pricing', '/nl/services/modernization', '/nl/privacy'] as $path) {
             $html = (string) $this->get('http://scuttle.dev'.$path)->assertOk()->getContent();
             $this->assertStringNotContainsString('mailto:', $html, $path);
             $this->assertStringNotContainsString('href="tel:', $html, $path);

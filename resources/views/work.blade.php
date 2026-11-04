@@ -1,9 +1,9 @@
 @extends('scuttle::layout')
 @php($C = \Spdotdev\ScuttleDev\Catalog::class)
 
-@section('title', 'Services: twelve services, automation first')
+@section('title', 'Services: thirteen services, automation first')
 @section('crumb', 'Services')
-@section('description', 'The twelve services and what you hold afterwards: a report, a running server, a pipeline, a document in your repository. Fixed shape, open prices.')
+@section('description', 'The thirteen services and what you hold afterwards: a report, a running server, a pipeline, a document in your repository. Fixed shape, open prices.')
 @section('canonical', 'https://scuttle.dev/services')
 
 @section('content')
@@ -12,7 +12,7 @@
     <div>
       <span class="lbl dot" data-i="wk_l">Services</span>
       <h1 data-dec data-i="wk_h1">What I deliver</h1>
-      <p class="lead" data-i="wk_lead">Services say what I do; this page says what you hold afterwards. Every engagement ends in something you can point at: a report, a running server, a release pipeline, a document in your repository. Twelve of them, each with a fixed shape.</p>
+      <p class="lead" data-i="wk_lead">Services say what I do; this page says what you hold afterwards. Every engagement ends in something you can point at: a report, a running server, a release pipeline, a document in your repository. Thirteen of them, each with a fixed shape.</p>
       @include('scuttle::partials.first-step')
     </div>
   </header>
@@ -82,7 +82,7 @@ Object.assign(window.SCUTTLE_NL.t, @json(collect($C::all())->mapWithKeys(fn ($p)
 Object.assign(window.SCUTTLE_NL.t, {
  "wk_l": "Diensten",
  "wk_h1": "Wat ik oplever",
- "wk_lead": "Diensten zeggen wat ik doe; deze pagina zegt wat je daarna in handen hebt. Elke opdracht eindigt in iets waar je naar kunt wijzen: een rapport, een draaiende server, een releasepipeline, een document in je repository. Twaalf stuks, elk met een vaste vorm.",
+ "wk_lead": "Diensten zeggen wat ik doe; deze pagina zegt wat je daarna in handen hebt. Elke opdracht eindigt in iets waar je naar kunt wijzen: een rapport, een draaiende server, een releasepipeline, een document in je repository. Dertien stuks, elk met een vaste vorm.",
  "wk_d_l": "Elke keer achtergelaten",
  "wk_f1b": "Een runbook",
  "wk_f2b": "Tests rond de wijziging",

@@ -101,7 +101,7 @@ final class Posts
                 'date' => '2026-10-24',
                 'summary' => 'PHP 8.5.12, 8.4.27, 8.3.36 and 8.2.35 close two flaws rated 9.2 that let anyone run code on a server without logging in. What changed, and why a patch on the day depends on who is watching.',
                 'tags' => ['PHP', 'Security', 'Maintenance'],
-                'sells' => 'maintenance-retainer',
+                'sells' => 'maintenance-plan',
                 'body' => [
                     'On 21 October 2026 the PHP project released 8.5.12, 8.4.27, 8.3.36 and 8.2.35. All four fix the same two vulnerabilities, CVE-2026-109618 and CVE-2026-109619, rated 9.2 out of 10. Both allow remote code execution without logging in: a request from the internet can make the server run the attacker\'s code. The PHP team wrote that there is no complete mitigation and that updating is the only safe choice.',
                     'Notice what that sentence leaves out. It does not say who updates your server. The release is public the moment it is announced, and so is the description of the flaw. From that hour, the only question is how long your site stays exposed.',
@@ -116,12 +116,12 @@ final class Posts
                     '- Restart PHP-FPM or the web server, then check the site.',
                     '## Unsupported versions make the gap wider',
                     'On a supported version the fix arrives the same day and installs in minutes. On an unsupported one you wait for a vendor backport that may never come, or you build PHP from source and hope you did it right. PHP 8.2 reaches end of life on 31 December 2026. If that is what you run, the move to 8.4 belongs on this year\'s list.',
-                    '## Why a retainer exists',
-                    'This is the situation the Maintenance Retainer is for. You buy a block of hours each month, from EUR 720 for 8 hours, excl. VAT. In those hours I watch the releases for the stack you run, patch it, check that backups restore, keep an eye on uptime and certificates, and send a short report each month. When a release like this one lands, the first step is mine, not yours.',
-                    'If you do not know which PHP version you run, or who would update it, start with the security quick scan: 8 hours, EUR 720 excl. VAT, written report. It tells you what is exposed today.',
-                    'The retainer is at /services/maintenance-retainer and the quick scan is at /services/security-assessment. Write to me through the contact form and I reply within one working day.',
+                    '## Why a maintenance plan exists',
+                    'This is the situation the Maintenance Plan is for. You buy a block of hours each month, from EUR 720 for 8 hours, excl. VAT. In those hours I watch the releases for the stack you run, patch it, check that backups restore, keep an eye on uptime and certificates, and send a short report each month. When a release like this one lands, the first step is mine, not yours.',
+                    'If you do not know which PHP version you run, or who would update it, start with the Security Scan: 16 hours, EUR 1,440 excl. VAT, written report. It tells you what is exposed today.',
+                    'The Maintenance Plan is at /services/maintenance-plan and the Security Scan is at /services/security-assessment. Write to me through the contact form and I reply within one working day.',
                 ],
-                'products' => ['maintenance-retainer', 'security-assessment', 'modernization'],
+                'products' => ['maintenance-plan', 'security-assessment', 'modernization'],
                 'nl' => ['title' => 'PHP-beveiligingsrelease van 21 oktober verhelpt twee kritieke bugs voor code op afstand', 'summary' => 'PHP 8.5.12, 8.4.27, 8.3.36 en 8.2.35 sluiten twee lekken met cijfer 9.2 waarmee iedereen zonder inloggen code op een server kan draaien. Wat er veranderde, en waarom een patch op dezelfde dag afhangt van wie meekijkt.'],
             ],
             'an-mcp-server-in-front-of-your-api' => [
@@ -153,16 +153,16 @@ final class Posts
             ],
             'what-two-days-of-health-check-buy' => [
                 'slug' => 'what-two-days-of-health-check-buy',
-                'title' => 'PHP 8.2 reaches end of life on 31 December: a two-day Health Check shows where your system stands',
+                'title' => 'PHP 8.2 reaches end of life on 31 December: a two-day Health Plan shows where your system stands',
                 'date' => '2026-10-24',
-                'summary' => 'Support for PHP 8.2 ends on 31 December 2026. Many owners do not know which version they run or what depends on it. What a read-only Health Check looks at in two days, what you get back, and what it costs.',
-                'tags' => ['Health Check', 'PHP', 'Pricing'],
-                'sells' => 'legacy-health-check',
+                'summary' => 'Support for PHP 8.2 ends on 31 December 2026. Many owners do not know which version they run or what depends on it. What a read-only Health Plan looks at in two days, what you get back, and what it costs.',
+                'tags' => ['Health Plan', 'PHP', 'Pricing'],
+                'sells' => 'health-plan',
                 'body' => [
                     'PHP 8.2 stops receiving security fixes on 31 December 2026. For the owner of a system built on it, that date is not an abstract milestone: from January, a flaw like the ones fixed in this month\'s PHP release gets no patch for that version. The question I hear most before a date like this is simple. What do I actually run, and how bad is it?',
-                    'Most owners cannot answer it. The developer who built the system moved on, the server is looked after by whoever has time, and the only documentation is the system itself. That is the situation the Health Check is made for.',
-                    '## What the Health Check is',
-                    'It is a fixed-price review of two days, 12 hours at EUR 90, so EUR 1,080 excl. VAT. It is read-only: I do not change anything on your system. I read, run and write, and a free intro call comes first so the scope is agreed first.',
+                    'Most owners cannot answer it. The developer who built the system moved on, the server is looked after by whoever has time, and the only documentation is the system itself. That is the situation the Health Plan is made for.',
+                    '## What the Health Plan is',
+                    'It is a fixed-price review of two days, 16 hours at EUR 90, so EUR 1,440 excl. VAT. It is read-only: I do not change anything on your system. I read, run and write, and a free intro call comes first so the scope is agreed first.',
                     '## Day one: how it runs',
                     '- Versions: operating system, PHP, database, framework and main packages, each checked against its official end-of-life date.',
                     '- Hosting: how it is deployed, how it is backed up, when a restore was last tested, what is monitored.',
@@ -174,29 +174,29 @@ final class Posts
                     '## What you get back',
                     'A report in plain language, with findings ranked by value and risk and an hours estimate per item. After that comes a walkthrough call where you can challenge anything in it. The report is yours, whether or not you ask me to do the work. Nothing in the price is a down payment on a project.',
                     '## What it does not do',
-                    'It does not fix anything, and it is not a penetration test. If the report shows that a deeper security look is warranted, the security quick scan is the next step: EUR 720 excl. VAT for 8 hours. If it shows a version past its end of life, the upgrade is quoted separately, per step, so you can stop after any of them.',
+                    'It does not fix anything, and it is not a penetration test. If the report shows that a deeper security look is warranted, the Security Scan is the next step: EUR 1,440 excl. VAT for 16 hours. If it shows a version past its end of life, the upgrade is quoted separately, per step, so you can stop after any of them.',
                     '## Why before the end of the year',
-                    'An upgrade from PHP 8.2 to 8.4 is usually small when the system has tests and current packages, and large when it does not. You find out which one you have from the review, not from the upgrade. Two days now cost EUR 1,080. Finding the same facts in the middle of an incident costs more, and you do not get to choose the order of the work.',
-                    'The Health Check is at /health-check. Tell me what the system is, which version it runs if you know it, and where it is hosted. I reply within one working day with what I would look at first.',
+                    'An upgrade from PHP 8.2 to 8.4 is usually small when the system has tests and current packages, and large when it does not. You find out which one you have from the review, not from the upgrade. Two days now cost EUR 1,440. Finding the same facts in the middle of an incident costs more, and you do not get to choose the order of the work.',
+                    'The Health Plan is at /health-plan. Tell me what the system is, which version it runs if you know it, and where it is hosted. I reply within one working day with what I would look at first.',
                 ],
-                'products' => ['legacy-health-check', 'security-assessment', 'modernization'],
-                'nl' => ['title' => 'PHP 8.2 bereikt op 31 december het einde van de support: een Health Check van twee dagen laat zien waar je systeem staat', 'summary' => 'De support voor PHP 8.2 eindigt op 31 december 2026. Veel eigenaren weten niet welke versie ze draaien of wat ervan afhangt. Waar een alleen-lezen Health Check in twee dagen naar kijkt, wat je terugkrijgt en wat het kost.'],
+                'products' => ['health-plan', 'security-assessment', 'modernization'],
+                'nl' => ['title' => 'PHP 8.2 bereikt op 31 december het einde van de support: een Health Plan van twee dagen laat zien waar je systeem staat', 'summary' => 'De support voor PHP 8.2 eindigt op 31 december 2026. Veel eigenaren weten niet welke versie ze draaien of wat ervan afhangt. Waar een alleen-lezen Health Plan in twee dagen naar kijkt, wat je terugkrijgt en wat het kost.'],
             ],
         ];
     }
 
     /**
      * One line of an article as safe HTML: the text is escaped first, then an address the sentence already names
-     * (/services/<known service>, /health-check, /pricing, /contact, /case-studies/<known case>) and the words
+     * (/services/<known service>, /health-plan, /pricing, /contact, /case-studies/<known case>) and the words
      * "inventory product" become links. Nothing else is turned into markup.
      */
     public static function linkify(string $line, bool $project = true): string
     {
         $html = e($line);
-        $html = (string) preg_replace_callback('#(?<![\w/])(/services/([a-z0-9-]+)|/case-studies/([a-z0-9-]+)|/health-check|/pricing|/contact)(?![\w/-])#', function (array $m): string {
+        $html = (string) preg_replace_callback('#(?<![\w/])(/services/([a-z0-9-]+)|/case-studies/([a-z0-9-]+)|/health-plan|/pricing|/contact)(?![\w/-])#', function (array $m): string {
             $ok = match (true) {
                 isset($m[3]) => isset(Cases::all()[$m[3]]),
-                ($m[2] ?? '') !== '' => isset(Catalog::all()[$m[2]]) && $m[2] !== 'legacy-health-check',
+                ($m[2] ?? '') !== '' => isset(Catalog::all()[$m[2]]) && $m[2] !== 'health-plan',
                 default => true,
             };
 

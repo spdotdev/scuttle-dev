@@ -1,7 +1,7 @@
 # Usage: python3 scripts/ui-check.py https://example.dev paths.txt  (one path per line)
 # Two checks at 390 px, light and dark, in both languages as the paths list gives them:
 #  1. every visible .btn is at least 44 px tall (a thumb target);
-#  2. on the money pages (/health-check, /pricing, /services/<slug>, also under /nl) the first visible button inside <main> starts
+#  2. on the money pages (/health-plan, /pricing, /services/<slug>, also under /nl) the first visible button inside <main> starts
 #     above 760 px from the top of the page, so the first screen of a phone shows what the page is and one next step.
 # Needs: pip install playwright; playwright install chromium. Exit 1 on any finding.
 import re, sys
@@ -9,7 +9,7 @@ from playwright.sync_api import sync_playwright
 
 base = sys.argv[1].rstrip('/')
 paths = [l.strip() for l in open(sys.argv[2]) if l.strip()]
-MONEY = re.compile(r'^(/nl)?/(health-check|pricing|services/[a-z0-9-]+)/?$')
+MONEY = re.compile(r'^(/nl)?/(health-plan|pricing|services/[a-z0-9-]+)/?$')
 JS = """() => {
   const vis = e => { const r = e.getBoundingClientRect(); const s = getComputedStyle(e);
     return r.width > 0 && r.height > 0 && s.visibility !== 'hidden' && s.display !== 'none' && e.offsetParent !== null; };

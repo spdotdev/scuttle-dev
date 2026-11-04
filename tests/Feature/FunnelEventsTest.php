@@ -13,7 +13,7 @@ class FunnelEventsTest extends TestCase
     /** @return list<string> */
     private function paths(): array
     {
-        $paths = ['/', '/nl', '/contact', '/nl/contact', '/pricing', '/services', '/company', '/case-studies', '/news', '/projects', '/projects/manual', '/projects/manual/docs', '/health-check', '/nl/health-check'];
+        $paths = ['/', '/nl', '/contact', '/nl/contact', '/pricing', '/services', '/company', '/case-studies', '/news', '/projects', '/projects/manual', '/projects/manual/docs', '/health-plan', '/nl/health-plan'];
         foreach (Catalog::all() as $p) {
             if (! isset($p['route'])) {
                 $paths[] = parse_url(Catalog::url($p), PHP_URL_PATH);

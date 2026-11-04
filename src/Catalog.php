@@ -6,7 +6,8 @@ namespace Spdotdev\ScuttleDev;
  * The products Scuttle Development sells, in three groups. One source for the
  * products menu, the home page tiles, the pricing page and the product pages.
  *
- * Prices: only the Legacy Health Check has a set price. Every other product is
+ * Prices: four products have a set price (Health Plan, Security Scan, Architecture Plan,
+ * Automation Scan: 16 hours, EUR 1,440) and the Maintenance Plan is monthly. Every other product is
  * quoted per step at EUR 90 per hour excl. VAT, after a free intro call.
  *
  * @phpstan-type Product array{slug:string, group:string, name:string, short:string, lead:string, price:string, price_note:string, features:list<array{0:string,1:string}>, steps:list<string>, not:string, illus:string, cta:array{0:string,1:string}, nl:array{lead:string, short:string, price:string, price_note:string, features:list<array{0:string,1:string}>, steps:list<string>, not:string, cta:array{0:string,1:string}}, route?:string}
@@ -15,6 +16,9 @@ final class Catalog
 {
     public const HOURLY = 'EUR 90 per hour excl. VAT';
 
+    /** The three bigger sizes of the Maintenance Plan. They are pricing-row cards with working names, not catalog products (no page of their own); the contact form lists them. */
+    public const MONTHLY = ['Maintenance Plan Plus', 'Maintenance Plan Pro', 'Maintenance Plan Max'];
+
     /** Search titles: the service and what it is, so the result says more than the name (council round 2, 2026-10-30). */
     public const SEO_TITLES = [
         'ai-integration' => 'AI Agents and Skills: agents, MCP servers and RAG',
@@ -22,13 +26,14 @@ final class Catalog
         'full-stack-build' => 'Full-stack Build: a web application end to end',
         'modernization' => 'Modernization: PHP, framework and hosting up to date',
         'android-app' => 'Mobile App: Android in Kotlin and Jetpack Compose',
-        'security-assessment' => 'Security Test: vulnerability scan or pentest',
+        'security-assessment' => 'Security Scan: fixed-price vulnerability scan',
         'architecture-review' => 'Architecture Plan: options and a recommendation',
         'hardening' => 'Hardening and Secure Pipeline for your servers',
-        'maintenance-retainer' => 'Maintenance Retainer: patches and monitoring monthly',
+        'maintenance-plan' => 'Maintenance Plan: patches and monitoring monthly',
         'compliance' => 'Compliance Alignment: NIS2, GDPR and DORA',
         'handover-pack' => 'Handover Pack: runbook, architecture, decisions',
-        'legacy-health-check' => 'Health Check: two-day assessment, fixed price',
+        'health-plan' => 'Health Plan: two-day assessment, fixed price',
+        'automation-scan' => 'Automation Scan: where automation saves hours',
     ];
 
     /** @var array<string, string> */
@@ -38,13 +43,14 @@ final class Catalog
         'full-stack-build' => 'Full-stack Build: een webapplicatie van begin tot eind',
         'modernization' => 'Modernization: PHP, framework en hosting bijgewerkt',
         'android-app' => 'Mobile App: Android in Kotlin en Jetpack Compose',
-        'security-assessment' => 'Security Test: kwetsbaarhedenscan of pentest',
+        'security-assessment' => 'Security Scan: kwetsbaarhedenscan voor een vaste prijs',
         'architecture-review' => 'Architecture Plan: opties en een advies',
         'hardening' => 'Hardening and Secure Pipeline voor je servers',
-        'maintenance-retainer' => 'Maintenance Retainer: patches en monitoring per maand',
+        'maintenance-plan' => 'Maintenance Plan: patches en monitoring per maand',
         'compliance' => 'Compliance Alignment: NIS2, AVG en DORA',
         'handover-pack' => 'Handover Pack: runbook, architectuur, besluiten',
-        'legacy-health-check' => 'Health Check: beoordeling in twee dagen, vaste prijs',
+        'health-plan' => 'Health Plan: beoordeling in twee dagen, vaste prijs',
+        'automation-scan' => 'Automation Scan: waar automatisering uren bespaart',
     ];
 
     /** @var array<string, string> group key => label */
@@ -286,7 +292,7 @@ final class Catalog
                     ['Release process', 'Git, CI with tests and security gates, deploy in one command, rollback in one command. Dependencies audited and updated on a schedule.'],
                 ],
                 'steps' => [
-                    'Health Check or an existing plan: the order of steps, safety net first.',
+                    'Health Plan or an existing plan: the order of steps, safety net first.',
                     'Step one scoped, priced and approved; tests written around the current behaviour.',
                     'Build, test, release, verify. Small releases, weekly where possible.',
                     'Next step, or stop. The handover pack is updated after every step.',
@@ -308,7 +314,7 @@ final class Catalog
                         ['Releaseproces', 'Git, CI met tests en beveiligingscontroles, deploy met één commando, rollback met één commando. Dependencies volgens schema geaudit en bijgewerkt.'],
                     ],
                     'steps' => [
-                        'Health Check of een bestaand plan: de volgorde van de stappen, eerst het vangnet.',
+                        'Health Plan of een bestaand plan: de volgorde van de stappen, eerst het vangnet.',
                         'Stap één afgebakend, geprijsd en goedgekeurd; tests geschreven rond het huidige gedrag.',
                         'Bouwen, testen, releasen, controleren. Kleine releases, waar mogelijk wekelijks.',
                         'Volgende stap, of stoppen. Het overdrachtspakket wordt na elke stap bijgewerkt.',
@@ -369,56 +375,106 @@ final class Catalog
                 ],
             ],
 
-            'legacy-health-check' => [
-                'slug' => 'legacy-health-check',
-                'route' => 'scuttle.health-check',
+            'health-plan' => [
+                'slug' => 'health-plan',
+                'route' => 'scuttle.health-plan',
                 'group' => 'assess',
                 'step' => 'research',
-                'name' => 'Health Check',
+                'name' => 'Health Plan',
                 'short' => 'Two days: health, security and architecture in one report, with a step-by-step plan.',
                 'lead' => 'A two-day assessment of your application and the way it is run. You get a written report on where automation saves hours, what is risky, which parts are out of support (the legacy check), and a step-by-step plan that does not stop the business.',
-                'price' => 'Fixed price, EUR 1,080 excl. VAT (12 hours)',
-                'price_note' => 'Two days of review, 12 hours × EUR 90. A free intro call comes first.',
+                'price' => 'Fixed price, EUR 1,440 excl. VAT (16 hours)',
+                'price_note' => 'Two days of review, 16 hours × EUR 90. A free intro call comes first.',
                 'features' => [
                     ['Written report', 'Plain language, findings ranked by value and risk, hours per item.'],
                     ['Automation opportunities', 'The repetitive work in and around the system, with the hours it costs today and what an agent or integration would save.'],
                     ['Legacy check', 'Operating system, PHP, database, framework and key dependencies against their official end-of-life dates.'],
-                    ['Security quick scan', 'Configuration, dependencies with known vulnerabilities, secrets handling, server hardening basics.'],
+                    ['Security basics', 'Configuration, dependencies with known vulnerabilities, secrets handling, server hardening basics.'],
                     ['Architecture review', 'Where change is risky, hidden coupling, how well the code is covered by tests.'],
                     ['Step-by-step plan', 'Order of work and effort ranges. Old and new run side by side, nothing stops.'],
                     ['Walkthrough call', 'We go through the report together and answer every question.'],
                 ],
                 'steps' => [
-                    'A short intro call, free, to check that the Health Check fits your situation.',
+                    'A short intro call, free, to check that the Health Plan fits your situation.',
                     'You give me read-only access to the code and a short tour of how it is hosted.',
                     'Two days of review.',
                     'The report, followed by the walkthrough call.',
                 ],
                 'not' => 'It is not a rewrite, it is not a penetration test, and I make no changes to your production systems. I do not need production data. If the report shows that more is needed, you get a clear scope and price before anything starts.',
                 'illus' => 'report',
-                'cta' => ['Not sure where to start? Start here.', 'Twelve hours, read-only, a plan you can hold me to. Tell me what you run and I check that the Health Check fits before anything is booked.'],
+                'cta' => ['Not sure where to start? Start here.', 'Sixteen hours, read-only, a plan you can hold me to. Tell me what you run and I check that the Health Plan fits before anything is booked.'],
                 'nl' => [
                     'lead' => 'Een beoordeling in twee dagen van je applicatie en de manier waarop die draait. Je krijgt een schriftelijk rapport over waar automatisering uren bespaart, wat risicovol is, welke onderdelen buiten support zijn (de legacy-check) en een plan in stappen dat het bedrijf niet stilzet.',
                     'short' => 'Twee dagen: gezondheid, beveiliging en architectuur in één rapport, met een plan in stappen.',
-                    'price' => 'Vaste prijs, EUR 1.080 excl. btw (12 uur)',
-                    'price_note' => 'Twee dagen review, 12 uur × EUR 90. Een gratis introgesprek gaat vooraf.',
+                    'price' => 'Vaste prijs, EUR 1.440 excl. btw (16 uur)',
+                    'price_note' => 'Twee dagen review, 16 uur × EUR 90. Een gratis introgesprek gaat vooraf.',
                     'features' => [
                         ['Schriftelijk rapport', 'In gewone taal, bevindingen gerangschikt op waarde en risico, uren per punt.'],
                         ['Kansen voor automatisering', 'Het repeterende werk in en rond het systeem, met de uren die het nu kost en wat een agent of koppeling zou besparen.'],
                         ['Legacy-check', 'Besturingssysteem, PHP, database, framework en belangrijke dependencies naast hun officiële einddatums van support gelegd.'],
-                        ['Snelle beveiligingsscan', 'Configuratie, dependencies met bekende kwetsbaarheden, omgang met secrets, basis van serverhardening.'],
+                        ['Beveiligingsbasis', 'Configuratie, dependencies met bekende kwetsbaarheden, omgang met secrets, basis van serverhardening.'],
                         ['Architectuurreview', 'Waar wijzigen riskant is, verborgen koppelingen, hoe goed de code door tests gedekt is.'],
                         ['Plan in stappen', 'Volgorde van het werk en bandbreedtes voor de inspanning. Oud en nieuw draaien naast elkaar, niets valt stil.'],
                         ['Doorloopgesprek', 'We lopen het rapport samen door en ik beantwoord elke vraag.'],
                     ],
                     'steps' => [
-                        'Een kort introgesprek, gratis, om te checken dat de Health Check bij je situatie past.',
+                        'Een kort introgesprek, gratis, om te checken dat de Health Plan bij je situatie past.',
                         'Je geeft me leestoegang tot de code en een korte rondleiding over hoe het gehost wordt.',
                         'Twee dagen review.',
                         'Het rapport, gevolgd door het doorloopgesprek.',
                     ],
                     'not' => 'Het is geen herbouw, het is geen penetratietest en ik breng geen wijzigingen aan in je productiesystemen. Ik heb geen productiedata nodig. Als het rapport laat zien dat er meer nodig is, krijg je een duidelijke scope en prijs voordat iets begint.',
-                    'cta' => ['Weet je niet waar je moet beginnen? Begin hier.', 'Twaalf uur, alleen-lezen, een plan waar je me aan kunt houden. Vertel me wat je draait en ik controleer of de Health Check past voordat er iets geboekt wordt.'],
+                    'cta' => ['Weet je niet waar je moet beginnen? Begin hier.', 'Zestien uur, alleen-lezen, een plan waar je me aan kunt houden. Vertel me wat je draait en ik controleer of de Health Plan past voordat er iets geboekt wordt.'],
+                ],
+            ],
+
+            'automation-scan' => [
+                'slug' => 'automation-scan',
+                'group' => 'assess',
+                'step' => 'research',
+                'name' => 'Automation Scan',
+                'short' => 'Sixteen hours on one system: where automation saves the most hours, with a written report.',
+                'lead' => 'A fixed-price scan of one system that finds where automation saves the most hours. You get a written report with each candidate rated on hours saved, effort and risk, and a step-by-step plan for the first builds.',
+                'price' => 'Fixed price, EUR 1,440 excl. VAT (16 hours)',
+                'price_note' => 'Two days, 16 hours × EUR 90. A free intro call comes first.',
+                'features' => [
+                    ['Repetitive work mapped', 'The manual steps in and around the system, with the hours they cost today, as far as the people who do the work can tell me.'],
+                    ['Candidates rated', 'Each one scored on hours saved, effort to build and risk, so the first choice is easy to defend.'],
+                    ['The right tool for each', 'A script, an integration, an agent with skills, or leaving it manual where that is the honest answer.'],
+                    ['Written report', 'Plain language, ranked by value, with the hours and a cost range per item.'],
+                    ['Step-by-step plan', 'The order of the work, with a small first step you can see running before the next one is quoted.'],
+                    ['Walkthrough call', 'We go through the report together and answer every question.'],
+                ],
+                'steps' => [
+                    'A short intro call, free, to check that a scan fits your situation.',
+                    'You show me the system and the people who work with it, read-only.',
+                    'Two days of scanning.',
+                    'The report, followed by the walkthrough call.',
+                ],
+                'not' => 'It is not a build: nothing is automated during the scan and I make no changes to your production systems. The savings in the report are estimates from what I see, and the report says so. If a first step is worth doing, it is quoted separately, per step, before anything starts.',
+                'illus' => 'agent',
+                'cta' => ['Which job do you wish nobody did by hand any more?', 'Name the system and the task. I reply within one working day with whether a scan fits, free.'],
+                'nl' => [
+                    'lead' => 'Een scan voor een vaste prijs van één systeem die laat zien waar automatisering de meeste uren bespaart. Je krijgt een schriftelijk rapport met elke kandidaat beoordeeld op bespaarde uren, inspanning en risico, en een plan in stappen voor de eerste bouwwerken.',
+                    'short' => 'Zestien uur op één systeem: waar automatisering de meeste uren bespaart, met een schriftelijk rapport.',
+                    'price' => 'Vaste prijs, EUR 1.440 excl. btw (16 uur)',
+                    'price_note' => 'Twee dagen, 16 uur × EUR 90. Een gratis introgesprek gaat vooraf.',
+                    'features' => [
+                        ['Repeterend werk in kaart', 'De handmatige stappen in en rond het systeem, met de uren die ze nu kosten, voor zover de mensen die het werk doen dat kunnen vertellen.'],
+                        ['Kandidaten beoordeeld', 'Elke kandidaat beoordeeld op bespaarde uren, inspanning om te bouwen en risico, zodat de eerste keuze goed te verdedigen is.'],
+                        ['Het juiste middel per taak', 'Een script, een koppeling, een agent met skills, of handmatig laten waar dat het eerlijke antwoord is.'],
+                        ['Schriftelijk rapport', 'In gewone taal, gerangschikt op waarde, met de uren en een kostenbandbreedte per punt.'],
+                        ['Plan in stappen', 'De volgorde van het werk, met een kleine eerste stap die je ziet draaien voordat de volgende wordt geoffreerd.'],
+                        ['Doorloopgesprek', 'We lopen het rapport samen door en ik beantwoord elke vraag.'],
+                    ],
+                    'steps' => [
+                        'Een kort introgesprek, gratis, om te checken dat een scan bij je situatie past.',
+                        'Je laat me het systeem zien en de mensen die ermee werken, alleen-lezen.',
+                        'Twee dagen scannen.',
+                        'Het rapport, gevolgd door het doorloopgesprek.',
+                    ],
+                    'not' => 'Het is geen bouwwerk: tijdens de scan wordt niets geautomatiseerd en ik breng geen wijzigingen aan in je productiesystemen. De besparingen in het rapport zijn schattingen op basis van wat ik zie, en het rapport zegt dat. Is een eerste stap het waard, dan wordt die apart geoffreerd, per stap, voordat iets begint.',
+                    'cta' => ['Welk werk zou je het liefst nooit meer met de hand laten doen?', 'Noem het systeem en de taak. Binnen één werkdag antwoord ik of een scan past, gratis.'],
                 ],
             ],
 
@@ -426,46 +482,46 @@ final class Catalog
                 'slug' => 'security-assessment',
                 'group' => 'assess',
                 'step' => 'review',
-                'name' => 'Security Test',
-                'short' => 'Vulnerability scan or pentest, with a retest.',
-                'lead' => 'A vulnerability assessment or application penetration test of a web application, API or server environment you own. Findings ranked by severity, each with fix advice, and a retest when the fixes are in.',
-                'price' => 'Quick scan EUR 720 excl. VAT (8 hours); full assessment quoted per phase at '.self::HOURLY,
-                'price_note' => 'Scope, test window and written authorization are agreed before anything is tested.',
+                'name' => 'Security Scan',
+                'short' => 'A fixed-price vulnerability scan of your web application and server, with a written report.',
+                'lead' => 'A fixed-price vulnerability scan of a web application, API or server environment you own: 16 hours of testing and a written report with findings ranked by severity, each with fix advice. A deeper penetration test, or a retest once your fixes are in, is quoted separately.',
+                'price' => 'Fixed price, EUR 1,440 excl. VAT (16 hours); a full pentest is quoted per phase at '.self::HOURLY,
+                'price_note' => '16 hours × EUR 90. Scope, test window and written authorization are agreed before anything is tested.',
                 'features' => [
                     ['Written authorization first', 'Scope, test window, emergency contacts and third-party permission when you host elsewhere.'],
                     ['Application testing', 'Authentication, access control, injection, business logic, session handling, file handling.'],
                     ['Infrastructure check', 'Open ports, TLS configuration, exposed services, outdated software with known vulnerabilities.'],
                     ['Ranked findings', 'Severity, proof, impact in business terms, and the fix for each item.'],
                     ['Fix advice', 'Concrete changes for your developers, or I make them with you.'],
-                    ['Retest', 'Every finding checked again after the fix, with a closing report.'],
+                    ['Retest on request', 'Every finding checked again after the fix, with a closing report. Quoted separately.'],
                 ],
                 'steps' => [
                     'Intro call: what you run, what worries you, what must stay untouched.',
                     'Scope and rules of engagement on paper, signed by you.',
                     'Testing inside the agreed window, read-only on production unless agreed otherwise.',
-                    'Report and walkthrough, then the retest after your fixes.',
+                    'Report and walkthrough. A retest after your fixes is quoted separately.',
                 ],
                 'not' => 'No testing without written authorization, no denial of service, no social engineering unless it is named in the scope. I do not test systems you do not own.',
                 'illus' => 'shield',
                 'cta' => ['What would hurt most if it leaked?', 'Tell me what the system holds and who can reach it. I reply within one working day with the scope I would test first, free, and nothing is tested without written authorization.'],
                 'nl' => [
-                    'lead' => 'Een kwetsbaarhedenonderzoek of penetratietest van een webapplicatie, API of serveromgeving die van jou is. Bevindingen gerangschikt op ernst, elk met adviezen om te herstellen, en een hertest als de fixes erin zitten.',
-                    'short' => 'Kwetsbaarhedenscan of pentest, met een hertest.',
-                    'price' => 'Quick scan EUR 720 excl. btw (8 uur); volledig assessment op offerte per fase, EUR 90 per uur excl. btw',
-                    'price_note' => 'Scope, testvenster en schriftelijke toestemming zijn afgesproken voordat er iets getest wordt.',
+                    'lead' => 'Een kwetsbaarhedenscan voor een vaste prijs van een webapplicatie, API of serveromgeving die van jou is: 16 uur testen en een schriftelijk rapport met bevindingen gerangschikt op ernst, elk met hersteladvies. Een diepere penetratietest, of een hertest als de fixes erin zitten, wordt apart geoffreerd.',
+                    'short' => 'Een kwetsbaarhedenscan voor een vaste prijs van je webapplicatie en server, met een schriftelijk rapport.',
+                    'price' => 'Vaste prijs, EUR 1.440 excl. btw (16 uur); een volledige pentest op offerte per fase, EUR 90 per uur excl. btw',
+                    'price_note' => '16 uur × EUR 90. Scope, testvenster en schriftelijke toestemming zijn afgesproken voordat er iets getest wordt.',
                     'features' => [
                         ['Eerst schriftelijke toestemming', 'Scope, testvenster, noodcontacten en toestemming van derden als je elders host.'],
                         ['Applicatietesten', 'Authenticatie, toegangscontrole, injectie, bedrijfslogica, sessiebeheer, bestandsafhandeling.'],
                         ['Infrastructuurcheck', 'Open poorten, TLS-configuratie, blootgestelde services, verouderde software met bekende kwetsbaarheden.'],
                         ['Gerangschikte bevindingen', 'Ernst, bewijs, impact in bedrijfstermen en de oplossing per punt.'],
                         ['Hersteladvies', 'Concrete wijzigingen voor je developers, of ik voer ze samen met jou door.'],
-                        ['Hertest', 'Elke bevinding na de fix opnieuw gecontroleerd, met een sluitrapport.'],
+                        ['Hertest op aanvraag', 'Elke bevinding na de fix opnieuw gecontroleerd, met een sluitrapport. Apart geoffreerd.'],
                     ],
                     'steps' => [
                         'Introgesprek: wat je draait, waar je je zorgen over maakt, wat onaangeroerd moet blijven.',
                         'Scope en spelregels op papier, door jou ondertekend.',
                         'Testen binnen het afgesproken venster, alleen-lezen op productie tenzij anders afgesproken.',
-                        'Rapport en doorloopgesprek, daarna de hertest na jouw fixes.',
+                        'Rapport en doorloopgesprek. Een hertest na jouw fixes wordt apart geoffreerd.',
                     ],
                     'not' => 'Geen testen zonder schriftelijke toestemming, geen denial of service, geen social engineering tenzij het in de scope genoemd is. Ik test geen systemen die niet van jou zijn.',
                     'cta' => ['Wat zou het meeste pijn doen als het uitlekt?', 'Vertel me wat het systeem bevat en wie erbij kan. Binnen één werkdag antwoord ik met de scope die ik als eerste zou testen, gratis, en er wordt niets getest zonder schriftelijke toestemming.'],
@@ -545,7 +601,7 @@ final class Catalog
                     'Fixes in agreed order, each verified.',
                     'Written quality bar and the runbook handed over.',
                 ],
-                'not' => 'This is not a penetration test of the application itself; that is the Security Test. No uptime guarantees from one person.',
+                'not' => 'This is not a penetration test of the application itself; that is the Security Scan. No uptime guarantees from one person.',
                 'illus' => 'lock',
                 'cta' => ['When was the last restore test?', 'If the answer is "never" or "not sure", that is the first thing I would do. Tell me where it runs and I reply within one working day, free.'],
                 'nl' => [
@@ -567,20 +623,20 @@ final class Catalog
                         'Fixes in afgesproken volgorde, elk gecontroleerd.',
                         'Schriftelijke norm en het runbook overgedragen.',
                     ],
-                    'not' => 'Dit is geen penetratietest van de applicatie zelf; dat is de Security Test. Geen uptimegaranties van één persoon.',
+                    'not' => 'Dit is geen penetratietest van de applicatie zelf; dat is de Security Scan. Geen uptimegaranties van één persoon.',
                     'cta' => ['Wanneer was de laatste restoretest?', 'Als het antwoord "nooit" of "weet ik niet" is, is dat het eerste wat ik zou doen. Vertel me waar het draait en ik antwoord binnen één werkdag, gratis.'],
                 ],
             ],
 
-            'maintenance-retainer' => [
-                'slug' => 'maintenance-retainer',
+            'maintenance-plan' => [
+                'slug' => 'maintenance-plan',
                 'group' => 'run',
                 'step' => 'ongoing',
-                'name' => 'Maintenance Retainer',
+                'name' => 'Maintenance Plan',
                 'short' => 'A monthly hours block: patches, monitoring, small changes, a report.',
                 'lead' => 'For a system you want kept running by the person who knows it. A monthly block of hours for security patches, monitoring, backups, small changes and the questions in between, with a short report every month.',
                 'price' => 'From EUR 720 a month excl. VAT (8 hours)',
-                'price_note' => 'Blocks of 8, 16 or 24 hours a month at EUR 90. Unused hours are reported, not hidden.',
+                'price_note' => 'Four sizes at EUR 90 an hour: 8 hours EUR 720, Plus 12 hours EUR 1,440, Pro 16 hours EUR 1,440, Max 24 hours EUR 2,160 a month. Unused hours are reported, not hidden.',
                 'features' => [
                     ['Patching', 'Operating system, PHP, framework and dependencies kept in support.'],
                     ['Monitoring', 'Uptime, certificates, disk, queues and failed jobs watched, with a response target.'],
@@ -602,7 +658,7 @@ final class Catalog
                     'lead' => 'Voor een systeem dat je wilt laten draaien door de persoon die het kent. Een maandelijks blok uren voor beveiligingspatches, monitoring, back-ups, kleine wijzigingen en de vragen ertussendoor, met elke maand een kort rapport.',
                     'short' => 'Een maandelijks urenblok: patches, monitoring, kleine wijzigingen, een rapport.',
                     'price' => 'Vanaf EUR 720 per maand excl. btw (8 uur)',
-                    'price_note' => 'Blokken van 8, 16 of 24 uur per maand à EUR 90. Ongebruikte uren worden gerapporteerd, niet verstopt.',
+                    'price_note' => 'Vier maten à EUR 90 per uur: 8 uur EUR 720, Plus 12 uur EUR 1.440, Pro 16 uur EUR 1.440, Max 24 uur EUR 2.160 per maand. Ongebruikte uren worden gerapporteerd, niet verstopt.',
                     'features' => [
                         ['Patchen', 'Besturingssysteem, PHP, framework en dependencies onder support gehouden.'],
                         ['Monitoring', 'Uptime, certificaten, schijf, queues en mislukte jobs bewaakt, met een reactiedoel.'],
@@ -844,13 +900,13 @@ final class Catalog
      */
     public static function offer(array $p): array
     {
-        $fixed = ['legacy-health-check' => 1080, 'architecture-review' => 1440, 'security-assessment' => 720];
+        $fixed = ['health-plan' => 1440, 'architecture-review' => 1440, 'security-assessment' => 1440, 'automation-scan' => 1440];
         $slug = (string) $p['slug'];
         $base = ['@type' => 'Offer', 'priceCurrency' => 'EUR', 'url' => self::canonical($p), 'description' => (string) $p['price']];
         if (isset($fixed[$slug])) {
             return $base + ['price' => (string) $fixed[$slug]];
         }
-        if ($slug === 'maintenance-retainer') {
+        if ($slug === 'maintenance-plan') {
             return $base + ['priceSpecification' => ['@type' => 'UnitPriceSpecification', 'price' => '720', 'priceCurrency' => 'EUR', 'unitText' => 'month']];
         }
 

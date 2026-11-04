@@ -21,18 +21,18 @@ class ContactFormTest extends TestCase
     /** @return array<string, string> */
     private function form(array $over = []): array
     {
-        return $over + ['name' => 'Anna', 'email' => 'anna@example.com', 'about' => 'Health Check', 'message' => 'We run an old PHP portal and need a plan.', 't' => $this->token(), 'website' => ''];
+        return $over + ['name' => 'Anna', 'email' => 'anna@example.com', 'about' => 'Health Plan', 'message' => 'We run an old PHP portal and need a plan.', 't' => $this->token(), 'website' => ''];
     }
 
     public function test_a_validation_error_returns_to_the_form_with_the_error_and_the_old_values_in_english(): void
     {
-        $r = $this->from('http://scuttle.dev/contact')->post('http://scuttle.dev/contact', $this->form(['email' => 'nope', 'about' => 'Security Test']));
+        $r = $this->from('http://scuttle.dev/contact')->post('http://scuttle.dev/contact', $this->form(['email' => 'nope', 'about' => 'Security Scan']));
         $r->assertRedirect('http://scuttle.dev/contact#cform')->assertSessionHasErrors('email');
-        $html = (string) $this->withSession(['errors' => session('errors'), '_old_input' => ['name' => 'Anna', 'about' => 'Security Test', 'message' => 'Kept text here']])->get('http://scuttle.dev/contact')->getContent();
+        $html = (string) $this->withSession(['errors' => session('errors'), '_old_input' => ['name' => 'Anna', 'about' => 'Security Scan', 'message' => 'Kept text here']])->get('http://scuttle.dev/contact')->getContent();
         $this->assertStringContainsString('role="alert"', $html);
         $this->assertStringContainsString('value="Anna"', $html);
         $this->assertStringContainsString('Kept text here', $html);
-        $this->assertMatchesRegularExpression('/<option value="Security Test" selected/', $html, 'the about select keeps its choice');
+        $this->assertMatchesRegularExpression('/<option value="Security Scan" selected/', $html, 'the about select keeps its choice');
         $this->assertLessThan(strpos($html, 'name="name"'), strpos($html, 'role="alert"'), 'the error sits above the first field');
         $this->assertSame(0, ContactLead::query()->count());
     }
@@ -116,8 +116,8 @@ class ContactFormTest extends TestCase
     {
         config(['scuttle-dev.require_real_mailer' => false]);
         Mail::fake();
-        $r = $this->from('http://scuttle.dev/contact?about=Health+Check')->post('http://scuttle.dev/contact', $this->form());
-        $r->assertRedirect('http://scuttle.dev/contact?about=Health+Check#cform')->assertSessionHas('contact_sent', 'mailed')->assertSessionMissing('_old_input');
+        $r = $this->from('http://scuttle.dev/contact?about=Health+Plan')->post('http://scuttle.dev/contact', $this->form());
+        $r->assertRedirect('http://scuttle.dev/contact?about=Health+Plan#cform')->assertSessionHas('contact_sent', 'mailed')->assertSessionMissing('_old_input');
         $html = (string) $this->withSession(['contact_sent' => 'mailed'])->get('http://scuttle.dev/contact')->getContent();
         $this->assertStringContainsString('role="status"', $html);
         $this->assertStringNotContainsString('value="Anna"', $html, 'the form is empty after a send');
@@ -156,7 +156,7 @@ class ContactFormTest extends TestCase
         $html = (string) $this->get('http://scuttle.dev/contact?about='.rawurlencode('<script>alert(1)</script>'))->assertOk()->getContent();
         $this->assertStringNotContainsString('<script>alert(1)</script>', $html);
         $this->assertDoesNotMatchRegularExpression('/<option[^>]* selected/', $html);
-        $this->assertMatchesRegularExpression('/<option value="Health Check" selected/', (string) $this->get('http://scuttle.dev/contact?about=Health+Check')->getContent());
+        $this->assertMatchesRegularExpression('/<option value="Health Plan" selected/', (string) $this->get('http://scuttle.dev/contact?about=Health+Plan')->getContent());
     }
 
     public function test_the_dutch_contact_page_translates_every_about_option_and_label(): void

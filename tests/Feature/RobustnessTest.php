@@ -85,7 +85,7 @@ class RobustnessTest extends TestCase
     public function test_article_text_becomes_links_only_for_known_addresses_and_stays_escaped(): void
     {
         $this->assertSame('See <a href="https://scuttle.dev/services/hardening">/services/hardening</a>.', Posts::linkify('See /services/hardening.'));
-        $this->assertSame('/services/nope and /health-checkup', Posts::linkify('/services/nope and /health-checkup'));
+        $this->assertSame('/services/nope and /health-planup', Posts::linkify('/services/nope and /health-planup'));
         $this->assertSame('&lt;script&gt;alert(1)&lt;/script&gt; /pricing/x', Posts::linkify('<script>alert(1)</script> /pricing/x'));
         $this->assertSame('x&quot;onmouseover=&quot;y', Posts::linkify('x"onmouseover="y'));
         $this->assertStringContainsString('<a href="https://scuttle.dev/projects/inventory">inventory product</a>', Posts::linkify('my own inventory product, and my inventory product'));

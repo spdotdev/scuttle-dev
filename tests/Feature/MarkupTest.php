@@ -12,7 +12,7 @@ class MarkupTest extends TestCase
     /** @return list<string> */
     private function paths(): array
     {
-        $paths = ['/', '/pricing', '/health-check', '/health-check/sample', '/php-check', '/nis2', '/services', '/contact', '/company', '/privacy', '/case-studies', '/news', '/projects', '/projects/manual', '/projects/manual/docs', '/case-studies/phalcon-to-laravel'];
+        $paths = ['/', '/pricing', '/health-plan', '/health-plan/sample', '/php-check', '/nis2', '/services', '/contact', '/company', '/privacy', '/case-studies', '/news', '/projects', '/projects/manual', '/projects/manual/docs', '/case-studies/phalcon-to-laravel'];
         foreach (Catalog::all() as $p) {
             if (! isset($p['route'])) {
                 $paths[] = '/services/'.$p['slug'];

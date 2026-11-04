@@ -13,7 +13,7 @@ class ImageLoadingTest extends TestCase
 {
     public function test_every_image_decodes_async_and_loads_lazily_except_the_first_screen_qr(): void
     {
-        $paths = ['/', '/pricing', '/health-check', '/health-check/sample', '/php-check', '/contact', '/company', '/services', '/case-studies', '/news', '/projects', '/privacy', '/nl/contact', '/nl/pricing'];
+        $paths = ['/', '/pricing', '/health-plan', '/health-plan/sample', '/php-check', '/contact', '/company', '/services', '/case-studies', '/news', '/projects', '/privacy', '/nl/contact', '/nl/pricing'];
         $count = 0;
         foreach ($paths as $path) {
             $html = (string) $this->get('http://scuttle.dev'.$path)->assertOk()->getContent();

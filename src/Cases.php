@@ -37,7 +37,7 @@ final class Cases
                     'A supported runtime, and a codebase on a framework that developers actually know.',
                 ],
                 'stack' => 'PHP, Laravel, Phalcon, MySQL, Docker, Ansible, GitHub Actions. The client is anonymized and the work is covered by confidentiality. The figures on this page, the 60 percent included, are the client\'s own and cannot be checked from outside.',
-                'products' => ['modernization', 'hardening', 'maintenance-retainer'],
+                'products' => ['modernization', 'hardening', 'maintenance-plan'],
                 'nl' => [
                     'kicker' => 'Multi-tenant operatieplatform · klant geanonimiseerd',
                     'title' => 'Van Phalcon naar Laravel, module voor module',
@@ -167,7 +167,7 @@ final class Cases
                     'The numbers I quote to clients come from running this myself.',
                 ],
                 'stack' => 'Laravel, Filament, MySQL, SQLite, Python, Claude Code, custom skills, MCP servers, Playwright, Docker, DigitalOcean.',
-                'products' => ['ai-integration', 'integrations', 'maintenance-retainer'],
+                'products' => ['ai-integration', 'integrations', 'maintenance-plan'],
                 'nl' => [
                     'kicker' => 'Eigen bedrijf · Scuttle Development',
                     'title' => 'Een eenmansbedrijf gerund door agents',

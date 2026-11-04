@@ -11,7 +11,7 @@ use Spdotdev\ScuttleDev\Tests\TestCase;
  */
 class LanguageSwitchTest extends TestCase
 {
-    private const PAGES = ['/', '/pricing', '/contact', '/company', '/news', '/news/an-mcp-server-in-front-of-your-api', '/projects', '/projects/manual', '/projects/manual/docs', '/health-check/sample', '/php-check', '/services/ai-integration'];
+    private const PAGES = ['/', '/pricing', '/contact', '/company', '/news', '/news/an-mcp-server-in-front-of-your-api', '/projects', '/projects/manual', '/projects/manual/docs', '/health-plan/sample', '/php-check', '/services/ai-integration'];
 
     public function test_a_page_without_a_twin_carries_the_dutch_attribute_map_and_the_dutch_nda_link(): void
     {

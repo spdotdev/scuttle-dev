@@ -18,7 +18,7 @@ class ProofNumbersTest extends TestCase
 
     public function test_the_sample_report_marks_its_numbers_as_made_up_and_sources_the_real_ones(): void
     {
-        $html = (string) $this->get('http://scuttle.dev/health-check/sample')->assertOk()->getContent();
+        $html = (string) $this->get('http://scuttle.dev/health-plan/sample')->assertOk()->getContent();
         $this->assertStringContainsString('are invented, so that no client is shown', $html);
         $this->assertStringContainsString('php.net', $html);
     }

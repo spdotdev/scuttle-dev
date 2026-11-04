@@ -1,14 +1,14 @@
 @extends('scuttle::layout')
 
-@section('title', 'What a Health Check report looks like')
+@section('title', 'What a Health Plan report looks like')
 @section('crumb', 'Sample report')
-@section('description', 'How the Health Check report is built, as an illustration with an invented system: summary, version table, findings, a plan in steps and what is not covered.')
-@section('canonical', 'https://scuttle.dev/health-check/sample')
+@section('description', 'How the Health Plan report is built, as an illustration with an invented system: summary, version table, findings, a plan in steps and what is not covered.')
+@section('canonical', 'https://scuttle.dev/health-plan/sample')
 
 @php
 $nl = [
     'sm_l' => 'Voorbeeldrapport',
-    'sm_h' => 'Zo ziet het rapport van een Health Check eruit',
+    'sm_h' => 'Zo ziet het rapport van een Health Plan eruit',
     'sm_lead' => 'Na twee dagen alleen-lezen onderzoek krijg je een schriftelijk rapport. Hieronder staat de opbouw, met een verzonnen systeem als voorbeeld.',
     'sm_note' => '<b>Illustratie.</b> Het systeem, de bevindingen en de getallen hieronder zijn verzonnen, zodat er geen klant te zien is. De opbouw, de controles en de data van php.net zijn echt.',
     'sm_1_h' => '1. De samenvatting op één pagina',
@@ -47,7 +47,7 @@ $nl = [
     'sm_7_5' => 'Daarna: het doorloopgesprek.',
     'sm_r' => 'De versietabel kun je zelf in tien minuten nakijken met de <a href="/php-check">PHP-versiecheck</a>. Wijzen de bevindingen op beveiligingsregels, dan is <a href="/services/hardening">Hardening</a> de dienst die ze oplost, en de <a href="/pricing">prijzenpagina</a> laat zien wat elke stap kost.',
     'sm_c_h' => 'Wil je er zo een voor je systeem?',
-    'sm_c_p' => 'Twee dagen, alleen lezen, vaste prijs EUR 1.080 excl. btw (12 uur × EUR 90). Vertel me wat je draait en ik controleer of de Health Check past voordat er iets geboekt wordt.',
+    'sm_c_p' => 'Twee dagen, alleen lezen, vaste prijs EUR 1.440 excl. btw (16 uur × EUR 90). Vertel me wat je draait en ik controleer of de Health Plan past voordat er iets geboekt wordt.',
     'sm_c_b1' => 'Plan een gesprek',
     'sm_c_b2' => 'Wat het dekt en wat het kost',
 ];
@@ -56,7 +56,7 @@ $nl = [
 @section('content')
 <article class="wrap page">
   <span class="lbl dot" data-i="sm_l">Sample report</span>
-  <h1 data-i="sm_h">What a Health Check report looks like</h1>
+  <h1 data-i="sm_h">What a Health Plan report looks like</h1>
   <p class="lead" data-i="sm_lead">After two days of read-only analysis you get a written report. Below is its structure, with an invented system as the example.</p>
   @include('scuttle::partials.first-step')
   <div class="callout" role="note"><p data-i="sm_note"><b>Illustration.</b> The system, the findings and the numbers below are invented, so that no client is shown. The structure, the checks and the dates from php.net are real.</p></div>
@@ -116,8 +116,8 @@ $nl = [
   <p data-i="sm_r">The version table is the kind of thing you can check yourself in ten minutes with the <a href="{{ route('scuttle.php-check') }}">PHP version check</a>. If the findings point at security rules, <a href="{{ route('scuttle.product', ['slug' => 'hardening']) }}">Hardening</a> is the service that fixes them, and the <a href="{{ route('scuttle.pricing') }}">pricing page</a> shows what each step costs.</p>
 
   <h2 data-i="sm_c_h">Want one for your system?</h2>
-  <p data-i="sm_c_p">Two days, read-only, fixed price EUR 1,080 excl. VAT (12 hours × EUR 90). Tell me what you run and I check that the Health Check fits before anything is booked.</p>
-  <p style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn" href="{{ config('scuttle-dev.booking_url') }}" data-i="sm_c_b1" data-sda-event="Contact button click">Book a call</a><a class="btn o" href="{{ route('scuttle.health-check') }}" data-i="sm_c_b2">What it covers and what it costs</a></p>
+  <p data-i="sm_c_p">Two days, read-only, fixed price EUR 1,440 excl. VAT (16 hours × EUR 90). Tell me what you run and I check that the Health Plan fits before anything is booked.</p>
+  <p style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn" href="{{ config('scuttle-dev.booking_url') }}" data-i="sm_c_b1" data-sda-event="Contact button click">Book a call</a><a class="btn o" href="{{ route('scuttle.health-plan') }}" data-i="sm_c_b2">What it covers and what it costs</a></p>
 </article>
 @endsection
 

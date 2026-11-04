@@ -25,9 +25,9 @@ $nl = [
     'nx_4_p' => 'De Cyber Resilience Act, Verordening (EU) 2024/2847, gaat over producten, niet over organisaties. Hij is in werking getreden op 10 december 2024. De meldplicht voor actief uitgebuite kwetsbaarheden geldt sinds 11 september 2026. De hoofdverplichtingen voor fabrikanten van producten met digitale elementen gelden vanaf 11 december 2027. De Europese Commissie publiceerde op 27 juli 2026 praktische richtlijnen voor bedrijven van elke omvang en zegt dat de verordening een bijzondere benadering kent voor vrije en opensourcesoftware. Lever je software die anderen installeren of draaien, lees het dan nu, niet in 2027.',
     'nx_5_h' => 'Waar ik bij help',
     'nx_5_p' => 'Het technische deel: een gap-analyse tegen NIS2, AVG of DORA, met je maatregelen per eis getoetst in een tabel die je aan een auditor of een klant kunt geven, en het herstel in een afgesproken volgorde. Het is technisch werk, geen juridisch advies en geen certificering. Boetes, advocaten en de auditor zelf zitten niet in de offerte.',
-    'nx_5_p2' => 'Compliance Alignment: op offerte per regime, EUR 90 per uur excl. btw. Wil je eerst weten waar je technisch staat, dan is de Security quick scan een vaste prijs van EUR 720 excl. btw (8 uur).',
+    'nx_5_p2' => 'Compliance Alignment: op offerte per regime, EUR 90 per uur excl. btw. Wil je eerst weten waar je technisch staat, dan is de Security Scan een vaste prijs van EUR 1.440 excl. btw (16 uur).',
     'nx_5_a' => 'Lees over Compliance Alignment',
-    'nx_5_r' => 'De maatregelen zelf zijn grotendeels <a href="/services/hardening">Hardening</a>-werk. Wil je eerst een overzicht voordat je beslist, dan bevat de <a href="/health-check">Health Check</a> een snelle beveiligingsscan, en het <a href="/health-check/sample">voorbeeldrapport</a> laat zien hoe bevindingen worden opgeschreven.',
+    'nx_5_r' => 'De maatregelen zelf zijn grotendeels <a href="/services/hardening">Hardening</a>-werk. Wil je eerst een overzicht voordat je beslist, dan bevat het <a href="/health-plan">Health Plan</a> een basischeck op beveiliging, en het <a href="/health-plan/sample">voorbeeldrapport</a> laat zien hoe bevindingen worden opgeschreven.',
     'nx_5_b' => 'Plan een gesprek',
     'nx_6_h' => 'Bronnen, gelezen op 30 oktober 2026',
     'nx_s2' => 'NCTV: vragen en antwoorden over de Cyberbeveiligingswet',
@@ -64,10 +64,10 @@ $nl = [
 
   <h2 data-i="nx_5_h">Where I help</h2>
   <p data-i="nx_5_p">The technical part: a gap analysis against NIS2, GDPR or DORA, with your measures tested against each requirement in a table you can hand to an auditor or a customer, and the remediation done in an agreed order. It is technical work, not legal advice and not a certification. Fines, lawyers and the auditor are not in the quote.</p>
-  <p data-i="nx_5_p2">Compliance Alignment: quoted per regime, EUR 90 per hour excl. VAT. If you first want to know where you stand technically, the security quick scan is a fixed EUR 720 excl. VAT (8 hours).</p>
+  <p data-i="nx_5_p2">Compliance Alignment: quoted per regime, EUR 90 per hour excl. VAT. If you first want to know where you stand technically, the Security Scan is a fixed EUR 1,440 excl. VAT (16 hours).</p>
   <p style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn" href="{{ config('scuttle-dev.booking_url') }}" data-i="nx_5_b" data-sda-event="Contact button click">Book a call</a><a class="btn o" href="{{ $C::url($C::get('compliance')) }}" data-i="nx_5_a">Read about Compliance Alignment</a></p>
 
-  <p data-i="nx_5_r">The measures themselves are mostly <a href="{{ route('scuttle.product', ['slug' => 'hardening']) }}">Hardening</a> work. If you want a first overview before you decide, the <a href="{{ route('scuttle.health-check') }}">Health Check</a> includes a security quick scan, and the <a href="{{ route('scuttle.health-check.sample') }}">sample report</a> shows how findings are written down.</p>
+  <p data-i="nx_5_r">The measures themselves are mostly <a href="{{ route('scuttle.product', ['slug' => 'hardening']) }}">Hardening</a> work. If you want a first overview before you decide, the <a href="{{ route('scuttle.health-plan') }}">Health Plan</a> includes a security basics check, and the <a href="{{ route('scuttle.health-plan.sample') }}">sample report</a> shows how findings are written down.</p>
 
   <h2 data-i="nx_6_h">Sources, read on 30 October 2026</h2>
   <ul>

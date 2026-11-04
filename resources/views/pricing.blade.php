@@ -4,7 +4,7 @@
 
 @section('title', 'Pricing: EUR 90 per hour and fixed prices')
 @section('crumb', 'Pricing')
-@section('description', 'EUR 90 per hour excl. VAT, plus fixed prices: Health Check EUR 1,080, security quick scan EUR 720, Architecture Plan EUR 1,440, retainer from EUR 720 a month.')
+@section('description', 'EUR 90 per hour excl. VAT, four fixed-price plans at EUR 1,440 and monthly Maintenance Plans from EUR 720. Open prices.')
 @section('canonical', 'https://scuttle.dev/pricing')
 
 @section('content')
@@ -16,8 +16,8 @@
       <p class="lead" data-i="pr_lead">I get asked what things cost before anything else, so here it is. One hourly rate for work by the hour or in steps, and fixed prices for the things with a fixed shape. Every amount is excl. VAT.</p>
       <ul class="glance" aria-label="The prices at a glance">
         <li><b data-i="pr_g1b">EUR 90</b><span data-i="pr_g1s">per hour, work by the hour or in steps</span></li>
-        <li><b data-i="pr_g2b">EUR 1,080</b><span data-i="pr_g2s">Health Check, two days, fixed</span></li>
-        <li><b data-i="pr_g3b">from EUR 720</b><span data-i="pr_g3s">a month, maintenance retainer</span></li>
+        <li><b data-i="pr_g2b">EUR 1,440</b><span data-i="pr_g2s">Health Plan, two days, fixed</span></li>
+        <li><b data-i="pr_g3b">from EUR 720</b><span data-i="pr_g3s">a month, Maintenance Plan</span></li>
       </ul>
       <p style="margin-top:18px"><a class="btn" href="{{ config('scuttle-dev.booking_url') }}" data-sda-event="Contact button click"><span data-i="pr_c1b">Book a call →</span></a></p>
     </div>
@@ -87,51 +87,108 @@
         <div class="plan hi">
           <span class="badge" data-i="pr_bd2">Recommended</span>
           <span class="lbl" data-i="pr_c5l">05 · Fixed price</span>
-          <h2 data-i="pr_c5h">Health Check</h2><div class="amt"><span data-i="pr_c5a">€1,080</span><small data-i="pr_c5s">fixed, 12 hours</small></div>
+          <h2 data-i="pr_c5h">Health Plan</h2><div class="amt"><span data-i="pr_c5a">€1,440</span><small data-i="pr_c5s">fixed, 16 hours</small></div>
           <p data-i="pr_c5p">Where automation saves hours, what is risky, which parts are out of support, and a step-by-step plan. Read-only, two days.</p>
           <hr>
           <ul>
-            <li data-i="pr_c5i0">12 hours × EUR 90, fixed.</li>
+            <li data-i="pr_c5i0">16 hours × EUR 90, fixed.</li>
             <li data-i="pr_c5i1">A free intro call first, to check it fits.</li>
             <li data-i="pr_c5i2">Separate from any work that follows: the plan is the product.</li>
           </ul>
-          <a class="btn" href="{{ route('scuttle.health-check') }}"><span data-i="pr_c5b">Read what is in it →</span></a>
+          <a class="btn" href="{{ route('scuttle.health-plan') }}"><span data-i="pr_c5b">Read what is in it →</span></a>
         </div>
         <div class="plan">
-          <span class="lbl" data-i="pr_c6l">06 · Per month</span>
-          <h2 data-i="pr_c6h">Maintenance retainer</h2><div class="amt"><span data-i="pr_c6a">from €720</span><small data-i="pr_c6s">per month, blocks of 8 hours</small></div>
-          <p data-i="pr_c6p">A monthly block of hours for patches, monitoring, backups, small changes and a report, by the person who knows the system.</p>
+          <span class="lbl" data-i="pr_c6l">06 · Fixed price</span>
+          <h2 data-i="pr_c6h">Security Scan</h2><div class="amt"><span data-i="pr_c6a">€1,440</span><small data-i="pr_c6s">fixed, 16 hours</small></div>
+          <p data-i="pr_c6p">Two days on your web application and server: open ports, TLS, headers, dependencies with known vulnerabilities, the obvious access-control holes. Written authorization first.</p>
           <hr>
           <ul>
-            <li data-i="pr_c6i0">Blocks of 8, 16 or 24 hours a month at EUR 90.</li>
-            <li data-i="pr_c6i1">Unused hours are reported, never hidden.</li>
-            <li data-i="pr_c6i2">Review every quarter: up, down or stop.</li>
+            <li data-i="pr_c6i0">16 hours × EUR 90, fixed.</li>
+            <li data-i="pr_c6i1">Findings ranked, each with the fix.</li>
+            <li data-i="pr_c6i2">A deeper pentest or a retest is quoted from the findings.</li>
           </ul>
-          <a class="btn" href="{{ route('scuttle.product', ['slug' => 'maintenance-retainer']) }}"><span data-i="pr_c6b">Read the retainer →</span></a>
+          <a class="btn o" href="{{ route('scuttle.product', ['slug' => 'security-assessment']) }}"><span data-i="pr_c6b">Read the Security Scan →</span></a>
         </div>
         <div class="plan">
           <span class="lbl" data-i="pr_c7l">07 · Fixed price</span>
-          <h2 data-i="pr_c7h">Security quick scan</h2><div class="amt"><span data-i="pr_c7a">€720</span><small data-i="pr_c7s">fixed, 8 hours</small></div>
-          <p data-i="pr_c7p">One day on your web application and server: open ports, TLS, headers, dependencies with known vulnerabilities, the obvious access-control holes. Written authorization first.</p>
+          <h2 data-i="pr_c7h">Architecture Plan</h2><div class="amt"><span data-i="pr_c7a">€1,440</span><small data-i="pr_c7s">fixed, 16 hours</small></div>
+          <p data-i="pr_c7p">A decision on stack, cloud, integration or build versus buy: options compared, a written recommendation, decision records.</p>
           <hr>
           <ul>
-            <li data-i="pr_c7i0">8 hours × EUR 90, fixed.</li>
-            <li data-i="pr_c7i1">Findings ranked, each with the fix.</li>
-            <li data-i="pr_c7i2">A full assessment with retest is quoted from its findings.</li>
+            <li data-i="pr_c7i0">16 hours × EUR 90, fixed.</li>
+            <li data-i="pr_c7i1">One review session with your team included.</li>
+            <li data-i="pr_c7i2">Bigger questions are quoted after the intro call.</li>
           </ul>
-          <a class="btn o" href="{{ route('scuttle.product', ['slug' => 'security-assessment']) }}"><span data-i="pr_c7b">Read the assessment →</span></a>
+          <a class="btn o" href="{{ route('scuttle.product', ['slug' => 'architecture-review']) }}"><span data-i="pr_c7b">Read the Architecture Plan →</span></a>
         </div>
         <div class="plan">
           <span class="lbl" data-i="pr_c8l">08 · Fixed price</span>
-          <h2 data-i="pr_c8h">Architecture Plan</h2><div class="amt"><span data-i="pr_c8a">€1,440</span><small data-i="pr_c8s">fixed, 16 hours</small></div>
-          <p data-i="pr_c8p">A decision on stack, cloud, integration or build versus buy: options compared, a written recommendation, decision records.</p>
+          <h2 data-i="pr_c8h">Automation Scan</h2><div class="amt"><span data-i="pr_c8a">€1,440</span><small data-i="pr_c8s">fixed, 16 hours</small></div>
+          <p data-i="pr_c8p">One system, two days: where automation saves the most hours, with a written report and a step-by-step plan for the first builds.</p>
           <hr>
           <ul>
             <li data-i="pr_c8i0">16 hours × EUR 90, fixed.</li>
-            <li data-i="pr_c8i1">One review session with your team included.</li>
-            <li data-i="pr_c8i2">Bigger questions are quoted after the intro call.</li>
+            <li data-i="pr_c8i1">Each candidate rated on hours saved, effort and risk.</li>
+            <li data-i="pr_c8i2">Nothing is built during the scan; a first step is quoted separately.</li>
           </ul>
-          <a class="btn o" href="{{ route('scuttle.product', ['slug' => 'architecture-review']) }}"><span data-i="pr_c8b">Read the plan →</span></a>
+          <a class="btn o" href="{{ route('scuttle.product', ['slug' => 'automation-scan']) }}"><span data-i="pr_c8b">Read the Automation Scan →</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap" style="margin-top:24px" id="monthly">
+    <div class="plate rv">
+      <div class="pb-h"><span class="lbl dot" data-i="pr_p3l">Monthly, fixed shape</span><p data-i="pr_p3p">A set number of hours every month at the same rate, from the person who knows the system. Pick the size that fits; change it after any quarter. All amounts excl. VAT.</p></div>
+      <div class="plans">
+        <div class="plan">
+          <span class="lbl" data-i="pr_c9l">09 · Per month</span>
+          <h2 data-i="pr_c9h">Maintenance Plan</h2><div class="amt"><span data-i="pr_c9a">€720</span><small data-i="pr_c9s">per month, 8 hours</small></div>
+          <p data-i="pr_c9p">A monthly block of hours for patches, monitoring, backups, small changes and a report, by the person who knows the system.</p>
+          <hr>
+          <ul>
+            <li data-i="pr_c9i0">8 hours × EUR 90 a month.</li>
+            <li data-i="pr_c9i1">Unused hours are reported, never hidden.</li>
+            <li data-i="pr_c9i2">Review every quarter: up, down or stop.</li>
+          </ul>
+          <a class="btn o" href="{{ route('scuttle.product', ['slug' => 'maintenance-plan']) }}"><span data-i="pr_c9b">Read the Maintenance Plan →</span></a>
+        </div>
+        <div class="plan hi">
+          <span class="badge" data-i="pr_bd3">Recommended</span>
+          <span class="lbl" data-i="pr_c10l">10 · Per month</span>
+          <h2 data-i="pr_c10h">Maintenance Plan Plus</h2><div class="amt"><span data-i="pr_c10a">€1,080</span><small data-i="pr_c10s">per month, 12 hours</small></div>
+          <p data-i="pr_c10p">The Maintenance Plan with more room: patches and monitoring, and a few hours a month for small changes.</p>
+          <hr>
+          <ul>
+            <li data-i="pr_c10i0">12 hours × EUR 90 a month.</li>
+            <li data-i="pr_c10i1">Everything in the Maintenance Plan: patches, monitoring, backups, a monthly report.</li>
+            <li data-i="pr_c10i2">Review every quarter: up, down or stop.</li>
+          </ul>
+          <a class="btn" href="{{ route('scuttle.contact.page') }}?about=Maintenance+Plan+Plus" data-sda-event="Contact button click"><span data-i="pr_c10b">Ask about Plus →</span></a>
+        </div>
+        <div class="plan">
+          <span class="lbl" data-i="pr_c11l">11 · Per month</span>
+          <h2 data-i="pr_c11h">Maintenance Plan Pro</h2><div class="amt"><span data-i="pr_c11a">€1,440</span><small data-i="pr_c11s">per month, 16 hours</small></div>
+          <p data-i="pr_c11p">For a system that changes every month: the same care, with room for a steady list of tickets.</p>
+          <hr>
+          <ul>
+            <li data-i="pr_c11i0">16 hours × EUR 90 a month.</li>
+            <li data-i="pr_c11i1">Everything in the Maintenance Plan: patches, monitoring, backups, a monthly report.</li>
+            <li data-i="pr_c11i2">Review every quarter: up, down or stop.</li>
+          </ul>
+          <a class="btn o" href="{{ route('scuttle.contact.page') }}?about=Maintenance+Plan+Pro" data-sda-event="Contact button click"><span data-i="pr_c11b">Ask about Pro →</span></a>
+        </div>
+        <div class="plan">
+          <span class="lbl" data-i="pr_c12l">12 · Per month</span>
+          <h2 data-i="pr_c12h">Maintenance Plan Max</h2><div class="amt"><span data-i="pr_c12a">€2,160</span><small data-i="pr_c12s">per month, 24 hours</small></div>
+          <p data-i="pr_c12p">For a system you depend on every day: the same care, with the largest share of hours for changes.</p>
+          <hr>
+          <ul>
+            <li data-i="pr_c12i0">24 hours × EUR 90 a month.</li>
+            <li data-i="pr_c12i1">Everything in the Maintenance Plan: patches, monitoring, backups, a monthly report.</li>
+            <li data-i="pr_c12i2">Review every quarter: up, down or stop.</li>
+          </ul>
+          <a class="btn o" href="{{ route('scuttle.contact.page') }}?about=Maintenance+Plan+Max" data-sda-event="Contact button click"><span data-i="pr_c12b">Ask about Max →</span></a>
         </div>
       </div>
     </div>
@@ -156,7 +213,7 @@
       <span class="lbl dot" data-i="pr_q_l">How a quote comes about</span>
       <ol class="steps">
         <li><span>01</span><p data-i="pr_s1">A free intro call of about 30 minutes. What you run, what hurts, what must not stop.</p></li>
-        <li><span>02</span><p data-i="pr_s2">When the system is unknown territory: the Health Check, so the plan rests on facts.</p></li>
+        <li><span>02</span><p data-i="pr_s2">When the system is unknown territory: the Health Plan, so the plan rests on facts.</p></li>
         <li><span>03</span><p data-i="pr_s3">A written quote per step: deliverables, hours as a range, price as the math, what is not included. Valid 14 days.</p></li>
         <li><span>04</span><p data-i="pr_s4">You accept in writing, the step starts, and you see it running before the next one is quoted.</p></li>
       </ol>
@@ -168,7 +225,7 @@
         <dt data-i="pr_q2">When do I pay?</dt><dd data-i="pr_a2">Within 14 days of the invoice. Acceptance of delivered work within 7 days.</dd>
         <dt data-i="pr_q3">Who owns the code?</dt><dd data-i="pr_a3">You do, as soon as the invoice is paid. Everything lives in repositories and accounts in your name from day one.</dd>
         <dt data-i="pr_q4">Do you sign an NDA?</dt><dd data-i="pr_a4">Yes. My mutual NDA is on this site as a PDF, or I sign yours after reading it.</dd>
-        <dt data-i="pr_q5">Fixed price for a whole project?</dt><dd data-i="pr_a5">Per step, yes, once the scope is clear. For a whole unknown system, no: that is what the Health Check is for.</dd>
+        <dt data-i="pr_q5">Fixed price for a whole project?</dt><dd data-i="pr_a5">Per step, yes, once the scope is clear. For a whole unknown system, no: that is what the Health Plan is for.</dd>
         <dt data-i="pr_q6">Do you work through agencies?</dt><dd data-i="pr_a6">Yes, as a subcontractor on your client's project, under your terms or mine.</dd>
       </dl>
     </div>
@@ -206,13 +263,15 @@ Object.assign(window.SCUTTLE_NL.t, {
  "pr_h": "Eén tarief, twee manieren om het te kopen",
  "pr_g1b": "EUR 90",
  "pr_g1s": "per uur, werk per uur of in stappen",
- "pr_g2b": "EUR 1.080",
- "pr_g2s": "Health Check, twee dagen, vaste prijs",
+ "pr_g2b": "EUR 1.440",
+ "pr_g2s": "Health Plan, twee dagen, vaste prijs",
  "pr_g3b": "vanaf EUR 720",
- "pr_g3s": "per maand, onderhoudsretainer",
+ "pr_g3s": "per maand, Maintenance Plan",
  "pr_lead": "Ik krijg altijd eerst de vraag wat dingen kosten, dus hier staat het. Eén uurtarief voor werk per uur of in stappen, en vaste prijzen voor dingen met een vaste vorm. Alle bedragen zijn excl. btw.",
  "pr_p1l": "Per uur, per stap geoffreerd",
  "pr_p1p": "Voor werk waarvan de omvang pas blijkt als ik ernaar kijk. Het tarief is overal gelijk; wat verandert is hoe het is verpakt. Alle bedragen excl. btw.",
+ "pr_p3l": "Maandelijks, vaste vorm",
+ "pr_p3p": "Elke maand een vast aantal uren tegen hetzelfde tarief, van de persoon die het systeem kent. Kies de maat die past; pas hem aan na elk kwartaal. Alle bedragen excl. btw.",
  "pr_p2l": "Vaste prijs, vaste vorm",
  "pr_p2p": "Je kent de prijs voordat je ja zegt. Elk pakket is een vast aantal uren tegen hetzelfde tarief; de som staat erbij zodat niets verborgen is. Alle bedragen excl. btw.",
  "pr_c1l": "01 · Per stap",
@@ -252,43 +311,80 @@ Object.assign(window.SCUTTLE_NL.t, {
  "pr_c4i2": "Elke wijziging opgeschreven, zodat de volgende het begrijpt.",
  "pr_c4b": "Neem contact op →",
  "pr_c5l": "05 · Vaste prijs",
- "pr_c5h": "Health Check",
- "pr_c5a": "€1.080",
- "pr_c5s": "vast, 12 uur",
+ "pr_c5h": "Health Plan",
+ "pr_c5a": "€1.440",
+ "pr_c5s": "vast, 16 uur",
  "pr_c5p": "Waar automatisering uren bespaart, wat risicovol is, welke onderdelen geen support meer hebben, en een plan per stap. Alleen-lezen, twee dagen.",
- "pr_c5i0": "12 uur × EUR 90, vast.",
+ "pr_c5i0": "16 uur × EUR 90, vast.",
  "pr_c5i1": "Eerst een gratis kennismakingsgesprek, om te kijken of het past.",
  "pr_c5i2": "Los van het werk dat daarna volgt: het plan is het product.",
  "pr_c5b": "Lees wat erin zit →",
- "pr_c6l": "06 · Per maand",
- "pr_c6h": "Maintenance retainer",
- "pr_c6a": "vanaf €720",
- "pr_c6s": "per maand, blokken van 8 uur",
- "pr_c6p": "Een maandelijks blok uren voor patches, monitoring, back-ups, kleine wijzigingen en een rapport, door de persoon die het systeem kent.",
- "pr_c6i0": "Blokken van 8, 16 of 24 uur per maand tegen EUR 90.",
- "pr_c6i1": "Ongebruikte uren worden gemeld, nooit verstopt.",
- "pr_c6i2": "Elk kwartaal een evaluatie: omhoog, omlaag of stoppen.",
- "pr_c6b": "Lees over de retainer →",
+ "pr_c6l": "06 · Vaste prijs",
+ "pr_c6h": "Security Scan",
+ "pr_c6a": "€1.440",
+ "pr_c6s": "vast, 16 uur",
+ "pr_c6p": "Twee dagen op je webapplicatie en server: open poorten, TLS, headers, afhankelijkheden met bekende kwetsbaarheden, de voor de hand liggende gaten in toegangsbeheer. Eerst schriftelijke toestemming.",
+ "pr_c6i0": "16 uur × EUR 90, vast.",
+ "pr_c6i1": "Bevindingen op volgorde van ernst, elk met de oplossing.",
+ "pr_c6i2": "Een diepere pentest of een hertest wordt geoffreerd op basis van de bevindingen.",
+ "pr_c6b": "Lees over de Security Scan →",
  "pr_c7l": "07 · Vaste prijs",
- "pr_c7h": "Security quick scan",
- "pr_c7a": "€720",
- "pr_c7s": "vast, 8 uur",
- "pr_c7p": "Eén dag op je webapplicatie en server: open poorten, TLS, headers, afhankelijkheden met bekende kwetsbaarheden, de voor de hand liggende gaten in toegangsbeheer. Eerst schriftelijke toestemming.",
- "pr_c7i0": "8 uur × EUR 90, vast.",
- "pr_c7i1": "Bevindingen op volgorde van ernst, elk met de oplossing.",
- "pr_c7i2": "Een volledig assessment met hertest wordt geoffreerd op basis van de bevindingen.",
- "pr_c7b": "Lees over het assessment →",
+ "pr_c7h": "Architecture Plan",
+ "pr_c7a": "€1.440",
+ "pr_c7s": "vast, 16 uur",
+ "pr_c7p": "Een besluit over stack, cloud, integratie of zelf bouwen versus kopen: opties vergeleken, een schriftelijk advies, besluitenlogboek.",
+ "pr_c7i0": "16 uur × EUR 90, vast.",
+ "pr_c7i1": "Eén reviewsessie met je team inbegrepen.",
+ "pr_c7i2": "Grotere vragen worden geoffreerd na het kennismakingsgesprek.",
+ "pr_c7b": "Lees over het Architecture Plan →",
  "pr_c8l": "08 · Vaste prijs",
- "pr_c8h": "Architecture Plan",
+ "pr_c8h": "Automation Scan",
  "pr_c8a": "€1.440",
  "pr_c8s": "vast, 16 uur",
- "pr_c8p": "Een besluit over stack, cloud, integratie of zelf bouwen versus kopen: opties vergeleken, een schriftelijk advies, besluitenlogboek.",
+ "pr_c8p": "Eén systeem, twee dagen: waar automatisering de meeste uren bespaart, met een schriftelijk rapport en een plan in stappen voor de eerste bouwwerken.",
  "pr_c8i0": "16 uur × EUR 90, vast.",
- "pr_c8i1": "Eén reviewsessie met je team inbegrepen.",
- "pr_c8i2": "Grotere vragen worden geoffreerd na het kennismakingsgesprek.",
- "pr_c8b": "Lees over het plan →",
+ "pr_c8i1": "Elke kandidaat beoordeeld op bespaarde uren, inspanning en risico.",
+ "pr_c8i2": "Tijdens de scan wordt niets gebouwd; een eerste stap wordt apart geoffreerd.",
+ "pr_c8b": "Lees over de Automation Scan →",
+ "pr_c9l": "09 · Per maand",
+ "pr_c9h": "Maintenance Plan",
+ "pr_c9a": "€720",
+ "pr_c9s": "per maand, 8 uur",
+ "pr_c9p": "Een maandelijks blok uren voor patches, monitoring, back-ups, kleine wijzigingen en een rapport, door de persoon die het systeem kent.",
+ "pr_c9i0": "8 uur × EUR 90 per maand.",
+ "pr_c9i1": "Ongebruikte uren worden gemeld, nooit verstopt.",
+ "pr_c9i2": "Elk kwartaal een evaluatie: omhoog, omlaag of stoppen.",
+ "pr_c9b": "Lees over het Maintenance Plan →",
+ "pr_c10l": "10 · Per maand",
+ "pr_c10h": "Maintenance Plan Plus",
+ "pr_c10a": "€1.080",
+ "pr_c10s": "per maand, 12 uur",
+ "pr_c10p": "Het Maintenance Plan met meer ruimte: patches en monitoring, en een paar uur per maand voor kleine wijzigingen.",
+ "pr_c10i0": "12 uur × EUR 90 per maand.",
+ "pr_c10i1": "Alles uit het Maintenance Plan: patches, monitoring, back-ups, een maandrapport.",
+ "pr_c10i2": "Elk kwartaal een evaluatie: omhoog, omlaag of stoppen.",
+ "pr_c10b": "Vraag naar Plus →",
+ "pr_c11l": "11 · Per maand",
+ "pr_c11h": "Maintenance Plan Pro",
+ "pr_c11a": "€1.440",
+ "pr_c11s": "per maand, 16 uur",
+ "pr_c11p": "Voor een systeem dat elke maand verandert: dezelfde zorg, met ruimte voor een vaste lijst tickets.",
+ "pr_c11i0": "16 uur × EUR 90 per maand.",
+ "pr_c11i1": "Alles uit het Maintenance Plan: patches, monitoring, back-ups, een maandrapport.",
+ "pr_c11i2": "Elk kwartaal een evaluatie: omhoog, omlaag of stoppen.",
+ "pr_c11b": "Vraag naar Pro →",
+ "pr_c12l": "12 · Per maand",
+ "pr_c12h": "Maintenance Plan Max",
+ "pr_c12a": "€2.160",
+ "pr_c12s": "per maand, 24 uur",
+ "pr_c12p": "Voor een systeem waar je elke dag op leunt: dezelfde zorg, met het grootste deel van de uren voor wijzigingen.",
+ "pr_c12i0": "24 uur × EUR 90 per maand.",
+ "pr_c12i1": "Alles uit het Maintenance Plan: patches, monitoring, back-ups, een maandrapport.",
+ "pr_c12i2": "Elk kwartaal een evaluatie: omhoog, omlaag of stoppen.",
+ "pr_c12b": "Vraag naar Max →",
  "pr_bd1": "Aanbevolen",
  "pr_bd2": "Aanbevolen",
+ "pr_bd3": "Aanbevolen",
  "pr_in_l": "Inbegrepen in elke prijs",
  "pr_in_h": "Wat je altijd krijgt",
  "pr_f1b": "De engineer, geen accountmanager",
@@ -305,7 +401,7 @@ Object.assign(window.SCUTTLE_NL.t, {
  "pr_f6p": "Uren per taak op elke factuur, en een eerlijk antwoord als iets zijn prijs niet waard is.",
  "pr_q_l": "Hoe een offerte tot stand komt",
  "pr_s1": "Een gratis kennismakingsgesprek van ongeveer 30 minuten. Wat je draait, wat pijn doet, wat niet mag stilvallen.",
- "pr_s2": "Als het systeem onbekend terrein is: de Health Check, zodat het plan op feiten rust.",
+ "pr_s2": "Als het systeem onbekend terrein is: de Health Plan, zodat het plan op feiten rust.",
  "pr_s3": "Een schriftelijke offerte per stap: opleveringen, uren als bandbreedte, prijs als som, wat er niet bij zit. 14 dagen geldig.",
  "pr_s4": "Je accepteert schriftelijk, de stap start, en je ziet hem draaien voordat de volgende wordt geoffreerd.",
  "pr_fq_l": "Vragen die ik krijg",
@@ -318,7 +414,7 @@ Object.assign(window.SCUTTLE_NL.t, {
  "pr_q4": "Teken je een NDA?",
  "pr_a4": "Ja. Mijn wederzijdse NDA staat als pdf op deze site, of ik teken de jouwe nadat ik hem heb gelezen.",
  "pr_q5": "Vaste prijs voor een heel project?",
- "pr_a5": "Per stap wel, zodra de scope duidelijk is. Voor een heel onbekend systeem niet: daar dient de Health Check voor.",
+ "pr_a5": "Per stap wel, zodra de scope duidelijk is. Voor een heel onbekend systeem niet: daar dient de Health Plan voor.",
  "pr_q6": "Werk je via bureaus?",
  "pr_a6": "Ja, als onderaannemer op het project van je klant, onder jouw voorwaarden of de mijne.",
  "pr_pl": "Elk product en wat het kost",

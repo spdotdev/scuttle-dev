@@ -38,11 +38,14 @@ Route::domain(config('scuttle-dev.domain'))
             Route::get('/', [SiteController::class, 'index'])->name('scuttle.home');
             Route::get('/privacy', [SiteController::class, 'privacy'])->name('scuttle.privacy');
             Route::get('/pricing', [SiteController::class, 'pricing'])->name('scuttle.pricing');
-            Route::get('/health-check', [SiteController::class, 'healthCheck'])->name('scuttle.health-check');
-            Route::get('/health-check/sample', [SiteController::class, 'healthCheckSample'])->name('scuttle.health-check.sample');
+            Route::get('/health-plan', [SiteController::class, 'healthCheck'])->name('scuttle.health-plan');
+            Route::get('/health-plan/sample', [SiteController::class, 'healthCheckSample'])->name('scuttle.health-plan.sample');
+            Route::redirect('/health-check', '/health-plan', 301);
+            Route::redirect('/health-check/sample', '/health-plan/sample', 301);
+            Route::redirect('/services/maintenance-retainer', '/services/maintenance-plan', 301);
             Route::get('/php-check', [SiteController::class, 'phpCheck'])->name('scuttle.php-check');
             Route::get('/nis2', [SiteController::class, 'nis2'])->name('scuttle.nis2');
-            Route::redirect('/legacy-health-check', '/health-check', 301);
+            Route::redirect('/legacy-health-check', '/health-plan', 301);
             Route::get('/services/{slug}', [SiteController::class, 'product'])
                 ->where('slug', '[a-z0-9-]+')
                 ->name('scuttle.product');
@@ -65,8 +68,11 @@ Route::domain(config('scuttle-dev.domain'))
                 Route::get('/', [SiteController::class, 'index'])->name('scuttle.nl.home');
                 Route::get('/privacy', [SiteController::class, 'privacy']);
                 Route::get('/pricing', [SiteController::class, 'pricing']);
-                Route::get('/health-check', [SiteController::class, 'healthCheck']);
-                Route::get('/health-check/sample', [SiteController::class, 'healthCheckSample']);
+                Route::get('/health-plan', [SiteController::class, 'healthCheck']);
+                Route::get('/health-plan/sample', [SiteController::class, 'healthCheckSample']);
+                Route::redirect('/health-check', '/nl/health-plan', 301);
+                Route::redirect('/health-check/sample', '/nl/health-plan/sample', 301);
+                Route::redirect('/services/maintenance-retainer', '/nl/services/maintenance-plan', 301);
                 Route::get('/php-check', [SiteController::class, 'phpCheck']);
                 Route::get('/nis2', [SiteController::class, 'nis2']);
                 Route::get('/services', [SiteController::class, 'work']);

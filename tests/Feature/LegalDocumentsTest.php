@@ -30,7 +30,7 @@ class LegalDocumentsTest extends TestCase
 
     public function test_dutch_pages_link_the_dutch_files_and_english_pages_the_english_ones(): void
     {
-        $paths = ['/', '/pricing', '/health-check', '/services', '/company', '/privacy', '/contact', '/health-check/sample'];
+        $paths = ['/', '/pricing', '/health-plan', '/services', '/company', '/privacy', '/contact', '/health-plan/sample'];
         foreach (Catalog::all() as $p) {
             if (! isset($p['route'])) {
                 $paths[] = parse_url(Catalog::url($p), PHP_URL_PATH);

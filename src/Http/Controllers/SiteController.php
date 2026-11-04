@@ -32,7 +32,7 @@ class SiteController
 
     public function healthCheck(): View
     {
-        return $this->productView('legacy-health-check');
+        return $this->productView('health-plan');
     }
 
     public function healthCheckSample(): View
@@ -55,8 +55,8 @@ class SiteController
 
     public function product(string $slug): View
     {
-        // The Health Check keeps its own address.
-        abort_if($slug === 'legacy-health-check', 404);
+        // The Health Plan keeps its own address.
+        abort_if($slug === 'health-plan', 404);
 
         return $this->productView($slug);
     }

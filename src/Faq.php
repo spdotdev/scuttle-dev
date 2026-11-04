@@ -37,12 +37,12 @@ class Faq
     public static function all(): array
     {
         return [
-            'legacy-health-check' => [
+            'health-plan' => [
                 [
-                    'q' => 'What does the Health Check cost?',
-                    'a' => 'A fixed EUR 1,080 excl. VAT: two days of review, 12 hours at EUR 90. A free intro call comes first, so you know it fits before anything is booked.',
-                    'qn' => 'Wat kost de Health Check?',
-                    'an' => 'Een vaste prijs van EUR 1.080 excl. btw: twee dagen review, 12 uur à EUR 90. Een gratis introgesprek gaat vooraf, zodat je weet dat het past voordat er iets geboekt wordt.',
+                    'q' => 'What does the Health Plan cost?',
+                    'a' => 'A fixed EUR 1,440 excl. VAT: two days of review, 16 hours at EUR 90. A free intro call comes first, so you know it fits before anything is booked.',
+                    'qn' => 'Wat kost de Health Plan?',
+                    'an' => 'Een vaste prijs van EUR 1.440 excl. btw: twee dagen review, 16 uur à EUR 90. Een gratis introgesprek gaat vooraf, zodat je weet dat het past voordat er iets geboekt wordt.',
                 ],
                 [
                     'q' => 'Do you need access to my server or my production data?',
@@ -52,15 +52,15 @@ class Faq
                 ],
                 [
                     'q' => 'What do I get at the end?',
-                    'a' => 'A written report in plain language, with findings ranked by value and risk and the hours per item. It covers automation opportunities, a legacy check against official end-of-life dates, a security quick scan, an architecture review and a step-by-step plan. I then go through it with you in a walkthrough call.',
+                    'a' => 'A written report in plain language, with findings ranked by value and risk and the hours per item. It covers automation opportunities, a legacy check against official end-of-life dates, a security basics check, an architecture review and a step-by-step plan. I then go through it with you in a walkthrough call.',
                     'qn' => 'Wat krijg ik aan het eind?',
-                    'an' => 'Een schriftelijk rapport in gewone taal, met bevindingen gerangschikt op waarde en risico en de uren per punt. Het omvat kansen voor automatisering, een legacy-check naast de officiële einddatums van support, een snelle beveiligingsscan, een architectuurreview en een plan in stappen. Daarna loop ik het met je door in een doorloopgesprek.',
+                    'an' => 'Een schriftelijk rapport in gewone taal, met bevindingen gerangschikt op waarde en risico en de uren per punt. Het omvat kansen voor automatisering, een legacy-check naast de officiële einddatums van support, een basischeck op beveiliging, een architectuurreview en een plan in stappen. Daarna loop ik het met je door in een doorloopgesprek.',
                 ],
                 [
-                    'q' => 'Is the Health Check a penetration test or a rewrite?',
-                    'a' => 'No. It is not a rewrite and it is not a penetration test. It includes a security quick scan of configuration, dependencies and secrets handling. A test of the application itself is the separate Security Test.',
-                    'qn' => 'Is de Health Check een penetratietest of een herbouw?',
-                    'an' => 'Nee. Het is geen herbouw en geen penetratietest. Het bevat wel een snelle beveiligingsscan van configuratie, dependencies en omgang met secrets. Een test van de applicatie zelf is de aparte Security Test.',
+                    'q' => 'Is the Health Plan a penetration test or a rewrite?',
+                    'a' => 'No. It is not a rewrite and it is not a penetration test. It includes a check of configuration, dependencies and secrets handling. A test of the application itself is the separate Security Scan.',
+                    'qn' => 'Is de Health Plan een penetratietest of een herbouw?',
+                    'an' => 'Nee. Het is geen herbouw en geen penetratietest. Het bevat wel een basischeck op beveiliging van configuratie, dependencies en omgang met secrets. Een test van de applicatie zelf is de aparte Security Scan.',
                 ],
                 [
                     'q' => 'What happens if the report shows that more work is needed?',
@@ -96,17 +96,17 @@ class Faq
                 ],
                 [
                     'q' => 'Where do we start?',
-                    'a' => 'With a Health Check or an existing plan, to fix the order of steps with the safety net first. Tests are written around the current behaviour before anything changes.',
+                    'a' => 'With a Health Plan or an existing plan, to fix the order of steps with the safety net first. Tests are written around the current behaviour before anything changes.',
                     'qn' => 'Waar beginnen we?',
-                    'an' => 'Met een Health Check of een bestaand plan, om de volgorde van de stappen vast te leggen met het vangnet eerst. Vóór er iets verandert worden tests geschreven rond het huidige gedrag.',
+                    'an' => 'Met een Health Plan of een bestaand plan, om de volgorde van de stappen vast te leggen met het vangnet eerst. Vóór er iets verandert worden tests geschreven rond het huidige gedrag.',
                 ],
             ],
             'hardening' => [
                 [
                     'q' => 'Is Hardening a penetration test?',
-                    'a' => 'No. It makes the server and the delivery pipeline safe. A test of the application itself is the Security Test.',
+                    'a' => 'No. It makes the server and the delivery pipeline safe. A test of the application itself is the Security Scan.',
                     'qn' => 'Is Hardening een penetratietest?',
-                    'an' => 'Nee. Het maakt de server en de leveringspijplijn veilig. Een test van de applicatie zelf is de Security Test.',
+                    'an' => 'Nee. Het maakt de server en de leveringspijplijn veilig. Een test van de applicatie zelf is de Security Scan.',
                 ],
                 [
                     'q' => 'What does Hardening cost?',
@@ -121,12 +121,32 @@ class Faq
                     'an' => 'Een gerangschikte bevindingenlijst met de uren per punt, de afgesproken fixes elk geverifieerd, en een schriftelijke norm en een runbook die je team kan aanhouden. Back-ups worden echt teruggezet en de hersteltijd wordt opgeschreven.',
                 ],
             ],
-            'maintenance-retainer' => [
+            'automation-scan' => [
                 [
-                    'q' => 'What does the Maintenance Retainer cost?',
-                    'a' => 'From EUR 720 a month excl. VAT for a block of 8 hours at EUR 90. Blocks of 16 or 24 hours are available. Unused hours are reported, not hidden.',
-                    'qn' => 'Wat kost de Maintenance Retainer?',
-                    'an' => 'Vanaf EUR 720 per maand excl. btw voor een blok van 8 uur à EUR 90. Blokken van 16 of 24 uur zijn mogelijk. Ongebruikte uren worden gerapporteerd, niet verstopt.',
+                    'q' => 'What does the Automation Scan cost?',
+                    'a' => 'A fixed EUR 1,440 excl. VAT: two days, 16 hours at EUR 90. A free intro call comes first, so you know it fits before anything is booked.',
+                    'qn' => 'Wat kost de Automation Scan?',
+                    'an' => 'Een vaste prijs van EUR 1.440 excl. btw: twee dagen, 16 uur à EUR 90. Een gratis introgesprek gaat vooraf, zodat je weet dat het past voordat er iets geboekt wordt.',
+                ],
+                [
+                    'q' => 'What do I get at the end?',
+                    'a' => 'A written report in plain language: the repetitive work I found, each candidate rated on hours saved, effort and risk, and a step-by-step plan for the first builds. I then go through it with you in a walkthrough call.',
+                    'qn' => 'Wat krijg ik aan het eind?',
+                    'an' => 'Een schriftelijk rapport in gewone taal: het repeterende werk dat ik vond, elke kandidaat beoordeeld op bespaarde uren, inspanning en risico, en een plan in stappen voor de eerste bouwwerken. Daarna loop ik het met je door in een doorloopgesprek.',
+                ],
+                [
+                    'q' => 'Do you build the automations as part of the scan?',
+                    'a' => 'No. Nothing is automated during the scan and I make no changes to your production systems. If a first step is worth doing, it is quoted separately, per step, before anything starts.',
+                    'qn' => 'Bouw je de automatiseringen als onderdeel van de scan?',
+                    'an' => 'Nee. Tijdens de scan wordt niets geautomatiseerd en ik breng geen wijzigingen aan in je productiesystemen. Is een eerste stap het waard, dan wordt die apart geoffreerd, per stap, voordat iets begint.',
+                ],
+            ],
+            'maintenance-plan' => [
+                [
+                    'q' => 'What does the Maintenance Plan cost?',
+                    'a' => 'From EUR 720 a month excl. VAT for 8 hours at EUR 90. Larger sizes: Plus 12 hours EUR 1,080, Pro 16 hours EUR 1,440, Max 24 hours EUR 2,160 a month. Unused hours are reported, not hidden.',
+                    'qn' => 'Wat kost de Maintenance Plan?',
+                    'an' => 'Vanaf EUR 720 per maand excl. btw voor 8 uur à EUR 90. Grotere maten: Plus 12 uur EUR 1.080, Pro 16 uur EUR 1.440, Max 24 uur EUR 2.160 per maand. Ongebruikte uren worden gerapporteerd, niet verstopt.',
                 ],
                 [
                     'q' => 'Are response times guaranteed?',

@@ -43,7 +43,7 @@ class AnatomyTest extends TestCase
                 $paths[] = parse_url(Catalog::url($p), PHP_URL_PATH);
             }
         }
-        $paths[] = '/health-check';
+        $paths[] = '/health-plan';
         $this->assertGreaterThanOrEqual(12, count($paths));
         foreach ($paths as $path) {
             $this->assertAnatomy($path, $order, $required);

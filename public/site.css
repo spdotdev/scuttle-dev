@@ -54,7 +54,7 @@ nav.top .wrap{display:flex;align-items:center;gap:12px}
 .has-mega button svg{transition:transform .25s}
 .has-mega:hover button,.has-mega:focus-within button,.has-mega button[aria-expanded="true"]{color:var(--ink)}
 .has-mega:hover button svg,.has-mega button[aria-expanded="true"] svg{transform:rotate(180deg)}
-.mega{position:absolute;top:calc(100% + 18px);left:-28px;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:22px 6px;display:grid;grid-template-columns:repeat(3,auto);box-shadow:0 30px 60px -30px rgba(0,0,0,.35);opacity:0;visibility:hidden;transform:translateY(-8px);transition:opacity .22s,transform .22s,visibility .22s;z-index:60;min-width:620px}
+.mega{position:absolute;top:calc(100% + 18px);left:-28px;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:22px 6px;display:grid;grid-template-columns:repeat(4,auto);box-shadow:0 30px 60px -30px rgba(0,0,0,.35);opacity:0;visibility:hidden;transform:translateY(-8px);transition:opacity .22s,transform .22s,visibility .22s;z-index:60;min-width:620px}
 .mega::before{content:"";position:absolute;left:0;right:0;top:-20px;height:20px}
 .has-mega:hover .mega,.has-mega:focus-within .mega,.has-mega button[aria-expanded="true"]+.mega{opacity:1;visibility:visible;transform:none}
 .mega .col{display:grid;gap:2px;align-content:start;padding:0 26px;border-left:1px solid var(--line)}
