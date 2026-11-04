@@ -382,7 +382,7 @@ final class Catalog
                 'step' => 'research',
                 'name' => 'Health Plan',
                 'short' => 'Two days: health, security and architecture in one report, with a step-by-step plan.',
-                'lead' => 'A two-day assessment of your application and the way it is run. You get a written report on where automation saves hours, what is risky, which parts are out of support (the legacy check), and a step-by-step plan that does not stop the business.',
+                'lead' => 'A two-day assessment of your application, its security and the way it is run. You get a written report on what is risky, which parts are out of support (the legacy check), how the architecture holds up, and a step-by-step plan that does not stop the business. Want to know where automation saves hours? That is the Automation Scan.',
                 'price' => 'Fixed price, EUR 1,440 excl. VAT (16 hours)',
                 'price_note' => 'Two days of review, 16 hours × EUR 90. A free intro call comes first.',
                 'features' => [
@@ -404,7 +404,7 @@ final class Catalog
                 'illus' => 'report',
                 'cta' => ['Not sure where to start? Start here.', 'Sixteen hours, read-only, a plan you can hold me to. Tell me what you run and I check that the Health Plan fits before anything is booked.'],
                 'nl' => [
-                    'lead' => 'Een beoordeling in twee dagen van je applicatie en de manier waarop die draait. Je krijgt een schriftelijk rapport over waar automatisering uren bespaart, wat risicovol is, welke onderdelen buiten support zijn (de legacy-check) en een plan in stappen dat het bedrijf niet stilzet.',
+                    'lead' => 'Een beoordeling in twee dagen van je applicatie, de beveiliging en de manier waarop die draait. Je krijgt een schriftelijk rapport over wat risicovol is, welke onderdelen buiten support zijn (de legacy-check), hoe de architectuur het houdt, en een plan in stappen dat het bedrijf niet stilzet. Wil je weten waar automatisering uren bespaart? Dat is de Automation Scan.',
                     'short' => 'Twee dagen: gezondheid, beveiliging en architectuur in één rapport, met een plan in stappen.',
                     'price' => 'Vaste prijs, EUR 1.440 excl. btw (16 uur)',
                     'price_note' => 'Twee dagen review, 16 uur × EUR 90. Een gratis introgesprek gaat vooraf.',
