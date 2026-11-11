@@ -42,4 +42,22 @@ class LanguageOfferTest extends TestCase
         $this->assertFalse(LanguageOffer::shouldOffer($this->req('nl-NL', [LanguageOffer::COOKIE => 'en']), true, false));
         $this->assertFalse(LanguageOffer::shouldOffer($this->req('nl-NL', [LanguageOffer::COOKIE => 'nl']), true, false));
     }
+
+    public function test_a_dutch_ip_gets_the_offer_even_with_an_english_browser(): void
+    {
+        $this->assertTrue(LanguageOffer::shouldOffer($this->req('en-GB,en;q=0.9'), true, false, 'NL'));
+    }
+
+    public function test_a_foreign_ip_with_an_english_browser_gets_no_offer(): void
+    {
+        $this->assertFalse(LanguageOffer::shouldOffer($this->req('en-GB,en;q=0.9'), true, false, 'US'));
+    }
+
+    public function test_no_country_database_means_no_country(): void
+    {
+        config(['scuttle-dev.geoip_db' => '']);
+        $this->assertNull(LanguageOffer::countryOf($this->req()));
+        config(['scuttle-dev.geoip_db' => '/nonexistent/file.mmdb']);
+        $this->assertNull(LanguageOffer::countryOf($this->req()));
+    }
 }

@@ -34,4 +34,7 @@ return [
     // Site key of this site in sd-analytics (the cookieless own analytics, analytics.scuttle.dev). Empty means no
     // counting and the privacy statement says so. Created with `php artisan analytics:site create`.
     'analytics_key' => env('SCUTTLE_ANALYTICS_KEY', ''),
+
+    // Free DB-IP Lite country file (mmdb). Empty means no country lookup: the offer then uses the browser language only.
+    'geoip_db' => env('SCUTTLE_GEOIP_DB', ''),
 ];
