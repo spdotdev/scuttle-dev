@@ -34,6 +34,11 @@ final class LanguageOffer
             return true;
         }
 
+        // No Accept-Language header means no evidence: Symfony would answer 'nl' (the first locale), so require the header.
+        if (! $request->headers->has('Accept-Language')) {
+            return false;
+        }
+
         return $request->getPreferredLanguage(['nl', 'en']) === 'nl';
     }
 

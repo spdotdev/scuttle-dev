@@ -60,4 +60,9 @@ class LanguageOfferTest extends TestCase
         config(['scuttle-dev.geoip_db' => '/nonexistent/file.mmdb']);
         $this->assertNull(LanguageOffer::countryOf($this->req()));
     }
+
+    public function test_no_language_header_gives_no_offer(): void
+    {
+        $this->assertFalse(LanguageOffer::shouldOffer($this->req(), true, false, null));
+    }
 }
