@@ -78,6 +78,13 @@
 </head>
 
 <body>
+@if(\Spdotdev\ScuttleDev\LanguageOffer::shouldOffer(request(), $paired, $isNl))
+  <div class="lang-offer" id="lang-offer" role="region" aria-label="Language offer" style="position:fixed;left:16px;right:16px;bottom:16px;z-index:50;max-width:520px;margin:0 auto;padding:14px 16px;border:1px solid CanvasText;border-radius:10px;background:Canvas;color:CanvasText;font:14px/1.4 system-ui,sans-serif;display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+    <span style="flex:1 1 220px">Deze pagina is ook in het Nederlands.</span>
+    <a href="{{ \Spdotdev\ScuttleDev\Dutch::nlUrl($enPath) }}" data-lang-set="nl" hreflang="nl" lang="nl" style="font-weight:600">Bekijk in het Nederlands</a>
+    <button type="button" data-lang-set="en" style="background:none;border:0;color:inherit;text-decoration:underline;cursor:pointer;font:inherit">Blijf in het Engels</button>
+  </div>
+@endif
   @php($groups = \Spdotdev\ScuttleDev\Catalog::grouped())
   <a class="skip" href="#top" data-i="skip">Skip to content</a>
   <nav class="top" aria-label="Main navigation"><div class="wrap">
@@ -166,6 +173,7 @@
   <noscript><img src="/_sda/px/{{ config('scuttle-dev.analytics_key') }}.gif" alt="" width="1" height="1" style="position:absolute;left:-9999px"></noscript>
   @endif
   <script src="{{ secure_asset('vendor/scuttle/site.js') }}" defer></script>
+<script>(function(){function setLang(v){try{document.cookie='scuttle_lang='+v+'; path=/; max-age=31536000; SameSite=Lax'}catch(e){}}document.querySelectorAll('[data-lang-set]').forEach(function(el){el.addEventListener('click',function(){setLang(el.getAttribute('data-lang-set'));var o=document.getElementById('lang-offer');if(o&&el.getAttribute('data-lang-set')==='en'){o.remove()}})});['en','nl'].forEach(function(l){var a=document.getElementById(l);if(a&&a.tagName==='A'){a.addEventListener('click',function(){setLang(l)})}})})();</script>
 </body>
 
 </html>
