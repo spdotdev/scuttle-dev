@@ -6,7 +6,8 @@ namespace Spdotdev\ScuttleDev;
  * The Dutch version of the site at /nl/...: the same views, rendered in English by the controllers, then
  * switched to Dutch on the server with the strings every page already carries for the JS switch.
  * Only pages that exist in full in both languages are paired (home, services, pricing, Health Plan,
- * contact, company, privacy, case studies); news bodies and project docs stay English and have no /nl/ twin.
+ * contact, company, privacy, case studies, news list from 2026-11-11). News article bodies and project docs stay
+ * English and have no /nl/ twin: the Dutch news list shows the Dutch title and summary and links to the English text.
  */
 final class Dutch
 {
@@ -65,7 +66,7 @@ final class Dutch
     ];
 
     /** @var list<string> */
-    private const FIXED = ['/', '/pricing', '/health-plan', '/health-plan/sample', '/php-check', '/nis2', '/services', '/contact', '/company', '/privacy', '/case-studies'];
+    private const FIXED = ['/', '/pricing', '/health-plan', '/health-plan/sample', '/php-check', '/nis2', '/services', '/contact', '/company', '/privacy', '/case-studies', '/news'];
 
     public static function paired(string $path): bool
     {

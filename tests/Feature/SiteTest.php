@@ -100,7 +100,8 @@ class SiteTest extends TestCase
             $this->assertStringNotContainsString('href="https://scuttle.dev/pricing"', preg_replace('#<(link|a [^>]*hreflang)[^>]*>#', '', $nl), $nlPath.' links to /nl/pricing');
         }
         $this->assertStringContainsString('Automatiseer het werk', (string) $this->get('http://scuttle.dev/nl')->getContent());
-        $this->get('http://scuttle.dev/nl/news')->assertNotFound();
+        // The Dutch news page exists since 2026-11-11 (issue scuttle-dev #25); its articles are listed in Dutch.
+        $this->get('http://scuttle.dev/nl/news')->assertOk();
         $this->get('http://scuttle.dev/nl/projects')->assertNotFound();
         $this->get('http://scuttle.dev/work')->assertRedirect('/services')->assertStatus(301);
         $this->get('http://scuttle.dev/nl/work')->assertRedirect('/nl/services')->assertStatus(301);
@@ -109,11 +110,12 @@ class SiteTest extends TestCase
         $this->assertStringContainsString('<loc>https://scuttle.dev/nl</loc>', $sitemap);
         $this->assertStringContainsString('<loc>https://scuttle.dev/nl/services/modernization</loc>', $sitemap);
         $this->assertStringContainsString('hreflang="nl" href="https://scuttle.dev/nl/pricing"', $sitemap);
-        $this->assertStringNotContainsString('/nl/news', $sitemap);
-        // pages without a twin keep the in-place switch and carry no hreflang
+        $this->assertStringContainsString('https://scuttle.dev/nl/news', $sitemap);
+        // the news list has a Dutch twin since 2026-11-11: both pages name each other
         $news = (string) $this->get('http://scuttle.dev/news')->getContent();
-        $this->assertStringNotContainsString('hreflang="nl"', $news);
-        $this->assertStringContainsString('<button id="nl"', $news);
+        $this->assertStringContainsString('hreflang="nl" href="https://scuttle.dev/nl/news"', $news);
+        $this->assertStringContainsString('hreflang="nl" href="https://scuttle.dev/nl/news"', (string) $this->get('http://scuttle.dev/nl/news')->getContent());
+        $this->assertStringContainsString('hreflang="en" href="https://scuttle.dev/news"', $sitemap);
     }
 
     public function test_no_tracked_text_file_holds_a_long_dash(): void
@@ -179,7 +181,7 @@ class SiteTest extends TestCase
 
     public function test_missing_pages_get_the_site_own_404(): void
     {
-        foreach (['/nope', '/services/nope', '/news/nope', '/nl/news'] as $path) {
+        foreach (['/nope', '/services/nope', '/news/nope'] as $path) {
             $r = $this->get('http://scuttle.dev'.$path)->assertNotFound();
             $r->assertSee(str_starts_with($path, '/nl') ? 'Die pagina bestaat niet' : 'That page does not exist', false);
             $r->assertSee('noindex', false);

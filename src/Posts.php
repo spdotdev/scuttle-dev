@@ -88,6 +88,8 @@ final class Posts
             'title' => (string) $a->title,
             'date' => $date,
             'summary' => (string) $a->summary,
+            'title_nl' => (string) ($a->title_nl ?? ''),
+            'summary_nl' => (string) ($a->summary_nl ?? ''),
             'tags' => array_values(array_map('strval', (array) ($a->tags ?? []))),
             'body' => $body,
             'products' => $sells !== '' ? [$sells] : [],

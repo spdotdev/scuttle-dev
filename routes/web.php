@@ -78,6 +78,7 @@ Route::domain(config('scuttle-dev.domain'))
                 Route::get('/services', [SiteController::class, 'work']);
                 Route::get('/services/{slug}', [SiteController::class, 'product'])->where('slug', '[a-z0-9-]+');
                 Route::get('/case-studies', [SiteController::class, 'cases']);
+                Route::get('/news', [SiteController::class, 'newsNl']);
                 Route::get('/case-studies/{slug}', [SiteController::class, 'caseStudy'])->where('slug', '[a-z0-9-]+');
                 Route::get('/company', [SiteController::class, 'company']);
                 Route::redirect('/work', '/nl/services', 301);
