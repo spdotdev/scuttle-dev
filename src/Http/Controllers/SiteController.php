@@ -88,7 +88,7 @@ class SiteController
     public function newsNl(): View
     {
         // @phpstan-ignore argument.type (the scuttle:: namespace is registered at runtime via loadViewsFrom, so it is not resolvable during package-only static analysis)
-        return view('scuttle::news-nl', ['posts' => \Spdotdev\ScuttleDev\Posts::all()]);
+        return view('scuttle::news-nl', ['posts' => Posts::all()]);
     }
 
     public function newsPost(string $slug): View
