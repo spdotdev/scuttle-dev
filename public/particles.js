@@ -14,11 +14,14 @@
   // Outline of each shape, drawn on a unit square (0..1) and scaled to the canvas.
   var draw = {
     logo: function (c, s) {
-      // The mark drawn directly (a rounded frame and a chevron), so every stroke is solid and gets sampled.
-      var k = s / 48, w = 4 * k;
-      c.lineWidth = w; c.strokeStyle = '#000';
-      c.beginPath(); if (c.roundRect) { c.roundRect(6 * k, 6 * k, 36 * k, 36 * k, 10 * k); } else { c.rect(6 * k, 6 * k, 36 * k, 36 * k); } c.stroke();
-      c.beginPath(); c.moveTo(15 * k, 17 * k); c.lineTo(23 * k, 24 * k); c.lineTo(15 * k, 31 * k); c.lineWidth = w * 1.2; c.lineCap = 'round'; c.stroke();
+      // The scuttle.dev mark drawn directly: three layered rounded squares, viewBox 22 8 92 74, fitted to the square.
+      var k = s / 92, oy = (s - 74 * k) / 2;
+      function sq(x, y) {
+        c.beginPath();
+        if (c.roundRect) { c.roundRect((x - 22) * k, (y - 8) * k + oy, 36 * k, 36 * k, 8 * k); } else { c.rect((x - 22) * k, (y - 8) * k + oy, 36 * k, 36 * k); }
+        c.lineWidth = 5.5 * k; c.strokeStyle = '#000'; c.stroke();
+      }
+      sq(30, 38); sq(50, 27); sq(70, 16);
     },
     agents: function (c, s) {
       var pts = [[0.5, 0.2], [0.22, 0.75], [0.78, 0.75]];
