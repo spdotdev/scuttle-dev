@@ -139,7 +139,7 @@
       </div>
     </div>
   </div>
-  <script src="{{ secure_asset('vendor/scuttle/particles.js') }}" defer></script>
+  <script src="{{ secure_asset('vendor/scuttle/particles.js') }}?v=3" defer></script>
 </section>
 @endif
 
