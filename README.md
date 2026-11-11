@@ -61,6 +61,7 @@ application's** `.env`.
 | `SCUTTLE_TURNSTILE_SECRET` | empty | Cloudflare Turnstile secret. Needs `frame-src https://challenges.cloudflare.com` in the host's CSP. |
 | `SCUTTLE_GA_ID` | empty | Google Analytics id. Empty: no analytics and no cookie banner. |
 | `SCUTTLE_ANALYTICS_KEY` | empty | Site key in sd-analytics (cookieless counting). Empty: no counting, and the privacy statement says so. |
+| `SCUTTLE_GEOIP_DB` | empty | Path to the free DB-IP Lite country file (`dbip-country-lite-YYYY-MM.mmdb`, CC BY 4.0, no account). Empty: no IP country, the Dutch offer uses the browser language only. |
 
 Every variable has a safe default baked into `config/scuttle-dev.php`, so
 the package works out of the box even if none of these are set:
