@@ -19,9 +19,13 @@
     <div class="case-grid">
       @foreach(collect(\Spdotdev\ScuttleDev\Posts::all())->sortByDesc('date') as $post)
       @php
-        $hasNl = ($post['title_nl'] ?? '') !== '';
-        $titleNl = $hasNl ? $post['title_nl'] : $post['title'];
-        $summaryNl = ($post['summary_nl'] ?? '') !== '' ? $post['summary_nl'] : $post['summary'];
+        // Dutch wording comes from the post's 'nl' entry (built-in posts) or from title_nl and summary_nl (CMS).
+        // An entry that equals the English text does not count as Dutch.
+        $nlTitle = (string) ($post['nl']['title'] ?? $post['title_nl'] ?? '');
+        $nlSummary = (string) ($post['nl']['summary'] ?? $post['summary_nl'] ?? '');
+        $hasNl = $nlTitle !== '' && $nlTitle !== $post['title'];
+        $titleNl = $hasNl ? $nlTitle : $post['title'];
+        $summaryNl = ($hasNl && $nlSummary !== '') ? $nlSummary : $post['summary'];
       @endphp
       <a class="c rv cg" href="{{ url('/news/'.$post['slug']) }}">
         <span class="lbl">{{ $post['date'] }}{{ $hasNl ? '' : ' · Engels' }}</span>
