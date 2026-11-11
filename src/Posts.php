@@ -43,7 +43,12 @@ final class Posts
             }
             $posts = [];
             // sd-cms is an optional sibling package in the host, not a dependency of this one.
-            foreach ($class::published('scuttle')->get() as $article) {
+            // Only the articles ticked for the scuttle.dev channel (sd-cms 0.5+ has channels; older ones show all).
+            $query = $class::published('scuttle');
+            if (method_exists($class, 'scopeOnChannel')) {
+                $query = $query->onChannel('scuttle');
+            }
+            foreach ($query->get() as $article) {
                 $post = self::fromArticle($article);
                 $posts[$post['slug']] = $post;
             }
