@@ -65,4 +65,9 @@ class LanguageOfferTest extends TestCase
     {
         $this->assertFalse(LanguageOffer::shouldOffer($this->req(), true, false, null));
     }
+
+    public function test_an_empty_language_header_gives_no_offer(): void
+    {
+        $this->assertFalse(LanguageOffer::shouldOffer($this->req(' '), true, false, null));
+    }
 }
