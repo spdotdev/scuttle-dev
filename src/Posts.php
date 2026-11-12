@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Schema;
  * (docs/marketing-rules.md). Body paragraphs are plain text; a line starting with "## "
  * is a heading, a line starting with "- " is a list item.
  *
+ * @phpstan-type CmsRow object{slug:string, title:string, summary:string, body:string, published_at:mixed, title_nl:?string, summary_nl:?string, sells:?string, tags:mixed}
  * @phpstan-type Post array{slug:string, title:string, date:string, summary:string, tags:list<string>, body:list<string>, sells:string, products:list<string>, nl:array{title:string, summary:string}}
  */
 final class Posts
@@ -71,6 +72,7 @@ final class Posts
     /**
      * Map one sd-cms article (any object with its columns) to the Post shape.
      *
+     * @param  CmsRow  $a
      * @return Post
      */
     public static function fromArticle(object $a): array

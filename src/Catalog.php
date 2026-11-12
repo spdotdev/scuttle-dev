@@ -10,7 +10,7 @@ namespace Spdotdev\ScuttleDev;
  * Automation Scan: 16 hours, EUR 1,440) and the Maintenance Plan is monthly. Every other product is
  * quoted per step at EUR 90 per hour excl. VAT, after a free intro call.
  *
- * @phpstan-type Product array{slug:string, group:string, name:string, short:string, lead:string, price:string, price_note:string, features:list<array{0:string,1:string}>, steps:list<string>, not:string, illus:string, cta:array{0:string,1:string}, nl:array{lead:string, short:string, price:string, price_note:string, features:list<array{0:string,1:string}>, steps:list<string>, not:string, cta:array{0:string,1:string}}, route?:string}
+ * @phpstan-type Product array{slug:string, group:string, name:string, short:string, lead:string, price:string, price_note:string, features:list<array{0:string,1:string}>, steps:list<string>, not:string, illus:string, step:string, sub?:string, cta:array{0:string,1:string}, nl:array{lead:string, short:string, price:string, price_note:string, features:list<array{0:string,1:string}>, steps:list<string>, not:string, cta:array{0:string,1:string}}, route?:string}
  */
 final class Catalog
 {
@@ -821,7 +821,6 @@ final class Catalog
             $out[$key] = [];
         }
         foreach (self::all() as $p) {
-            /** @var array<string, mixed> $p */
             $out[$p['step']][] = ['slug' => $p['slug'], 'name' => $p['name'], 'short' => $p['short'], 'short_nl' => $p['nl']['short'], 'url' => self::url($p), 'sub' => $p['sub'] ?? null, 'extra' => false];
         }
         foreach (self::EXTRA as $slug => $e) {
