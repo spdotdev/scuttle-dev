@@ -4,6 +4,9 @@
 @section('crumb', 'News')
 @section('description', 'News from Scuttle Development: what changed in the field, what it means for your software, and which service answers it.')
 @section('canonical', 'https://scuttle.dev/news')
+@if($filtered ?? false)
+@section('robots', 'noindex, follow')
+@endif
 
 @section('head')
   <link rel="alternate" type="application/atom+xml" title="Scuttle Development news" href="https://scuttle.dev/feed.xml" />

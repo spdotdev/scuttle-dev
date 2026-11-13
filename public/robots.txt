@@ -3,6 +3,9 @@
 
 User-agent: *
 Allow: /
+# The news archive filtered by month or period: the same articles as /news, in endless combinations
+Disallow: /news?m=
+Disallow: /news?p=
 
 # Sitemap location
 Sitemap: https://scuttle.dev/sitemap.xml

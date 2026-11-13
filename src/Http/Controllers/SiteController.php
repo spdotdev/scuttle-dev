@@ -2,8 +2,10 @@
 
 namespace Spdotdev\ScuttleDev\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
+use Spdotdev\ScuttleDev\Archive;
 use Spdotdev\ScuttleDev\Cases;
 use Spdotdev\ScuttleDev\Catalog;
 use Spdotdev\ScuttleDev\Dutch;
@@ -79,10 +81,18 @@ class SiteController
         return view('scuttle::cases');
     }
 
-    public function news(): View
+    public function news(Request $request): View
     {
+        // The archive has an end: a month outside it, or a period without an article, does not exist (a crawler
+        // once walked the calendar through every month from 2010 to 2036). A filtered list is not for the index.
+        $month = $request->query('m');
+        $period = $request->query('p');
+        $posts = Posts::all();
+        abort_if($month !== null && ! (is_string($month) && Archive::hasMonth(Archive::tree($posts), $month)), 404);
+        abort_if($period !== null && ! (is_string($period) && Archive::hasPeriod($posts, $period)), 404);
+
         // @phpstan-ignore argument.type (the scuttle:: namespace is registered at runtime via loadViewsFrom, so it is not resolvable during package-only static analysis)
-        return view('scuttle::news');
+        return view('scuttle::news', ['filtered' => $month !== null || $period !== null]);
     }
 
     public function newsNl(): View
