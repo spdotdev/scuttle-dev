@@ -21,8 +21,8 @@ class FirstStepTest extends TestCase
             foreach (['', '/nl'] as $prefix) {
                 $html = (string) $this->get('http://scuttle.dev'.$prefix.$path)->assertOk()->getContent();
                 $this->assertMatchesRegularExpression('#</p>\s*<p class="offer">.*?</p>\s*<div class="cta"><a class="btn" href="[^"]*"#s', $html, $prefix.$path);
-                $this->assertStringContainsString($prefix === '' ? 'Start with a Health Plan.' : 'Begin met een Health Plan.', $html, $prefix.$path);
-                $this->assertStringContainsString($prefix === '' ? 'Book a call about a Health Plan' : 'Plan een gesprek over een Health Plan', $html, $prefix.$path);
+                $this->assertStringContainsString($prefix === '' ? 'Find out where your systems are weak.' : 'Ontdek waar je systemen zwak zijn.', $html, $prefix.$path);
+                $this->assertStringContainsString($prefix === '' ? 'Ask for a fixed-price offer' : 'Vraag een offerte met vaste prijs aan', $html, $prefix.$path);
             }
         }
         // Both buttons of a page carry the same words, so they lead to the same place (a screen reader lists them side by side).

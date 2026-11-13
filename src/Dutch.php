@@ -15,9 +15,9 @@ final class Dutch
 
     /** Dutch strings of the one-line offer (partials/first-step) that sits under the lead of the index pages. */
     public const FIRST_STEP = [
-        'of_b' => 'Begin met een Health Plan.',
+        'of_b' => 'Ontdek waar je systemen zwak zijn.',
         'of_t' => 'Twee dagen, alleen lezen, een schriftelijk plan. Vaste prijs: EUR 1.440 excl. btw.',
-        'cta1' => 'Plan een gesprek over een Health Plan',
+        'cta1' => 'Vraag een offerte met vaste prijs aan',
         'fs_ask_b' => 'Vertel me wat je draait.',
         'fs_ask_t' => 'Ik reageer binnen één werkdag met een eerste mening, gratis.',
         'ct_b2' => 'Gebruik het contactformulier',
