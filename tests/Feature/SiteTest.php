@@ -612,7 +612,8 @@ class SiteTest extends TestCase
 
         $this->assertStringNotContainsString('Ask for references', $home);
         $this->assertStringNotContainsString('run on PHP', $home);
-        $this->assertStringContainsString('Start with a Health Plan', $home);
+        $this->assertStringContainsString('Find out where your systems are weak.', $home);
+        $this->assertStringContainsString('Ask for a fixed-price offer', $home);
         $this->assertStringContainsString('EUR 1,440', $home);
         $this->assertStringNotContainsString('id="sectors"', $home, 'the sectors block is gone (council, 2026-10-30)');
         $this->assertStringContainsString('id="mega"', $home);
