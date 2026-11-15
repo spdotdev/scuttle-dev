@@ -699,6 +699,17 @@ class SiteTest extends TestCase
         });
     }
 
+    public function test_news_is_in_the_top_menu_on_every_page_type_in_both_languages(): void
+    {
+        // The menu is shared: every item, News included, links to the English address and the Dutch text comes from data-i.
+        foreach (['http://scuttle.dev/' => '/news', 'http://scuttle.dev/pricing' => '/news', 'http://scuttle.dev/nl' => '/news', 'http://scuttle.dev/nl/pricing' => '/news', 'http://scuttle.dev/news' => '/news'] as $url => $href) {
+            $html = (string) $this->get($url)->assertOk()->getContent();
+            $this->assertSame(1, preg_match('#<div class="links" id="links">(.*?)</div>\s*<div class="right">#s', $html, $menu), $url.' has the top menu');
+            $this->assertStringContainsString('href="http://scuttle.dev'.$href.'"', $menu[1], $url.': News in the top menu, not only in the footer');
+            $this->assertStringContainsString('data-i="n_news"', $menu[1]);
+        }
+    }
+
     public function test_the_new_sections_render_and_the_menu_lists_them(): void
     {
         $home = (string) $this->get('http://scuttle.dev/')->assertOk()->getContent();

@@ -125,6 +125,7 @@
       <noscript><a class="ns-services" href="{{ route('scuttle.work') }}" data-i="n_products">Services</a></noscript>
       <a href="{{ route('scuttle.pricing') }}" data-i="n_pricing">Pricing</a>
       <a href="{{ route('scuttle.cases') }}" data-i="n_case">Case studies</a>
+      <a href="{{ route('scuttle.news') }}" data-i="n_news">News</a>
       <a href="{{ route('scuttle.company') }}" data-i="n_company">Company</a>
       <a href="{{ route('scuttle.contact.page') }}" data-i="n_contact">Contact</a>
     </div>
