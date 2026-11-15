@@ -722,6 +722,8 @@ class SiteTest extends TestCase
         $this->assertStringContainsString('function ease(', $js, 'the morph is a timed tween, not an instant jump');
         $this->assertStringContainsString('performance.now()', $js);
         $this->assertStringContainsString("classList.toggle('on'", $js, 'the card of the current image stays highlighted');
+        $this->assertStringContainsString("addEventListener('mouseleave'", $js, 'leaving the cards flows the dots back into the logo');
+        $this->assertStringContainsString("morph('logo')", $js);
     }
 
     public function test_the_new_sections_render_and_the_menu_lists_them(): void

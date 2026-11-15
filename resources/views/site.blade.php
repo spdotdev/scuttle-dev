@@ -148,7 +148,7 @@
       </div>
     </div>
   </div>
-  <script src="{{ secure_asset('vendor/scuttle/particles.js') }}?v=4" defer></script>
+  <script src="{{ secure_asset('vendor/scuttle/particles.js') }}?v=5" defer></script>
 </section>
 
 <section class="s tight" id="stack"><div class="wrap">

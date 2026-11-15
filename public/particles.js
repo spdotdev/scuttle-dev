@@ -2,7 +2,7 @@
 // morphs the dots into that card's shape. Shapes are sampled from drawn outlines, so one code path handles them all.
 // The morph is a timed tween (about 1.3 s): every dot leaves from where it is now, after its own small delay, along a
 // curved path, and settles with an ease-in-out, so the picture visibly flows from one image into the next. A new
-// hover in mid-flight starts from the dots' current places.
+// hover in mid-flight starts from the dots' current places. Moving off the cards flows the dots back into the logo.
 (function () {
   var canvas = document.getElementById('pt');
   if (!canvas || !canvas.getContext) return;
@@ -126,6 +126,12 @@
     card.addEventListener('mouseenter', function () { morph(name); });
     card.addEventListener('focus', function () { morph(name); });
   });
+  // Leaving the four cards flows the dots back into the logo.
+  var cardBox = cards.length ? cards[0].parentNode : null;
+  if (cardBox) {
+    cardBox.addEventListener('mouseleave', function () { morph('logo'); });
+    cardBox.addEventListener('focusout', function (e) { if (!cardBox.contains(e.relatedTarget)) morph('logo'); });
+  }
   logoImg.onload = function () { layout(); };
   var rz; window.addEventListener('resize', function () { clearTimeout(rz); rz = setTimeout(layout, 150); });
   layout();
