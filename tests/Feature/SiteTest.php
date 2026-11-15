@@ -710,6 +710,20 @@ class SiteTest extends TestCase
         }
     }
 
+    public function test_how_i_work_cards_carry_an_icon_each_in_both_languages_and_the_script_tweens(): void
+    {
+        foreach (['http://scuttle.dev/', 'http://scuttle.dev/nl'] as $url) {
+            $html = (string) $this->get($url)->assertOk()->getContent();
+            $this->assertSame(1, preg_match('#<section class="s tight" id="how">(.*?)</section>#s', $html, $how), $url.' has the How I work block');
+            $this->assertSame(4, preg_match_all('#<div class="pt-card"[^>]*data-shape="(agents|modern|security|architecture)"[^>]*><svg class="pi"[^>]*aria-hidden="true">#', $how[1]), $url.': each of the four cards starts with its icon');
+            $this->assertStringContainsString('particles.js', $how[1]);
+        }
+        $js = (string) file_get_contents(dirname(__DIR__, 2).'/public/particles.js');
+        $this->assertStringContainsString('function ease(', $js, 'the morph is a timed tween, not an instant jump');
+        $this->assertStringContainsString('performance.now()', $js);
+        $this->assertStringContainsString("classList.toggle('on'", $js, 'the card of the current image stays highlighted');
+    }
+
     public function test_the_new_sections_render_and_the_menu_lists_them(): void
     {
         $home = (string) $this->get('http://scuttle.dev/')->assertOk()->getContent();

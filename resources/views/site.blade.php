@@ -117,6 +117,12 @@
 
 @php($howNl = request()->is('nl') || request()->is('nl/*'))
 @php($how = $howNl ? ['lbl' => 'Zo werk ik', 'h' => 'Vier soorten werk, één manier per soort', 'cards' => [['AI-agents en skills', 'Procedures die Claude Code volgt, met tests en één duidelijke eigenaar.'], ['Modernisering', 'Oude systemen stap voor stap verplaatst, terwijl de dienst blijft draaien.'], ['Beveiliging', 'Controles op het live systeem, de bevindingen op papier en de fixes doorgevoerd.'], ['Architectuur', 'Een plan met de afwegingen op papier, voordat er iets gebouwd wordt.']]] : ['lbl' => 'How I work', 'h' => 'Four kinds of work, one way of doing each', 'cards' => [['AI agents and skills', 'Procedures Claude Code follows, with tests and a clear owner.'], ['Modernization', 'Old systems moved in steps, with the service running the whole time.'], ['Security', 'Checks on the live system, the findings written down, the fixes made.'], ['Architecture', 'A plan with the trade-offs in writing before anything is built.']]])
+@php($icons = [
+  '<svg class="pi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5.5 5.5 17.5h13z"/><circle cx="12" cy="5.5" r="2.6" fill="currentColor"/><circle cx="5.5" cy="17.5" r="2.6" fill="currentColor"/><circle cx="18.5" cy="17.5" r="2.6" fill="currentColor"/></svg>',
+  '<svg class="pi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3.5 8.5 4-8.5 4-8.5-4z"/><path d="m3.5 12 8.5 4 8.5-4"/><path d="m3.5 16.5 8.5 4 8.5-4"/></svg>',
+  '<svg class="pi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4.5 6v5.5c0 4.6 3.2 7.6 7.5 9.5 4.3-1.9 7.5-4.9 7.5-9.5V6z"/><path d="m9 12 2.2 2.2L15.5 10"/></svg>',
+  '<svg class="pi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="1.2"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.2"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.2"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.2"/></svg>',
+])
 <section class="s tight" id="how">
   <style>
     .pt-grid{display:grid;grid-template-columns:1fr;gap:24px;align-items:center}
@@ -124,7 +130,10 @@
     .pt-canvas{width:100%;aspect-ratio:1/1;max-width:520px;display:block;margin:0 auto}
     .pt-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
     .pt-card{border:1px solid var(--line);border-radius:12px;padding:16px;background:var(--panel);cursor:default;outline:none}
-    .pt-card:hover,.pt-card:focus-visible{border-color:var(--acc)}
+    .pt-card{transition:border-color .25s,transform .25s}
+    .pt-card:hover,.pt-card:focus-visible,.pt-card.on{border-color:var(--acc)}
+    .pt-card:hover{transform:translateY(-2px)}
+    .pt-card .pi{display:block;width:30px;height:30px;margin-bottom:10px;color:var(--acc)}
     .pt-card h3{margin:0 0 6px;font-size:17px}
     .pt-card p{margin:0;color:var(--muted);font-size:14px}
   </style>
@@ -134,12 +143,12 @@
       <canvas id="pt" class="pt-canvas" aria-hidden="true" data-logo="{{ secure_asset('vendor/scuttle/logo.svg') }}"></canvas>
       <div class="pt-cards">
         @foreach($how['cards'] as $i => $c)
-        <div class="pt-card" tabindex="0" data-shape="{{ ['agents', 'modern', 'security', 'architecture'][$i] }}"><h3>{{ $c[0] }}</h3><p>{{ $c[1] }}</p></div>
+        <div class="pt-card" tabindex="0" data-shape="{{ ['agents', 'modern', 'security', 'architecture'][$i] }}">{!! $icons[$i] !!}<h3>{{ $c[0] }}</h3><p>{{ $c[1] }}</p></div>
         @endforeach
       </div>
     </div>
   </div>
-  <script src="{{ secure_asset('vendor/scuttle/particles.js') }}?v=3" defer></script>
+  <script src="{{ secure_asset('vendor/scuttle/particles.js') }}?v=4" defer></script>
 </section>
 
 <section class="s tight" id="stack"><div class="wrap">

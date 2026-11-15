@@ -1,5 +1,8 @@
 // Particle picture: a fixed set of dots that morph into a shape. Starts on our logo; hovering or focusing a card
 // morphs the dots into that card's shape. Shapes are sampled from drawn outlines, so one code path handles them all.
+// The morph is a timed tween (about 1.3 s): every dot leaves from where it is now, after its own small delay, along a
+// curved path, and settles with an ease-in-out, so the picture visibly flows from one image into the next. A new
+// hover in mid-flight starts from the dots' current places.
 (function () {
   var canvas = document.getElementById('pt');
   if (!canvas || !canvas.getContext) return;
@@ -7,7 +10,8 @@
   var N = 900;                       // dots, the same count for every shape so the morph is one-to-one
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var accent = getComputedStyle(document.documentElement).getPropertyValue('--acc').trim() || '#0d9488';
-  var dots = [], targets = {}, current = 'logo', W = 0, H = 0, raf = 0;
+  var dots = [], targets = {}, current = 'logo', W = 0, H = 0, raf = 0, t0 = 0, DUR = 1300, SIDE = 400;
+  var cards = document.querySelectorAll('[data-shape]');
   var logoImg = new Image();
   logoImg.src = canvas.getAttribute('data-logo') || '/vendor/splotnikov/logo.svg';
 
@@ -64,13 +68,15 @@
     var r = canvas.getBoundingClientRect(), dpr = Math.min(window.devicePixelRatio || 1, 2);
     W = Math.max(1, Math.round(r.width)); H = Math.max(1, Math.round(r.height));
     canvas.width = W * dpr; canvas.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    var side = Math.min(W, H) * 0.9, ox = (W - side) / 2, oy = (H - side) / 2;
+    var side = Math.min(W, H) * 0.9, ox = (W - side) / 2, oy = (H - side) / 2; SIDE = side;
     targets = {};
     Object.keys(draw).forEach(function (k) {
       targets[k] = sample(k, 160).map(function (p) { return [ox + p[0] * side, oy + p[1] * side]; });
     });
-    if (!dots.length) dots = targets.logo.map(function (t) { return { x: t[0] + (Math.random() - 0.5) * W, y: t[1] + (Math.random() - 0.5) * H, t: t }; });
+    var first = !dots.length;
+    if (first) dots = targets.logo.map(function (t) { return { x: t[0] + (Math.random() - 0.5) * W, y: t[1] + (Math.random() - 0.5) * H, t: t, sx: 0, sy: 0, dl: 0, am: 0 }; });
     dots.forEach(function (d, i) { d.t = targets[current][i]; });
+    if (!reduce) begin(first ? 1700 : 500);   // first: the dots gather into the logo; later: they settle again after a resize
     if (reduce) { dots.forEach(function (d) { d.x = d.t[0]; d.y = d.t[1]; }); paint(); }
   }
 
@@ -80,32 +86,47 @@
     for (var i = 0; i < dots.length; i++) { ctx.fillRect(dots[i].x, dots[i].y, 2, 2); }
   }
 
-  function step() {
-    var moving = false;
+  function ease(x) { return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; }
+
+  // Start a tween from where every dot is now to its new target: a delay of its own and a sideways bow of its own.
+  function begin(dur) {
+    DUR = dur || 1300; t0 = performance.now();
+    dots.forEach(function (d) {
+      d.sx = d.x; d.sy = d.y;
+      d.dl = Math.random() * 0.3;                       // share of the time this dot waits before it leaves
+      d.am = (Math.random() - 0.5) * 0.5 * SIDE;        // how far its path bows to the side
+    });
+    if (!raf) raf = requestAnimationFrame(step);
+  }
+
+  function step(now) {
+    var p = Math.min(1, ((now || performance.now()) - t0) / DUR);
     for (var i = 0; i < dots.length; i++) {
-      var d = dots[i], dx = d.t[0] - d.x, dy = d.t[1] - d.y;
-      if (Math.abs(dx) > 0.3 || Math.abs(dy) > 0.3) { d.x += dx * 0.09; d.y += dy * 0.09; moving = true; }
+      var d = dots[i], local = Math.min(1, Math.max(0, (p - d.dl) / (1 - d.dl))), e = ease(local);
+      var dx = d.t[0] - d.sx, dy = d.t[1] - d.sy, len = Math.sqrt(dx * dx + dy * dy) || 1;
+      var bow = Math.sin(Math.PI * e) * d.am * Math.min(1, len / (SIDE * 0.5));
+      d.x = d.sx + dx * e + (-dy / len) * bow;
+      d.y = d.sy + dy * e + (dx / len) * bow;
     }
     paint();
-    raf = moving ? requestAnimationFrame(step) : 0;
+    raf = p < 1 ? requestAnimationFrame(step) : 0;
   }
 
   function morph(name) {
     if (!targets[name] || name === current) return;
     current = name;
     dots.forEach(function (d, i) { d.t = targets[name][i]; });
+    cards.forEach(function (c) { c.classList.toggle('on', c.getAttribute('data-shape') === name); });
     if (reduce) { dots.forEach(function (d) { d.x = d.t[0]; d.y = d.t[1]; }); paint(); return; }
-    if (!raf) raf = requestAnimationFrame(step);
+    begin(1300);
   }
 
-  var cards = document.querySelectorAll('[data-shape]');
   cards.forEach(function (card) {
     var name = card.getAttribute('data-shape');
     card.addEventListener('mouseenter', function () { morph(name); });
     card.addEventListener('focus', function () { morph(name); });
   });
-  logoImg.onload = function () { layout(); if (!raf) raf = requestAnimationFrame(step); };
+  logoImg.onload = function () { layout(); };
   var rz; window.addEventListener('resize', function () { clearTimeout(rz); rz = setTimeout(layout, 150); });
   layout();
-  if (!raf) raf = requestAnimationFrame(step);
 })();
