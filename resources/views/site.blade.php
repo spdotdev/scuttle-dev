@@ -129,9 +129,10 @@
     @media (min-width:880px){.pt-grid{grid-template-columns:1.1fr 1fr}}
     .pt-canvas{width:100%;aspect-ratio:1/1;max-width:520px;display:block;margin:0 auto}
     .pt-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .pt-card{border:1px solid var(--line);border-radius:12px;padding:16px;background:var(--panel);cursor:default;outline:none}
+    .pt-card{border:1px solid var(--line);border-radius:12px;padding:16px;background:var(--panel);cursor:default}
     .pt-card{transition:border-color .25s,transform .25s}
     .pt-card:hover,.pt-card:focus-visible,.pt-card.on{border-color:var(--acc)}
+    .pt-card:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
     .pt-card:hover{transform:translateY(-2px)}
     .pt-card .pi{display:block;width:30px;height:30px;margin-bottom:10px;color:var(--acc)}
     .pt-card h3{margin:0 0 6px;font-size:17px}
