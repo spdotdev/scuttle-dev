@@ -31,7 +31,7 @@ for series, mine in site.items():
     if vt(real) > vt(mine):
         fix = f"in src/Facts.php change PHP_LATEST['{series}'] from '{mine}' to '{real}'"
         if series == '8.4':
-            fix += f", set PHP_HERO_PREVIOUS to '{mine}' and PHP_HERO_DATE and PHP_HERO_DATE_NL to the release date of {real}; check the hero line wording still fits ('security release')"
+            fix += f", set PHP_HERO_PREVIOUS to '{mine}' and PHP_HERO_DATE and PHP_HERO_DATE_NL to the release date of {real}; set PHP_HERO_FIX and PHP_HERO_FIX_NL from the release notes and check the wording still fits ('security release')"
         problems.append(f'PHP {series} is behind: {fix}')
     elif vt(real) < vt(mine):
         problems.append(f"PHP {series}: the site names {mine}, php.net lists {real} as the latest: check PHP_LATEST['{series}'] for a typo")

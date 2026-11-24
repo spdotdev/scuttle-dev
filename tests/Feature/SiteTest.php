@@ -544,7 +544,7 @@ class SiteTest extends TestCase
         $this->assertStringContainsString('Automate the work', $home);
         $this->assertStringContainsString('Automation · Security · Eindhoven', $home);
         $this->assertStringContainsString('server-setup', $home);
-        $this->assertStringContainsString('8.4.26 → 8.4.27', $home);
+        $this->assertStringContainsString('8.4.27 → 8.4.28', $home);
         $this->assertSame(3, substr_count($home, 'data-th="'), 'three-way theme control: system, light, dark');
         $this->assertSame(12, substr_count($home, 'class="it'), 'twelve clickable items in the demo panel');
         $this->assertStringNotContainsString('end of life since', $home);

@@ -17,11 +17,11 @@ class FactsTest extends TestCase
 
         $en = (string) $this->get('http://scuttle.dev/')->assertOk()->getContent();
         $this->assertStringContainsString('PHP '.$latest.'</span>', $en);
-        $this->assertStringContainsString('security release '.Facts::PHP_HERO_DATE.'</span><span>'.Facts::PHP_HERO_PREVIOUS.' → '.$latest.'</span>', $en);
+        $this->assertStringContainsString('security release '.Facts::PHP_HERO_DATE.'</span><span>'.Facts::PHP_HERO_PREVIOUS.' → '.$latest.'</span><span>'.Facts::PHP_HERO_FIX.'</span>', $en);
 
         $nl = (string) $this->get('http://scuttle.dev/nl')->assertOk()->getContent();
         $this->assertStringContainsString('PHP '.$latest.'</span>', $nl);
-        $this->assertStringContainsString('beveiligingsrelease '.Facts::PHP_HERO_DATE_NL.'</span><span>'.Facts::PHP_HERO_PREVIOUS.' → '.$latest.'</span>', $nl);
+        $this->assertStringContainsString('beveiligingsrelease '.Facts::PHP_HERO_DATE_NL.'</span><span>'.Facts::PHP_HERO_PREVIOUS.' → '.$latest.'</span><span>'.Facts::PHP_HERO_FIX_NL.'</span>', $nl);
     }
 
     public function test_no_view_hard_codes_a_php_patch_version(): void
