@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - run: python3 scripts/check-live.py https://scuttle.dev
       # Fresh facts stay fresh: the hero command line names the latest PHP security release. This reads php.net and fails
       # with the exact string to change in src/Facts.php when the site is behind, or when the live home page is.
@@ -36,8 +36,8 @@ jobs:
     env:
       SITE: https://scuttle.dev
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
       - name: Install Playwright and html5lib
