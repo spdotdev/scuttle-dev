@@ -1,11 +1,11 @@
 name: Live smoke
 
-# A watch on the live site every six hours (the weekly crawl in live-links.yml is too slow to catch a broken feed or a
+# A watch on the live site every twelve hours (was six) (the weekly crawl in live-links.yml is too slow to catch a broken feed or a
 # missing page). No browser: scripts/live-smoke.py reads scripts/smoke-urls.txt and checks status, a marker phrase and the
 # answer time of each address, three tries 20 seconds apart. The job fails and lists every failing address.
 on:
   schedule:
-    - cron: '23 */6 * * *'
+    - cron: '23 3,15 * * *'
   workflow_dispatch:
 
 permissions:

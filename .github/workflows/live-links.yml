@@ -1,11 +1,11 @@
 name: Live links
 
-# Weekly crawl of the live site (and, in the second job, the page checks of scripts/): every sitemap address answers 200 and names itself as canonical, every hreflang pair
+# Crawl (1st and 15th of the month, was weekly: the ui job alone bills about 20 minutes) of the live site (and, in the second job, the page checks of scripts/): every sitemap address answers 200 and names itself as canonical, every hreflang pair
 # is reciprocal, every internal link resolves. The same checks run on the built app in the test suite on every push;
 # this one catches what only the server can break (a deploy, a proxy rule, a missing asset).
 on:
   schedule:
-    - cron: '17 5 * * 1'
+    - cron: '17 5 1,15 * *'
   workflow_dispatch:
 
 permissions:
@@ -13,20 +13,16 @@ permissions:
 
 jobs:
   crawl:
+    # Crawl and facts share one job: each job bills at least one minute and repeats the checkout.
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - run: python3 scripts/check-live.py https://scuttle.dev
-
-  facts:
-    # Fresh facts stay fresh: the hero command line names the latest PHP security release. This reads php.net and fails
-    # with the exact string to change in src/Facts.php when the site is behind, or when the live home page is.
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-      - uses: actions/checkout@v4
-      - run: python3 scripts/check-php-facts.py https://scuttle.dev
+      # Fresh facts stay fresh: the hero command line names the latest PHP security release. This reads php.net and fails
+      # with the exact string to change in src/Facts.php when the site is behind, or when the live home page is.
+      - if: ${{ !cancelled() }}
+        run: python3 scripts/check-php-facts.py https://scuttle.dev
 
   ui:
     # The page checks that used to be run by hand: accessibility (axe), sideways scroll, no-script, keyboard, markup and
